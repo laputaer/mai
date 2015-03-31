@@ -16,7 +16,8 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var main = h('div.page', 'hello world');
+	var i18n = data.i18n;
+	var main = h('div.page', i18n.t('test.hello'));
 
 	return main;
 };
