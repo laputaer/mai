@@ -63,6 +63,7 @@
     "node-fetch": "1.0.6",
     "node-polyglot": "0.4.1",
     "object-assign": "2.0.0",
+    "purest": "^1.1.4",
     "redis": "0.12.1",
     "then-redis": "1.3.0",
     "validator": "3.35.0",
