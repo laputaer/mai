@@ -5,7 +5,7 @@
  * Merge and export config object
  */
 
-var assign = require('object-assign');
+var extend = require('deep-extend');
 var configDefault = require('./default');
 
 // allow custom config file
@@ -16,7 +16,7 @@ try {
 	configCustom = {};
 }
 
-var config = assign(configDefault, configCustom);
+var config = extend(configDefault, configCustom);
 
 module.exports = factory;
 

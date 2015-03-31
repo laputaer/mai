@@ -8,6 +8,7 @@
 var router = require('koa-router');
 
 var landing = require('../landing/landing');
+var user = require('../user/user');
 
 module.exports = myRouter;
 
@@ -25,4 +26,5 @@ function myRouter(app) {
 	app.use(router(app));
 
 	app.get('/', landing());
+	app.get('/login/:provider', user());
 };

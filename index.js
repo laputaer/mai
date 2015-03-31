@@ -23,9 +23,10 @@ app.use(dev(app.env));
 app.use(configFactory(true));
 app.use(db());
 
-router(app);
 app.use(mount(grant));
 app.use(bodyParser());
 app.use(session(app));
+
+router(app);
 
 app.listen(config.server.port);

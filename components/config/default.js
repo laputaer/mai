@@ -29,7 +29,7 @@ module.exports = {
 		server: {
 			protocol: 'http'
 			, host: '127.0.0.1:8081'
-			, callback: '/callback'
+			, callback: '/login'
 		}
 	}
 	, cookies: {}
