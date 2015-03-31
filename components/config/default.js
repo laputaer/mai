@@ -7,7 +7,7 @@
 
 module.exports = {
 	server: {
-		port: 8080
+		port: 8081
 	}
 	, mongodb: {
 		server: '127.0.0.1'
