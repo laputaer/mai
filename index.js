@@ -23,9 +23,9 @@ app.use(dev(app.env));
 app.use(configFactory(true));
 app.use(db());
 
-app.use(mount(grant));
+app.use(session(config.session, app));
 app.use(bodyParser());
-app.use(session(app));
+app.use(mount(grant));
 
 router(app);
 

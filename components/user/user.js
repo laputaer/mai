@@ -7,6 +7,11 @@
 
 var removeSlash = require('../helpers/remove-trailing-slash');
 
+var getUserProfile = require('./get-user-profile');
+var matchUser = require('./match-user');
+var createUser = require('./create-user');
+var loginUser = require('./login-user');
+
 module.exports = factory;
 
 /**
@@ -27,9 +32,12 @@ function factory() {
 function *middleware(next) {
 	yield next;
 
-	opts = {};
-	opts.path = removeSlash(this.path);
-	opts.params = this.params;
+	this.user = {};
+	this.user.oauth = yield getUserProfile.apply(this);
+	this.user.local = yield matchUser.apply(this);
+	this.user.local = yield createUser.apply(this);
 
-	this.body = opts;
+	this.state.login = yield loginUser.apply(this);
+
+	this.redirect('/home');
 };

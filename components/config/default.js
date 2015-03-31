@@ -33,4 +33,11 @@ module.exports = {
 		}
 	}
 	, cookies: {}
+	, request: {
+		user_agent: 'Mai/1.0 (+http://mai3.me/)'
+	}
+	, session: {
+		key: 'mai:session'
+		, signed: true
+	}
 };
