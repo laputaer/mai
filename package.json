@@ -4,7 +4,10 @@
   "description": "mai codebase",
   "main": "index.js",
   "scripts": {
-    "test": "mocha tests/"
+    "test": "mocha tests/",
+    "start": "node index.js",
+    "local": "NODE_ENV=local node index.js",
+    "dev": "NODE_ENV=dev nodemon --ext js --ignore components/client-js/ --watch components/ --watch index.js index.js"
   },
   "repository": {
     "type": "git",
