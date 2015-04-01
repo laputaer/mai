@@ -1,0 +1,25 @@
+
+// doc.less - global styling
+
+body {
+	// fallback to standard antialiasing instead of subpixel
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+// default font stack based on interface language
+body:lang(en) {
+	font-family: @sans-en;
+}
+
+body:lang(zh) {
+	font-family: @sans-cn;
+}
+
+.lang:lang(en) {
+	font-family: @sans-en;
+}
+
+.lang:lang(zh) {
+	font-family: @sans-cn;
+}

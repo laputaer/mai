@@ -1,0 +1,64 @@
+
+// mixins.less - less functions
+
+// better link underline design
+.link(@color, @ratio: 100%) {
+	color: @color;
+	text-decoration: none;
+	background-image: linear-gradient(transparent 50%, fadeout(@color, 75%) 50%);
+	background-position: 0 @ratio;
+	background-size: 4px 4px;
+	background-repeat: repeat-x;
+
+	&:hover {
+		background-image: linear-gradient(transparent 50%, fadeout(@color, 50%) 50%);
+	}
+}
+
+// remove .link() underline
+.unlink() {
+	background-image: none;
+}
+
+// font-size using rem
+.size(@px) {
+	font-size: @px * 1px;
+	font-size: round(@px / 16, 3) * 1rem;
+}
+
+// reset list style
+.reset-list() {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+// vertical scroll, enable momentum on ios
+.scrollable-vertical() {
+	overflow: hidden;
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
+}
+
+// hide text
+.hide-text() {
+	white-space: nowrap;
+	overflow: hidden;
+	text-indent: 100%;
+}
+
+// simple overlay with absolute positioning
+.overlay() {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+// background image cover
+.background-cover() {
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+}

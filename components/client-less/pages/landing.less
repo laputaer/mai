@@ -1,0 +1,54 @@
+
+// landing.less
+
+.page-landing {
+	max-width: 1000px;
+	margin: 0 auto;
+}
+
+.intro {
+	text-align: center;
+	padding: 2em 1em;
+	overflow: hidden;
+
+	.title {
+		font-weight: 100;
+		margin: 0;
+		line-height: 1em;
+		color: @black;
+		.size(64);
+	}
+
+	.subtitle {
+		font-weight: 400;
+		margin: 0;
+		line-height: 1em;
+		color: @black;
+		.size(20);
+	}
+
+	.subtitle + .subtitle {
+		margin: 10px;
+	}
+}
+
+.menu {
+	overflow: hidden;
+	padding: 0 1em;
+
+	.nav, .login {
+		.reset-list();
+
+		.item {
+			display: inline-block;
+		}
+	}
+
+	.nav {
+		float: left;
+	}
+
+	.login {
+		float: right;
+	}
+}

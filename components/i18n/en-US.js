@@ -5,8 +5,4 @@
  * i18n file
  */
 
-module.exports = {
-	'test': {
-		'hello': 'hello, world.'
-	}
-};
+module.exports = {};

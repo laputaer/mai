@@ -1,0 +1,54 @@
+
+// media.less - pre-defined media queries
+
+// usage examples
+
+// `@media @mobile-portrait-small`
+// `@media @mobile-portrait-small, @mobile-landscape-small`
+
+// portrait views
+@mobile-portrait-small: ~'screen and (orientation: portrait) and (min-width: 300px)';
+@mobile-portrait-medium: ~'screen and (orientation: portrait) and (min-width: 350px)';
+@mobile-portrait-large: ~'screen and (orientation: portrait) and (min-width: 400px)';
+
+@tablet-portrait-small: ~'screen and (orientation: portrait) and (min-width: 600px)';
+@tablet-portrait-medium: ~'screen and (orientation: portrait) and (min-width: 700px)';
+@tablet-portrait-large: ~'screen and (orientation: portrait) and (min-width: 800px)';
+
+@monitor-portrait-small: ~'screen and (orientation: portrait) and (min-width: 1000px)';
+@monitor-portrait-medium: ~'screen and (orientation: portrait) and (min-width: 1200px)';
+@monitor-portrait-large: ~'screen and (orientation: portrait) and (min-width: 1400px)';
+
+// landscape views
+@mobile-landscape-small: ~'screen and (orientation: landscape) and (min-width: 400px)';
+@mobile-landscape-medium: ~'screen and (orientation: landscape) and (min-width: 500px)';
+@mobile-landscape-large: ~'screen and (orientation: landscape) and (min-width: 600px)';
+
+@tablet-landscape-small: ~'screen and (orientation: landscape) and (min-width: 800px)';
+@tablet-landscape-medium: ~'screen and (orientation: landscape) and (min-width: 1000px)';
+@tablet-landscape-large: ~'screen and (orientation: landscape) and (min-width: 1200px)';
+
+@monitor-landscape-small: ~'screen and (orientation: landscape) and (min-width: 1400px)';
+@monitor-landscape-medium: ~'screen and (orientation: landscape) and (min-width: 1600px)';
+@monitor-landscape-large: ~'screen and (orientation: landscape) and (min-width: 1800px)';
+
+// device viewports
+@mobile-small: ~'@{mobile-portrait-small}, @{mobile-landscape-small}';
+@mobile-medium: ~'@{mobile-portrait-medium}, @{mobile-landscape-medium}';
+@mobile-large: ~'@{mobile-portrait-large}, @{mobile-landscape-large}';
+
+@tablet-small: ~'@{tablet-portrait-small}, @{tablet-landscape-small}';
+@tablet-medium: ~'@{tablet-portrait-medium}, @{tablet-landscape-medium}';
+@tablet-large: ~'@{tablet-portrait-large}, @{tablet-landscape-large}';
+
+@monitor-small: ~'@{monitor-portrait-small}, @{monitor-landscape-small}';
+@monitor-medium: ~'@{monitor-portrait-medium}, @{monitor-landscape-medium}';
+@monitor-large: ~'@{monitor-portrait-large}, @{monitor-landscape-large}';
+
+// shorthands
+@mobile: @mobile-small;
+@tablet: @tablet-small;
+@monitor: @monitor-small;
+
+// css hacks, ie 8~10
+@ie-hack: ~'screen\0';

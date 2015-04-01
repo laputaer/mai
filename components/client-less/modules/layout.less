@@ -1,0 +1,78 @@
+
+// layout.less - layer helpers
+
+// top-down grid
+// eg. <div class="m-grid g2"><div>...</div><div>...</div></div>
+
+.m-grid {
+	> * {
+		box-sizing: border-box;
+	}
+
+	&.g2 {
+		> * {
+			width: 50%;
+		}
+	}
+
+	&.g3 {
+		> * {
+			width: 33%;
+		}
+	}
+
+	&.g4 {
+		> * {
+			width: 25%;
+		}
+	}
+
+	&.g5 {
+		> * {
+			width: 20%;
+		}
+	}
+}
+
+// bottom-up column
+// eg. <div><div class="m-span s5">...</div><div class="m-span s5">...</div></div>
+
+.m-span {
+	box-sizing: border-box;
+
+	&.s1 {
+		width: 10%;
+	}
+
+	&.s2 {
+		width: 20%;
+	}
+
+	&.s3 {
+		width: 30%;
+	}
+
+	&.s4 {
+		width: 40%;
+	}
+
+	&.s5 {
+		width: 50%;
+	}
+
+	&.s6 {
+		width: 60%;
+	}
+
+	&.s7 {
+		width: 70%;
+	}
+
+	&.s8 {
+		width: 80%;
+	}
+
+	&.s9 {
+		width: 90%;
+	}
+}

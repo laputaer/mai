@@ -24,6 +24,10 @@ function template(data) {
 			, content: 'no-referrer'
 		})
 		, h('title', i18n.t('common.title'))
+		, h('meta', {
+			name: 'description'
+			, content: i18n.t('common.description')
+		})
 		, h('link', {
 			rel: 'apple-touch-icon'
 			, href: '/favicon.png'

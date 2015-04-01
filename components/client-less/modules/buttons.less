@@ -1,0 +1,140 @@
+
+// buttons.less - reusable buttons
+
+// standard button
+// eg. <a class="m-button" href="..."><svg class="m-icon">...</svg><span class="m-text">...</span></a>
+
+.m-button {
+	display: inline-block;
+	color: @color-gray-dark;
+	padding: 0.25em 0.5em;
+	border: 1px solid;
+	border-radius: 0.5em;
+	text-decoration: none;
+	line-height: 20px;
+	.size(16);
+
+	.m-icon {
+		display: inline-block;
+		vertical-align: top;
+		margin-right: 0.25em;
+		width: 20px;
+		height: 20px;
+		fill: currentColor;
+	}
+
+	.m-text {
+		display: inline-block;
+		vertical-align: top;
+	}
+
+	@media @mobile-medium {
+		line-height: 22px;
+		.size(18);
+
+		.m-icon {
+			width: 22px;
+			height: 22px;
+		}
+	}
+
+	&.rounded {
+		border-radius: 500px;
+	}
+
+	&.small {
+		line-height: 16px;
+		.size(14);
+
+		.m-icon {
+			width: 16px;
+			height: 16px;
+		}
+
+		@media @mobile-medium {
+			line-height: 18px;
+			.size(16);
+
+			.m-icon {
+				width: 18px;
+				height: 18px;
+			}
+		}
+	}
+
+	&.medium {
+		line-height: 24px;
+		.size(20);
+
+		.m-icon {
+			width: 24px;
+			height: 24px;
+		}
+
+		@media @mobile-medium {
+			line-height: 26px;
+			.size(22);
+
+			.m-icon {
+				width: 26px;
+				height: 26px;
+			}
+		}
+	}
+
+	&.large {
+		line-height: 30px;
+		.size(24);
+
+		.m-icon {
+			width: 30px;
+			height: 30px;
+		}
+
+		@media @mobile-medium {
+			line-height: 32px;
+			.size(26);
+
+			.m-icon {
+				width: 32px;
+				height: 32px;
+			}
+		}
+	}
+
+	&:hover {
+		background-color: @color-gray-dark;
+		color: @white;
+		border-color: @color-gray-dark;
+	}
+
+	&.green {
+		color: @color-green;
+
+		&:hover {
+			background-color: @color-green;
+			color: @white;
+			border-color: @color-green;
+		}
+	}
+
+	&.red {
+		color: @color-red;
+
+		&:hover {
+			background-color: @color-red;
+			color: @white;
+			border-color: @color-red;
+		}
+	}
+
+	&.blue {
+		color: @color-blue;
+
+		&:hover {
+			background-color: @color-blue;
+			color: @white;
+			border-color: @color-blue;
+		}
+	}
+}
