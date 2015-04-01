@@ -87,7 +87,7 @@ function getTwitterUser(client, opts) {
 	return new Promise(function(resolve, reject) {
 		client.query()
 			.get('account/verify_credentials')
-			.auth(opts.access_token)
+			.auth(opts.access_token, opts.secret)
 			.request(function(err, res, body) {
 				if (err || (res.statusCode < 200 || res.statusCode >= 300)) {
 					console.log(body);
