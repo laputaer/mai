@@ -18,6 +18,30 @@ module.exports = template;
  */
 function template(data) {
 	var i18n = data.i18n;
+
+	var content;
+	if (data.user) {
+		content = h('div.profile', [
+			h('img.avatar', {
+				src: data.user.avatar
+				, alt: data.user.login
+			})
+			, h('a.link', {
+				href: 'https://' + data.user.provider + '.com/' + data.user.login
+			}, data.user.name)
+			, h('p.line', i18n.t('main.thanks'))
+		]);
+	} else {
+		content = h('div.promise', [
+			h('p.line', i18n.t('main.line-1'))
+			, h('p.line', i18n.t('main.line-2'))
+			, h('p.line', i18n.t('main.line-3'))
+			, h('p.line', i18n.t('main.line-4'))
+		]);
+	}
+
+	var section = h('div.section', content);
+
 	var main = h('div.page-landing', [
 		h('div.intro', [
 			h('h1.title.lang', {
@@ -29,7 +53,7 @@ function template(data) {
 			h('ul.nav', [
 				h('li.item', [
 					h('a.m-button.rounded', {
-						'href': '#'
+						'href': '/'
 					}, [
 						svg('svg.m-icon', [
 							svg('use', {
@@ -115,6 +139,7 @@ function template(data) {
 				])
 			])
 		])
+		, section
 	]);
 
 	return main;

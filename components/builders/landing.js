@@ -18,6 +18,7 @@ module.exports = renderer;
 function renderer(data) {
 	var mainModel = {};
 	mainModel.i18n = data.i18n;
+	mainModel.user = data.user;
 
 	return main(mainModel);
 };

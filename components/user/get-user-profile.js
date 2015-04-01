@@ -6,6 +6,8 @@
  */
 
 var Purest = require('purest');
+var validator = require('validator');
+var xss = require('xss');
 
 module.exports = getUserProfile;
 
@@ -44,6 +46,11 @@ function *getUserProfile() {
 		profile.uid = opts.provider + '_' + profile.id;
 	} catch(err) {
 		this.app.emit('error', err, this);
+	}
+
+	profile.name = xss(profile.name);
+	if (!validator.isLength(profile.name, 1, 60)) {
+		profile.name = profile.name.substr(0, 60) || 'noname';
 	}
 
 	return profile;

@@ -8,6 +8,8 @@
 var builders = require('../builders/builders');
 var i18n = require('../i18n/i18n');
 
+var findUser = require('./find-user');
+
 var renderVNode = require('../helpers/render-virtual-dom');
 
 module.exports = factory;
@@ -30,5 +32,17 @@ function factory() {
 function *middleware(next) {
 	yield next;
 
-	this.body = this.session.id || 'unknown';
+	// prepare data
+	var opts = {};
+	opts.i18n = i18n('zh-CN');
+	opts.user = yield findUser.apply(this);
+	opts.parts = builders.landing(opts);
+
+	// render vdom
+	var vdoc = builders.doc(opts);
+
+	// output html string
+	this.body = renderVNode(vdoc, {
+		format: true
+	});
 };
