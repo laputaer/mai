@@ -23,6 +23,8 @@ function *getUserProfile() {
 	opts.access_token = this.request.query.access_token || null;
 	opts.key = config[opts.provider]['type'] === 1 ? config[opts.provider]['key'] : null;
 	opts.secret = config[opts.provider]['type'] === 1 ? config[opts.provider]['secret'] : null;
+	opts.access_secret = this.request.query.access_secret || null;
+	opts.refresh_token = this.request.query.refresh_token || null;
 	opts.defaults = {
 		headers: {
 			'User-Agent': ua
@@ -87,7 +89,7 @@ function getTwitterUser(client, opts) {
 	return new Promise(function(resolve, reject) {
 		client.query()
 			.get('account/verify_credentials')
-			.auth(opts.access_token, opts.secret)
+			.auth(opts.access_token, opts.access_secret)
 			.request(function(err, res, body) {
 				if (err || (res.statusCode < 200 || res.statusCode >= 300)) {
 					console.log(body);
