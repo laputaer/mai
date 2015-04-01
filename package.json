@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha tests/",
     "start": "node index.js",
-    "setup": "npm install && npm run build:css",
+    "setup": "npm install && npm run build:css && npm run build:js && npm run build:svg && npm run build:img",
     "local": "NODE_ENV=local node index.js",
     "dev:be": "NODE_ENV=dev nodemon --ext js --ignore components/client-js/ --watch components/ --watch index.js index.js",
     "dev:fe": "npm run watch:reload & npm run watch:css & npm run watch:js & npm run watch:svg",
@@ -16,7 +16,8 @@
     "watch:svg": "DEBUG=onchange onchange components/client-svg/\\*\\*/\\*.svg -- npm run build:svg",
     "build:css": "lessc components/client-less/main.less | autoprefixer | cleancss -o public/assets/app.css",
     "build:js": "browserify components/client-js/main.js -s app | uglifyjs > public/assets/app.js",
-    "build:svg": "svgo --enable=removeDesc --multipass -f components/client-svg/ && svgshelf components/client-svg/\\*.svg public/assets/icons.svg"
+    "build:svg": "svgo --enable=removeDesc --multipass -f components/client-svg/ && svgshelf components/client-svg/\\*.svg public/assets/icons.svg",
+    "build:img": "trash --force public/assets/*.jpg && imagemin -p components/client-image/* public/assets/"
   },
   "repository": {
     "type": "git",
