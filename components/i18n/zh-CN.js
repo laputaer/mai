@@ -19,11 +19,12 @@ module.exports = {
 			'home': '首页'
 			, 'my': '我的社团'
 			, 'ranking': '排行榜'
-			, 'recent': '新人榜'
+			, 'help': '使用指南'
+			, 'toggle': '导航'
 		}
 		, 'login': {
-			'twitter': 'Twitter登陆'
-			, 'github': 'Github登录'
+			'twitter': '登陆'
+			, 'github': '登录'
 		}
 	}
 };

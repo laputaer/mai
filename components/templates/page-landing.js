@@ -33,6 +33,18 @@ function template(data) {
 					}, [
 						svg('svg.m-icon', [
 							svg('use', {
+								'xlink:href': '/assets/icons.svg#squares'
+							})
+						])
+						, h('span.m-text', i18n.t('menu.nav.toggle'))
+					])
+				])
+				, h('li.item', [
+					h('a.m-button.rounded', {
+						'href': '/'
+					}, [
+						svg('svg.m-icon', [
+							svg('use', {
 								'xlink:href': '/assets/icons.svg#home'
 							})
 						])
@@ -41,7 +53,7 @@ function template(data) {
 				])
 				, h('li.item', [
 					h('a.m-button.rounded', {
-						'href': '#'
+						'href': '/home'
 					}, [
 						svg('svg.m-icon', [
 							svg('use', {
@@ -53,7 +65,7 @@ function template(data) {
 				])
 				, h('li.item', [
 					h('a.m-button.rounded', {
-						'href': '#'
+						'href': '/ranking'
 					}, [
 						svg('svg.m-icon', [
 							svg('use', {
@@ -65,21 +77,21 @@ function template(data) {
 				])
 				, h('li.item', [
 					h('a.m-button.rounded', {
-						'href': '#'
+						'href': '/help'
 					}, [
 						svg('svg.m-icon', [
 							svg('use', {
 								'xlink:href': '/assets/icons.svg#compass'
 							})
 						])
-						, h('span.m-text', i18n.t('menu.nav.recent'))
+						, h('span.m-text', i18n.t('menu.nav.help'))
 					])
 				])
 			])
 			, h('ul.login', [
 				h('li.item', [
 					h('a.m-button.rounded', {
-						'href': '#'
+						'href': '/connect/twitter'
 					}, [
 						svg('svg.m-icon', [
 							svg('use', {
@@ -91,7 +103,7 @@ function template(data) {
 				])
 				, h('li.item', [
 					h('a.m-button.rounded', {
-						'href': '#'
+						'href': '/connect/github'
 					}, [
 						svg('svg.m-icon', [
 							svg('use', {
