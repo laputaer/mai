@@ -19,6 +19,7 @@ function renderer(data) {
 	var mainModel = {};
 
 	mainModel.i18n = data.i18n;
+	mainModel.version = data.version;
 	mainModel.body = [];
 	mainModel.body.push(data.parts);
 

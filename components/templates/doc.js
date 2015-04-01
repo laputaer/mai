@@ -40,10 +40,10 @@ function template(data) {
 		})
 		, h('link', {
 			rel: 'stylesheet'
-			, href: '/assets/app.css'
+			, href: '/assets/app.css?' + data.version.css
 		})
 		, h('script', {
-			src: '/assets/app.js'
+			src: '/assets/app.js?' + data.version.js
 		})
 	]);
 
