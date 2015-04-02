@@ -18,6 +18,7 @@ module.exports = template;
  */
 function template(data) {
 	var i18n = data.i18n;
+	var v = data.version;
 
 	var content;
 	if (data.user) {
@@ -57,7 +58,7 @@ function template(data) {
 					}, [
 						svg('svg.m-icon', [
 							svg('use', {
-								'xlink:href': '/assets/icons.svg#squares'
+								'xlink:href': '/assets/icons.svg?' + v.asset + '#squares'
 							})
 						])
 						, h('span.m-text', i18n.t('menu.nav.toggle'))
@@ -69,7 +70,7 @@ function template(data) {
 					}, [
 						svg('svg.m-icon', [
 							svg('use', {
-								'xlink:href': '/assets/icons.svg#home'
+								'xlink:href': '/assets/icons.svg?' + v.asset + '#home'
 							})
 						])
 						, h('span.m-text', i18n.t('menu.nav.home'))
@@ -81,7 +82,7 @@ function template(data) {
 					}, [
 						svg('svg.m-icon', [
 							svg('use', {
-								'xlink:href': '/assets/icons.svg#heart'
+								'xlink:href': '/assets/icons.svg?' + v.asset + '#heart'
 							})
 						])
 						, h('span.m-text', i18n.t('menu.nav.my'))
@@ -93,7 +94,7 @@ function template(data) {
 					}, [
 						svg('svg.m-icon', [
 							svg('use', {
-								'xlink:href': '/assets/icons.svg#graph_rising'
+								'xlink:href': '/assets/icons.svg?' + v.asset + '#graph_rising'
 							})
 						])
 						, h('span.m-text', i18n.t('menu.nav.ranking'))
@@ -105,7 +106,7 @@ function template(data) {
 					}, [
 						svg('svg.m-icon', [
 							svg('use', {
-								'xlink:href': '/assets/icons.svg#compass'
+								'xlink:href': '/assets/icons.svg?' + v.asset + '#compass'
 							})
 						])
 						, h('span.m-text', i18n.t('menu.nav.help'))
@@ -119,7 +120,7 @@ function template(data) {
 					}, [
 						svg('svg.m-icon', [
 							svg('use', {
-								'xlink:href': '/assets/icons.svg#twitter'
+								'xlink:href': '/assets/icons.svg?' + v.asset + '#twitter'
 							})
 						])
 						, h('span.m-text', i18n.t('menu.login.twitter'))
@@ -131,7 +132,7 @@ function template(data) {
 					}, [
 						svg('svg.m-icon', [
 							svg('use', {
-								'xlink:href': '/assets/icons.svg#github'
+								'xlink:href': '/assets/icons.svg?' + v.asset + '#github'
 							})
 						])
 						, h('span.m-text', i18n.t('menu.login.github'))

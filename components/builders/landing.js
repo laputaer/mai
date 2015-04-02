@@ -19,6 +19,7 @@ function renderer(data) {
 	var mainModel = {};
 	mainModel.i18n = data.i18n;
 	mainModel.user = data.user;
+	mainModel.version = data.version;
 
 	return main(mainModel);
 };

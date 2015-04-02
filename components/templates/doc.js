@@ -31,19 +31,19 @@ function template(data) {
 		, h('link', {
 			rel: 'apple-touch-icon'
 			, sizes: '180x180'
-			, href: '/apple-touch-icon.png'
+			, href: '/apple-touch-icon.png?' + data.version.asset
 		})
 		, h('link', {
 			rel: 'icon'
 			, type: 'image/png'
 			, sizes: '192x192'
-			, href: '/android-chrome.png'
+			, href: '/android-chrome.png?' + data.version.asset
 		})
 		, h('link', {
 			rel: 'icon'
 			, type: 'image/png'
 			, sizes: '32x32'
-			, href: '/favicon.png'
+			, href: '/favicon.png?' + data.version.asset
 		})
 		, h('link', {
 			rel: 'stylesheet'

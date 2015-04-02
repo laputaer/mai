@@ -35,9 +35,9 @@ function *middleware(next) {
 	// prepare data
 	var opts = {};
 	opts.i18n = i18n('zh-CN');
+	opts.version = this.config.version;
 	opts.user = yield findUser.apply(this);
 	opts.parts = builders.landing(opts);
-	opts.version = this.config.version;
 
 	// render vdom
 	var vdoc = builders.doc(opts);
