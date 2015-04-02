@@ -30,12 +30,19 @@ function template(data) {
 		})
 		, h('link', {
 			rel: 'apple-touch-icon'
-			, href: '/favicon.png'
+			, sizes: '180x180'
+			, href: '/apple-touch-icon.png'
 		})
 		, h('link', {
 			rel: 'icon'
 			, type: 'image/png'
-			, sizes: '96x96'
+			, sizes: '192x192'
+			, href: '/android-chrome.png'
+		})
+		, h('link', {
+			rel: 'icon'
+			, type: 'image/png'
+			, sizes: '32x32'
 			, href: '/favicon.png'
 		})
 		, h('link', {
