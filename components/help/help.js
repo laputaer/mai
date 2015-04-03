@@ -1,8 +1,8 @@
 
 /**
- * error-handler.js
+ * help.js
  *
- * Handle server responses when critical services are down, like mongodb
+ * Koa route handler for help page
  */
 
 var builders = require('../builders/builders');
@@ -28,20 +28,14 @@ function factory() {
  * @return  Void
  */
 function *middleware(next) {
-	if (this.db !== false && this.redis !== false) {
-		yield next;
-		return;
-	}
-
-	// this part only run when internal services are down
-	// note that we don't yield at the end, as there is no need for downstream to run
+	yield next;
 
 	// prepare data
 	var opts = {};
 	opts.i18n = i18n('zh-CN');
 	opts.version = this.config.version;
 	opts.body = [];
-	opts.body.push(builders.error(opts));
+	opts.body.push(builders.landing(opts));
 
 	// render doc
 	var vdoc = builders.doc(opts);

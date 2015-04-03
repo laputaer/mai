@@ -9,8 +9,10 @@ var router = require('koa-router');
 
 var landing = require('../landing/landing');
 var user = require('../user/user');
-var homePath = require('../home/home');
-var club = require('../club/club');
+var home = require('../home/home');
+var ranking = require('../ranking/ranking');
+var help = require('../help/help');
+//var club = require('../club/club');
 
 module.exports = myRouter;
 
@@ -28,9 +30,11 @@ function myRouter(app) {
 	app.use(router(app));
 
 	app.get('/', landing());
-	app.get('/home', homePath());
+	app.get('/home', home());
+	app.get('/ranking', ranking());
+	app.get('/help', help());
 	app.get('/login/:provider', user());
 
-	app.get('/club/add', club.add());
-	app.post('/club', club.create());
+	//app.get('/club/add', club.add());
+	//app.post('/club', club.create());
 };
