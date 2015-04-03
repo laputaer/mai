@@ -1,8 +1,8 @@
 
 /**
- * page-landing.js
+ * placeholder.js
  *
- * Template for landing page body
+ * Template for placeholder container
  */
 
 var h = require('virtual-dom/h');
@@ -17,11 +17,7 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var main = h('div.page-landing', [
-		data.heading
-		, data.menu
-		, data.placeholder
-	]);
+	var placeholder = h('div.placeholder', data.content);
 
-	return main;
+	return placeholder;
 };

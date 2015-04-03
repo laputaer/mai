@@ -1,8 +1,8 @@
 
 /**
- * page-landing.js
+ * menu.js
  *
- * Template for landing page body
+ * Template for default navigation menu
  */
 
 var h = require('virtual-dom/h');
@@ -17,11 +17,10 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var main = h('div.page-landing', [
-		data.heading
-		, data.menu
-		, data.placeholder
+	var menu = h('div.menu', [
+		h('ul.nav', data.nav)
+		, h('ul.login', data.login)
 	]);
 
-	return main;
+	return menu;
 };

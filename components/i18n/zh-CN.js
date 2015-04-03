@@ -7,10 +7,11 @@
 
 module.exports = {
 	'common': {
-		'title': '买买买！'
-		, 'description': '全球首个传播购买信仰的社区，观察消费主义的了望台。不买么？买买买！'
+		'title': '买买买'
+		, 'description': '全球首个传播购买信仰的社区，观察消费主义的了望台。我们口号是——不买么？买买买！'
+		, 'app-title': '买买买'
 	}
-	, 'intro': {
+	, 'heading': {
 		'title-1': 'mai3.me'
 		, 'subtitle-1': '传播购买信仰 观察消费主义'
 	}

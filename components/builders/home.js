@@ -1,14 +1,14 @@
 
 /**
- * landing.js
+ * home.js
  *
- * Render landing page body
+ * Render home body
  */
 
 var mainTemplate = require('../templates/page-landing');
 
 var placeholderTemplate = require('../templates/common/placeholder');
-var welcomeTemplate = require('../templates/landing/welcome');
+var profileTemplate = require('../templates/user/profile');
 
 var headerPartial = require('./partials/header');
 
@@ -21,8 +21,8 @@ module.exports = renderer;
  * @return  VNode
  */
 function renderer(data) {
-	var welcome = welcomeTemplate({ i18n: data.i18n });
-	var placeholder = placeholderTemplate({ content: welcome });
+	var profile = profileTemplate({ i18n: data.i18n, user: data.user });
+	var placeholder = placeholderTemplate({ content: profile });
 	var header = headerPartial(data);
 
 	var mainModel = {};

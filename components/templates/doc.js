@@ -28,6 +28,10 @@ function template(data) {
 			name: 'description'
 			, content: i18n.t('common.description')
 		})
+		, h('meta', {
+			name: 'apple-mobile-web-app-title'
+			, content: i18n.t('common.app-title')
+		})
 		, h('link', {
 			rel: 'apple-touch-icon'
 			, sizes: '180x180'

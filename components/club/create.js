@@ -1,8 +1,8 @@
 
 /**
- * landing.js
+ * create.js
  *
- * Koa route handler for landing page
+ * Process user input to create a club
  */
 
 var builders = require('../builders/builders');

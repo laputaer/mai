@@ -1,8 +1,8 @@
 
 /**
- * page-landing.js
+ * heading.js
  *
- * Template for landing page body
+ * Template for default heading
  */
 
 var h = require('virtual-dom/h');
@@ -17,11 +17,13 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var main = h('div.page-landing', [
-		data.heading
-		, data.menu
-		, data.placeholder
+	var i18n = data.i18n;
+	var heading = h('div.heading', [
+		h('h1.title.lang', {
+			lang: 'en'
+		}, i18n.t('heading.title-1'))
+		, h('p.subtitle', i18n.t('heading.subtitle-1'))
 	]);
 
-	return main;
+	return heading;
 };

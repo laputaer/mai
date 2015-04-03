@@ -5,11 +5,12 @@
  * Setup routing table
  */
 
-var r = require('koa-route');
+var router = require('koa-router');
 
 var landing = require('../landing/landing');
 var user = require('../user/user');
 var homePath = require('../home/home');
+var club = require('../club/club');
 
 module.exports = myRouter;
 
@@ -24,7 +25,12 @@ function myRouter(app) {
 		return;
 	}
 
-	app.use(r.get('/', landing()));
-	app.use(r.get('/home', homePath()));
-	app.use(r.get('/login/:provider', user()));
+	app.use(router(app));
+
+	app.get('/', landing());
+	app.get('/home', homePath());
+	app.get('/login/:provider', user());
+
+	app.get('/club/add', club.add());
+	app.post('/club', club.create());
 };
