@@ -29,9 +29,12 @@ function factory() {
  * @param   Function  next  Flow control
  * @return  Void
  */
-function *middleware(next) {
+function *middleware(provider, next) {
 	yield next;
 
+	this.params = {
+		provider: provider
+	};
 	this.user = {};
 	this.user.oauth = yield getUserProfile.apply(this);
 	this.user.local = yield matchUser.apply(this);

@@ -5,7 +5,7 @@
  * Setup routing table
  */
 
-var router = require('koa-router');
+var r = require('koa-route');
 
 var landing = require('../landing/landing');
 var user = require('../user/user');
@@ -24,9 +24,7 @@ function myRouter(app) {
 		return;
 	}
 
-	app.use(router(app));
-
-	app.get('/', landing());
-	app.get('/home', homePath());
-	app.get('/login/:provider', user());
+	app.use(r.get('/', landing()));
+	app.use(r.get('/home', homePath()));
+	app.use(r.get('/login/:provider', user()));
 };
