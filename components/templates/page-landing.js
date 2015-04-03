@@ -21,7 +21,11 @@ function template(data) {
 	var v = data.version;
 
 	var content;
-	if (data.user) {
+	if (data.internal_service_down) {
+		content = h('div.promise', [
+			h('p.line', i18n.t('main.error'))
+		]);
+	} else if (data.user) {
 		content = h('div.profile', [
 			h('img.avatar', {
 				src: data.user.avatar

@@ -34,5 +34,4 @@ function *database() {
 	yield client.select(opts.database);
 
 	return client;
-
 };

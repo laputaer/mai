@@ -1,8 +1,8 @@
 
 /**
- * error.js
+ * error-handler.js
  *
- * Error handler when critical services are down, like mongodb
+ * Handle server responses when critical services are down, like mongodb
  */
 
 var builders = require('../builders/builders');
@@ -28,12 +28,19 @@ function factory() {
  * @return  Void
  */
 function *middleware(next) {
-	yield next;
+	if (this.db !== false && this.redis !== false) {
+		yield next;
+		return;
+	}
+
+	// this part only run when internal services are down
+	// note that we don't yield at the end, as there is no need for downstream to run
 
 	// prepare data
 	var opts = {};
 	opts.i18n = i18n('zh-CN');
 	opts.version = this.config.version;
+	opts.internal_service_down = true;
 	opts.parts = builders.landing(opts);
 
 	// render vdom

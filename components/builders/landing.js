@@ -20,6 +20,7 @@ function renderer(data) {
 	mainModel.i18n = data.i18n;
 	mainModel.user = data.user;
 	mainModel.version = data.version;
+	mainModel.internal_service_down = data.internal_service_down;
 
 	return main(mainModel);
 };
