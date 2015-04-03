@@ -7,26 +7,20 @@
 
 var mongo = require('yieldb').connect;
 
+var hasAttrs = require('../helpers/has-required-attributes');
+
 module.exports = database;
 
 /**
  * Return an instance of yieldb
  *
- * @param   Object   opts  Custom options for driver
  * @return  MongoDB
  */
-function *database(opts) {
+function *database() {
+	var opts = this.config.mongodb;
 
-	if (!opts) {
-		throw new Error('missing options');
-	}
-
-	if (!opts.hasOwnProperty('database')) {
-		throw new Error('database must be specified');
-	}
-
-	if (!opts.hasOwnProperty('w')) {
-		throw new Error('writeConcern must be specified');
+	if (!hasAttrs(opts, ['server', 'port', 'database', 'w'])) {
+		throw new Error('Missing required mongodb config');
 	}
 
 	// build server string
@@ -36,16 +30,9 @@ function *database(opts) {
 		url += opts.user + ':' + opts.pass + '@';
 	}
 
-	if (opts.server) {
-		url += opts.server;
-	}
-
-	if (opts.port) {
-		url += ':' + opts.port;
-	}
-
-	// explicit set default database and write concern
-	url += '/' + opts.database + '?w=' + opts.w;
+	// basic connection url
+	url += opts.server + ':' + opts.port
+		+ '/' + opts.database + '?w=' + opts.w;
 
 	if (opts.replSet) {
 		url += '&replicaSet=' + opts.replSet;
@@ -55,7 +42,6 @@ function *database(opts) {
 		url += '&authSource=' + opts.userdb;
 	}
 
-	// make sure we have active connection to db
+	// make sure we have active connection to mongodb
 	return yield mongo(url);
-
 };

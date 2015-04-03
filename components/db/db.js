@@ -28,14 +28,14 @@ function factory() {
 function *middleware(next) {
 	// allow downstream to handle db connection error gracefully
 	try {
-		this.db = yield mongodb(this.config.mongodb);
+		this.db = yield mongodb.apply(this);
 	} catch(err) {
 		this.db = false;
 		this.app.emit('error', err, this);
 	}
 
 	try {
-		this.redis = yield redis(this.config.redis);
+		this.redis = yield redis.apply(this);
 	} catch(err) {
 		this.redis = false;
 		this.app.emit('error', err, this);

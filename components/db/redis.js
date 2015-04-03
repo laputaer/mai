@@ -7,31 +7,30 @@
 
 var redis = require('then-redis');
 
+var hasAttrs = require('../helpers/has-required-attributes');
+
 module.exports = database;
 
 /**
  * Return an instance of then-redis
  *
- * @param   Object  opts  Custom options for driver
  * @return  Redis
  */
-function *database(opts) {
+function *database() {
+	var opts = this.config.redis;
 
-	if (!opts) {
-		throw new Error('missing options');
-	}
-
-	if (!opts.hasOwnProperty('database')) {
-		throw new Error('database must be specified');
+	if (!hasAttrs(opts, ['server', 'port', 'database'])) {
+		throw new Error('Missing required redis config');
 	}
 
 	var client = redis.createClient(opts);
 
+	// prevent redis error from crashing our app
 	client.on('error', function(err) {
-		// prevent failed redis connection from crashing server
+		// you can log driver connection attempts here
 	});
 
-	// make sure redis connection is active
+	// make sure we have active connection to redis
 	yield client.select(opts.database);
 
 	return client;

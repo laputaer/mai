@@ -24,7 +24,7 @@ module.exports = factory;
  * Export a factory function instead of middleware
  *
  * @param   Boolean  flag  Return config or set it
- * @return  MW
+ * @return  Mixed
  */
 function factory(flag) {
 	if (!flag) {
