@@ -17,10 +17,12 @@ function *createUser() {
 	var local = this.user.local;
 	var db = this.db;
 
+	// user already exists
 	if (local) {
 		return local;
 	}
 
+	// new user
 	var User = db.col('users');
 	try {
 		oauth.timestamp = new Date();

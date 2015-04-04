@@ -13,16 +13,21 @@ module.exports = matchUser;
  * @return  Object
  */
 function *matchUser() {
-	var uid = this.session.id;
-	var db = this.db;
+	var uid = this.session.uid;
+	var redis = this.redis;
 
+	// guest user
 	if (!uid) {
-		return null;
+		return;
 	}
 
-	var User = db.col('users');
+	var data = yield redis.get('users:' + uid);
+	try {
+		data = JSON.parse(data);
+	} catch(err) {
+		this.app.emit('error', err, this);
+		return;
+	}
 
-	return yield User.findOne({
-		uid: uid
-	});
+	return data;
 };

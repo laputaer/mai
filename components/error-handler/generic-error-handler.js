@@ -1,12 +1,11 @@
 
 /**
- * my.js
+ * generic-error-handler.js
  *
- * Koa route handler for user home
+ * Handle unexpected errors
  */
 
 var builders = require('../builders/builders');
-var findUser = require('./find-user');
 
 module.exports = factory;
 
@@ -32,14 +31,9 @@ function *middleware(next) {
 	var data = {};
 	data.i18n = this.i18n;
 	data.version = this.config.version;
-	data.user = yield findUser.apply(this);
 	data.body = [];
-
-	if (!data.user) {
-		data.body.push(builders.login(data));
-	} else {
-		data.body.push(builders.my(data));
-	}
+	// TODO: better error response
+	data.body.push(builders.internalError(data));
 
 	// render vdoc
 	this.state.vdoc = builders.doc(data);

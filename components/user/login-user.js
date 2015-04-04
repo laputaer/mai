@@ -2,7 +2,7 @@
 /**
  * login-user.js
  *
- * Login user via session
+ * Upgrade guest session to user session
  */
 
 module.exports = loginUser;
@@ -10,17 +10,22 @@ module.exports = loginUser;
 /**
  * Login user
  *
- * @return  Boolean
+ * @return  Void
  */
 function *loginUser() {
 	var local = this.user.local;
 	var redis = this.redis;
 
-	if (!local) {
-		delete this.session.id;
-		return false;
-	}
-
-	this.session.id = local.uid;
-	return true;
+	// cookie session
+	this.session.uid = local.uid;
+	// redis store
+	var data = {
+		id: local.id
+		, provider: local.provider
+		, uid: local.uid
+		, login: local.login
+		, name: local.name
+		, avatar: local.avatar
+	};
+	yield redis.set('users:' + local.uid, JSON.stringify(data));
 };

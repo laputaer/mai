@@ -17,10 +17,18 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
+	// set avatar size
+	var avatar = data.user.avatar;
+	if (data.user.provider === 'twitter') {
+		avatar = avatar.replace('_normal', '400x400');
+	} else if (data.user.provider === 'github') {
+		avatar = avatar + '&s=400';
+	}
+
 	var i18n = data.i18n;
 	var profile = h('div.profile', [
 		h('img.avatar', {
-			src: data.user.avatar
+			src: avatar
 			, alt: data.user.login
 		})
 		, h('a.link', {
