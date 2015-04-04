@@ -20,7 +20,7 @@ function template(data) {
 	// set avatar size
 	var avatar = data.user.avatar;
 	if (data.user.provider === 'twitter') {
-		avatar = avatar.replace('_normal', '400x400');
+		avatar = avatar.replace('_normal', '_400x400');
 	} else if (data.user.provider === 'github') {
 		avatar = avatar + '&s=400';
 	}
