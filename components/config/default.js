@@ -41,7 +41,7 @@ module.exports = {
 		, signed: true
 	}
 	, version: {
-		css: 'v1.0.1'
+		css: 'v1.0.2'
 		, js: 'v1.0.0'
 		, asset: 'v1.0.0'
 	}
