@@ -1,11 +1,11 @@
 
 /**
- * landing.js
+ * oauth-error.js
  *
- * Render landing page body
+ * Render oauth provider error
  */
 
-var welcomeTemplate = require('../templates/landing/welcome');
+var errorTemplate = require('../templates/common/oauth-error');
 var placeholderTemplate = require('../templates/common/placeholder');
 
 var bodyBuilder = require('./body');
@@ -19,7 +19,7 @@ module.exports = renderer;
  * @return  VNode
  */
 function renderer(data) {
-	data.placeholder = placeholderTemplate({ content: welcomeTemplate(data) });
+	data.placeholder = placeholderTemplate({ content: errorTemplate(data) });
 
 	return bodyBuilder(data);
 };

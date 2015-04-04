@@ -1,11 +1,12 @@
 
 /**
- * landing.js
+ * my.js
  *
- * Koa route handler for landing page
+ * Koa route handler for user home
  */
 
 var builders = require('../builders/builders');
+var findUser = require('./find-user');
 
 module.exports = factory;
 
@@ -27,12 +28,19 @@ function factory() {
 function *middleware(next) {
 	yield next;
 
+	var user = yield findUser.apply(this);
+
 	// prepare data
 	var data = {};
 	data.i18n = this.i18n;
 	data.version = this.config.version;
 	data.body = [];
-	data.body.push(builders.landing(data));
+
+	if (!user) {
+		data.body.push(builders.login(data));
+	} else {
+		data.body.push(builders.my(data));
+	}
 
 	// render vdoc
 	this.state.vdoc = builders.doc(data);

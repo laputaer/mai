@@ -1,8 +1,8 @@
 
 // landing.less
 
-.page-landing {
-	max-width: 1000px;
+.page {
+	max-width: 1200px;
 	margin: 0 auto;
 }
 
@@ -82,6 +82,10 @@
 	padding: 5em 1em;
 	overflow: hidden;
 
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
 	.line {
 		font-weight: 400;
 		margin: 1em;
@@ -99,6 +103,16 @@
 
 	.link {
 		display: block;
+	}
+
+	.list {
+		.reset-list();
+		overflow: hidden;
+
+		.item {
+			display: inline-block;
+			margin: 0.25em;
+		}
 	}
 
 	@media screen and (min-width: 700px) {

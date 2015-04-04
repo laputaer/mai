@@ -8,11 +8,13 @@
 var router = require('koa-router');
 
 var landing = require('../landing/landing');
-var user = require('../user/user');
-var home = require('../home/home');
+var my = require('../my/my');
+var oauthFailure = require('../error-handler/oauth-error-handler');
 var ranking = require('../ranking/ranking');
 var help = require('../help/help');
-//var club = require('../club/club');
+
+var user = require('../user/user');
+var club = require('../club/club');
 
 module.exports = myRouter;
 
@@ -30,11 +32,13 @@ function myRouter(app) {
 	app.use(router(app));
 
 	app.get('/', landing());
-	app.get('/home', home());
-	app.get('/ranking', ranking());
-	app.get('/help', help());
+	app.get('/my', my());
 	app.get('/login/:provider', user());
+	app.get('/login/:provider/failed', oauthFailure());
 
-	//app.get('/club/add', club.add());
-	//app.post('/club', club.create());
+	app.get('/ranking', landing());
+	app.get('/help', landing());
+
+	app.get('/club/add', club.add());
+	app.post('/club', club.create());
 };

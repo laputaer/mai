@@ -1,8 +1,8 @@
 
 /**
- * menu.js
+ * login.js
  *
- * Template for default navigation menu
+ * Template for user login screen
  */
 
 var h = require('virtual-dom/h');
@@ -17,14 +17,13 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var menu = h('div.menu', [
-		h('ul.nav', data.menu_nav.map(function(button) {
+	var i18n = data.i18n;
+	var login = h('div.login', [
+		h('ul.list', data.login.map(function(button) {
 			return h('li.item', button);
 		}))
-		, h('ul.login', data.menu_login.map(function(button) {
-			return h('li.item', button);
-		}))
+		, h('p.line', i18n.t('main.login'))
 	]);
 
-	return menu;
+	return login;
 };

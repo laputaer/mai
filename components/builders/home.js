@@ -5,12 +5,12 @@
  * Render home body
  */
 
-var mainTemplate = require('../templates/page-landing');
+var mainTemplate = require('../templates/body');
 
 var placeholderTemplate = require('../templates/common/placeholder');
 var profileTemplate = require('../templates/user/profile');
 
-var headerPartial = require('./partials/header');
+var headerPartial = require('./body');
 
 module.exports = renderer;
 

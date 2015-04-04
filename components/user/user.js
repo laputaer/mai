@@ -34,10 +34,17 @@ function *middleware(next) {
 
 	this.user = {};
 	this.user.oauth = yield getUserProfile.apply(this);
+
+	// handle oauth failure
+	if (this.user.oauth) {
+		this.redirect('/login/' + this.params.provider + '/failed');
+		return;
+	}
+
 	this.user.local = yield matchUser.apply(this);
 	this.user.local = yield createUser.apply(this);
 
 	this.state.login = yield loginUser.apply(this);
 
-	this.redirect('/home');
+	this.redirect('/my');
 };

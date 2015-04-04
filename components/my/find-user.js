@@ -17,7 +17,7 @@ function *matchUser() {
 	var db = this.db;
 
 	if (!uid) {
-		return;
+		return null;
 	}
 
 	var User = db.col('users');

@@ -45,4 +45,7 @@ module.exports = {
 		, js: 'v1.0.0'
 		, asset: 'v1.0.0'
 	}
+	, output: {
+		format: true
+	}
 };

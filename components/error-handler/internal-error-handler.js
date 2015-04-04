@@ -1,8 +1,8 @@
 
 /**
- * landing.js
+ * internal-error-handler.js
  *
- * Koa route handler for landing page
+ * Handle server responses when critical services are down, like database
  */
 
 var builders = require('../builders/builders');
@@ -25,14 +25,20 @@ function factory() {
  * @return  Void
  */
 function *middleware(next) {
-	yield next;
+	// normally this is noop
+	if (this.db !== false && this.redis !== false) {
+		yield next;
+		return;
+	}
+
+	// when internal service is down, stop yielding next
 
 	// prepare data
 	var data = {};
 	data.i18n = this.i18n;
 	data.version = this.config.version;
 	data.body = [];
-	data.body.push(builders.landing(data));
+	data.body.push(builders.internalError(data));
 
 	// render vdoc
 	this.state.vdoc = builders.doc(data);

@@ -1,6 +1,6 @@
 
 /**
- * landing.js
+ * oauth-error-handler.js
  *
  * Koa route handler for landing page
  */
@@ -32,7 +32,7 @@ function *middleware(next) {
 	data.i18n = this.i18n;
 	data.version = this.config.version;
 	data.body = [];
-	data.body.push(builders.landing(data));
+	data.body.push(builders.oauthError(data));
 
 	// render vdoc
 	this.state.vdoc = builders.doc(data);
