@@ -1,0 +1,53 @@
+
+// profile.less
+
+.user-profile {
+	padding: 1em;
+	overflow: hidden;
+
+	.profile {
+		text-align: center;
+
+		.avatar {
+			display: block;
+			margin: 1em auto;
+			width: 200px;
+			height: 200px;
+			border-radius: 20px;
+			background-color: @color-gray;
+			.background-cover();
+		}
+
+		.name {
+			.size(20);
+		}
+
+		.link {
+			.link(@color-blue);
+			.size(18);
+		}
+	}
+
+	.feed {
+		padding: 2em 1em;
+		width: auto;
+		flex: 1;
+		text-align: center;
+
+		.line {
+			.size(24);
+		}
+	}
+
+	@media screen and (min-width: 700px) {
+		display: flex;
+
+		.profile {
+			width: 200px;
+		}
+
+		.feed {
+			padding: 4em 2em;
+		}
+	}
+}

@@ -42,4 +42,10 @@ module.exports = {
 		'not-found': 'Error 404'
 		, 'not-found-user': '你要找的人不存在？'
 	}
+	, 'user-profile': {
+		'from': '来自站点'
+		, 'faith': '%{current} / %{base} 点信仰值'
+		, 'placeholder-1': '感谢注册，请静候本站的变化。'
+		, 'placeholder-2': '等不及？请到 %{feedback} 或 %{developer} 反馈你的好点子！'
+	}
 };

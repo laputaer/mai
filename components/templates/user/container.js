@@ -1,8 +1,8 @@
 
 /**
- * body.js
+ * container.js
  *
- * Template for default page body
+ * Template for user profile container
  */
 
 var h = require('virtual-dom/h');
@@ -17,18 +17,10 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var main;
-	if (data.main) {
-		main = data.main;
-	} else {
-		main = data.placeholder;
-	}
-
-	var main = h('div.page', [
-		data.heading
-		, data.menu
-		, main
+	var container = h('div.user-profile', [
+		data.profile
+		, data.feed
 	]);
 
-	return main;
+	return container;
 };

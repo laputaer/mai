@@ -17,24 +17,29 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
+	var i18n = data.i18n;
+	var user = data.user;
+
 	// set avatar size
-	var avatar = data.user.avatar;
-	if (data.user.provider === 'twitter') {
+	var avatar = user.avatar;
+	if (user.provider === 'twitter') {
 		avatar = avatar.replace('_normal', '_400x400');
-	} else if (data.user.provider === 'github') {
+	} else if (user.provider === 'github') {
 		avatar = avatar + '&s=400';
 	}
 
-	var i18n = data.i18n;
 	var profile = h('div.profile', [
-		h('img.avatar', {
-			src: avatar
-			, alt: data.user.login
+		h('div.avatar', {
+			style: {
+				'background-image': 'url(' + avatar + ')'
+			}
 		})
-		, h('a.link', {
-			href: 'https://' + data.user.provider + '.com/' + data.user.login
-		}, data.user.name)
-		, h('p.line', i18n.t('main.thanks'))
+		, h('p.name', user.name)
+		, h('p.level', i18n.t('user-profile.faith', {
+			current: 0
+			, base: 15
+		}))
+		, data.user_from
 	]);
 
 	return profile;
