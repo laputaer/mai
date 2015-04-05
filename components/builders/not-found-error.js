@@ -1,11 +1,11 @@
 
 /**
- * my.js
+ * not-found-error.js
  *
- * Render user home
+ * Render content not found error page
  */
 
-var userTemplate = require('../templates/user/profile');
+var notFoundTemplate = require('../templates/common/not-found-error');
 var placeholderTemplate = require('../templates/common/placeholder');
 
 var bodyBuilder = require('./body');
@@ -19,7 +19,7 @@ module.exports = renderer;
  * @return  VNode
  */
 function renderer(data) {
-	data.placeholder = placeholderTemplate({ content: userTemplate(data) });
+	data.placeholder = placeholderTemplate({ content: notFoundTemplate(data) });
 
 	return bodyBuilder(data);
 };

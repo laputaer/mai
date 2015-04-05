@@ -23,6 +23,12 @@ function *getUserProfile() {
 	// load oauth result
 	var opts = {};
 	opts.provider = this.params.provider;
+
+	// invalid provider
+	if (!config[opts.provider]) {
+		return;
+	}
+
 	// token for api calls
 	opts.access_token = this.request.query.access_token || null;
 	opts.access_secret = this.request.query.access_secret || null; // oauth 1

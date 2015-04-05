@@ -10,7 +10,7 @@ module.exports = loginUser;
 /**
  * Login user
  *
- * @return  Void
+ * @return  Boolean
  */
 function *loginUser() {
 	var local = this.user.local;
@@ -27,5 +27,14 @@ function *loginUser() {
 		, name: local.name
 		, avatar: local.avatar
 	};
-	yield redis.set('users:' + local.uid, JSON.stringify(data));
+
+	var result = true;
+	try {
+		yield redis.set('users:' + local.uid, JSON.stringify(data));
+	} catch(err) {
+		result = false;
+		this.app.emit('error', err, this);
+	}
+
+	return result;
 };

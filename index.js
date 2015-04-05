@@ -18,6 +18,7 @@ var configFactory = require('./components/config/config');
 var i18n = require('./components/i18n/i18n');
 var errorHandler = require('./components/error-handler/internal-error-handler');
 var renderer = require('./components/renderer/renderer');
+var userSession = require('./components/user/user-session');
 
 var app = koa();
 var config = configFactory();
@@ -33,6 +34,7 @@ app.use(db());
 app.use(session(config.session, app));
 app.use(renderer());
 app.use(errorHandler());
+app.use(userSession());
 
 app.use(mount(grant));
 router(app);

@@ -1,11 +1,12 @@
 
 /**
- * my.js
+ * user-profile.js
  *
- * Koa route handler for user home
+ * Koa route handler for full user profile
  */
 
 var builders = require('../builders/builders');
+
 var findUser = require('./find-user');
 
 module.exports = factory;
@@ -32,13 +33,15 @@ function *middleware(next) {
 	var data = {};
 	data.i18n = this.i18n;
 	data.version = this.config.version;
+	data.current_user = this.state.user;
 	data.user = yield findUser.apply(this);
 	data.body = [];
 
 	if (!data.user) {
-		data.body.push(builders.login(data));
+		data.message = data.i18n.t('error.not-found-user');
+		data.body.push(builders.notFoundError(data));
 	} else {
-		data.body.push(builders.my(data));
+		data.body.push(builders.userProfile(data));
 	}
 
 	// render vdoc

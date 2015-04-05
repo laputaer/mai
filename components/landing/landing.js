@@ -31,6 +31,7 @@ function *middleware(next) {
 	var data = {};
 	data.i18n = this.i18n;
 	data.version = this.config.version;
+	data.current_user = this.state.user;
 	data.body = [];
 	data.body.push(builders.landing(data));
 

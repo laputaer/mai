@@ -75,6 +75,29 @@
 	.login {
 		float: right;
 	}
+
+	.user {
+		float: right;
+
+		.avatar {
+			display: inline-block;
+			width: 32px;
+			height: 32px;
+			border-radius: 50%;
+			vertical-align: top;
+			margin: 0 0.25em;
+			background-color: @color-gray;
+			.background-cover();
+		}
+
+		.link {
+			.link(@color-black, 80%);
+			display: inline-block;
+			line-height: 32px;
+			vertical-align: top;
+			margin: 0 0.25em;
+		}
+	}
 }
 
 .placeholder {

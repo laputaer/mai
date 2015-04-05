@@ -50,6 +50,16 @@ function *middleware(next) {
 		return;
 	}
 
-	yield loginUser.apply(this);
-	this.redirect('/my');
+	var status = yield loginUser.apply(this);
+
+	// handle session store failure
+	if (!status) {
+		this.redirect('/login/' + this.params.provider + '/error');
+		return;
+	}
+
+	// redirect to user profile
+	var local = this.user.local;
+	var pid = local.provider.substr(0, 1) + local.id;
+	this.redirect('/u/' + pid);
 };

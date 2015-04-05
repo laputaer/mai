@@ -38,4 +38,8 @@ module.exports = {
 		, 'oauth-error': 'OAuth登陆失败'
 		, 'login': '请在登录后访问这个功能'
 	}
+	, 'error': {
+		'not-found': 'Error 404'
+		, 'not-found-user': '你要找的人不存在？'
+	}
 };

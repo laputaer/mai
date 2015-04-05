@@ -1,8 +1,8 @@
 
 /**
- * internal.js
+ * not-found-error.js
  *
- * Template for internal service errors
+ * Template for content not found
  */
 
 var h = require('virtual-dom/h');
@@ -19,7 +19,8 @@ module.exports = template;
 function template(data) {
 	var i18n = data.i18n;
 	var error = h('div.error', [
-		h('p.line', i18n.t('main.error'))
+		h('p.line', i18n.t('error.not-found'))
+		, h('p.line', data.message)
 	]);
 
 	return error;

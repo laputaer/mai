@@ -17,14 +17,21 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var menu = h('div.menu', [
-		h('ul.nav', data.menu_nav.map(function(button) {
+	var nav = h('ul.nav', data.menu_nav.map(function(button) {
+		return h('li.item', button);
+	}));
+
+	var login;
+	if (!data.menu_user) {
+		login = h('ul.login', data.menu_login.map(function(button) {
 			return h('li.item', button);
-		}))
-		, h('ul.login', data.menu_login.map(function(button) {
-			return h('li.item', button);
-		}))
-	]);
+		}));
+	} else {
+		login = data.menu_user;
+	}
+
+
+	var menu = h('div.menu', [nav, login]);
 
 	return menu;
 };
