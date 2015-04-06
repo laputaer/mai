@@ -36,8 +36,8 @@ function template(data) {
 		})
 		, h('p.name', user.name)
 		, h('p.level', i18n.t('user-profile.faith', {
-			current: 0
-			, base: 15
+			current: user.action_point
+			, base: user.action_base
 		}))
 		, data.user_from
 	]);

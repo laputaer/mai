@@ -7,6 +7,7 @@
     "test": "mocha tests/",
     "start": "node index.js",
     "setup": "npm install && npm run build:css && npm run build:js && npm run build:svg && npm run build:img",
+    "migration": "node migration/migration.js",
     "local": "NODE_ENV=local node index.js",
     "dev:be": "NODE_ENV=dev nodemon --ext js --ignore components/client-js/ --watch components/ --watch index.js index.js",
     "dev:fe": "npm run watch:reload & npm run watch:css & npm run watch:js & npm run watch:svg",
