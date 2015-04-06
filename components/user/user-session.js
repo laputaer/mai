@@ -38,11 +38,12 @@ function *middleware(next) {
 		data = yield redis.get('users:' + uid);
 		data = JSON.parse(data);
 	} catch(err) {
+		// if session store doesn't contain user, logout session
 		data = false;
+		this.session.uid = undefined;
 		this.app.emit('error', err, this);
 	}
 
-	// TODO: session store expire
 	if (!data) {
 		yield next;
 		return;

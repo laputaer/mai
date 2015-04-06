@@ -39,6 +39,7 @@ module.exports = {
 	, session: {
 		key: 'mai:session'
 		, signed: true
+		, maxAge: 1000 * 60 * 60 * 24 * 30
 	}
 	, version: {
 		css: 'v1.0.3'

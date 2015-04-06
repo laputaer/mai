@@ -31,6 +31,7 @@ function *loginUser() {
 	var result = true;
 	try {
 		yield redis.set('users:' + local.uid, JSON.stringify(data));
+		yield redis.pexpire('users:' + local.uid, this.config.session.maxAge);
 	} catch(err) {
 		result = false;
 		this.app.emit('error', err, this);
