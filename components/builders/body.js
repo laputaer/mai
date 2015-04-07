@@ -29,7 +29,7 @@ function renderer(data) {
 	data.menu_nav = [
 		{ href: '/', icon: 'squares', text: i18n.t('menu.nav.toggle'), version: data.version.asset }
 		, { href: '/', icon: 'home', text: i18n.t('menu.nav.home'), version: data.version.asset }
-		, { href: '/my', icon: 'heart', text: i18n.t('menu.nav.my'), version: data.version.asset }
+		, { href: '/club', icon: 'heart', text: i18n.t('menu.nav.club'), version: data.version.asset }
 		, { href: '/ranking', icon: 'graph_rising', text: i18n.t('menu.nav.ranking'), version: data.version.asset }
 		, { href: '/help', icon: 'compass', text: i18n.t('menu.nav.help'), version: data.version.asset }
 	];
@@ -37,13 +37,13 @@ function renderer(data) {
 
 	// menu login for guest user
 	if (!data.current_user) {
-		data.menu_login = [
+		data.menu_user = [
 			{ href: '/connect/twitter', icon: 'twitter', text: i18n.t('menu.login.twitter'), version: data.version.asset }
 			, { href: '/connect/github', icon: 'github', text: i18n.t('menu.login.github'), version: data.version.asset }
 		];
-		data.menu_login = data.menu_login.map(buttonTemplate);
+		data.menu_user = data.menu_user.map(buttonTemplate);
 	} else {
-		data.menu_user = userTemplate(data);
+		data.menu_user = [ userTemplate(data) ];
 	}
 
 	data.menu = menuTemplate(data);

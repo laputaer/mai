@@ -30,16 +30,16 @@ function template(data) {
 	// set user pid
 	var pid = user.provider.substr(0, 1) + user.id;
 
-	var user = h('div.user', [
-		h('div.avatar', {
+	var button = h('a.m-button.rounded', {
+		href: '/u/' + pid
+	}, [
+		h('div.m-image', {
 			style: {
 				'background-image': 'url(' + avatar + ')'
 			}
 		})
-		, h('a.link', {
-			href: '/u/' + pid
-		}, user.login)
+		, h('span.m-text', user.login)
 	]);
 
-	return user;
+	return button;
 };

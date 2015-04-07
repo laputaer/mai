@@ -19,7 +19,7 @@ module.exports = template;
 function template(data) {
 	var i18n = data.i18n;
 	var heading = h('div.heading', [
-		h('h1.title.lang', {
+		h('h1.title.m-lang', {
 			lang: 'en'
 		}, i18n.t('heading.title-1'))
 		, h('p.subtitle', i18n.t('heading.subtitle-1'))

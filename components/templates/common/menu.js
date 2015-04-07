@@ -21,17 +21,11 @@ function template(data) {
 		return h('li.item', button);
 	}));
 
-	var login;
-	if (!data.menu_user) {
-		login = h('ul.login', data.menu_login.map(function(button) {
-			return h('li.item', button);
-		}));
-	} else {
-		login = data.menu_user;
-	}
+	var user = h('ul.user', data.menu_user.map(function(button) {
+		return h('li.item', button);
+	}));
 
-
-	var menu = h('div.menu', [nav, login]);
+	var menu = h('div.menu', [nav, user]);
 
 	return menu;
 };

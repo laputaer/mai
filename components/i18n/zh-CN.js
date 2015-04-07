@@ -18,7 +18,7 @@ module.exports = {
 	, 'menu': {
 		'nav': {
 			'home': '首页'
-			, 'my': '我的社团'
+			, 'club': '我的社团'
 			, 'ranking': '排行榜'
 			, 'help': '使用指南'
 			, 'toggle': '导航'
