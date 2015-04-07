@@ -35,7 +35,7 @@ module.exports = {
 		, 'line-4': '已经感到它光明的未来'
 		, 'thanks': '感谢注册，请静候本站的变化'
 		, 'internal-error': '非常抱歉，看来我们的内部服务出了点问题'
-		, 'oauth-error': 'OAuth登陆失败'
+		, 'oauth-error': 'OAuth 登陆失败'
 		, 'login': '请在登录后访问这个功能'
 	}
 	, 'error': {
@@ -47,5 +47,10 @@ module.exports = {
 		, 'faith': '%{current} / %{base} 点信仰值'
 		, 'placeholder-1': '感谢注册，请静候本站的变化。'
 		, 'placeholder-2': '等不及？请到 %{feedback} 或 %{developer} 反馈你的好点子！'
+	}
+	, 'club': {
+		'create-button': '创建社团'
+		, 'create-message': '你现在可以添加社团了！'
+		, 'create-stats': '你还有 %{current} / %{base} 点信仰值，创建新社团需要投入 10 点信仰。'
 	}
 };

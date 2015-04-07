@@ -22,8 +22,8 @@ module.exports = renderer;
 function renderer(data) {
 	var i18n = data.i18n;
 	data.login = [
-		{ type: ['large'], href: '/connect/twitter', icon: 'twitter', text: i18n.t('menu.login.twitter'), version: data.version.asset }
-		, { type: ['large'], href: '/connect/github', icon: 'github', text: i18n.t('menu.login.github'), version: data.version.asset }
+		{ type: ['large', 'twitter'], href: '/connect/twitter', icon: 'twitter', text: i18n.t('menu.login.twitter'), version: data.version.asset }
+		, { type: ['large', 'github'], href: '/connect/github', icon: 'github', text: i18n.t('menu.login.github'), version: data.version.asset }
 	];
 	data.login = data.login.map(buttonTemplate);
 	data.placeholder = placeholderTemplate({ content: loginTemplate(data) });

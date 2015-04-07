@@ -7,6 +7,8 @@
 
 var builders = require('../builders/builders');
 
+var findUser = require('./find-user');
+
 module.exports = factory;
 
 /**
@@ -33,7 +35,16 @@ function *middleware(next) {
 	data.version = this.config.version;
 	data.current_user = this.state.user;
 	data.body = [];
-	data.body.push(builders.landing(data));
+
+	// guest user
+	if (!data.current_user) {
+		data.body.push(builders.login(data));
+
+	// login user
+	} else {
+		data.user = yield findUser.apply(this);
+		data.body.push(builders.club(data));
+	}
 
 	// render vdoc
 	this.state.vdoc = builders.doc(data);
