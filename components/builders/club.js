@@ -7,6 +7,7 @@
 
 var containerTemplate = require('../templates/club/container');
 var addClubTemplate = require('../templates/club/add-club');
+var searchClubTemplate = require('../templates/club/search-club');
 var buttonTemplate = require('../templates/common/button');
 
 var bodyBuilder = require('./body');
@@ -28,6 +29,7 @@ function renderer(data) {
 		, version: data.version.asset
 	});
 	data.add_club = addClubTemplate(data);
+	data.search_club = searchClubTemplate(data);
 	data.my_club = undefined;
 
 	data.main = containerTemplate(data);

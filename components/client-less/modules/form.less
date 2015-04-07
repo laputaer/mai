@@ -1,0 +1,71 @@
+
+// form.less - reusable form elements
+
+.m-form {
+	color: @color-gray-dark;
+
+	.m-label {
+		display: block;
+		margin: 0.25em 0;
+		cursor: pointer;
+		.size(16);
+	}
+
+	.m-input, .m-submit {
+		display: inline-block;
+		border: 1px solid;
+		border-radius: 4px;
+		background-color: transparent;
+		padding: 0.25em 0.5em;
+		outline: 0;
+		.size(16);
+
+		&:hover {
+			background-color: @white;
+		}
+
+		&:focus {
+			color: @color-blue;
+			border-color: @color-blue;
+		}
+	}
+
+	.m-input {
+		&::-webkit-input-placeholder {
+			opacity: 1;
+			color: @color-gray-dark;
+		}
+
+		&::-moz-placeholder {
+			opacity: 1;
+			color: @color-gray-dark;
+		}
+
+		&:-ms-input-placeholder {
+			opacity: 1;
+			color: @color-gray-dark;
+		}
+	}
+
+	.m-submit {
+
+	}
+
+	.m-input + .m-submit {
+		margin-left: 0.5em;
+	}
+
+	.m-note {
+		display: block;
+		margin: 0.25em 0;
+		.size(14);
+	}
+
+	.m-textarea {
+		display: block;
+	}
+
+	@media @mobile-medium {
+
+	}
+}

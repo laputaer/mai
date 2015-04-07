@@ -52,5 +52,9 @@ module.exports = {
 		'create-button': '创建社团'
 		, 'create-message': '你现在可以添加社团了！'
 		, 'create-stats': '你还有 %{current} / %{base} 点信仰值，创建新社团需要投入 10 点信仰。'
+		, 'search-title': '搜索社团'
+		, 'search-placeholder': '今天你想找什么大法？'
+		, 'search-note': '至少两个字符'
+		, 'search-submit': '提交'
 	}
 };
