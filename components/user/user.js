@@ -9,6 +9,7 @@ var removeSlash = require('../helpers/remove-trailing-slash');
 
 var getUserProfile = require('./get-user-profile');
 var matchUser = require('./match-user');
+var updateUser = require('./update-user');
 var createUser = require('./create-user');
 var loginUser = require('./login-user');
 
@@ -42,7 +43,11 @@ function *middleware(next) {
 	}
 
 	this.user.local = yield matchUser.apply(this);
-	this.user.local = yield createUser.apply(this);
+	if (this.user.local) {
+		this.user.local = yield updateUser.apply(this);
+	} else {
+		this.user.local = yield createUser.apply(this);
+	}
 
 	// handle database failure
 	if (!this.user.local) {

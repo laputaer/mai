@@ -2,7 +2,7 @@
 /**
  * find-user.js
  *
- * Match local user by uid
+ * Match local user by pid (shorter version of uid)
  */
 
 var validator = require('validator');
@@ -32,6 +32,7 @@ function *findUser() {
 	}
 	var uid = provider + pid.substr(1);
 
+	// load user data
 	var User = db.col('users');
 	var data;
 	try {
