@@ -21,7 +21,8 @@ function *createUser() {
 	try {
 		oauth.action_point = 0;
 		oauth.action_base = 15;
-		oauth.timestamp = new Date();
+		oauth.created = new Date();
+		oauth.updated = new Date();
 		yield User.insert(oauth);
 	} catch(err) {
 		this.app.emit('error', err, this);

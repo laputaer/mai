@@ -11,6 +11,7 @@ var configFactory = require('../components/config/config');
 
 var usersV1 = require('./users-v1');
 var usersV2 = require('./users-v2');
+var usersV3 = require('./users-v3');
 
 function *migration() {
 	console.log('migration started');
@@ -23,6 +24,7 @@ function *migration() {
 	// run migrations
 	yield usersV1(db);
 	yield usersV2(db);
+	yield usersV3(db);
 }
 
 co(migration).then(function() {

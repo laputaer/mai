@@ -41,6 +41,7 @@ function *middleware(next) {
 		// if session store doesn't contain user, logout session
 		data = false;
 		this.session.uid = undefined;
+		this.session.ts = Date.now();
 		this.app.emit('error', err, this);
 	}
 

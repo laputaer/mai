@@ -26,6 +26,7 @@ function *updateUser() {
 			name: oauth.name
 			, login: oauth.login
 			, avatar: oauth.avatar
+			, updated: new Date()
 		});
 	} catch(err) {
 		this.app.emit('error', err, this);

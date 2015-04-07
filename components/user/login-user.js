@@ -18,6 +18,8 @@ function *loginUser() {
 
 	// cookie session
 	this.session.uid = local.uid;
+	this.session.ts = Date.now();
+
 	// redis store
 	var data = {
 		id: local.id
