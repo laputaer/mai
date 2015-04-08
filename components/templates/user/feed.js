@@ -23,8 +23,8 @@ function template(data) {
 		h('p.line', i18n.t('user-profile.placeholder-1'))
 		, h('p.line', {
 			innerHTML: i18n.t('user-profile.placeholder-2', {
-				feedback: '<a href="https://github.com/maihq/feedbacks">Github</a>'
-				, developer: '<a href="https://twitter.com/bitinn">@bitinn</a>'
+				feedback: '<a href="https://github.com/maihq/feedbacks" class="link">Github</a>'
+				, developer: '<a href="https://twitter.com/bitinn" class="link">@bitinn</a>'
 			})
 		})
 	]);

@@ -53,6 +53,7 @@
     "co": "4.5.1",
     "deep-extend": "0.3.3",
     "grant-koa": "3.0.3",
+    "html-to-vdom": "0.5.5",
     "js-beautify": "1.5.5",
     "koa": "0.18.1",
     "koa-bodyparser": "1.4.1",
