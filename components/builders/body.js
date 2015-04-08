@@ -33,6 +33,12 @@ function renderer(data) {
 		, { href: '/ranking', icon: 'graph_rising', text: i18n.t('menu.nav.ranking'), version: data.version.asset }
 		, { href: '/help', icon: 'compass', text: i18n.t('menu.nav.help'), version: data.version.asset }
 	];
+	data.menu_nav = data.menu_nav.map(function(button) {
+		if (data.path === button.href) {
+			button.type = ['active'];
+		}
+		return button;
+	});
 	data.menu_nav = data.menu_nav.map(buttonTemplate);
 
 	// menu login for guest user

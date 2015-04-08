@@ -30,7 +30,13 @@ function template(data) {
 	// set user pid
 	var pid = user.provider.substr(0, 1) + user.id;
 
-	var button = h('a.m-button.rounded', {
+	// set button status
+	var status = '';
+	if (data.path === '/u/' + pid) {
+		status = '.active';
+	}
+
+	var button = h('a.m-button.rounded' + status, {
 		href: '/u/' + pid
 	}, [
 		h('div.m-image', {

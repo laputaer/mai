@@ -14,5 +14,10 @@ module.exports = helper;
  * @return  String
  */
 function helper(path) {
+	// keep root path
+	if (path === '/') {
+		return path;
+	}
+
 	return path.replace(/\/+$/, '');
 };

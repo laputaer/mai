@@ -5,8 +5,6 @@
  * Koa route handler for user login
  */
 
-var removeSlash = require('../helpers/remove-trailing-slash');
-
 var getUserProfile = require('./get-user-profile');
 var matchUser = require('./match-user');
 var updateUser = require('./update-user');

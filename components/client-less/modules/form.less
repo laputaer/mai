@@ -19,15 +19,6 @@
 		padding: 0.25em 0.5em;
 		outline: 0;
 		.size(16);
-
-		&:hover {
-			background-color: @white;
-		}
-
-		&:focus {
-			color: @color-blue;
-			border-color: @color-blue;
-		}
 	}
 
 	.m-input {
@@ -48,7 +39,17 @@
 	}
 
 	.m-submit {
+		&:hover {
+			background-color: @color-gray-dark;
+			color: @white;
+			border-color: @color-gray-dark;
+		}
 
+		&:focus {
+			background-color: @color-gray-dark;
+			color: @white;
+			border-color: @color-gray-dark;
+		}
 	}
 
 	.m-input + .m-submit {
@@ -63,9 +64,16 @@
 
 	.m-textarea {
 		display: block;
+		.size(16);
 	}
 
 	@media @mobile-medium {
+		.m-label, .m-input, .m-submit, .m-textarea {
+			.size(18);
+		}
 
+		.m-note {
+			//.size(16);
+		}
 	}
 }
