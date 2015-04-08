@@ -137,30 +137,48 @@
 	&.highlight {
 		color: @color-yellow-dark;
 
-		&:hover {
+		&:hover, &:focus {
 			background-color: @color-yellow-dark;
 			color: @white;
 			border-color: @color-yellow-dark;
+		}
+
+		&:active {
+			background-color: darken(@color-yellow-dark, 10%);
+			color: @white;
+			border-color: darken(@color-yellow-dark, 10%);
 		}
 	}
 
 	&.github {
 		color: @color-black-light;
 
-		&:hover {
+		&:hover, &:focus {
 			background-color: @color-black-light;
 			color: @white;
 			border-color: @color-black-light;
 		}
+
+		&:active {
+			background-color: darken(@color-black-light, 10%);
+			color: @white;
+			border-color: darken(@color-black-light, 10%);
+		}
 	}
 
 	&.twitter {
-		color: @color-blue-light;
+		color: @color-blue;
 
-		&:hover {
-			background-color: @color-blue-light;
+		&:hover, &:focus {
+			background-color: @color-blue;
 			color: @white;
-			border-color: @color-blue-light;
+			border-color: @color-blue;
+		}
+
+		&:active {
+			background-color: darken(@color-blue, 10%);
+			color: @white;
+			border-color: darken(@color-blue, 10%);
 		}
 	}
 }
