@@ -5,13 +5,11 @@
 .link(@color, @ratio: 100%) {
 	color: @color;
 	text-decoration: none;
-	background-image: linear-gradient(transparent 50%, fadeout(@color, 75%) 50%);
-	background-position: 0 @ratio;
-	background-size: 4px 4px;
-	background-repeat: repeat-x;
+	border-bottom: 2px solid fadeout(@color, 90%);
 
 	&:hover {
-		background-image: linear-gradient(transparent 50%, fadeout(@color, 50%) 50%);
+		border-color: fadeout(@color, 70%);
+		box-shadow: inset 0 -2px 0 0 fadeout(@color, 70%);
 	}
 }
 

@@ -24,7 +24,7 @@ module.exports = {
 			, 'toggle': '导航'
 		}
 		, 'login': {
-			'twitter': '登陆'
+			'twitter': '登录'
 			, 'github': '登录'
 		}
 	}
@@ -56,5 +56,14 @@ module.exports = {
 		, 'search-placeholder': '至少两个字符'
 		, 'search-note': '找不到你想要的东西？尝试搜索简写。'
 		, 'search-submit': '提交'
+		, 'new-club-intro': '创建社团'
+		, 'new-club-help': '欢迎创建属于你的社团，如果这是你第一次尝试创建社团，请务必看看%{help}'
+		, 'new-club-title': '社团名称'
+		, 'new-club-slug': '社团路径'
+		, 'new-club-image': '社团图片'
+		, 'new-club-submit': '确认创建'
+		, 'new-club-title-placeholder': '允许2-16字符'
+		, 'new-club-slug-placeholder': '允许2-16字符'
+		, 'new-club-image-placeholder': '图片链接'
 	}
 };

@@ -1,23 +1,37 @@
 
 // club.less
 
-.club-add {
+.club-add, .club-search, .club-creation {
 	background-color: @color-yellow-pastel;
 	margin: 1em;
 	padding: 1em;
 
 	.line {
 		margin: 1em 0 0;
+		line-height: 1.5em;
+		.size(16);
+	}
+
+	.subtitle {
+		margin: 1em 0 0;
+		line-height: 1.5em;
+		.size(24);
+	}
+
+	.line:first-child, .subtitle:first-child {
+		margin-top: 0;
+	}
+
+	.link {
+		.link(@color-blue, 100%);
 	}
 }
 
-.club-search {
-	background-color: @color-gray-pastel;
-	margin: 1em;
-	padding: 1em;
+.club-add {
+	background-color: @color-yellow-pastel;
+}
 
-	.line {
-		margin: 1em 0 0;
-	}
+.club-search, .club-creation {
+	background-color: @color-gray-pastel;
 }
 

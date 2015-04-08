@@ -23,20 +23,22 @@ function template(data) {
 			action: '/club/search'
 			, method: 'GET'
 		}, [
-			h('label.m-label', {
-				attributes: {
-					'for': 'club-search'
-				}
-			}, i18n.t('club.search-title'))
-			, h('input.m-field', {
-				placeholder: i18n.t('club.search-placeholder')
-				, name: 'q'
-				, id: 'club-search'
-			})
-			, h('button.m-submit', {
-				type: 'submit'
-			}, i18n.t('club.search-submit'))
-			, h('span.m-note', i18n.t('club.search-note'))
+			h('div.m-group', [
+				h('label.m-label', {
+					attributes: {
+						'for': 'club-search'
+					}
+				}, i18n.t('club.search-title'))
+				, h('input.m-field', {
+					placeholder: i18n.t('club.search-placeholder')
+					, name: 'q'
+					, id: 'club-search'
+				})
+				, h('button.m-submit', {
+					type: 'submit'
+				}, i18n.t('club.search-submit'))
+				, h('span.m-note', i18n.t('club.search-note'))
+			])
 		])
 	]);
 

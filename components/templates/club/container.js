@@ -17,11 +17,16 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var container = h('div.user-club', [
-		data.add_club
-		, data.search_club
-		, data.my_club
-	]);
+	var sections = [];
+	var names = ['add_club', 'search_club', 'my_club', 'club_form'];
+
+	names.forEach(function(name) {
+		if (data.hasOwnProperty(name)) {
+			sections.push(data[name]);
+		}
+	})
+
+	var container = h('div.user-club', sections);
 
 	return container;
 };

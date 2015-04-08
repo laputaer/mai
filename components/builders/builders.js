@@ -8,6 +8,7 @@
 var doc = require('./doc');
 var landing = require('./landing');
 var club = require('./club');
+var clubNew = require('./club-new');
 var internalError = require('./internal-error');
 var oauthError = require('./oauth-error');
 var notFoundError = require('./not-found-error');
@@ -18,6 +19,7 @@ module.exports = {
 	doc: doc
 	, landing: landing
 	, club: club
+	, clubNew: clubNew
 	, userProfile: userProfile
 	, internalError: internalError
 	, oauthError: oauthError
