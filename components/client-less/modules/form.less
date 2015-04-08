@@ -2,26 +2,35 @@
 // form.less - reusable form elements
 
 .m-form {
-	color: @color-gray-dark;
+	color: @color-black-light;
+	overflow: hidden;
+	.size(16);
 
-	.m-label {
-		display: block;
-		margin: 0.25em 0;
-		cursor: pointer;
-		.size(16);
+	.m-group {
+		overflow: hidden;
 	}
 
-	.m-input, .m-submit {
-		display: inline-block;
+	.m-label, .m-field, .m-submit, .m-note {
+		display: block;
+		float: left;
+	}
+
+	.m-label {
+		margin: 0.5em 0;
+		cursor: pointer;
+	}
+
+	.m-field, .m-submit {
 		border: 1px solid;
 		border-radius: 4px;
 		background-color: transparent;
 		padding: 0.25em 0.5em;
 		outline: 0;
-		.size(16);
 	}
 
-	.m-input {
+	.m-field {
+		clear: left;
+
 		&::-webkit-input-placeholder {
 			opacity: 1;
 			color: @color-gray-dark;
@@ -36,44 +45,56 @@
 			opacity: 1;
 			color: @color-gray-dark;
 		}
+
+		&:hover, &:focus {
+			color: @color-blue;
+			border-color: @color-blue;
+		}
 	}
 
 	.m-submit {
-		&:hover {
-			background-color: @color-gray-dark;
-			color: @white;
-			border-color: @color-gray-dark;
+		&:hover, &:focus {
+			color: @color-blue;
+			border-color: @color-blue;
 		}
 
-		&:focus {
-			background-color: @color-gray-dark;
+		&:active {
+			background-color: @color-blue;
 			color: @white;
-			border-color: @color-gray-dark;
+			border-color: @color-blue;
 		}
 	}
 
-	.m-input + .m-submit {
+	.m-field + .m-submit {
 		margin-left: 0.5em;
 	}
 
 	.m-note {
-		display: block;
-		margin: 0.25em 0;
+		clear: left;
+		margin: 0.5em 0;
+		color: @color-gray-dark;
 		.size(14);
 	}
 
 	.m-textarea {
-		display: block;
-		.size(16);
+
+	}
+
+	.m-checkbox {
+
+	}
+
+	.m-radio {
+
 	}
 
 	@media @mobile-medium {
-		.m-label, .m-input, .m-submit, .m-textarea {
+		.m-label, .m-field, .m-submit {
 			.size(18);
 		}
 
 		.m-note {
-			//.size(16);
+			.size(16);
 		}
 	}
 }

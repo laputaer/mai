@@ -28,7 +28,7 @@ function template(data) {
 					'for': 'club-search'
 				}
 			}, i18n.t('club.search-title'))
-			, h('input.m-input', {
+			, h('input.m-field', {
 				placeholder: i18n.t('club.search-placeholder')
 				, name: 'q'
 				, id: 'club-search'
