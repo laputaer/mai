@@ -32,36 +32,44 @@
 		clear: left;
 
 		&::-webkit-input-placeholder {
-			opacity: 1;
-			color: @color-gray-dark;
+			opacity: 0.5;
+			color: inherit;
 		}
 
 		&::-moz-placeholder {
-			opacity: 1;
-			color: @color-gray-dark;
+			opacity: 0.5;
+			color: inherit;
 		}
 
 		&:-ms-input-placeholder {
-			opacity: 1;
-			color: @color-gray-dark;
+			opacity: 0.5;
+			color: inherit;
 		}
 
-		&:hover, &:focus {
+		&:hover {
+			background-color: @white;
+		}
+
+		&:focus {
+			background-color: @white;
 			color: @color-blue;
 			border-color: @color-blue;
 		}
 	}
 
 	.m-submit {
+		color: @color-blue;
+
 		&:hover, &:focus {
-			color: @color-blue;
+			background-color: @color-blue;
+			color: @white;
 			border-color: @color-blue;
 		}
 
 		&:active {
-			background-color: @color-blue;
+			background-color: darken(@color-blue, 10%);
 			color: @white;
-			border-color: @color-blue;
+			border-color: darken(@color-blue, 10%);
 		}
 	}
 
