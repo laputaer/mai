@@ -62,7 +62,7 @@ module.exports = {
 		, 'new-club-slug': '社团路径'
 		, 'new-club-image': '社团图片'
 		, 'new-club-submit': '确认创建'
-		, 'new-club-title-placeholder': '允许2-16字符'
+		, 'new-club-title-placeholder': '允许2-32字符'
 		, 'new-club-slug-placeholder': '允许2-16字符'
 		, 'new-club-image-placeholder': '图片链接'
 	}

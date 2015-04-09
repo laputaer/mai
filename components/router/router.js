@@ -10,6 +10,7 @@ var router = require('koa-router');
 var landing = require('../handlers/landing');
 var club = require('../handlers/club');
 var clubNew = require('../handlers/club-new');
+var clubCreate = require('../handlers/club-create');
 var user = require('../user/user');
 var profile = require('../user/user-profile');
 var oauthFailure = require('../error-handler/oauth-error-handler');
@@ -41,4 +42,5 @@ function myRouter(app) {
 	app.get('/login/:provider/error', genericFailure());
 
 	app.get('/club/add', clubNew());
+	app.post('/club', clubCreate());
 };

@@ -9,6 +9,7 @@ var koa = require('koa');
 var logger = require('koa-logger');
 var mount = require('koa-mount');
 var session = require('koa-session');
+var bodyparser = require('koa-bodyparser');
 var Grant = require('grant-koa');
 
 var db = require('./components/db/db');
@@ -30,6 +31,7 @@ app.use(logger());
 app.use(dev(app.env));
 app.use(configFactory(true));
 app.use(i18n(true));
+app.use(bodyparser());
 app.use(db());
 app.use(session(config.session, app));
 app.use(renderer());
