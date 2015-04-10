@@ -74,6 +74,7 @@ module.exports = {
 		, 'my-club-list': '我创建的社团 (%{count})'
 		, 'search-club-list': '以 %{search} 开头的社团 (%{count})'
 		, 'welcome-to-the-club': '欢迎访问 %{title} 社团！'
+		, 'welcome-club-stats': '成为正式社团需要 5 名成员，目前社团有 %{members} 成员。'
 		, 'club-owner': '社团创始人'
 		, 'join-button': '加入社团'
 		, 'join-stats': '你还有 %{current} / %{base} 点信仰值，加入社团需要投入 2 点信仰。'

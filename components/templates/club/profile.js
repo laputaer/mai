@@ -40,6 +40,7 @@ function template(data) {
 		])
 		, h('div.welcome', [
 			h('p.line', i18n.t('club.welcome-to-the-club', club))
+			, h('p.line', i18n.t('club.welcome-club-stats', club))
 			, h('p.line', [
 				data.join_club_button
 				, data.share_club_button
