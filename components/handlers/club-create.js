@@ -93,9 +93,23 @@ function *middleware(next) {
 	body.owner = this.session.uid;
 	this.state.input = body;
 
-	this.user = {};
-	this.user.local = yield findUser.apply(this);
-	console.log(this.user.local);
+	this.user = yield findUser.apply(this);
+
+	// check user action point
+	if (this.user.action_point < 10) {
+		this.flash = {
+			type: 'form'
+			, message: 'error.insufficient-action-point'
+			, messageData: {
+				required: 10
+				, current: this.user.action_point
+			}
+			, attrs: []
+			, body: body
+		};
+		this.redirect('/club/add');
+		return;
+	}
 
 	var club = yield matchClub.apply(this);
 

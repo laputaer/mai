@@ -10,17 +10,12 @@ module.exports = createClub;
 /**
  * Create local user
  *
- * @return  Object
+ * @return  Mixed
  */
 function *createClub() {
 	var body = this.state.input;
-	var user = this.user.local;
+	var user = this.user;
 	var db = this.db;
-
-	// check user action point
-	if (user.action_point < 10) {
-		return;
-	}
 
 	// new club
 	var Club = db.col('clubs');

@@ -60,6 +60,7 @@ function template(data) {
 					, id: 'club-title'
 					, value: body.title
 				})
+				, h('span.m-note', i18n.t('club.new-club-title-note'))
 			])
 			, h('div.m-group', [
 				h('label.m-label' + attrs.slug, {
@@ -73,6 +74,7 @@ function template(data) {
 					, id: 'club-slug'
 					, value: body.slug
 				})
+				, h('span.m-note', i18n.t('club.new-club-slug-note'))
 			])
 			, h('div.m-group', [
 				h('button.m-submit', {

@@ -18,8 +18,15 @@ module.exports = template;
  */
 function template(data) {
 	var i18n = data.i18n;
+	var msg = '';
+	if (data.flash.messageData) {
+		msg = i18n.t(data.flash.message, data.flash.messageData);
+	} else {
+		msg = i18n.t(data.flash.message);
+	}
+
 	var error = h('div.m-box.error', [
-		h('p.line', i18n.t(data.flash.message))
+		h('p.line', msg)
 	]);
 
 	return error;

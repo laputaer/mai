@@ -44,6 +44,7 @@ module.exports = {
 		, 'form-required-input-missing': '必填的内容不应为空。'
 		, 'form-input-invalid': '提交内容的格式不符合要求。'
 		, 'form-internal-error': '非常抱歉，看来我们的内部服务出了点问题，请重新提交。'
+		, 'insufficient-action-point': '看来你的信仰值不足执行动作，需要 %{required} 点信仰，你目前只有 %{current} 点。'
 	}
 	, 'user-profile': {
 		'from': '来自站点'
@@ -63,11 +64,11 @@ module.exports = {
 		, 'new-club-help': '欢迎创建属于你的社团，如果这是你第一次尝试创建社团，请务必看看%{help}'
 		, 'new-club-title': '社团名称'
 		, 'new-club-slug': '社团路径'
-		, 'new-club-image': '社团图片'
 		, 'new-club-submit': '确认创建'
 		, 'new-club-title-placeholder': '允许2-32个字符'
+		, 'new-club-title-note': '示例：Love Live'
 		, 'new-club-slug-placeholder': '允许2-16个字符'
-		, 'new-club-image-placeholder': '图片链接'
+		, 'new-club-slug-note': '示例：love-live'
 		, 'already-exist': '同路径的社团已存在，请选择另一个路径。'
 		, 'my-club-list': '我创建的社团'
 	}

@@ -37,7 +37,6 @@ function renderer(data) {
 			href: '/c/' + club.slug
 			, icon: 'arrow_right'
 			, text: club.title
-			, type: ['medium']
 			, version: data.version.asset
 		};
 		return buttonTemplate(button);

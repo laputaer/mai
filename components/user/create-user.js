@@ -19,7 +19,7 @@ function *createUser() {
 	// new user
 	var User = db.col('users');
 	try {
-		oauth.action_point = 0;
+		oauth.action_point = 5;
 		oauth.action_base = 15;
 		oauth.created = new Date();
 		oauth.updated = new Date();
