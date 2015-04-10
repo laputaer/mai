@@ -44,7 +44,7 @@ function renderer(data) {
 	});
 	data.my_club = clubListTemplate(data);
 
-	data.my_joined_clubs_buttons = data.joined_clubs.map(function(club) {
+	data.my_joined_club_buttons = data.joined_clubs.map(function(club) {
 		var button = {
 			href: '/c/' + club.slug
 			, icon: 'arrow_right'

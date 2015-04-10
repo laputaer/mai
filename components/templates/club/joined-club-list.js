@@ -19,7 +19,7 @@ module.exports = template;
 function template(data) {
 	var i18n = data.i18n;
 
-	var buttons = data.my_club_buttons.map(function(button) {
+	var buttons = data.my_joined_club_buttons.map(function(button) {
 		return h('li.item', button);
 	});
 	var count = buttons.length;
