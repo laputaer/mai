@@ -65,9 +65,10 @@ module.exports = {
 		, 'new-club-slug': '社团路径'
 		, 'new-club-image': '社团图片'
 		, 'new-club-submit': '确认创建'
-		, 'new-club-title-placeholder': '允许2-32字符'
-		, 'new-club-slug-placeholder': '允许2-16字符'
+		, 'new-club-title-placeholder': '允许2-32个字符'
+		, 'new-club-slug-placeholder': '允许2-16个字符'
 		, 'new-club-image-placeholder': '图片链接'
 		, 'already-exist': '同路径的社团已存在，请选择另一个路径。'
+		, 'my-club-list': '我创建的社团'
 	}
 };

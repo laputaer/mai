@@ -1,18 +1,20 @@
 
 // club.less
 
-.club-add, .club-search, .club-creation {
+.club-add, .club-search, .club-creation, .club-list {
 	background-color: @color-yellow-pastel;
 	margin: 1em;
 	padding: 1em;
 
 	.line {
+		font-weight: 400;
 		margin: 1em 0 0;
 		line-height: 1.5em;
 		.size(16);
 	}
 
 	.subtitle {
+		font-weight: 500;
 		margin: 1em 0 0;
 		line-height: 1.5em;
 		.size(24);
@@ -31,7 +33,17 @@
 	background-color: @color-yellow-pastel;
 }
 
-.club-search, .club-creation {
+.club-search, .club-creation, .club-list {
 	background-color: @color-gray-pastel;
 }
 
+.club-list {
+	.list {
+		.reset-list();
+		margin: 1em 0 0;
+
+		.item {
+			display: inline-block;
+		}
+	}
+}

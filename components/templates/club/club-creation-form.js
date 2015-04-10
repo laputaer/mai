@@ -21,12 +21,10 @@ function template(data) {
 	var attrs = {
 		title: ''
 		, slug: ''
-		, image: ''
 	};
 	var body = {
 		title: ''
 		, slug: ''
-		, image: ''
 	};
 
 	if (data.flash.type === 'form') {
@@ -74,19 +72,6 @@ function template(data) {
 					, name: 'slug'
 					, id: 'club-slug'
 					, value: body.slug
-				})
-			])
-			, h('div.m-group', [
-				h('label.m-label'+ attrs.image, {
-					attributes: {
-						'for': 'club-image'
-					}
-				}, i18n.t('club.new-club-image'))
-				, h('input.m-field' + attrs.image, {
-					placeholder: i18n.t('club.new-club-image-placeholder')
-					, name: 'image'
-					, id: 'club-image'
-					, value: body.image
 				})
 			])
 			, h('div.m-group', [

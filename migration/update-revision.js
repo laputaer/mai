@@ -21,7 +21,9 @@ function *update(db, opts) {
 
 	var Version = db.col('versions');
 
-	yield Version.update({}, {
+	yield Version.update({
+		collection: opts.name
+	}, {
 		timestamp: new Date()
 		, revision: opts.revision
 		, collection: opts.name

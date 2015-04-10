@@ -8,6 +8,7 @@
 var builders = require('../builders/builders');
 var removeSlash = require('../helpers/remove-trailing-slash');
 var findUser = require('./find-user');
+var findClubs = require('./find-clubs');
 
 module.exports = factory;
 
@@ -44,6 +45,7 @@ function *middleware(next) {
 	// login user
 	} else {
 		data.user = yield findUser.apply(this);
+		data.clubs = yield findClubs.apply(this);
 		data.body.push(builders.club(data));
 	}
 

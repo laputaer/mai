@@ -8,6 +8,7 @@
 var containerTemplate = require('../templates/club/container');
 var addClubTemplate = require('../templates/club/add-club');
 var searchClubTemplate = require('../templates/club/search-club');
+var clubListTemplate = require('../templates/club/club-list');
 var buttonTemplate = require('../templates/common/button');
 
 var bodyBuilder = require('./body');
@@ -30,7 +31,18 @@ function renderer(data) {
 	});
 	data.add_club = addClubTemplate(data);
 	data.search_club = searchClubTemplate(data);
-	data.my_club = undefined;
+
+	data.my_club_buttons = data.clubs.map(function(club) {
+		var button = {
+			href: '/c/' + club.slug
+			, icon: 'arrow_right'
+			, text: club.title
+			, type: ['medium']
+			, version: data.version.asset
+		};
+		return buttonTemplate(button);
+	});
+	data.my_club = clubListTemplate(data);
 
 	data.main = containerTemplate(data);
 

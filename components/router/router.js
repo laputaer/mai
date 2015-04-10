@@ -11,6 +11,7 @@ var landing = require('../handlers/landing');
 var club = require('../handlers/club');
 var clubNew = require('../handlers/club-new');
 var clubCreate = require('../handlers/club-create');
+//var clubHome = require('../handlers/club-home');
 var user = require('../user/user');
 var profile = require('../user/user-profile');
 var oauthFailure = require('../error-handler/oauth-error-handler');
@@ -43,4 +44,5 @@ function myRouter(app) {
 
 	app.get('/club/add', clubNew());
 	app.post('/club', clubCreate());
+	//app.get('/c/:slug', clubHome());
 };

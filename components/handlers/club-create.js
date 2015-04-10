@@ -40,7 +40,7 @@ function *middleware(next) {
 
 	// missing input
 	var body = this.request.body;
-	var attrs = hasAttrs(body, ['title', 'slug', 'image'], true);
+	var attrs = hasAttrs(body, ['title', 'slug'], true);
 	var flash = {};
 	if (attrs.length > 0) {
 		this.flash = {
@@ -78,15 +78,6 @@ function *middleware(next) {
 		}
 	}
 
-	body.image = xss(body.image);
-	if (!validator.isURL(body.image) || !validator.isLength(body.image, 1, 100)) {
-		if (!flash.attrs) {
-			flash.attrs = ['image'];
-		} else {
-			flash.attrs.push('image');
-		}
-	}
-
 	// validation error
 	if (flash.attrs) {
 		flash.type = 'form';
@@ -99,10 +90,12 @@ function *middleware(next) {
 	}
 
 	// pass sanitized input back
+	body.owner = this.session.uid;
 	this.state.input = body;
 
 	this.user = {};
 	this.user.local = yield findUser.apply(this);
+	console.log(this.user.local);
 
 	var club = yield matchClub.apply(this);
 
@@ -132,5 +125,5 @@ function *middleware(next) {
 		return;
 	}
 
-	this.redirect('/club/' + club.slug);
+	this.redirect('/c/' + club.slug);
 };
