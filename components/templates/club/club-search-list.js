@@ -1,8 +1,8 @@
 
 /**
- * club-list.js
+ * club-search-list.js
  *
- * Template for listing clubs
+ * Template for listing clubs (search page)
  */
 
 var h = require('virtual-dom/h');
@@ -19,7 +19,7 @@ module.exports = template;
 function template(data) {
 	var i18n = data.i18n;
 
-	var buttons = data.my_club_buttons.map(function(button) {
+	var buttons = data.search_club_buttons.map(function(button) {
 		return h('li.item', button);
 	});
 	var count = buttons.length;
@@ -29,7 +29,7 @@ function template(data) {
 	}
 
 	var list = h('div.club-list', [
-		h('p.line', i18n.t('club.my-club-list', { count: count }))
+		h('p.line', i18n.t('club.search-club-list', { count: count, search: data.search }))
 		, buttons
 	]);
 

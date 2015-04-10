@@ -26,6 +26,8 @@ function *createClub() {
 		}, {
 			action_point: user.action_point - 10
 		});
+		body.created = new Date();
+		body.updated = new Date();
 		yield Club.insert(body);
 	} catch(err) {
 		this.app.emit('error', err, this);

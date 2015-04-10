@@ -33,6 +33,7 @@ function template(data) {
 					placeholder: i18n.t('club.search-placeholder')
 					, name: 'q'
 					, id: 'club-search'
+					, value: data.search || ''
 				})
 				, h('button.m-submit', {
 					type: 'submit'

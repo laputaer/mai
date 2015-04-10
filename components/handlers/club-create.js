@@ -139,5 +139,5 @@ function *middleware(next) {
 		return;
 	}
 
-	this.redirect('/c/' + club.slug);
+	this.redirect('/club');
 };

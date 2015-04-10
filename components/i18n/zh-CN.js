@@ -70,6 +70,7 @@ module.exports = {
 		, 'new-club-slug-placeholder': '允许2-16个字符'
 		, 'new-club-slug-note': '示例：love-live'
 		, 'already-exist': '同路径的社团已存在，请选择另一个路径。'
-		, 'my-club-list': '我创建的社团'
+		, 'my-club-list': '我创建的社团 (%{count})'
+		, 'search-club-list': '以 %{search} 开头的社团 (%{count})'
 	}
 };
