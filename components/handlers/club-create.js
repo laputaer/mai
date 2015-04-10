@@ -32,8 +32,6 @@ function factory() {
 function *middleware(next) {
 	yield next;
 
-	var i18n = this.i18n;
-
 	// guest user
 	if (!this.state.user) {
 		this.redirect('/club');
@@ -46,7 +44,7 @@ function *middleware(next) {
 	if (attrs.length > 0) {
 		this.flash = {
 			type: 'form'
-			, message: i18n.t('error.form-required-input-missing')
+			, message: 'error.form-required-input-missing'
 			, attrs: attrs
 			, body: body
 		};
@@ -91,7 +89,7 @@ function *middleware(next) {
 	// validation error
 	if (this.flash.attrs) {
 		this.flash.type = 'form';
-		this.flash.message = i18n.t('error.form-input-invalid');
+		this.flash.message = 'error.form-input-invalid';
 		this.flash.body = body;
 		this.redirect('/club/add');
 		return;
@@ -109,7 +107,7 @@ function *middleware(next) {
 	if (club) {
 		this.flash = {
 			type: 'form'
-			, message: i18n.t('club.already-exist')
+			, message: 'club.already-exist'
 			, attrs: ['slug']
 			, body: body
 		};
@@ -123,7 +121,7 @@ function *middleware(next) {
 	if (!club) {
 		this.flash = {
 			type: 'form'
-			, message: i18n.t('error.form-internal-error')
+			, message: 'error.form-internal-error'
 			, attrs: []
 			, body: body
 		};

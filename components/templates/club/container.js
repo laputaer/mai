@@ -18,7 +18,7 @@ module.exports = template;
  */
 function template(data) {
 	var sections = [];
-	var names = ['add_club', 'search_club', 'my_club', 'club_form', 'club_form_error'];
+	var names = ['add_club', 'search_club', 'my_club', 'club_form_error', 'club_form'];
 
 	names.forEach(function(name) {
 		if (data.hasOwnProperty(name)) {
