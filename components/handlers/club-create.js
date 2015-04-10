@@ -41,6 +41,7 @@ function *middleware(next) {
 	// missing input
 	var body = this.request.body;
 	var attrs = hasAttrs(body, ['title', 'slug', 'image'], true);
+	var flash = {};
 	if (attrs.length > 0) {
 		this.flash = {
 			type: 'form'
@@ -55,10 +56,10 @@ function *middleware(next) {
 	// input validation
 	body.title = xss(body.title);
 	if (!validator.isLength(body.title, 2, 32)) {
-		if (!this.flash.attrs) {
-			this.flash.attrs = ['title'];
+		if (!flash.attrs) {
+			flash.attrs = ['title'];
 		} else {
-			this.flash.attrs.push('title');
+			flash.attrs.push('title');
 		}
 	}
 
@@ -70,27 +71,29 @@ function *middleware(next) {
 		|| body.slug.substr(0, 1) === '-'
 		|| body.slug.substr(-1) === '-'
 	) {
-		if (!this.flash.attrs) {
-			this.flash.attrs = ['slug'];
+		if (!flash.attrs) {
+			flash.attrs = ['slug'];
 		} else {
-			this.flash.attrs.push('slug');
+			flash.attrs.push('slug');
 		}
 	}
 
 	body.image = xss(body.image);
 	if (!validator.isURL(body.image) || !validator.isLength(body.image, 1, 100)) {
-		if (!this.flash.attrs) {
-			this.flash.attrs = ['image'];
+		if (!flash.attrs) {
+			flash.attrs = ['image'];
 		} else {
-			this.flash.attrs.push('image');
+			flash.attrs.push('image');
 		}
 	}
 
 	// validation error
-	if (this.flash.attrs) {
-		this.flash.type = 'form';
-		this.flash.message = 'error.form-input-invalid';
-		this.flash.body = body;
+	if (flash.attrs) {
+		flash.type = 'form';
+		flash.message = 'error.form-input-invalid';
+		flash.body = body;
+
+		this.flash = flash;
 		this.redirect('/club/add');
 		return;
 	}

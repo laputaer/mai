@@ -18,7 +18,7 @@ module.exports = template;
  */
 function template(data) {
 	var i18n = data.i18n;
-	var error = h('div.m-box', [
+	var error = h('div.m-box.error', [
 		h('p.line', i18n.t(data.flash.message))
 	]);
 
