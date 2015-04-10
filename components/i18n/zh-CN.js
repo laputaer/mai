@@ -41,6 +41,7 @@ module.exports = {
 	, 'error': {
 		'not-found': 'Error 404'
 		, 'not-found-user': '你要找的人不存在？'
+		, 'not-found-club': '你要找的社团不存在？'
 		, 'form-required-input-missing': '必填的内容不应为空。'
 		, 'form-input-invalid': '提交内容的格式不符合要求。'
 		, 'form-internal-error': '非常抱歉，看来我们的内部服务出了点问题，请重新提交。'

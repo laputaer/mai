@@ -10,6 +10,7 @@ var landing = require('./landing');
 var club = require('./club');
 var clubNew = require('./club-new');
 var clubSearch = require('./club-search');
+var clubProfile = require('./club-profile');
 var internalError = require('./internal-error');
 var oauthError = require('./oauth-error');
 var notFoundError = require('./not-found-error');
@@ -22,6 +23,7 @@ module.exports = {
 	, club: club
 	, clubNew: clubNew
 	, clubSearch: clubSearch
+	, clubProfile: clubProfile
 	, userProfile: userProfile
 	, internalError: internalError
 	, oauthError: oauthError
