@@ -9,6 +9,7 @@ var builders = require('../builders/builders');
 var removeSlash = require('../helpers/remove-trailing-slash');
 var findClub = require('./find-club');
 var findOwner = require('./find-owner');
+var findUser = require('./find-user');
 
 module.exports = factory;
 
@@ -39,13 +40,19 @@ function *middleware(next) {
 	data.body = [];
 
 	data.club = yield findClub.apply(this);
+	data.current_url = this.request.href;
 
 	if (!data.club) {
 		data.message = data.i18n.t('error.not-found-club');
 		data.body.push(builders.notFoundError(data));
+
+	} else if (!data.current_user) {
+		data.body.push(builders.login(data));
+
 	} else {
 		this.state.owner = data.club.owner;
 		data.owner = yield findOwner.apply(this);
+		data.user = yield findUser.apply(this);
 
 		data.body.push(builders.clubProfile(data));
 	}

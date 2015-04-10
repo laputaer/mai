@@ -20,6 +20,7 @@ function template(data) {
 	var i18n = data.i18n;
 	var club = data.club;
 	var owner = data.owner;
+	var user = data.user;
 
 	var pid = owner.uid.split('_');
 	pid = pid[0].substr(0, 1) + pid[1];
@@ -39,6 +40,14 @@ function template(data) {
 		])
 		, h('div.welcome', [
 			h('p.line', i18n.t('club.welcome-to-the-club', club))
+			, h('p.line', [
+				data.join_club_button
+				, data.share_club_button
+			])
+			, h('p.line', i18n.t('club.join-stats', {
+				current: user.action_point
+				, base: user.action_base
+			}))
 		])
 	]);
 

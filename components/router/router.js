@@ -13,6 +13,7 @@ var clubNew = require('../handlers/club-new');
 var clubCreate = require('../handlers/club-create');
 var clubSearch = require('../handlers/club-search');
 var clubHome = require('../handlers/club-home');
+var clubJoin = require('../handlers/club-join');
 var user = require('../user/user');
 var profile = require('../user/user-profile');
 var oauthFailure = require('../error-handler/oauth-error-handler');
@@ -47,4 +48,5 @@ function myRouter(app) {
 	app.post('/club', clubCreate());
 	app.get('/club/search', clubSearch());
 	app.get('/c/:slug', clubHome());
+	app.get('/c/:slug/join', clubJoin());
 };
