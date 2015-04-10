@@ -72,6 +72,7 @@ module.exports = {
 		, 'new-club-slug-note': '示例：love-live'
 		, 'already-exist': '同路径的社团已存在，请选择另一个路径。'
 		, 'my-club-list': '我创建的社团 (%{count})'
+		, 'my-joined-club-list': '我加入的社团 (%{count})'
 		, 'search-club-list': '以 %{search} 开头的社团 (%{count})'
 		, 'welcome-to-the-club': '欢迎访问 %{title} 社团！'
 		, 'welcome-club-stats': '成为正式社团需要 5 名成员，目前社团有 %{members} 成员。'

@@ -30,6 +30,7 @@ function *createClub() {
 			slug: club.slug
 		}, {
 			members: club.members ? club.members + 1 : 1
+			, points: club.points ? club.points + 2 : 2
 		});
 		yield Membership.insert({
 			uid: user.uid

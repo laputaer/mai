@@ -28,6 +28,7 @@ function *createClub() {
 		});
 		body.created = new Date();
 		body.updated = new Date();
+		body.points = 10;
 		yield Club.insert(body);
 	} catch(err) {
 		this.app.emit('error', err, this);
