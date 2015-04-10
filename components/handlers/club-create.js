@@ -32,6 +32,8 @@ function factory() {
 function *middleware(next) {
 	yield next;
 
+	var i18n = this.i18n;
+
 	// guest user
 	if (!this.state.user) {
 		this.redirect('/club');
@@ -40,7 +42,14 @@ function *middleware(next) {
 
 	// missing input
 	var body = this.request.body;
-	if (!hasAttrs(body, ['title', 'slug', 'image'])) {
+	var attrs = hasAttrs(body, ['title', 'slug', 'image'], true);
+	if (attrs.length > 0) {
+		this.flash = {
+			type: 'form'
+			, message: i18n.t('error.form-required-input-missing')
+			, attrs: attrs
+			, body: body
+		};
 		this.redirect('/club/add');
 		return;
 	}
@@ -48,8 +57,11 @@ function *middleware(next) {
 	// input validation
 	body.title = xss(body.title);
 	if (!validator.isLength(body.title, 2, 32)) {
-		this.redirect('/club/add');
-		return;
+		if (!this.flash.attrs) {
+			this.flash.attrs = ['title'];
+		} else {
+			this.flash.attrs.push('title');
+		}
 	}
 
 	body.slug = xss(body.slug);
@@ -60,12 +72,27 @@ function *middleware(next) {
 		|| body.slug.substr(0, 1) === '-'
 		|| body.slug.substr(-1) === '-'
 	) {
-		this.redirect('/club/add');
-		return;
+		if (!this.flash.attrs) {
+			this.flash.attrs = ['slug'];
+		} else {
+			this.flash.attrs.push('slug');
+		}
 	}
 
 	body.image = xss(body.image);
 	if (!validator.isURL(body.image) || !validator.isLength(body.image, 1, 100)) {
+		if (!this.flash.attrs) {
+			this.flash.attrs = ['image'];
+		} else {
+			this.flash.attrs.push('image');
+		}
+	}
+
+	// validation error
+	if (this.flash.attrs) {
+		this.flash.type = 'form';
+		this.flash.message = i18n.t('error.form-input-invalid');
+		this.flash.body = body;
 		this.redirect('/club/add');
 		return;
 	}
@@ -80,6 +107,12 @@ function *middleware(next) {
 
 	// club already exists
 	if (club) {
+		this.flash = {
+			type: 'form'
+			, message: i18n.t('club.already-exist')
+			, attrs: ['slug']
+			, body: body
+		};
 		this.redirect('/club/add');
 		return;
 	}
@@ -88,6 +121,12 @@ function *middleware(next) {
 
 	// something wrong with database
 	if (!club) {
+		this.flash = {
+			type: 'form'
+			, message: i18n.t('error.form-internal-error')
+			, attrs: []
+			, body: body
+		};
 		this.redirect('/club/add');
 		return;
 	}

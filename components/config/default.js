@@ -49,4 +49,7 @@ module.exports = {
 	, output: {
 		format: true
 	}
+	, flash: {
+		key: 'flash-message'
+	}
 };

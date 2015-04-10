@@ -34,6 +34,7 @@ function *middleware(next) {
 	data.i18n = this.i18n;
 	data.path = removeSlash(this.path);
 	data.version = this.config.version;
+	data.flash = this.flash;
 	data.current_user = this.state.user;
 	data.body = [];
 
