@@ -51,3 +51,74 @@
 		}
 	}
 }
+
+.club-profile {
+	padding: 1em;
+	overflow: hidden;
+
+	.profile {
+		text-align: center;
+
+		.avatar {
+			display: block;
+			margin: 1em auto;
+			width: 200px;
+			height: 200px;
+			border-radius: 20px;
+			background-color: @color-gray;
+			.background-cover();
+
+			display: flex;
+			align-items: center;
+			justify-content: center;
+
+			.letter {
+				color: @color-gray-dark;
+				.size(72);
+			}
+		}
+
+		.title {
+			.size(20);
+		}
+
+		.owner {
+			.size(16);
+
+			.link {
+				.link(@color-blue);
+			}
+
+			.text + .link {
+				margin-left: 0.25em;
+			}
+		}
+	}
+
+	.welcome {
+		padding: 2em 1em;
+		width: auto;
+		flex: 1;
+		text-align: center;
+
+		.line {
+			.size(24);
+		}
+
+		.link {
+			.link(@color-blue);
+		}
+	}
+
+	@media screen and (min-width: 700px) {
+		display: flex;
+
+		.profile {
+			width: 200px;
+		}
+
+		.feed {
+			padding: 4em 2em;
+		}
+	}
+}

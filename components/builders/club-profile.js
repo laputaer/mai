@@ -5,7 +5,8 @@
  * Render club profile body
  */
 
-var containerTemplate = require('../templates/user/container');
+var profileTemplate = require('../templates/club/profile');
+var buttonTemplate = require('../templates/common/button');
 
 var bodyBuilder = require('./body');
 
@@ -18,5 +19,7 @@ module.exports = renderer;
  * @return  VNode
  */
 function renderer(data) {
+	data.main = profileTemplate(data);
+
 	return bodyBuilder(data);
 };

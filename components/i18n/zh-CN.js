@@ -73,5 +73,7 @@ module.exports = {
 		, 'already-exist': '同路径的社团已存在，请选择另一个路径。'
 		, 'my-club-list': '我创建的社团 (%{count})'
 		, 'search-club-list': '以 %{search} 开头的社团 (%{count})'
+		, 'welcome-to-the-club': '欢迎访问 %{title} 社团！'
+		, 'club-owner': '社团创始人'
 	}
 };

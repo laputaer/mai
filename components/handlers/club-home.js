@@ -8,6 +8,7 @@
 var builders = require('../builders/builders');
 var removeSlash = require('../helpers/remove-trailing-slash');
 var findClub = require('./find-club');
+var findOwner = require('./find-owner');
 
 module.exports = factory;
 
@@ -43,6 +44,9 @@ function *middleware(next) {
 		data.message = data.i18n.t('error.not-found-club');
 		data.body.push(builders.notFoundError(data));
 	} else {
+		this.state.owner = data.club.owner;
+		data.owner = yield findOwner.apply(this);
+
 		data.body.push(builders.clubProfile(data));
 	}
 
