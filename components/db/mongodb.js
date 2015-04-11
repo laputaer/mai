@@ -6,8 +6,8 @@
  */
 
 var mongo = require('yieldb').connect;
-
 var hasAttrs = require('../helpers/has-required-attributes');
+var db;
 
 module.exports = database;
 
@@ -17,6 +17,10 @@ module.exports = database;
  * @return  MongoDB
  */
 function *database() {
+	if (db) {
+		return db;
+	}
+
 	var opts = this.config.mongodb;
 
 	if (!hasAttrs(opts, ['server', 'port', 'database', 'w'])) {
@@ -43,5 +47,7 @@ function *database() {
 	}
 
 	// make sure we have active connection to mongodb
-	return yield mongo(url);
+	db = yield mongo(url);
+
+	return db;
 };

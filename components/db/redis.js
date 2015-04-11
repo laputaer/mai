@@ -6,8 +6,8 @@
  */
 
 var redis = require('then-redis');
-
 var hasAttrs = require('../helpers/has-required-attributes');
+var client;
 
 module.exports = database;
 
@@ -17,13 +17,17 @@ module.exports = database;
  * @return  Redis
  */
 function *database() {
+	if (client) {
+		return client;
+	}
+
 	var opts = this.config.redis;
 
 	if (!hasAttrs(opts, ['server', 'port', 'database'])) {
 		throw new Error('Missing required redis config');
 	}
 
-	var client = redis.createClient(opts);
+	client = redis.createClient(opts);
 
 	// prevent redis error from crashing our app
 	client.on('error', function(err) {
