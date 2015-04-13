@@ -7,13 +7,13 @@
 
 module.exports = {
 	'common': {
-		'title': '买买买'
-		, 'description': '全球首个传播购买信仰的社区，观察消费主义的了望台。我们口号是——不买么？买买买！'
-		, 'app-title': '买买买'
+		'title': '买么（买买买）'
+		, 'description': '买么，是全球首家分析信仰投资的社区。这是一个观察消费文化，分享消费心得，理解消费潮流的平台。我们口号是：不买么？买买买！'
+		, 'app-title': '买么'
 	}
 	, 'heading': {
 		'title-1': 'mai3.me'
-		, 'subtitle-1': '传播购买信仰 观察消费主义'
+		, 'subtitle-1': '传播购买信仰 理解消费文化'
 	}
 	, 'menu': {
 		'nav': {
