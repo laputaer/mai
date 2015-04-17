@@ -21,8 +21,8 @@ function template(data) {
 	var heading = h('div.heading', [
 		h('h1.title.m-lang', {
 			lang: 'en'
-		}, i18n.t('heading.title-1'))
-		, h('p.subtitle', i18n.t('heading.subtitle-1'))
+		}, i18n.t('common.domain'))
+		, h('p.subtitle', i18n.t('common.tagline'))
 	]);
 
 	return heading;

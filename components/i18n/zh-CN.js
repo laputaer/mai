@@ -8,12 +8,10 @@
 module.exports = {
 	'common': {
 		'title': '买么（买买买）'
-		, 'description': '「买么」是全球首家关注「信仰投资」的社区。欢迎你与我们一道，分享独特的「消费信仰」。'
+		, 'description': '「买么」是全球首家关注「产品信仰」的社区。欢迎你与我们一道，分享独特的「消费文化」。'
 		, 'app-title': '买么'
-	}
-	, 'heading': {
-		'title-1': 'mai3.me'
-		, 'subtitle-1': '传播购买信仰 理解消费文化'
+		, 'domain': 'mai3.me'
+		, 'tagline': '传播产品信仰 分享消费文化'
 	}
 	, 'menu': {
 		'nav': {
