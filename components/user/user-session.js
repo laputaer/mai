@@ -32,6 +32,8 @@ function *middleware(next) {
 		return;
 	}
 
+	// TODO: refresh user session every 24 hours?
+
 	// existing user, load from session store
 	var data;
 	try {
