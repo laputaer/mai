@@ -14,13 +14,13 @@ module.exports = loginUser;
  */
 function *loginUser() {
 	var local = this.user.local;
-	var redis = this.redis;
+	var cache = this.cache;
 
 	// cookie session
 	this.session.uid = local.uid;
 	this.session.ts = Date.now();
 
-	// redis store
+	// cache store
 	var data = {
 		id: local.id
 		, provider: local.provider
@@ -32,8 +32,8 @@ function *loginUser() {
 
 	var result = true;
 	try {
-		yield redis.set('users:' + local.uid, JSON.stringify(data));
-		yield redis.pexpire('users:' + local.uid, this.config.session.maxAge);
+		yield cache.set('users:' + local.uid, JSON.stringify(data));
+		yield cache.pexpire('users:' + local.uid, this.config.session.maxAge);
 	} catch(err) {
 		result = false;
 		this.app.emit('error', err, this);

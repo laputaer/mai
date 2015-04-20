@@ -35,9 +35,9 @@ function *middleware(next) {
 	}
 
 	try {
-		this.redis = yield redis.apply(this);
+		this.cache = yield redis.apply(this);
 	} catch(err) {
-		this.redis = false;
+		this.cache = false;
 		this.app.emit('error', err, this);
 	}
 

@@ -26,7 +26,7 @@ function factory() {
  */
 function *middleware(next) {
 	// normally this is noop
-	if (this.db !== false && this.redis !== false) {
+	if (this.db !== false && this.cache !== false) {
 		yield next;
 		return;
 	}

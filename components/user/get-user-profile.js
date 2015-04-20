@@ -30,7 +30,7 @@ function *getUserProfile() {
 	}
 
 	// missing grant response
-	if (!this.session.grant.response) {
+	if (!this.session.grant || !this.session.grant.response) {
 		return;
 	}
 
@@ -49,7 +49,7 @@ function *getUserProfile() {
 	};
 
 	// reset grant session
-	this.session.grant = {};
+	delete this.session.grant;
 
 	// missing token, abort
 	if (!opts.access_token) {

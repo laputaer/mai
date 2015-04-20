@@ -24,7 +24,7 @@ function factory() {
  */
 function *middleware(next) {
 	var uid = this.session.uid;
-	var redis = this.redis;
+	var cache = this.cache;
 
 	// guest user, ignore
 	if (!uid) {
@@ -35,7 +35,7 @@ function *middleware(next) {
 	// existing user, load from session store
 	var data;
 	try {
-		data = yield redis.get('users:' + uid);
+		data = yield cache.get('users:' + uid);
 		data = JSON.parse(data);
 	} catch(err) {
 		// if session store doesn't contain user, logout session

@@ -36,7 +36,7 @@ app.use(flash(config.flash)); // this.flash
 
 app.use(configFactory(true)); // this.config
 app.use(i18nFactory(true)); // this.i18n
-app.use(db()); // this.db, this.redis
+app.use(db()); // this.db, this.cache
 app.use(renderer()); // this.body
 app.use(errorHandler()); // this.state.vdoc
 app.use(userSession()); // this.state.user
