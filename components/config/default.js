@@ -30,6 +30,8 @@ module.exports = {
 			protocol: 'http'
 			, host: '127.0.0.1:8081'
 			, callback: '/login'
+			, transport: 'session'
+			, state: true
 		}
 	}
 	, cookies: {}

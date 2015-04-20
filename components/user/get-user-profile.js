@@ -30,9 +30,9 @@ function *getUserProfile() {
 	}
 
 	// token for api calls
-	opts.access_token = this.request.query.access_token || null;
-	opts.access_secret = this.request.query.access_secret || null; // oauth 1
-	opts.refresh_token = this.request.query.refresh_token || null; // oauth 2
+	opts.access_token = this.session.grant.response.access_token || null;
+	opts.access_secret = this.session.grant.response.access_secret || null; // oauth 1
+	opts.refresh_token = this.session.grant.response.refresh_token || null; // oauth 2
 	// only for oauth 1
 	opts.key = config[opts.provider]['type'] === 1 ? config[opts.provider]['key'] : null;
 	opts.secret = config[opts.provider]['type'] === 1 ? config[opts.provider]['secret'] : null;
