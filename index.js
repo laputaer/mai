@@ -41,7 +41,7 @@ app.use(renderer()); // this.body
 app.use(errorHandler()); // this.state.vdoc
 app.use(userSession()); // this.state.user
 
-app.use(mount(grant));
-router(app);
+app.use(mount(grant)); // this.session.grant
+router(app); // this.state.vdoc
 
 app.listen(config.server.port);
