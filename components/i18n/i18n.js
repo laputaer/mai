@@ -6,22 +6,27 @@
  */
 
 var Polyglot = require('node-polyglot');
-var translations = {
-	'en-US': require('./en-US')
-	, 'zh-CN': require('./zh-CN')
-};
+var polyglot = new Polyglot();
+
+var validLocale = ['en-us', 'zh-cn'];
+
+polyglot.extend(require('./en-US'), 'en-us');
+polyglot.extend(require('./zh-CN'), 'zh-cn');
+
+var Translation = require('./translation');
+var i18n = new Translation(polyglot);
 
 module.exports = factory;
 
 /**
  * Export a factory function instead of middleware
  *
- * @param   Boolean  flag  Return config or set it
+ * @param   Boolean  flag  Return i18n object or middleware
  * @return  Mixed
  */
 function factory(flag) {
 	if (!flag) {
-		return config;
+		return polyglot;
 	}
 
 	return middleware;
@@ -34,33 +39,17 @@ function factory(flag) {
  * @return  Void
  */
 function *middleware(next) {
-	// TODO: use subdomain to select i18n locale
-	this.i18n = i18n('zh-CN');
+	// in case we need any subdomain-based i18n
+	var prefix = 'zh-cn';
+	var subdomains = this.subdomains;
+
+	if (subdomains.length > 0 && validLocale.indexOf(subdomains[0]) > -1) {
+		prefix = subdomains[0];
+	}
+
+	// pass our translation object
+	i18n.locale(prefix);
+	this.i18n = i18n;
+
 	yield next;
-};
-
-/**
- * Create translation instance
- *
- * @param   String  name  locale
- * @return  Object
- */
-function i18n(locale) {
-	var polyglot = new Polyglot();
-
-	// missing translation
-	if (!translations[locale]) {
-		return polyglot;
-	}
-
-	polyglot.extend(translations[locale]);
-
-	// pluralization hint
-	if (locale.indexOf('zh') === 0) {
-		polyglot.locale('zh');
-	} else if (locale.indexOf('en') === 0) {
-		polyglot.locale('en');
-	}
-
-	return polyglot;
 };

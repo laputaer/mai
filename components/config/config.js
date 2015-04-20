@@ -23,7 +23,7 @@ module.exports = factory;
 /**
  * Export a factory function instead of middleware
  *
- * @param   Boolean  flag  Return config or set it
+ * @param   Boolean  flag  Return config object or middleware
  * @return  Mixed
  */
 function factory(flag) {
