@@ -29,6 +29,11 @@ function *getUserProfile() {
 		return;
 	}
 
+	// missing grant response
+	if (!this.session.grant.response) {
+		return;
+	}
+
 	// token for api calls
 	opts.access_token = this.session.grant.response.access_token || null;
 	opts.access_secret = this.session.grant.response.access_secret || null; // oauth 1
@@ -42,6 +47,9 @@ function *getUserProfile() {
 			'User-Agent': this.config.request.user_agent
 		}
 	};
+
+	// reset grant session
+	this.session.grant = {};
 
 	// missing token, abort
 	if (!opts.access_token) {
