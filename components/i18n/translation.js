@@ -20,7 +20,7 @@ function Translation(i18n) {
 	}
 
 	this.i18n = i18n;
-	this.prefix = '';
+	this.prefix = 'zh-cn';
 }
 
 /**

@@ -26,7 +26,7 @@ module.exports = factory;
  */
 function factory(flag) {
 	if (!flag) {
-		return polyglot;
+		return i18n;
 	}
 
 	return middleware;
