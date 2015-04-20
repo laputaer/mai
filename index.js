@@ -30,15 +30,16 @@ app.keys = [config.cookies.key];
 
 app.use(logger());
 app.use(dev(app.env));
-app.use(configFactory(true));
-app.use(i18nFactory(true));
-app.use(bodyparser());
-app.use(db());
-app.use(session(config.session, app));
-app.use(flash(config.flash));
-app.use(renderer());
-app.use(errorHandler());
-app.use(userSession());
+app.use(bodyparser()); // this.request.body
+app.use(session(config.session, app)); // this.session
+app.use(flash(config.flash)); // this.flash
+
+app.use(configFactory(true)); // this.config
+app.use(i18nFactory(true)); // this.i18n
+app.use(db()); // this.db, this.redis
+app.use(renderer()); // this.body
+app.use(errorHandler()); // this.state.vdoc
+app.use(userSession()); // this.state.user
 
 app.use(mount(grant));
 router(app);
