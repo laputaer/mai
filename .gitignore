@@ -38,3 +38,7 @@ public/assets/
 
 # Custom config file
 components/config/custom.js
+
+# Local development ssl cert
+ssl.crt
+ssl.key

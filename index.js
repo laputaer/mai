@@ -2,46 +2,32 @@
 /**
  * index.js
  *
- * App entry point
+ * App entry point, kickstart server
  */
 
-var koa = require('koa');
-var logger = require('koa-logger');
-var mount = require('koa-mount');
-var session = require('koa-session');
-var flash = require('koa-flash');
-var bodyparser = require('koa-bodyparser');
-var Grant = require('grant-koa');
-
-var db = require('./components/db/db');
-var dev = require('./components/dev/dev');
-var router = require('./components/router/router');
+var app = require('./app');
 var configFactory = require('./components/config/config');
-var i18nFactory = require('./components/i18n/i18n');
-var errorHandler = require('./components/error-handler/internal-error-handler');
-var renderer = require('./components/renderer/renderer');
-var userSession = require('./components/user/user-session');
-
-var app = koa();
 var config = configFactory();
-var grant = new Grant(config.oauth);
 
-app.keys = [config.cookies.key];
+// for local development
+if (config.server.key && config.server.crt) {
+	var http = require('http');
+	var https = require('https');
+	var fs = require('fs');
+	var options = {
+		key: fs.readFileSync(config.server.key)
+		, cert: fs.readFileSync(config.server.crt)
+	};
 
-app.use(logger());
-app.use(dev(app.env));
-app.use(bodyparser()); // this.request.body
-app.use(session(config.session, app)); // this.session
-app.use(flash(config.flash)); // this.flash
+	if (app.env === 'dev') {
+		http.createServer(app.callback()).listen(config.server.port);
+	} else if (app.env === 'local') {
+		https.createServer(options, app.callback()).listen(443);
+	} else {
+		app.listen(config.server.port);
+	}
+	return;
+}
 
-app.use(configFactory(true)); // this.config
-app.use(i18nFactory(true)); // this.i18n
-app.use(db()); // this.db, this.cache
-app.use(renderer()); // this.body
-app.use(errorHandler()); // this.state.vdoc
-app.use(userSession()); // this.state.user
-
-app.use(mount(grant)); // this.session.grant
-router(app); // this.state.vdoc
-
+// for production
 app.listen(config.server.port);
