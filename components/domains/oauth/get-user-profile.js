@@ -5,6 +5,8 @@
  * Retrieve oauth user profile
  */
 
+var getGithubUserProfile = require('./github-user-profile');
+var getTwitterUserProfile = require('./twitter-user-profile');
 var Purest = require('purest');
 var validator = require('validator');
 var xss = require('xss');
@@ -63,9 +65,9 @@ function *getUserProfile() {
 	// send request, handle error
 	try {
 		if (opts.provider === 'github') {
-			profile = yield getGithubUser(client, opts);
+			profile = yield getGithubUserProfile(client, opts);
 		} else if (opts.provider === 'twitter') {
-			profile = yield getTwitterUser(client, opts);
+			profile = yield getTwitterUserProfile(client, opts);
 		}
 		profile.provider = opts.provider;
 		profile.uid = opts.provider + '_' + profile.id;
@@ -91,60 +93,4 @@ function *getUserProfile() {
 	}
 
 	return profile;
-};
-
-/**
- * Get Github user profile
- *
- * @param   Object   client  RESTful client
- * @param   Object   opts    Addtional options
- * @return  Promise
- */
-function getGithubUser(client, opts) {
-	return new Promise(function(resolve, reject) {
-		client.query()
-			.get('user')
-			.auth(opts.access_token)
-			.request(function(err, res, body) {
-				if (err || (res.statusCode < 200 || res.statusCode >= 300)) {
-					reject(new Error('remote server returns status code ' + res.statusCode));
-					return;
-				}
-
-				resolve({
-					id: body.id.toString()
-					, name: body.name
-					, login: body.login
-					, avatar: body.avatar_url
-				});
-			});
-	});
-};
-
-/**
- * Get Twitter user profile
- *
- * @param   Object   client  RESTful client
- * @param   Object   opts    Addtional options
- * @return  Promise
- */
-function getTwitterUser(client, opts) {
-	return new Promise(function(resolve, reject) {
-		client.query()
-			.get('account/verify_credentials')
-			.auth(opts.access_token, opts.access_secret)
-			.request(function(err, res, body) {
-				if (err || (res.statusCode < 200 || res.statusCode >= 300)) {
-					reject(new Error('remote server returns status code ' + res.statusCode));
-					return;
-				}
-
-				resolve({
-					id: body.id_str
-					, name: body.name
-					, login: body.screen_name
-					, avatar: body.profile_image_url_https
-				});
-			});
-	});
 };

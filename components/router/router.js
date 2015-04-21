@@ -14,7 +14,7 @@ var clubCreate = require('../handlers/club-create');
 var clubSearch = require('../handlers/club-search');
 var clubHome = require('../handlers/club-home');
 var clubJoin = require('../handlers/club-join');
-var user = require('../user/user');
+var oauth = require('../auth/oauth');
 var profile = require('../user/user-profile');
 var oauthFailure = require('../error-handler/oauth-error-handler');
 var genericFailure = require('../error-handler/generic-error-handler');
@@ -40,7 +40,7 @@ function myRouter(app) {
 	app.get('/help', landing());
 
 	app.get('/u/:pid', profile());
-	app.get('/login/:provider', user());
+	app.get('/login/:provider', oauth());
 	app.get('/login/:provider/failed', oauthFailure());
 	app.get('/login/:provider/error', genericFailure());
 
