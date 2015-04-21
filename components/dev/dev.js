@@ -22,7 +22,7 @@ function factory(env) {
 
 	if (env === 'dev') {
 		tools.push(livereload({
-			port: 30001
+			src: 'https://mai.dev:30001/livereload.js?snipver=1'
 		}));
 	}
 

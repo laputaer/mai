@@ -19,9 +19,8 @@ if (config.server.key && config.server.crt) {
 		, cert: fs.readFileSync(config.server.crt)
 	};
 
-	if (app.env === 'dev') {
+	if (app.env === 'dev' || app.env === 'local') {
 		http.createServer(app.callback()).listen(config.server.port);
-	} else if (app.env === 'local') {
 		https.createServer(options, app.callback()).listen(443);
 	} else {
 		app.listen(config.server.port);
