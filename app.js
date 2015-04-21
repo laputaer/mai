@@ -27,6 +27,7 @@ var config = configFactory();
 var grant = new Grant(config.oauth);
 
 app.keys = [config.cookies.key];
+app.proxy = true;
 
 app.use(logger());
 app.use(dev(app.env));
