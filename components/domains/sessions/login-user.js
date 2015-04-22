@@ -10,34 +10,29 @@ module.exports = loginUser;
 /**
  * Login user
  *
- * @return  Boolean
+ * @param   Object  opts  Options { config, session, cache, profile }
+ * @return  Void
  */
-function *loginUser() {
-	var local = this.user.local;
-	var cache = this.cache;
+function *loginUser(opts) {
+	var session = opts.session;
+	var cache = opts.cache;
+	var config = opts.config;
 
 	// cookie session
-	this.session.uid = local.uid;
-	this.session.ts = Date.now();
+	session.uid = opts.profile.uid;
+	session.ts = new Date();
 
-	// cache store
-	var data = {
-		id: local.id
-		, provider: local.provider
-		, uid: local.uid
-		, login: local.login
-		, name: local.name
-		, avatar: local.avatar
+	// TODO: centralized data validation (error bubble to client)
+	var profile = {
+		id: opts.profile.id
+		, name: opts.profile.name
+		, login: opts.profile.login
+		, avatar: opts.profile.avatar
+		, provider: opts.profile.provider
+		, uid: opts.profile.uid
 	};
 
-	var result = true;
-	try {
-		yield cache.set('users:' + local.uid, JSON.stringify(data));
-		yield cache.pexpire('users:' + local.uid, this.config.session.maxAge);
-	} catch(err) {
-		result = false;
-		this.app.emit('error', err, this);
-	}
-
-	return result;
+	// cache update
+	yield cache.set('users:' + profile.uid, JSON.stringify(profile));
+	yield cache.pexpire('users:' + profile.uid, config.session.maxAge);
 };

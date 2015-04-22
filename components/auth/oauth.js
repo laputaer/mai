@@ -44,6 +44,7 @@ function *middleware(next) {
 		return;
 	}
 
+	// STEP 1: get oauth profile
 	try {
 		this.user.oauth = yield oauth.getUserProfile({
 			provider: provider
@@ -59,35 +60,51 @@ function *middleware(next) {
 
 	// handle oauth failure
 	if (!this.user.oauth) {
-		this.redirect('/login/' + this.params.provider + '/failed');
+		this.redirect('/login/' + provider + '/failed');
 		return;
 	}
 
-	this.user.local = yield users.matchUser({
-		db: this.db
-		, uid: this.user.oauth.uid
-	});
-
-	if (this.user.local !== null) {
-		this.user.local = yield users.updateUser.apply(this);
-	} else {
-		this.user.local = yield users.createUser({
+	// STEP 2: create/update local profile
+	try {
+		this.user.local = yield users.matchUser({
 			db: this.db
-			, profile: this.user.oauth
+			, uid: this.user.oauth.uid
 		});
+
+		if (this.user.local !== null) {
+			this.user.local = yield users.updateUser({
+				db: this.db
+				, profile: this.user.oauth
+			});
+		} else {
+			this.user.local = yield users.createUser({
+				db: this.db
+				, profile: this.user.oauth
+			});
+		}
+	} catch(err) {
+		this.app.emit('error', err, this);
 	}
 
 	// handle database failure
 	if (!this.user.local) {
-		this.redirect('/login/' + this.params.provider + '/error');
+		this.redirect('/login/' + provider + '/error');
 		return;
 	}
 
-	var status = yield sessions.loginUser.apply(this);
+	// STEP 3: update user session
+	try {
+		yield sessions.loginUser({
+			config: this.config
+			, session: this.session
+			, cache: this.cache
+			, profile: this.user.local
+		});
+	} catch(err) {
+		this.app.emit('error', err, this);
 
-	// handle session store failure
-	if (!status) {
-		this.redirect('/login/' + this.params.provider + '/error');
+		// handle session/cache error
+		this.redirect('/login/' + provider + '/error');
 		return;
 	}
 

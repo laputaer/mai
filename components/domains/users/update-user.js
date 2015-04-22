@@ -2,37 +2,36 @@
 /**
  * update-user.js
  *
- * Sync local user with oauth profile changes
+ * Update local user given profile data
  */
 
 module.exports = updateUser;
 
 /**
- * Update local user
+ * Update and return local user
  *
- * @return  Object
+ * @param   Object  opts  Options { db, profile }
+ * @return  Object        User local profile
  */
-function *updateUser() {
-	var oauth = this.user.oauth;
-	var local = this.user.local;
-	var db = this.db;
-
-	// update user
+function *updateUser(opts) {
+	var db = opts.db;
 	var User = db.col('users');
-	try {
-		yield User.update({
-			uid: local.uid
-		}, {
-			name: oauth.name
-			, login: oauth.login
-			, avatar: oauth.avatar
-			, updated: new Date()
-		});
-	} catch(err) {
-		this.app.emit('error', err, this);
-	}
 
+	// TODO: centralized data validation (error bubble to client)
+	var profile = {
+		name: opts.profile.name
+		, login: opts.profile.login
+		, avatar: opts.profile.avatar
+		, updated: new Date()
+	};
+
+	// may throw error
+	yield User.update({
+		uid: opts.profile.uid
+	}, profile);
+
+	// null if user not found
 	return yield User.findOne({
-		uid: local.uid
+		uid: opts.profile.uid
 	});
 };
