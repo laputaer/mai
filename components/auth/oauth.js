@@ -30,7 +30,7 @@ function *middleware(next) {
 	yield next;
 
 	var provider = this.params.provider;
-	this.user = {};
+	var user = {};
 
 	// provider not supported
 	if (!provider || !this.config.oauth[provider]) {
@@ -46,7 +46,7 @@ function *middleware(next) {
 
 	// STEP 1: get oauth profile
 	try {
-		this.user.oauth = yield oauth.getUserProfile({
+		user.oauth = yield oauth.getUserProfile({
 			provider: provider
 			, config: this.config
 			, response: this.session.grant.response
@@ -59,27 +59,27 @@ function *middleware(next) {
 	}
 
 	// handle oauth failure
-	if (!this.user.oauth) {
+	if (!user.oauth) {
 		this.redirect('/login/' + provider + '/failed');
 		return;
 	}
 
 	// STEP 2: create/update local profile
 	try {
-		this.user.local = yield users.matchUser({
+		user.local = yield users.matchUser({
 			db: this.db
-			, uid: this.user.oauth.uid
+			, uid: user.oauth.uid
 		});
 
-		if (this.user.local !== null) {
-			this.user.local = yield users.updateUser({
+		if (user.local !== null) {
+			user.local = yield users.updateUser({
 				db: this.db
-				, profile: this.user.oauth
+				, profile: user.oauth
 			});
 		} else {
-			this.user.local = yield users.createUser({
+			user.local = yield users.createUser({
 				db: this.db
-				, profile: this.user.oauth
+				, profile: user.oauth
 			});
 		}
 	} catch(err) {
@@ -87,7 +87,7 @@ function *middleware(next) {
 	}
 
 	// handle database failure
-	if (!this.user.local) {
+	if (!user.local) {
 		this.redirect('/login/' + provider + '/error');
 		return;
 	}
@@ -98,7 +98,7 @@ function *middleware(next) {
 			config: this.config
 			, session: this.session
 			, cache: this.cache
-			, profile: this.user.local
+			, profile: user.local
 		});
 	} catch(err) {
 		this.app.emit('error', err, this);
@@ -108,8 +108,7 @@ function *middleware(next) {
 		return;
 	}
 
-	// redirect to user profile
-	var local = this.user.local;
-	var pid = local.provider.substr(0, 1) + local.id;
+	// TODO: use uid instead of pid
+	var pid = provider.substr(0, 1) + user.local.id;
 	this.redirect('/u/' + pid);
 };
