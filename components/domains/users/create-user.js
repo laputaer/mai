@@ -2,33 +2,40 @@
 /**
  * create-user.js
  *
- * Create local user given oauth profile data
+ * Create local user given profile data
  */
 
 module.exports = createUser;
 
 /**
- * Create local user
+ * Create and return local user
  *
- * @return  Object
+ * @param   Object  opts  Options { db, profile }
+ * @return  Object        User local profile
  */
-function *createUser() {
-	var oauth = this.user.oauth;
-	var db = this.db;
-
-	// new user
+function *createUser(opts) {
+	var db = opts.db;
 	var User = db.col('users');
-	try {
-		oauth.action_point = 5;
-		oauth.action_base = 15;
-		oauth.created = new Date();
-		oauth.updated = new Date();
-		yield User.insert(oauth);
-	} catch(err) {
-		this.app.emit('error', err, this);
-	}
 
+	// TODO: centralized data validation (error bubble to client)
+	var profile = {
+		id: opts.profile.id
+		, name: opts.profile.name
+		, login: opts.profile.login
+		, avatar: opts.profile.avatar
+		, provider: opts.profile.provider
+		, uid: opts.profile.uid
+		, action_point: 15
+		, action_base: 15
+		, created: new Date()
+		, updated: new Date()
+	};
+
+	// may throw error
+	yield User.insert(profile);
+
+	// null if user not found
 	return yield User.findOne({
-		uid: oauth.uid
+		uid: profile.uid
 	});
 };

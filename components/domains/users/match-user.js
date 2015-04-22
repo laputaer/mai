@@ -10,14 +10,15 @@ module.exports = matchUser;
 /**
  * Match local user
  *
- * @return  Object
+ * @param   Object  opts  Options { db, uid }
+ * @return  Object        User local profile
  */
-function *matchUser() {
-	var oauth = this.user.oauth;
-	var db = this.db;
+function *matchUser(opts) {
+	var db = opts.db;
 	var User = db.col('users');
 
+	// null if user not found
 	return yield User.findOne({
-		uid: oauth.uid
+		uid: opts.uid
 	});
 };

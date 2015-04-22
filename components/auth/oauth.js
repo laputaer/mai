@@ -50,6 +50,8 @@ function *middleware(next) {
 			, config: this.config
 			, response: this.session.grant.response
 		});
+
+		// clear user oauth info on successful profile fetch
 		delete this.session.grant;
 	} catch(err) {
 		this.app.emit('error', err, this);
@@ -61,11 +63,18 @@ function *middleware(next) {
 		return;
 	}
 
-	this.user.local = yield users.matchUser.apply(this);
-	if (this.user.local) {
+	this.user.local = yield users.matchUser({
+		db: this.db
+		, uid: this.user.oauth.uid
+	});
+
+	if (this.user.local !== null) {
 		this.user.local = yield users.updateUser.apply(this);
 	} else {
-		this.user.local = yield users.createUser.apply(this);
+		this.user.local = yield users.createUser({
+			db: this.db
+			, profile: this.user.oauth
+		});
 	}
 
 	// handle database failure

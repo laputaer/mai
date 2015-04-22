@@ -18,7 +18,7 @@ module.exports = getUserProfile;
  * Get user profile
  *
  * @param   Object  opts  Options { provider, config, response }
- * @return  Object        User profile
+ * @return  Object        User oauth profile
  */
 function *getUserProfile(opts) {
 	// missing oauth reponse or token
