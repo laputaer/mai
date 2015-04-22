@@ -29,8 +29,31 @@ function factory() {
 function *middleware(next) {
 	yield next;
 
+	var provider = this.params.provider;
 	this.user = {};
-	this.user.oauth = yield oauth.getUserProfile.apply(this);
+
+	// provider not supported
+	if (!provider || !this.config.oauth[provider]) {
+		this.redirect('/login/' + provider + '/failed');
+		return;
+	}
+
+	// oauth info missing
+	if (!this.session.grant || !this.session.grant.response) {
+		this.redirect('/login/' + provider + '/failed');
+		return;
+	}
+
+	try {
+		this.user.oauth = yield oauth.getUserProfile({
+			provider: provider
+			, config: this.config
+			, response: this.session.grant.response
+		});
+		delete this.session.grant;
+	} catch(err) {
+		this.app.emit('error', err, this);
+	}
 
 	// handle oauth failure
 	if (!this.user.oauth) {

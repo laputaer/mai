@@ -5,89 +5,70 @@
  * Retrieve oauth user profile
  */
 
-var getGithubUserProfile = require('./github-user-profile');
-var getTwitterUserProfile = require('./twitter-user-profile');
 var Purest = require('purest');
 var validator = require('validator');
 var xss = require('xss');
+
+var getGithubUserProfile = require('./github-user-profile');
+var getTwitterUserProfile = require('./twitter-user-profile');
 
 module.exports = getUserProfile;
 
 /**
  * Get user profile
  *
- * @return  Object
+ * @param   Object  opts  Options { provider, config, response }
+ * @return  Object        User profile
  */
-function *getUserProfile() {
-	// load oauth related config
-	var config = this.config.oauth;
-
-	// load oauth result
-	var opts = {};
-	opts.provider = this.params.provider;
-
-	// invalid provider
-	if (!config[opts.provider]) {
-		return;
+function *getUserProfile(opts) {
+	// missing oauth reponse or token
+	if (!opts.response || !opts.response.access_token) {
+		throw new Error('missing oauth response or access token');
 	}
 
-	// missing grant response
-	if (!this.session.grant || !this.session.grant.response) {
-		return;
-	}
-
-	// token for api calls
-	opts.access_token = this.session.grant.response.access_token || null;
-	opts.access_secret = this.session.grant.response.access_secret || null; // oauth 1
-	opts.refresh_token = this.session.grant.response.refresh_token || null; // oauth 2
-	// only for oauth 1
-	opts.key = config[opts.provider]['type'] === 1 ? config[opts.provider]['key'] : null;
-	opts.secret = config[opts.provider]['type'] === 1 ? config[opts.provider]['secret'] : null;
-	// identify consumer UA (a requirement for some oauth providers)
-	opts.defaults = {
-		headers: {
-			'User-Agent': this.config.request.user_agent
+	var provider = opts.provider;
+	var oauth = opts.config.oauth;
+	var options = {
+		provider: provider
+		, access_token: opts.response.access_token
+		, refresh_token: opts.response.refresh_token // oauth 2
+		, access_secret: opts.response.access_secret // oauth 1
+		, key: oauth[provider]['type'] === 1 ? oauth[provider]['key'] : undefined // oauth 1
+		, secret: oauth[provider]['type'] === 1 ? oauth[provider]['secret'] : undefined // oauth 1
+		, defaults: {
+			headers: {
+				'User-Agent': opts.config.request.user_agent // always identify consumer UA
+			}
 		}
 	};
 
-	// reset grant session
-	delete this.session.grant;
-
-	// missing token, abort
-	if (!opts.access_token) {
-		return;
-	}
-
 	// setup client
-	var client = new Purest(opts);
+	var client = new Purest(options);
 	var profile;
 
-	// send request, handle error
-	try {
-		if (opts.provider === 'github') {
-			profile = yield getGithubUserProfile(client, opts);
-		} else if (opts.provider === 'twitter') {
-			profile = yield getTwitterUserProfile(client, opts);
-		}
-		profile.provider = opts.provider;
-		profile.uid = opts.provider + '_' + profile.id;
-	} catch(err) {
-		profile = false;
-		this.app.emit('error', err, this);
+	// send request, may throw error
+	if (provider === 'github') {
+		profile = yield getGithubUserProfile(client, options);
+	} else if (provider === 'twitter') {
+		profile = yield getTwitterUserProfile(client, options);
 	}
 
-	// no profile found, abort
-	if (!profile) {
-		return;
+	// empty user profile
+	if (!profile || !profile.id) {
+		throw new Error('oauth profile empty');
 	}
 
-	// filter and validate risky inputs
-	profile.name = xss(profile.name);
+	profile.provider = provider;
+	profile.uid = provider + '_' + profile.id;
+
+	// TODO: make sure we do xss on OUTPUT
+	// TODO: replace validator with domain logic validation
+
+	// validate oauth profile
 	if (!validator.isLength(profile.name, 1, 60)) {
 		profile.name = profile.name.substr(0, 60) || 'No Name';
 	}
 
-	profile.avatar = xss(profile.avatar);
 	if (!validator.isURL(profile.avatar)) {
 		delete profile.avatar;
 	}
