@@ -27,17 +27,14 @@ function template(data) {
 		avatar = avatar + '&s=64';
 	}
 
-	// set user pid
-	var pid = user.provider.substr(0, 1) + user.id;
-
 	// set button status
 	var status = '';
-	if (data.path === '/u/' + pid) {
+	if (data.path === '/u/' + user.uid) {
 		status = '.active';
 	}
 
 	var button = h('a.m-button.rounded' + status, {
-		href: '/u/' + pid
+		href: '/u/' + user.uid
 	}, [
 		h('div.m-image', {
 			style: {

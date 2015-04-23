@@ -7,7 +7,7 @@
 
 var builders = require('../builders/builders');
 var removeSlash = require('../helpers/remove-trailing-slash');
-var findUser = require('./find-user');
+var users = require('../domains/users');
 
 module.exports = factory;
 
@@ -35,7 +35,17 @@ function *middleware(next) {
 	data.path = removeSlash(this.path);
 	data.version = this.config.version;
 	data.current_user = this.state.user;
-	data.user = yield findUser.apply(this);
+
+	// STEP 1: get user profile
+	try {
+		data.user = yield users.matchUser({
+			db: this.db
+			, uid: this.params.pid
+		});
+	} catch(err) {
+		this.app.emit('error', err, this);
+	}
+
 	data.body = [];
 
 	if (!data.user) {

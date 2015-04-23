@@ -108,7 +108,5 @@ function *middleware(next) {
 		return;
 	}
 
-	// TODO: use uid instead of pid
-	var pid = provider.substr(0, 1) + user.local.id;
-	this.redirect('/u/' + pid);
+	this.redirect('/u/' + user.local.uid);
 };

@@ -22,9 +22,6 @@ function template(data) {
 	var owner = data.owner;
 	var user = data.user;
 
-	var pid = owner.uid.split('_');
-	pid = pid[0].substr(0, 1) + pid[1];
-
 	var container = h('div.club-profile', [
 		h('div.profile', [
 			h('div.avatar', [
@@ -34,7 +31,7 @@ function template(data) {
 			, h('p.owner', [
 				h('span.text', i18n.t('club.club-owner', club))
 				, h('a.link', {
-					href: '/u/' + pid
+					href: '/u/' + owner.uid
 				}, owner.login)
 			])
 		])
