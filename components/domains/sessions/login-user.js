@@ -2,7 +2,7 @@
 /**
  * login-user.js
  *
- * Upgrade guest session to user session
+ * Upgrade guest session into user session, populate cache
  */
 
 module.exports = loginUser;
@@ -20,19 +20,18 @@ function *loginUser(opts) {
 
 	// cookie session
 	session.uid = opts.profile.uid;
-	session.ts = new Date();
+	session.last_seen = Date.now().toString();
 
 	// TODO: centralized data validation (error bubble to client)
 	var profile = {
-		id: opts.profile.id
-		, name: opts.profile.name
+		name: opts.profile.name
 		, login: opts.profile.login
 		, avatar: opts.profile.avatar
-		, provider: opts.profile.provider
 		, uid: opts.profile.uid
+		, last_seen: Date.now().toString()
 	};
 
-	// cache update
-	yield cache.set('users:' + profile.uid, JSON.stringify(profile));
-	yield cache.pexpire('users:' + profile.uid, config.session.maxAge);
+	// cache update, may throw error
+	yield cache.hmset('users:' + profile.uid, profile);
+	yield cache.expire('users:' + profile.uid, config.session.maxAge);
 };

@@ -40,7 +40,7 @@ function *middleware(next) {
 	try {
 		data.user = yield users.matchUser({
 			db: this.db
-			, uid: this.params.pid
+			, uid: this.params.uid
 		});
 	} catch(err) {
 		this.app.emit('error', err, this);
