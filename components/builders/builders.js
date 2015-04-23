@@ -16,9 +16,11 @@ var oauthError = require('./oauth-error');
 var notFoundError = require('./not-found-error');
 var login = require('./login');
 var userProfile = require('./user-profile');
+var prepareData = require('./prepare-data');
 
 module.exports = {
 	doc: doc
+	, prepareData: prepareData
 	, landing: landing
 	, club: club
 	, clubNew: clubNew

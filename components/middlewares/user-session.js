@@ -45,7 +45,6 @@ function *middleware(next) {
 		this.app.emit('error', err, this);
 	}
 
-	console.log(user);
 	if (user) {
 		this.state.user = user;
 	}

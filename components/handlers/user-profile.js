@@ -6,7 +6,6 @@
  */
 
 var builders = require('../builders/builders');
-var removeSlash = require('../helpers/remove-trailing-slash');
 var users = require('../domains/users');
 
 module.exports = factory;
@@ -30,11 +29,7 @@ function *middleware(next) {
 	yield next;
 
 	// prepare data
-	var data = {};
-	data.i18n = this.i18n;
-	data.path = removeSlash(this.path);
-	data.version = this.config.version;
-	data.current_user = this.state.user;
+	var data = builders.prepareData(this);
 
 	// STEP 1: get user profile
 	try {
