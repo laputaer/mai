@@ -19,7 +19,7 @@ var router = require('./components/router/router');
 var configFactory = require('./components/config/config');
 var i18nFactory = require('./components/i18n/i18n');
 var errorHandler = require('./components/error-handler/internal-error-handler');
-var renderer = require('./components/renderer/renderer');
+var renderer = require('./components/middlewares/template-renderer');
 var userSession = require('./components/middlewares/user-session');
 
 var app = koa();
