@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha tests/",
     "start": "node index.js",
-    "setup": "npm install && npm run build:css && npm run build:js && npm run build:svg && npm run build:img",
+    "setup": "npm install && npm run build:css && npm run build:js && npm run build:svg && npm run build:img && npm run migration",
     "migration": "node migration/migration.js",
     "local": "sudo NODE_ENV=local node index.js",
     "dev:be": "sudo NODE_ENV=dev nodemon --ext js --ignore components/client-js/ --watch components/ --watch index.js --watch app.js index.js",
