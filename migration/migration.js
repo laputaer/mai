@@ -7,6 +7,7 @@
 
 var co = require('co');
 var mongodb = require('../components/db/mongodb');
+var redis = require('../components/db/redis');
 var configFactory = require('../components/config/config');
 
 var versionsV1 = require('./versions-v1');
@@ -17,14 +18,17 @@ var clubsV1 = require('./clubs-v1');
 var clubsV2 = require('./clubs-v2');
 var clubsV3 = require('./clubs-v3');
 var membershipsV1 = require('./memberships-v1');
+var cacheUsersV1 = require('./cache-users-v1');
 
 function *migration() {
 	console.log('migration started');
 
 	// prepare migration
 	var context = {};
-	context.config = configFactory();
+	var config = configFactory();
+	context.config = config;
 	var db = yield mongodb.apply(context);
+	var cache = yield redis.apply(context);
 
 	// run migrations, always add new migration at the end
 	yield versionsV1(db);
@@ -35,7 +39,8 @@ function *migration() {
 	yield clubsV2(db);
 	yield clubsV3(db);
 	yield membershipsV1(db);
-}
+	yield cacheUsersV1(db, cache, config);
+};
 
 co(migration).then(function() {
 	console.log('migration done');
