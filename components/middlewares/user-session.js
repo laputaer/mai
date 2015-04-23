@@ -33,8 +33,8 @@ function *middleware(next) {
 			, cache: this.cache
 		});
 
-		// refresh old session
-		if (user && parseInt(user.last_seen, 10) < Date.now() - 60 * 5) {
+		// refresh session/cache at most every 5 minutes
+		if (user && parseInt(user.last_seen, 10) < Date.now() - 1000 * 60 * 5) {
 			user = yield sessions.refreshUser({
 				session: this.session
 				, cache: this.cache

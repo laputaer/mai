@@ -18,6 +18,7 @@ function *logoutUser(opts) {
 	var cache = opts.cache;
 	var config = opts.config;
 	var uid = session.uid;
+	var ts = Date.now().toString();
 
 	// guest session, ignore
 	if (!session.uid) {
@@ -26,9 +27,9 @@ function *logoutUser(opts) {
 
 	// cookie session
 	delete session.uid;
-	session.last_seen = Date.now().toString();
+	session.last_seen = ts;
 
 	// cache update, may throw error
-	yield cache.hset('users:' + uid, 'last_seen', Date.now().toString());
+	yield cache.hset('users:' + uid, 'last_seen', ts);
 	yield cache.expire('users:' + uid, config.session.maxAge);
 };

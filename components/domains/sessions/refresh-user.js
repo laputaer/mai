@@ -17,6 +17,7 @@ function *refreshUser(opts) {
 	var session = opts.session;
 	var cache = opts.cache;
 	var config = opts.config;
+	var ts = Date.now().toString();
 
 	// guest session, ignore
 	if (!session.uid) {
@@ -24,10 +25,10 @@ function *refreshUser(opts) {
 	}
 
 	// cookie session
-	session.last_seen = Date.now().toString();
+	session.last_seen = ts;
 
 	// cache update, may throw error
-	yield cache.hset('users:' + session.uid, 'last_seen', Date.now().toString());
+	yield cache.hset('users:' + session.uid, 'last_seen', ts);
 	yield cache.expire('users:' + session.uid, config.session.maxAge);
 
 	// get cache, may throw error
