@@ -5,9 +5,9 @@
  * Handle oauth user login
  */
 
-var oauth = require('../domains/oauth');
-var users = require('../domains/users');
-var sessions = require('../domains/sessions');
+var oauthDomain = require('../domains/oauth');
+var usersDomain = require('../domains/users');
+var sessionDomain = require('../domains/session');
 
 module.exports = factory;
 
@@ -46,7 +46,7 @@ function *middleware(next) {
 
 	// STEP 1: get oauth profile
 	try {
-		user.oauth = yield oauth.getUserProfile({
+		user.oauth = yield oauthDomain.getUserProfile({
 			provider: provider
 			, config: this.config
 			, response: this.session.grant.response
@@ -66,18 +66,18 @@ function *middleware(next) {
 
 	// STEP 2: create/update local profile
 	try {
-		user.local = yield users.matchUser({
+		user.local = yield usersDomain.matchUser({
 			db: this.db
 			, uid: user.oauth.uid
 		});
 
 		if (user.local !== null) {
-			user.local = yield users.updateUser({
+			user.local = yield usersDomain.updateUser({
 				db: this.db
 				, profile: user.oauth
 			});
 		} else {
-			user.local = yield users.createUser({
+			user.local = yield usersDomain.createUser({
 				db: this.db
 				, profile: user.oauth
 			});
@@ -94,7 +94,7 @@ function *middleware(next) {
 
 	// STEP 3: update user session
 	try {
-		yield sessions.loginUser({
+		yield sessionDomain.loginUser({
 			config: this.config
 			, session: this.session
 			, cache: this.cache

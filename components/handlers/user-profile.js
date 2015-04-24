@@ -6,7 +6,7 @@
  */
 
 var builders = require('../builders/builders');
-var users = require('../domains/users');
+var usersDomain = require('../domains/users');
 
 module.exports = factory;
 
@@ -33,7 +33,7 @@ function *middleware(next) {
 
 	// STEP 1: get user profile
 	try {
-		data.user = yield users.matchUser({
+		data.user = yield usersDomain.matchUser({
 			db: this.db
 			, uid: this.params.uid
 		});

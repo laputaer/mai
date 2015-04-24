@@ -5,7 +5,7 @@
  * Load user session data into global context
  */
 
-var sessions = require('../domains/sessions');
+var sessionDomain = require('../domains/session');
 
 module.exports = factory;
 
@@ -28,14 +28,14 @@ function *middleware(next) {
 	// STEP 1: load from cache
 	var user;
 	try {
-		user = yield sessions.currentUser({
+		user = yield sessionDomain.currentUser({
 			session: this.session
 			, cache: this.cache
 		});
 
 		// refresh session/cache at most every 5 minutes
 		if (user && parseInt(user.last_seen, 10) < Date.now() - 1000 * 60 * 5) {
-			user = yield sessions.refreshUser({
+			user = yield sessionDomain.refreshUser({
 				session: this.session
 				, cache: this.cache
 				, config: this.config
