@@ -19,7 +19,8 @@ module.exports = template;
 function template(data) {
 	var i18n = data.i18n;
 	var error = h('div.error', [
-		h('p.line', i18n.t('main.internal-error'))
+		h('p.line', i18n.t('error.internal-server'))
+		, h('p.line', i18n.t('error.internal-service-down'))
 	]);
 
 	return error;

@@ -32,12 +32,13 @@ module.exports = {
 		, 'line-3': '但我们隐约之中'
 		, 'line-4': '已经感到它光明的未来'
 		, 'thanks': '感谢注册，请静候本站的变化'
-		, 'internal-error': '非常抱歉，看来我们的内部服务出了点问题'
 		, 'oauth-error': 'OAuth 登陆失败'
 		, 'login': '请在登录后访问这个功能'
 	}
 	, 'error': {
 		'not-found': 'Error 404'
+		, 'internal-server': 'Error 500'
+		, 'internal-service-down': '非常抱歉，看来我们的内部服务出了点问题'
 		, 'not-found-user': '你要找的人不存在？'
 		, 'not-found-club': '你要找的社团不存在？'
 		, 'form-required-input-missing': '必填的内容不应为空。'
