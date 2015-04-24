@@ -6,7 +6,6 @@
  */
 
 var builders = require('../builders/builders');
-var removeSlash = require('../helpers/remove-trailing-slash');
 
 module.exports = factory;
 

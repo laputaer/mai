@@ -6,7 +6,7 @@
  */
 
 var builders = require('../builders/builders');
-var removeSlash = require('../helpers/remove-trailing-slash');
+var usersDomain = require('../domains/users');
 var findUser = require('./find-user');
 var findClubs = require('./find-clubs');
 var findJoinedClubs = require('./find-joined-clubs');
@@ -37,13 +37,21 @@ function *middleware(next) {
 	// guest user
 	if (!data.current_user) {
 		data.body.push(builders.login(data));
+		this.state.vdoc = builders.doc(data);
+		return;
+	}
 
 	// login user
-	} else {
-		data.user = yield findUser.apply(this);
+	try {
+		data.user = yield usersDomain.matchUser({
+			db: this.db
+			, uid: data.current_user.uid
+		});
 		data.clubs = yield findClubs.apply(this);
 		data.joined_clubs = yield findJoinedClubs.apply(this);
 		data.body.push(builders.club(data));
+	} catch(err) {
+
 	}
 
 	// render vdoc
