@@ -16,8 +16,8 @@ var clubHome = require('./handlers/club-home');
 var clubJoin = require('./handlers/club-join');
 var oauth = require('./handlers/oauth');
 var profile = require('./handlers/user-profile');
-var oauthFailure = require('./error-handler/oauth-error-handler');
-var genericFailure = require('./error-handler/generic-error-handler');
+var oauthFailure = require('./handlers/oauth-error-handler');
+var genericFailure = require('./handlers/generic-error-handler');
 
 module.exports = myRouter;
 

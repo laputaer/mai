@@ -16,8 +16,8 @@ var Grant = require('grant-koa');
 var db = require('./db/db');
 var configFactory = require('./config/config');
 var i18nFactory = require('./i18n/i18n');
-var errorHandler = require('./error-handler/internal-error-handler');
 
+var errorHandler = require('./middlewares/internal-error-handler');
 var dev = require('./middlewares/local-development');
 var renderer = require('./middlewares/template-renderer');
 var userSession = require('./middlewares/user-session');
