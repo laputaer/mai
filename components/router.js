@@ -48,5 +48,6 @@ function myRouter(app) {
 	app.post('/club', clubCreate());
 	app.get('/club/search', clubSearch());
 	app.get('/c/:slug', clubHome());
+	// TODO: get should not have side-effect
 	app.get('/c/:slug/join', clubJoin());
 };

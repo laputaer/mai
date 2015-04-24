@@ -6,7 +6,7 @@
  */
 
 var builders = require('../builders/builders');
-var findUser = require('./find-user');
+var usersDomain = require('../domains/users');
 
 module.exports = factory;
 
@@ -34,11 +34,19 @@ function *middleware(next) {
 	// guest user
 	if (!data.current_user) {
 		data.body.push(builders.login(data));
+		this.state.vdoc = builders.doc(data);
+		return;
+	}
 
 	// login user
-	} else {
-		data.user = yield findUser.apply(this);
+	try {
+		data.user = yield usersDomain.matchUser({
+			db: this.db
+			, uid: data.current_user.uid
+		});
 		data.body.push(builders.clubNew(data));
+	} catch(err) {
+		this.app.emit('error', err, this);
 	}
 
 	// render vdoc

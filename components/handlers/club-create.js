@@ -5,8 +5,10 @@
  * Koa route handler for club page
  */
 
+var usersDomain = require('../domains/users');
+var clubsDomain = require('../domains/clubs');
+
 var validator = require('validator');
-var xss = require('xss');
 var hasAttrs = require('../helpers/has-required-attributes');
 var findUser = require('./find-user');
 var matchClub = require('./match-club');
@@ -38,10 +40,14 @@ function *middleware(next) {
 		return;
 	}
 
-	// missing input
 	var body = this.request.body;
-	var attrs = hasAttrs(body, ['title', 'slug'], true);
 	var flash = {};
+
+	// TODO: xss on output
+	// TODO: replace validator
+
+	// missing input
+	var attrs = hasAttrs(body, ['title', 'slug'], true);
 	if (attrs.length > 0) {
 		this.flash = {
 			type: 'form'
@@ -54,7 +60,6 @@ function *middleware(next) {
 	}
 
 	// input validation
-	body.title = xss(body.title);
 	if (!validator.isLength(body.title, 2, 32)) {
 		if (!flash.attrs) {
 			flash.attrs = ['title'];
@@ -63,7 +68,6 @@ function *middleware(next) {
 		}
 	}
 
-	body.slug = xss(body.slug);
 	body.slug = body.slug.toLowerCase();
 	if (!validator.isLength(body.slug, 2, 16)
 		|| !validator.matches(body.slug, '^[A-Za-z0-9-]+$')
@@ -93,7 +97,10 @@ function *middleware(next) {
 	body.owner = this.session.uid;
 	this.state.input = body;
 
-	this.user = yield findUser.apply(this);
+	this.user = yield usersDomain.matchUser({
+		db: this.db
+		, uid: data.current_user.uid
+	});
 
 	// check user action point
 	if (this.user.action_point < 10) {
