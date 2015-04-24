@@ -11,7 +11,7 @@ module.exports = createClub;
  * Create and return a club
  *
  * @param   Object  opts  Options { db, user, data }
- * @return  Object        User local profile
+ * @return  Object        Club data
  */
 function *createClub(opts) {
 	var db = opts.db;

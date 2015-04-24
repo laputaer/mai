@@ -6,10 +6,9 @@
  */
 
 var builders = require('../builders/builders');
-var removeSlash = require('../helpers/remove-trailing-slash');
-var findClub = require('./find-club');
-var findOwner = require('./find-owner');
-var findUser = require('./find-user');
+
+var clubsDomain = require('../domains/clubs');
+var usersDomain = require('../domains/users');
 
 module.exports = factory;
 
@@ -31,17 +30,17 @@ function factory() {
 function *middleware(next) {
 	yield next;
 
-	// prepare data
-	var data = {};
-	data.i18n = this.i18n;
-	data.path = removeSlash(this.path);
-	data.version = this.config.version;
-	data.current_user = this.state.user;
-	data.body = [];
+	// prepare common data
+	var data = builders.prepareData(this);
 
-	data.club = yield findClub.apply(this);
+	// STEP 1: find club
+	data.club = yield clubsDomain.matchClub({
+		db: this.db
+		, slug: this.params.slug
+	});
 	data.current_url = this.request.href;
 
+	// STEP 2: find owner and current user
 	if (!data.club) {
 		data.message = data.i18n.t('error.not-found-club');
 		data.body.push(builders.notFoundError(data));
@@ -50,9 +49,14 @@ function *middleware(next) {
 		data.body.push(builders.login(data));
 
 	} else {
-		this.state.owner = data.club.owner;
-		data.owner = yield findOwner.apply(this);
-		data.user = yield findUser.apply(this);
+		data.owner = yield usersDomain.matchUser({
+			db: this.db
+			, uid: data.club.owner
+		});
+		data.user = yield usersDomain.matchUser({
+			db: this.db
+			, uid: data.current_user.uid
+		});
 
 		data.body.push(builders.clubProfile(data));
 	}

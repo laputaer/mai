@@ -10,9 +10,6 @@ var clubsDomain = require('../domains/clubs');
 
 var validator = require('validator');
 var hasAttrs = require('../helpers/has-required-attributes');
-var findUser = require('./find-user');
-var matchClub = require('./match-club');
-var createClub = require('./create-club');
 
 module.exports = factory;
 

@@ -27,11 +27,8 @@ function factory() {
 function *middleware(next) {
 	yield next;
 
-	// prepare data
-	var data = {};
-	data.i18n = this.i18n;
-	data.version = this.config.version;
-	data.body = [];
+	// prepare common data
+	var data = builders.prepareData(this);
 	data.body.push(builders.oauthError(data));
 
 	// render vdoc

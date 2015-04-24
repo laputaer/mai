@@ -6,10 +6,9 @@
  */
 
 var builders = require('../builders/builders');
-var findUser = require('./find-user');
-var findClub = require('./find-club');
-var checkMembership = require('./check-membership');
-var joinClub = require('./join-club');
+
+var clubsDomain = require('../domains/clubs');
+var usersDomain = require('../domains/users');
 
 module.exports = factory;
 
@@ -37,33 +36,49 @@ function *middleware(next) {
 		return;
 	}
 
-	this.user = yield findUser.apply(this);
+	var user = this.state.user;
+	var slug = this.params.slug;
+
+	// STEP 1: get full user data
+	user = yield usersDomain.matchUser({
+		db: this.db
+		, uid: user.uid
+	});
 
 	// check user action point
-	if (this.user.action_point < 2) {
+	if (user.action_point < 2) {
 		this.flash = {
 			type: 'form'
 			, message: 'error.insufficient-action-point'
 			, messageData: {
 				required: 2
-				, current: this.user.action_point
+				, current: user.action_point
 			}
 			, attrs: []
 			, body: body
 		};
-		this.redirect('/c/' + this.params.slug);
+		this.redirect('/c/' + slug);
 		return;
 	}
 
-	this.club = yield findClub.apply(this);
+	// STEP 2: find existing club
+	var club = yield clubsDomain.matchClub({
+		db: this.db
+		, slug: slug
+	});
 
 	// club does not exists
-	if (!this.club) {
+	if (!club) {
 		this.redirect('/club');
 		return;
 	}
 
-	var member = yield checkMembership.apply(this);
+	// STEP 3: check membership
+	var member = yield clubsDomain.matchMembership({
+		db: this.db
+		, slug: slug
+		, uid: user.uid
+	});
 
 	// already a member of the club
 	if (member) {
@@ -71,6 +86,12 @@ function *middleware(next) {
 		return;
 	}
 
-	yield joinClub.apply(this);
+	// STEP 4: join club
+	yield clubsDomain.joinClub({
+		db: this.db
+		, club: club
+		, user: user
+	});
+
 	this.redirect('/club');
 };

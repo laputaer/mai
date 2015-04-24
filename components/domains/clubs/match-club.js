@@ -11,7 +11,7 @@ module.exports = matchClub;
  * Match local user
  *
  * @param   Object  opts  Options { db, slug }
- * @return  Object        User local profile
+ * @return  Object        Club data
  */
 function *matchClub(opts) {
 	var db = opts.db;

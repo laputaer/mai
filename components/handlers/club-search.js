@@ -6,11 +6,10 @@
  */
 
 var validator = require('validator');
-var xss = require('xss');
 var escapeRegex = require('escape-string-regexp');
+
 var builders = require('../builders/builders');
-var removeSlash = require('../helpers/remove-trailing-slash');
-var searchClubs = require('./search-clubs');
+var clubsDomain = require('../domains/clubs');
 
 module.exports = factory;
 
@@ -32,13 +31,18 @@ function factory() {
 function *middleware(next) {
 	yield next;
 
-	// prepare data
-	var data = {};
-	data.i18n = this.i18n;
-	data.path = removeSlash(this.path);
-	data.version = this.config.version;
-	data.current_user = this.state.user;
-	data.body = [];
+	// prepare common data
+	var data = builders.prepareData(this);
+
+	// guest user
+	if (!data.current_user) {
+		data.body.push(builders.login(data));
+		this.state.vdoc = builders.doc(data);
+		return;
+	}
+
+	// TODO: xss on output
+	// TODO: replace validator
 
 	// input validation
 	var search = this.request.query.q;
@@ -51,25 +55,19 @@ function *middleware(next) {
 	}
 
 	search = escapeRegex(search);
-	search = xss(search);
-
-	// pass processed search back
-	this.state.search = search;
 	data.search = search;
 
-	// guest user
-	if (!data.current_user) {
-		data.body.push(builders.login(data));
-
 	// login user
+	if (!data.search) {
+		data.clubs = [];
 	} else {
-		if (!search) {
-			data.clubs = [];
-		} else {
-			data.clubs = yield searchClubs.apply(this);
-		}
-		data.body.push(builders.clubSearch(data));
+		data.clubs = yield clubsDomain.searchClubs({
+			db: this.db
+			, search: data.search
+		});
 	}
+
+	data.body.push(builders.clubSearch(data));
 
 	// render vdoc
 	this.state.vdoc = builders.doc(data);
