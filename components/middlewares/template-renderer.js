@@ -1,6 +1,6 @@
 
 /**
- * renderer.js
+ * template-renderer.js
  *
  * Handle vnode to html output conversion
  */

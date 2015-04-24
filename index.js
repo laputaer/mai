@@ -5,7 +5,7 @@
  * App entry point, kickstart server
  */
 
-var app = require('./app');
+var app = require('./components/app');
 var configFactory = require('./components/config/config');
 var config = configFactory();
 

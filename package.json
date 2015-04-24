@@ -9,7 +9,7 @@
     "setup": "npm install && npm run build:css && npm run build:js && npm run build:svg && npm run build:img && npm run migration",
     "migration": "node migration/migration.js",
     "local": "sudo NODE_ENV=local node index.js",
-    "dev:be": "sudo NODE_ENV=dev nodemon --ext js --ignore components/client-js/ --watch components/ --watch index.js --watch app.js index.js",
+    "dev:be": "sudo NODE_ENV=dev nodemon --ext js --ignore components/client-js/ --watch components/ --watch index.js index.js",
     "dev:fe": "npm run watch:reload & npm run watch:css & npm run watch:js & npm run watch:svg",
     "watch:reload": "DEBUG=wiper wiper -p 30001 -w public/assets/\\*\\*/\\* --cert=ssl.crt --key=ssl.key",
     "watch:css": "DEBUG=onchange onchange components/client-less/\\*\\*/\\*.less components/client-less/\\*.less -- npm run build:css",

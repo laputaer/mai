@@ -13,14 +13,16 @@ var flash = require('koa-flash');
 var bodyparser = require('koa-bodyparser');
 var Grant = require('grant-koa');
 
-var db = require('./components/db/db');
-var dev = require('./components/dev/dev');
-var router = require('./components/router/router');
-var configFactory = require('./components/config/config');
-var i18nFactory = require('./components/i18n/i18n');
-var errorHandler = require('./components/error-handler/internal-error-handler');
-var renderer = require('./components/middlewares/template-renderer');
-var userSession = require('./components/middlewares/user-session');
+var db = require('./db/db');
+var configFactory = require('./config/config');
+var i18nFactory = require('./i18n/i18n');
+var errorHandler = require('./error-handler/internal-error-handler');
+
+var dev = require('./middlewares/local-development');
+var renderer = require('./middlewares/template-renderer');
+var userSession = require('./middlewares/user-session');
+
+var router = require('./router');
 
 var app = koa();
 var config = configFactory();

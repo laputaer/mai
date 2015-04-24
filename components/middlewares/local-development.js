@@ -1,6 +1,6 @@
 
 /**
- * dev.js
+ * local-development.js
  *
  * Local development environment setup
  */
