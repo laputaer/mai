@@ -7,9 +7,7 @@
 
 var builders = require('../builders/builders');
 var usersDomain = require('../domains/users');
-var findUser = require('./find-user');
-var findClubs = require('./find-clubs');
-var findJoinedClubs = require('./find-joined-clubs');
+var clubsDomain = require('../domains/clubs');
 
 module.exports = factory;
 
@@ -47,11 +45,17 @@ function *middleware(next) {
 			db: this.db
 			, uid: data.current_user.uid
 		});
-		data.clubs = yield findClubs.apply(this);
-		data.joined_clubs = yield findJoinedClubs.apply(this);
+		data.clubs = yield clubsDomain.getUserOwnedClubs({
+			db: this.db
+			, uid: data.current_user.uid
+		});
+		data.joined_clubs = yield clubsDomain.getUserJoinedClubs({
+			db: this.db
+			, uid: data.current_user.uid
+		});
 		data.body.push(builders.club(data));
 	} catch(err) {
-
+		this.app.emit('error', err, this);
 	}
 
 	// render vdoc

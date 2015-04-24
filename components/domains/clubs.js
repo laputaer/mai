@@ -5,6 +5,10 @@
  * Export clubs domain model
  */
 
-module.exports = {
+var getUserOwnedClubs = require('./clubs/get-user-owned-clubs');
+var getUserJoinedClubs = require('./clubs/get-user-joined-clubs');
 
+module.exports = {
+	getUserOwnedClubs: getUserOwnedClubs
+	, getUserJoinedClubs: getUserJoinedClubs
 };
