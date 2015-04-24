@@ -28,6 +28,7 @@ function *middleware(next) {
 	// STEP 1: load from cache
 	var user;
 	try {
+		console.log(this.session);
 		user = yield sessionDomain.currentUser({
 			session: this.session
 			, cache: this.cache

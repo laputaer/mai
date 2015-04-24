@@ -40,6 +40,7 @@ function *middleware(next) {
 		return;
 	}
 
+	var user = this.state.user;
 	var body = this.request.body;
 	var flash = {};
 
@@ -93,23 +94,20 @@ function *middleware(next) {
 		return;
 	}
 
-	// pass sanitized input back
-	body.owner = this.session.uid;
-	this.state.input = body;
-
-	this.user = yield usersDomain.matchUser({
+	// STEP 1: get full user data
+	user = yield usersDomain.matchUser({
 		db: this.db
-		, uid: data.current_user.uid
+		, uid: user.uid
 	});
 
 	// check user action point
-	if (this.user.action_point < 10) {
+	if (user.action_point < 10) {
 		this.flash = {
 			type: 'form'
 			, message: 'error.insufficient-action-point'
 			, messageData: {
 				required: 10
-				, current: this.user.action_point
+				, current: user.action_point
 			}
 			, attrs: []
 			, body: body
@@ -118,7 +116,11 @@ function *middleware(next) {
 		return;
 	}
 
-	var club = yield matchClub.apply(this);
+	// STEP 2: find existing club
+	var club = yield clubsDomain.matchClub({
+		db: this.db
+		, slug: body.club
+	});
 
 	// club already exists
 	if (club) {
@@ -132,9 +134,14 @@ function *middleware(next) {
 		return;
 	}
 
-	club = yield createClub.apply(this);
+	// STEP 3: create new club
+	club = yield clubsDomain.createClub({
+		db: this.db
+		, user: user
+		, data: body
+	});
 
-	// something wrong with database
+	// unexpected error
 	if (!club) {
 		this.flash = {
 			type: 'form'
