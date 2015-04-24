@@ -28,7 +28,7 @@ function factory() {
 function *middleware(next) {
 	yield next;
 
-	// prepare data
+	// prepare common data
 	var data = builders.prepareData(this);
 
 	// STEP 1: get user profile
@@ -40,8 +40,6 @@ function *middleware(next) {
 	} catch(err) {
 		this.app.emit('error', err, this);
 	}
-
-	data.body = [];
 
 	if (!data.user) {
 		data.message = data.i18n.t('error.not-found-user');

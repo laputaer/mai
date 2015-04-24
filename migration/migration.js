@@ -24,11 +24,9 @@ function *migration() {
 	console.log('migration started');
 
 	// prepare migration
-	var context = {};
 	var config = configFactory();
-	context.config = config;
-	var db = yield mongodb.apply(context);
-	var cache = yield redis.apply(context);
+	var db = yield mongodb(config.mongodb);
+	var cache = yield redis(config.redis);
 
 	// run migrations, always add new migration at the end
 	yield versionsV1(db);

@@ -14,14 +14,13 @@ module.exports = database;
 /**
  * Return an instance of yieldb
  *
+ * @param   Object   opts  Mongodb config
  * @return  MongoDB
  */
-function *database() {
+function *database(opts) {
 	if (db) {
 		return db;
 	}
-
-	var opts = this.config.mongodb;
 
 	if (!hasAttrs(opts, ['server', 'port', 'database', 'w'])) {
 		throw new Error('Missing required mongodb config');

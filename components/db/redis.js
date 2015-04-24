@@ -14,14 +14,13 @@ module.exports = database;
 /**
  * Return an instance of then-redis
  *
+ * @param   Object   opts  Redis config
  * @return  Redis
  */
-function *database() {
+function *database(opts) {
 	if (client) {
 		return client;
 	}
-
-	var opts = this.config.redis;
 
 	if (!hasAttrs(opts, ['server', 'port', 'database'])) {
 		throw new Error('Missing required redis config');

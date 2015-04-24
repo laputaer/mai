@@ -22,6 +22,7 @@ function prepareData(ctx) {
 	data.version = ctx.config.version;
 	data.current_user = ctx.state.user;
 	data.path = removeSlash(ctx.path);
+	data.body = [];
 
 	return data;
 };
