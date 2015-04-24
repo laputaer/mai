@@ -18,6 +18,7 @@ var configFactory = require('./config/config');
 var i18nFactory = require('./i18n/i18n');
 
 var errorHandler = require('./middlewares/internal-error-handler');
+var unexpectedErrorHandler = require('./middlewares/unexpected-error-handler');
 var dev = require('./middlewares/local-development');
 var renderer = require('./middlewares/template-renderer');
 var userSession = require('./middlewares/user-session');
@@ -42,6 +43,7 @@ app.use(i18nFactory(true)); // this.i18n
 app.use(db()); // this.db, this.cache
 app.use(renderer()); // this.body
 app.use(errorHandler()); // this.state.vdoc
+app.use(unexpectedErrorHandler()); // this.state.vdoc
 app.use(userSession()); // this.state.user
 
 app.use(mount(grant)); // this.session.grant
