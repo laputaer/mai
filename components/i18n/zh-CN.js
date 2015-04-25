@@ -67,7 +67,7 @@ module.exports = {
 		, 'new-club-submit': '确认创建'
 		, 'new-club-title-placeholder': '允许2-32个字符'
 		, 'new-club-title-note': '示例：Love Live'
-		, 'new-club-slug-placeholder': '允许2-16个字符'
+		, 'new-club-slug-placeholder': '允许2-32个字符'
 		, 'new-club-slug-note': '示例：love-live'
 		, 'already-exist': '同路径的社团已存在，请选择另一个路径。'
 		, 'my-club-list': '我创建的社团 (%{count})'

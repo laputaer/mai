@@ -5,11 +5,14 @@
  * Koa route handler for club page
  */
 
+var builders = require('../builders/builders');
+var validate = require('../security/validation');
+
 var usersDomain = require('../domains/users');
 var clubsDomain = require('../domains/clubs');
 
-var validator = require('validator');
-var hasAttrs = require('../helpers/has-required-attributes');
+var createError = require('../helpers/create-custom-error')
+var formError = require('../helpers/create-form-error')
 
 module.exports = factory;
 
@@ -39,54 +42,12 @@ function *middleware(next) {
 
 	var user = this.state.user;
 	var body = this.request.body;
-	var flash = {};
-
-	// TODO: xss on output
-	// TODO: replace validator
-
-	// missing input
-	var attrs = hasAttrs(body, ['title', 'slug'], true);
-	if (attrs.length > 0) {
-		this.flash = {
-			type: 'form'
-			, message: 'error.form-required-input-missing'
-			, attrs: attrs
-			, body: body
-		};
-		this.redirect('/club/add');
-		return;
-	}
 
 	// input validation
-	if (!validator.isLength(body.title, 2, 32)) {
-		if (!flash.attrs) {
-			flash.attrs = ['title'];
-		} else {
-			flash.attrs.push('title');
-		}
-	}
-
-	body.slug = body.slug.toLowerCase();
-	if (!validator.isLength(body.slug, 2, 16)
-		|| !validator.matches(body.slug, '^[A-Za-z0-9-]+$')
-		|| validator.contains(body.slug, '--')
-		|| body.slug.substr(0, 1) === '-'
-		|| body.slug.substr(-1) === '-'
-	) {
-		if (!flash.attrs) {
-			flash.attrs = ['slug'];
-		} else {
-			flash.attrs.push('slug');
-		}
-	}
-
-	// validation error
-	if (flash.attrs) {
-		flash.type = 'form';
-		flash.message = 'error.form-input-invalid';
-		flash.body = body;
-
-		this.flash = flash;
+	var result = yield validate(body, 'club');
+	
+	if (!result.valid) {
+		this.flash = createError(result.errors, body);
 		this.redirect('/club/add');
 		return;
 	}
@@ -99,16 +60,15 @@ function *middleware(next) {
 
 	// check user action point
 	if (user.action_point < 10) {
-		this.flash = {
-			type: 'form'
-			, message: 'error.insufficient-action-point'
-			, messageData: {
+		this.flash = formError(
+			'error.insufficient-action-point'
+			, {
 				required: 10
 				, current: user.action_point
 			}
-			, attrs: []
-			, body: body
-		};
+			, null
+			, body
+		);
 		this.redirect('/club/add');
 		return;
 	}
@@ -116,17 +76,17 @@ function *middleware(next) {
 	// STEP 2: find existing club
 	var club = yield clubsDomain.matchClub({
 		db: this.db
-		, slug: body.club
+		, slug: body.slug
 	});
 
 	// club already exists
 	if (club) {
-		this.flash = {
-			type: 'form'
-			, message: 'club.already-exist'
-			, attrs: ['slug']
-			, body: body
-		};
+		this.flash = formError(
+			'club.already-exist'
+			, null
+			, ['slug']
+			, body
+		);
 		this.redirect('/club/add');
 		return;
 	}
@@ -140,12 +100,12 @@ function *middleware(next) {
 
 	// unexpected error
 	if (!club) {
-		this.flash = {
-			type: 'form'
-			, message: 'error.form-internal-error'
-			, attrs: []
-			, body: body
-		};
+		this.flash = formError(
+			'error.form-internal-error'
+			, null
+			, null
+			, body
+		);
 		this.redirect('/club/add');
 		return;
 	}
