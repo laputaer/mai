@@ -31,5 +31,5 @@ function *logoutUser(opts) {
 
 	// cache update, may throw error
 	yield cache.hset('users:' + uid, 'last_seen', ts);
-	yield cache.expire('users:' + uid, config.session.maxAge);
+	yield cache.pexpire('users:' + uid, config.session.maxAge);
 };

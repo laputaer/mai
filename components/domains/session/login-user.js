@@ -34,5 +34,5 @@ function *loginUser(opts) {
 
 	// cache update, may throw error
 	yield cache.hmset('users:' + profile.uid, profile);
-	yield cache.expire('users:' + profile.uid, config.session.maxAge);
+	yield cache.pexpire('users:' + profile.uid, config.session.maxAge);
 };
