@@ -11,8 +11,8 @@ var validate = require('../security/validation');
 var usersDomain = require('../domains/users');
 var clubsDomain = require('../domains/clubs');
 
-var createError = require('../helpers/create-custom-error')
-var formError = require('../helpers/create-form-error')
+var createError = require('../helpers/create-custom-error');
+var formError = require('../helpers/create-form-error');
 
 module.exports = factory;
 
