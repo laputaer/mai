@@ -24,6 +24,7 @@ var renderer = require('./middlewares/template-renderer');
 var userSession = require('./middlewares/user-session');
 
 var router = require('./router');
+var startUp = require('./start-up');
 
 var app = koa();
 var config = configFactory();
@@ -32,8 +33,8 @@ var grant = new Grant(config.oauth);
 app.keys = [config.cookies.key];
 app.proxy = true;
 
-app.use(logger());
-app.use(dev(app.env));
+app.use(logger()); // req+res logging
+app.use(dev(app.env)); // development helpers
 app.use(bodyparser()); // this.request.body
 app.use(session(config.session, app)); // this.session
 app.use(flash(config.flash)); // this.flash
@@ -48,6 +49,4 @@ app.use(userSession()); // this.state.user
 
 app.use(mount(grant)); // this.session.grant
 router(app); // this.state.vdoc
-
-// let index.js handle server startup
-module.exports = app;
+startUp(app, config); // run server

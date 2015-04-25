@@ -20,13 +20,13 @@ module.exports = factory;
 function factory(env) {
 	var tools = [];
 
-	if (env === 'dev') {
+	if (env === 'development') {
 		tools.push(livereload({
 			src: 'https://mai.dev:30001/livereload.js?snipver=1'
 		}));
 	}
 
-	if (env === 'dev' || env === 'local') {
+	if (env === 'development' || env === 'local') {
 		tools.push(asset('public'));
 	}
 
