@@ -5,11 +5,11 @@
  * Koa route handler for club search page
  */
 
-var validator = require('validator');
 var escapeRegex = require('escape-string-regexp');
 
 var builders = require('../builders/builders');
 var clubsDomain = require('../domains/clubs');
+var validate = require('../security/validation');
 
 module.exports = factory;
 
@@ -41,21 +41,15 @@ function *middleware(next) {
 		return;
 	}
 
-	// TODO: xss on output
-	// TODO: replace validator
-
 	// input validation
-	var search = this.request.query.q;
-	if (!search) {
-		search = '';
+	data.search = this.request.query.q;
+	var result = yield validate(this.request.query, 'search');
+
+	if (!result.valid) {
+		data.search = '';
 	}
 
-	if (!validator.isLength(search, 2, 100)) {
-		search = '';
-	}
-
-	search = escapeRegex(search);
-	data.search = search;
+	data.search = escapeRegex(data.search);
 
 	// login user
 	if (!data.search) {

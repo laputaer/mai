@@ -8,6 +8,7 @@
 var oauthDomain = require('../domains/oauth');
 var usersDomain = require('../domains/users');
 var sessionDomain = require('../domains/session');
+var validate = require('../security/validation');
 
 module.exports = factory;
 
@@ -31,6 +32,8 @@ function *middleware(next) {
 
 	var provider = this.params.provider;
 	var user = {};
+
+	// TODO: we should make error more verbose
 
 	// provider not supported
 	if (!provider || !this.config.oauth[provider]) {
@@ -64,49 +67,39 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 2: create/update local profile
-	try {
-		user.local = yield usersDomain.matchUser({
+	// STEP 2: validate user profile
+	var result = yield validate(user.oauth, 'oauth');
+
+	if (!result.valid) {
+		this.redirect('/login/' + provider + '/failed');
+		return;
+	}
+
+	// STEP 3: create/update local profile
+	user.local = yield usersDomain.matchUser({
+		db: this.db
+		, uid: user.oauth.uid
+	});
+
+	if (user.local !== null) {
+		user.local = yield usersDomain.updateUser({
 			db: this.db
-			, uid: user.oauth.uid
+			, profile: user.oauth
 		});
-
-		if (user.local !== null) {
-			user.local = yield usersDomain.updateUser({
-				db: this.db
-				, profile: user.oauth
-			});
-		} else {
-			user.local = yield usersDomain.createUser({
-				db: this.db
-				, profile: user.oauth
-			});
-		}
-	} catch(err) {
-		this.app.emit('error', err, this);
-	}
-
-	// handle database failure
-	if (!user.local) {
-		this.redirect('/login/' + provider + '/error');
-		return;
-	}
-
-	// STEP 3: update user session
-	try {
-		yield sessionDomain.loginUser({
-			config: this.config
-			, session: this.session
-			, cache: this.cache
-			, profile: user.local
+	} else {
+		user.local = yield usersDomain.createUser({
+			db: this.db
+			, profile: user.oauth
 		});
-	} catch(err) {
-		this.app.emit('error', err, this);
-
-		// handle session/cache error
-		this.redirect('/login/' + provider + '/error');
-		return;
 	}
+
+	// STEP 4: update user session
+	yield sessionDomain.loginUser({
+		config: this.config
+		, session: this.session
+		, cache: this.cache
+		, profile: user.local
+	});
 
 	this.redirect('/u/' + user.local.uid);
 };

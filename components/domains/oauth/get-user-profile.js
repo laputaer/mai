@@ -6,8 +6,6 @@
  */
 
 var Purest = require('purest');
-var validator = require('validator');
-var xss = require('xss');
 
 var getGithubUserProfile = require('./github-user-profile');
 var getTwitterUserProfile = require('./twitter-user-profile');
@@ -60,18 +58,6 @@ function *getUserProfile(opts) {
 
 	profile.provider = provider;
 	profile.uid = provider + '_' + profile.id;
-
-	// TODO: make sure we do xss on OUTPUT
-	// TODO: replace validator with domain logic validation
-
-	// validate oauth profile
-	if (!validator.isLength(profile.name, 1, 60)) {
-		profile.name = profile.name.substr(0, 60) || 'No Name';
-	}
-
-	if (!validator.isURL(profile.avatar)) {
-		delete profile.avatar;
-	}
 
 	return profile;
 };
