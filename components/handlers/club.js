@@ -40,23 +40,19 @@ function *middleware(next) {
 	}
 
 	// login user
-	try {
-		data.user = yield usersDomain.matchUser({
-			db: this.db
-			, uid: data.current_user.uid
-		});
-		data.clubs = yield clubsDomain.getUserOwnedClubs({
-			db: this.db
-			, uid: data.current_user.uid
-		});
-		data.joined_clubs = yield clubsDomain.getUserJoinedClubs({
-			db: this.db
-			, uid: data.current_user.uid
-		});
-		data.body.push(builders.club(data));
-	} catch(err) {
-		this.app.emit('error', err, this);
-	}
+	data.user = yield usersDomain.matchUser({
+		db: this.db
+		, uid: data.current_user.uid
+	});
+	data.clubs = yield clubsDomain.getUserOwnedClubs({
+		db: this.db
+		, uid: data.current_user.uid
+	});
+	data.joined_clubs = yield clubsDomain.getUserJoinedClubs({
+		db: this.db
+		, uid: data.current_user.uid
+	});
+	data.body.push(builders.club(data));
 
 	// render vdoc
 	this.state.vdoc = builders.doc(data);

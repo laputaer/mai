@@ -17,7 +17,6 @@ var clubJoin = require('./handlers/club-join');
 var oauth = require('./handlers/oauth');
 var profile = require('./handlers/user-profile');
 var oauthFailure = require('./handlers/oauth-error-handler');
-var genericFailure = require('./handlers/generic-error-handler');
 
 module.exports = myRouter;
 
@@ -42,11 +41,11 @@ function myRouter(app) {
 	app.get('/u/:uid', profile());
 	app.get('/login/:provider', oauth());
 	app.get('/login/:provider/failed', oauthFailure());
-	app.get('/login/:provider/error', genericFailure());
 
 	app.get('/club/add', clubNew());
 	app.post('/club', clubCreate());
 	app.get('/club/search', clubSearch());
+
 	app.get('/c/:slug', clubHome());
 	// TODO: get should not have side-effect
 	app.get('/c/:slug/join', clubJoin());
