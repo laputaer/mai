@@ -15,8 +15,8 @@ function factory() {
 	return LGTM.validator()
 		.validates('q')
 			.using(function(value) {
-				return validator.isLength(value, 2, 128)
-					&& validator.supported(value)
+				return validator.supported(value)
+					&& validator.isLength(value, 2, 128)
 			}, 'q invalid')
 		.build();
 };

@@ -8,19 +8,14 @@
 var validator = require('validator');
 var getType = require('../helpers/get-variable-type');
 
-// check for supported input data types
+// only use validator for string validation
 validator.supported = function(input) {
-	// common input
-	if (getType(input) === 'Number' || getType(input) === 'String') {
+	// must be string type
+	if (getType(input) === 'String') {
 		return true;
 	}
 
-	// common empty data
-	if (input === NaN || input === undefined || input === null) {
-		return true;
-	}
-
-	// catch-all
+	// reject the rest
 	return false;
 };
 
