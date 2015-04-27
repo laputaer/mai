@@ -5,7 +5,7 @@
  * Automatically generate CSRF token and secret for input validation
  */
 
-var csrf = require('csrf');
+var sessionDomain = require('../domains/session');
 
 module.exports = factory;
 

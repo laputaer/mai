@@ -6,6 +6,7 @@
  */
 
 var sessionDomain = require('../domains/session');
+var csrf = require('csrf');
 
 module.exports = factory;
 
@@ -32,6 +33,13 @@ function *middleware(next) {
 			session: this.session
 			, cache: this.cache
 		});
+
+		// create a new csrf token on each request, do not expose secret by default
+		user.csrf_token = yield sessionDomain.getCsrfToken({
+			session: this.session
+			, cache: this.cache
+		});
+		delete user.csrf_secret;
 
 		// refresh session/cache at most every 5 minutes
 		if (user && parseInt(user.last_seen, 10) < Date.now() - 1000 * 60 * 5) {
