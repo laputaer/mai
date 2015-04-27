@@ -41,13 +41,17 @@ function *middleware(next) {
 		return;
 	}
 
-	// oauth info missing
-	if (!this.session.grant || !this.session.grant.response) {
+	// STEP 1: get oauth response
+	var response = yield sessionDomain.getOauthResponse({
+		session: this.session
+	});
+
+	if (!response) {
 		this.redirect('/login/' + provider + '/failed');
 		return;
 	}
 
-	// STEP 1: get oauth profile
+	// STEP 2: get oauth profile
 	try {
 		user.oauth = yield oauthDomain.getUserProfile({
 			provider: provider
@@ -55,8 +59,9 @@ function *middleware(next) {
 			, response: this.session.grant.response
 		});
 
-		// clear user oauth info on successful profile fetch
-		delete this.session.grant;
+		yield sessionDomain.clearOauthResponse({
+			session: this.session
+		});
 	} catch(err) {
 		this.app.emit('error', err, this);
 	}
@@ -67,7 +72,7 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 2: validate user profile
+	// STEP 3: validate user profile
 	var result = yield validate(user.oauth, 'oauth');
 
 	if (!result.valid) {
@@ -75,7 +80,7 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 3: create/update local profile
+	// STEP 4: create/update local profile
 	user.local = yield usersDomain.matchUser({
 		db: this.db
 		, uid: user.oauth.uid
@@ -93,7 +98,7 @@ function *middleware(next) {
 		});
 	}
 
-	// STEP 4: update user session
+	// STEP 5: update user session
 	yield sessionDomain.loginUser({
 		config: this.config
 		, session: this.session
