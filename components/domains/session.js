@@ -12,6 +12,7 @@ var currentUser = require('./session/current-user');
 var getOauthResponse = require('./session/get-oauth-response');
 var clearOauthResponse = require('./session/clear-oauth-response');
 var getCsrfToken = require('./session/get-csrf-token');
+var verifyCsrfToken = require('./session/verify-csrf-token');
 
 module.exports = {
 	loginUser: loginUser
@@ -21,4 +22,5 @@ module.exports = {
 	, getOauthResponse: getOauthResponse
 	, clearOauthResponse: clearOauthResponse
 	, getCsrfToken: getCsrfToken
+	, verifyCsrfToken: verifyCsrfToken
 };

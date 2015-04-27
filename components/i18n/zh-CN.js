@@ -39,6 +39,7 @@ module.exports = {
 		'not-found': 'Error 404'
 		, 'internal-server': 'Error 500'
 		, 'internal-service-down': '非常抱歉，看来我们的内部服务出了点问题'
+		, 'invalid-csrf-token': '你提交的内容缺乏验证用的安全Token，请慎防第三方页面诈骗'
 		, 'not-found-user': '你要找的人不存在？'
 		, 'not-found-club': '你要找的社团不存在？'
 		, 'form-required-input-missing': '必填的内容不应为空。'

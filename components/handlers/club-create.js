@@ -10,6 +10,7 @@ var validate = require('../security/validation');
 
 var usersDomain = require('../domains/users');
 var clubsDomain = require('../domains/clubs');
+var sessionDomain = require('../domains/session');
 
 var createError = require('../helpers/create-custom-error');
 var formError = require('../helpers/create-form-error');
@@ -43,16 +44,33 @@ function *middleware(next) {
 	var user = this.state.user;
 	var body = this.request.body;
 
-	// input validation
-	var result = yield validate(body, 'club');
-	
+	// STEP 1: input validation
+	var result = yield sessionDomain.verifyCsrfToken({
+		session: this.session
+		, cache: this.cache
+		, token: body.csrf_token
+	});
+
+	if (!result) {
+		this.flash = formError(
+			'error.invalid-csrf-token'
+			, null
+			, null
+			, body
+		);
+		this.redirect('/club/add');
+		return;
+	}
+
+	result = yield validate(body, 'club');
+
 	if (!result.valid) {
 		this.flash = createError(result.errors, body);
 		this.redirect('/club/add');
 		return;
 	}
 
-	// STEP 1: get full user data
+	// STEP 2: get full user data
 	user = yield usersDomain.matchUser({
 		db: this.db
 		, uid: user.uid
@@ -73,7 +91,7 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 2: find existing club
+	// STEP 3: find existing club
 	var club = yield clubsDomain.matchClub({
 		db: this.db
 		, slug: body.slug
@@ -91,7 +109,7 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 3: create new club
+	// STEP 4: create new club
 	club = yield clubsDomain.createClub({
 		db: this.db
 		, user: user

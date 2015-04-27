@@ -48,7 +48,8 @@ function template(data) {
 			action: '/club'
 			, method: 'POST'
 		}, [
-			h('div.m-group', [
+			data.csrf_field
+			, h('div.m-group', [
 				h('label.m-label' + attrs.title, {
 					attributes: {
 						'for': 'club-title'

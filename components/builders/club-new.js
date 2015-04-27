@@ -8,6 +8,7 @@
 var containerTemplate = require('../templates/club/container');
 var clubCreationFormTemplate = require('../templates/club/club-creation-form');
 var formErrorTemplate = require('../templates/common/form-error');
+var csrfFieldTemplate = require('../templates/common/csrf-field');
 
 var bodyBuilder = require('./body');
 
@@ -20,6 +21,7 @@ module.exports = renderer;
  * @return  VNode
  */
 function renderer(data) {
+	data.csrf_field = csrfFieldTemplate({ csrf_token: data.current_user.csrf_token });
 	data.club_form = clubCreationFormTemplate(data);
 	if (data.flash.type === 'form') {
 		data.club_form_error = formErrorTemplate(data);
