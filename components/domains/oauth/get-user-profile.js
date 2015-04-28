@@ -60,7 +60,7 @@ function *getUserProfile(opts) {
 	profile.provider = provider;
 	profile.uid = provider + '_' + profile.id;
 	profile.access_token = options.access_token;
-	profile.access_secret = options.access_secret;
+	profile.access_secret = options.access_secret || '';
 
 	return profile;
 };

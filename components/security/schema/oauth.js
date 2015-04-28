@@ -42,6 +42,7 @@ function factory() {
 					&& validator.isLength(value, 1, 256)
 			}, 'token invalid')
 		.validates('access_secret')
+			.optional()
 			.using(function(value) {
 				return validator.supported(value)
 					&& validator.isLength(value, 1, 256)
