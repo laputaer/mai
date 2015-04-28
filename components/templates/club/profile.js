@@ -27,12 +27,14 @@ function template(data) {
 			h('div.avatar', [
 				h('span.letter', club.title.substr(0, 2))
 			])
-			, h('p.title', club.title)
-			, h('p.owner', [
-				h('span.text', i18n.t('club.club-owner', club))
-				, h('a.link', {
-					href: '/u/' + owner.uid
-				}, owner.login)
+			, h('div.info', [
+				h('p.title', club.title)
+				, h('p.owner', [
+					h('span.text', i18n.t('club.club-owner', club))
+					, h('a.link', {
+						href: '/u/' + owner.uid
+					}, owner.login)
+				])
 			])
 		])
 		, h('div.welcome', [

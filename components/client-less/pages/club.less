@@ -57,15 +57,14 @@
 	overflow: hidden;
 
 	.profile {
-		text-align: center;
+		display: flex;
 
 		.avatar {
 			display: block;
-			margin: 1em auto;
-			width: 200px;
-			height: 200px;
+			width: 100px;
+			height: 100px;
 			border-radius: 20px;
-			background-color: @color-gray;
+			background-color: @color-gray-light;
 			.background-cover();
 
 			display: flex;
@@ -74,23 +73,43 @@
 
 			.letter {
 				color: @color-gray-dark;
-				.size(72);
+				.size(36);
 			}
 		}
 
-		.title {
-			.size(20);
-		}
+		.info {
+			flex: 1;
+			margin-left: 1em;
 
-		.owner {
-			.size(16);
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
 
-			.link {
-				.link(@color-blue);
+			.title {
+				margin: 0;
+				line-height: 1.4em;
+				.size(24);
 			}
 
-			.text + .link {
-				margin-left: 0.25em;
+			.owner {
+				margin: 0;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				overflow: hidden;
+				color: @color-gray-dark;
+				.size(14);
+
+				.link {
+					.link(@color-blue);
+				}
+
+				.text + .link {
+					margin-left: 0.25em;
+				}
+			}
+
+			.title + .owner {
+				margin-top: 0.25em;
 			}
 		}
 	}
