@@ -10,25 +10,28 @@ module.exports = loginUser;
 /**
  * Login user
  *
- * @param   Object  opts  Options { config, session, cache, profile }
+ * @param   Object  opts  Options { config, session, cache, local, oauth }
  * @return  Void
  */
 function *loginUser(opts) {
 	var session = opts.session;
 	var cache = opts.cache;
 	var config = opts.config;
+	var local = opts.local;
+	var oauth = opts.oauth;
 	var ts = Date.now().toString();
 
 	// cookie session
-	session.uid = opts.profile.uid;
+	session.uid = local.uid;
 	session.last_seen = ts;
 
-	// TODO: centralized data validation (error bubble to client)
 	var profile = {
-		name: opts.profile.name
-		, login: opts.profile.login
-		, avatar: opts.profile.avatar
-		, uid: opts.profile.uid
+		name: local.name
+		, login: local.login
+		, avatar: local.avatar
+		, uid: local.uid
+		, access_token: oauth.access_token
+		, access_secret: oauth.access_secret
 		, last_seen: ts
 	};
 

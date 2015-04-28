@@ -56,8 +56,11 @@ function *getUserProfile(opts) {
 		throw new Error('oauth profile empty');
 	}
 
+	// user data for subsequent requests
 	profile.provider = provider;
 	profile.uid = provider + '_' + profile.id;
+	profile.access_token = options.access_token;
+	profile.access_secret = options.access_secret;
 
 	return profile;
 };

@@ -17,7 +17,6 @@ function *createUser(opts) {
 	var db = opts.db;
 	var User = db.col('users');
 
-	// TODO: centralized data validation (error bubble to client)
 	var profile = {
 		id: opts.profile.id
 		, name: opts.profile.name

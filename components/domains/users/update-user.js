@@ -17,7 +17,6 @@ function *updateUser(opts) {
 	var db = opts.db;
 	var User = db.col('users');
 
-	// TODO: centralized data validation (error bubble to client)
 	var profile = {
 		name: opts.profile.name
 		, login: opts.profile.login

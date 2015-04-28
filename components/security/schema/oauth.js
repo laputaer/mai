@@ -36,5 +36,15 @@ function factory() {
 					&& validator.isLength(value, 1, 256)
 					&& validator.isURL(value)
 			}, 'avatar invalid')
+		.validates('access_token')
+			.using(function(value) {
+				return validator.supported(value)
+					&& validator.isLength(value, 1, 256)
+			}, 'token invalid')
+		.validates('access_secret')
+			.using(function(value) {
+				return validator.supported(value)
+					&& validator.isLength(value, 1, 256)
+			}, 'secret invalid')
 		.build();
 };

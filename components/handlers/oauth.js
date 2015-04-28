@@ -103,7 +103,8 @@ function *middleware(next) {
 		config: this.config
 		, session: this.session
 		, cache: this.cache
-		, profile: user.local
+		, local: user.local
+		, oauth: user.oauth
 	});
 
 	this.redirect('/u/' + user.local.uid);
