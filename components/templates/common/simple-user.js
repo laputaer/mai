@@ -33,7 +33,7 @@ function template(data) {
 		status = '.active';
 	}
 
-	var button = h('a.m-button.rounded' + status, {
+	var button = h('a.m-button.rounded.navigation' + status, {
 		href: '/u/' + user.uid
 	}, [
 		h('div.m-image', {

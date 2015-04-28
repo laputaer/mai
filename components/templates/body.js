@@ -25,8 +25,10 @@ function template(data) {
 	}
 
 	var main = h('div.page', [
-		data.heading
-		, data.menu
+		h('div.global-header', [
+			data.heading
+			, data.menu
+		])
 		, main
 	]);
 

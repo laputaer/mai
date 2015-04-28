@@ -27,15 +27,15 @@ function renderer(data) {
 
 	// menu partials
 	data.menu_nav = [
-		{ href: '/', icon: 'squares', text: i18n.t('menu.nav.toggle'), version: data.version.asset }
-		, { href: '/', icon: 'home', text: i18n.t('menu.nav.home'), version: data.version.asset }
-		, { href: '/club', icon: 'heart', text: i18n.t('menu.nav.club'), version: data.version.asset }
-		, { href: '/ranking', icon: 'graph_rising', text: i18n.t('menu.nav.ranking'), version: data.version.asset }
-		, { href: '/help', icon: 'compass', text: i18n.t('menu.nav.help'), version: data.version.asset }
+		{ href: '/', icon: 'squares', text: i18n.t('menu.nav.toggle'), version: data.version.asset, type: ['navigation'] }
+		, { href: '/', icon: 'home', text: i18n.t('menu.nav.home'), version: data.version.asset, type: ['navigation'] }
+		, { href: '/club', icon: 'heart', text: i18n.t('menu.nav.club'), version: data.version.asset, type: ['navigation'] }
+		, { href: '/ranking', icon: 'graph_rising', text: i18n.t('menu.nav.ranking'), version: data.version.asset, type: ['navigation'] }
+		, { href: '/help', icon: 'compass', text: i18n.t('menu.nav.help'), version: data.version.asset, type: ['navigation'] }
 	];
 	data.menu_nav = data.menu_nav.map(function(button) {
 		if (data.path === button.href) {
-			button.type = ['active'];
+			button.type.push('active');
 		}
 		return button;
 	});
@@ -44,8 +44,8 @@ function renderer(data) {
 	// menu login for guest user
 	if (!data.current_user) {
 		data.menu_user = [
-			{ href: '/connect/twitter', icon: 'twitter', text: i18n.t('menu.login.twitter'), version: data.version.asset }
-			, { href: '/connect/github', icon: 'github', text: i18n.t('menu.login.github'), version: data.version.asset }
+			{ href: '/connect/twitter', icon: 'twitter', text: i18n.t('menu.login.twitter'), version: data.version.asset, type: ['navigation'] }
+			, { href: '/connect/github', icon: 'github', text: i18n.t('menu.login.github'), version: data.version.asset, type: ['navigation'] }
 		];
 		data.menu_user = data.menu_user.map(buttonTemplate);
 	} else {

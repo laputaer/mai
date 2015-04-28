@@ -6,16 +6,20 @@
 	margin: 0 auto;
 }
 
+.global-header {
+	background: linear-gradient(to bottom, @color-blue-pastel, @color-gray-pastel);
+}
+
 .heading {
 	text-align: center;
 	padding: 2em 1em;
 	overflow: hidden;
+	color: @color-blue-dark;
 
 	.title {
 		font-weight: 100;
 		margin: 0;
 		line-height: 1em;
-		color: @black;
 		.size(64);
 	}
 
@@ -23,7 +27,6 @@
 		font-weight: 400;
 		margin: 0;
 		line-height: 1em;
-		color: @black;
 		.size(20);
 	}
 
@@ -35,7 +38,7 @@
 .menu {
 	overflow: hidden;
 	padding: 0.5em 1em;
-	border-bottom: 1px solid @color-gray;
+	border-bottom: 1px solid @color-gray-pastel;
 
 	.nav, .user {
 		.reset-list();
