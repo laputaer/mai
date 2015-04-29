@@ -30,6 +30,8 @@ function *loginUser(opts) {
 		, login: local.login
 		, avatar: local.avatar
 		, uid: local.uid
+		, provider: local.provider
+		, id: local.id
 		, access_token: oauth.access_token
 		, access_secret: oauth.access_secret
 		, last_seen: ts

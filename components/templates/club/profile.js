@@ -22,6 +22,14 @@ function template(data) {
 	var owner = data.owner;
 	var user = data.user;
 
+	// set avatar size
+	var avatar = owner.avatar;
+	if (user.provider === 'twitter') {
+		avatar = avatar.replace('_normal', '_64x64');
+	} else if (user.provider === 'github') {
+		avatar = avatar + '&s=64';
+	}
+
 	var container = h('div.club-profile', [
 		h('div.profile', [
 			h('div.avatar', [
@@ -31,9 +39,11 @@ function template(data) {
 				h('p.title', club.title)
 				, h('p.owner', [
 					h('span.text', i18n.t('club.club-owner', club))
-					, h('a.link', {
+					, h('a.m-link', {
 						href: '/u/' + owner.uid
-					}, owner.login)
+					}, [
+						h('span.m-text', owner.login)
+					])
 				])
 			])
 		])

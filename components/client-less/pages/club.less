@@ -58,8 +58,6 @@
 
 	.profile {
 		display: flex;
-		max-height: 150px;
-		overflow: hidden;
 
 		.avatar {
 			display: block;
@@ -98,11 +96,6 @@
 				color: @color-gray-dark;
 				.long-text();
 				.size(14);
-
-				.link {
-					margin-left: 0.25em;
-					.link(@color-blue);
-				}
 			}
 
 			.title + .owner {
@@ -127,15 +120,15 @@
 
 			.info {
 				display: block;
-				margin: 1em;
+				margin: 1em 2em;
 
 				.title {
-					text-align: center;
+					//text-align: center;
 					.size(22);
 				}
 
 				.owner {
-					text-align: center;
+					//text-align: center;
 				}
 			}
 		}
