@@ -135,8 +135,6 @@
 	}
 
 	&.navigation {
-		color: @color-blue-light;
-
 		&:hover, &:focus {
 			background-color: @color-blue-light;
 			color: @white;
@@ -151,8 +149,8 @@
 
 		&.active {
 			background-color: transparent;
-			color: @color-blue;
-			border-color: @color-blue;
+			color: darken(@color-blue-light, 10%);
+			border-color: darken(@color-blue-light, 10%);
 		}
 	}
 

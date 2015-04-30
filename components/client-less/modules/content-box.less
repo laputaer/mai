@@ -1,0 +1,34 @@
+
+// content-box.less - reusable content display box
+
+.m-content {
+	background-image: linear-gradient(to bottom, @color-gray-pastel, @white 50%);
+	border-radius: 20px;
+	margin: 1em 0;
+	padding: 1em;
+
+	.line {
+		margin: 1em 0 0;
+		line-height: 1.5em;
+		.size(16);
+	}
+
+	.subtitle {
+		margin: 1em 0 0;
+		line-height: 1.5em;
+		.size(24);
+	}
+
+	.line:first-child, .subtitle:first-child {
+		margin-top: 0;
+	}
+
+	.link {
+		.link(@color-blue, 100%);
+	}
+
+	&.error {
+		background-color: @color-red-pastel;
+		color: @color-red;
+	}
+}

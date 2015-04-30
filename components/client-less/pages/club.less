@@ -2,7 +2,6 @@
 // club.less
 
 .club-add, .club-search, .club-creation, .club-list {
-	background-color: @color-yellow-pastel;
 	margin: 1em;
 	padding: 1em;
 
@@ -53,9 +52,16 @@
 }
 
 .club-profile {
+	// 1 column design on smaller screen
 	padding: 1em;
 	overflow: hidden;
 
+	// larger screen, switch to 2 column design
+	@media @tablet-small {
+		display: flex;
+	}
+
+	// first row, only avatar and owner at the moment
 	.profile {
 		display: flex;
 
@@ -94,7 +100,6 @@
 			.owner {
 				margin: 0;
 				color: @color-gray-dark;
-				.long-text();
 				.size(14);
 			}
 
@@ -103,6 +108,7 @@
 			}
 		}
 
+		// larger screen, move to left column
 		@media @tablet-small {
 			width: 200px;
 			max-height: none;
@@ -120,44 +126,22 @@
 
 			.info {
 				display: block;
+				overflow: hidden;
 				margin: 1em 2em;
 
 				.title {
-					//text-align: center;
 					.size(22);
 				}
-
-				.owner {
-					//text-align: center;
-				}
 			}
 		}
 	}
 
+	// second row, mostly club introduction
 	.welcome {
-		padding: 2em 1em;
-		width: auto;
-		flex: 1;
-		text-align: center;
 
-		.line {
-			.size(20);
-
-			.m-button + .m-button {
-				margin-left: 0.25em;
-			}
-		}
-
-		.link {
-			.link(@color-blue);
-		}
-
+		// larger screen, move to right column
 		@media @tablet-small {
-			padding: 4em 2em;
+			flex: 1;
 		}
-	}
-
-	@media @tablet-small {
-		display: flex;
 	}
 }
