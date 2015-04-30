@@ -37,7 +37,7 @@
   "devDependencies": {
     "autoprefixer": "5.1.1",
     "browserify": "9.0.8",
-    "clean-css": "3.2.1",
+    "clean-css": "3.2.6",
     "imagemin": "3.1.0",
     "less": "2.5.0",
     "mocha": "2.2.4",
@@ -54,7 +54,7 @@
     "csrf": "2.0.6",
     "deep-extend": "0.3.3",
     "escape-string-regexp": "1.0.3",
-    "grant-koa": "3.1.0",
+    "grant-koa": "3.2.0",
     "html-to-vdom": "0.5.5",
     "js-beautify": "1.5.5",
     "koa": "0.19.1",
@@ -74,7 +74,7 @@
     "validator": "3.39.0",
     "vdom-to-html": "2.0.0",
     "virtual-dom": "2.0.1",
-    "xss-filters": "1.1.1",
+    "xss-filters": "1.1.2",
     "yieldb": "2.3.1"
   },
   "engines": {
