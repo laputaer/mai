@@ -1,0 +1,70 @@
+
+// profile-row.less - reusable profile display box
+
+.m-profile {
+	display: flex;
+
+	.m-avatar {
+		display: block;
+		width: 100px;
+		height: 100px;
+		border-radius: 20px;
+		background-color: @color-gray-pastel;
+		.background-cover();
+
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		.m-letter {
+			color: @color-gray;
+			.size(36);
+		}
+	}
+
+	.m-info {
+		flex: 1;
+		margin: 0 0 0 1em;
+		overflow: hidden;
+
+		display: flex;
+		justify-content: center;
+		flex-direction: column;
+
+		> * {
+			margin-top: 0.25em;
+		}
+
+		.m-title {
+			margin: 0;
+			line-height: 1.4em;
+			.size(24);
+		}
+
+		.m-owner {
+			margin: 0;
+			color: @color-gray-dark;
+			.size(14);
+		}
+	}
+
+	@media @tablet-small {
+		.m-avatar {
+			width: 160px;
+			height: 160px;
+			margin: 1em auto;
+
+			.m-letter {
+				.size(48);
+			}
+		}
+
+		.m-info {
+			margin: 1em 2em;
+
+			.m-title {
+				.size(22);
+			}
+		}
+	}
+}

@@ -18,27 +18,14 @@ module.exports = template;
  */
 function template(data) {
 	var user = data.current_user;
-
-	// set avatar size
-	var avatar = user.avatar;
-	if (user.provider === 'twitter') {
-		avatar = avatar.replace('_normal', '_64x64');
-	} else if (user.provider === 'github') {
-		avatar = avatar + '&s=64';
-	}
-
-	// set button status
-	var status = '';
-	if (data.path === '/u/' + user.uid) {
-		status = '.active';
-	}
+	var status = data.path === '/u/' + user.uid ? '.active' : '';
 
 	var button = h('a.m-button.rounded.navigation' + status, {
 		href: '/u/' + user.uid
 	}, [
 		h('div.m-image', {
 			style: {
-				'background-image': 'url(' + avatar + ')'
+				'background-image': 'url(' + user.small_avatar + ')'
 			}
 		})
 		, h('span.m-text', user.login)

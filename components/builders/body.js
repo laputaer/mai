@@ -48,6 +48,7 @@ function renderer(data) {
 			, { href: '/connect/github', icon: 'github', text: i18n.t('menu.login.github'), version: data.version.asset, type: ['navigation'] }
 		];
 		data.menu_user = data.menu_user.map(buttonTemplate);
+	// profile link for local user
 	} else {
 		data.menu_user = [ userTemplate(data) ];
 	}

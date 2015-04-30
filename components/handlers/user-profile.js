@@ -8,6 +8,9 @@
 var builders = require('../builders/builders');
 var usersDomain = require('../domains/users');
 
+var getAvatarVariant = require('../helpers/get-avatar-variant');
+var getUserOrigin = require('../helpers/get-user-origin');
+
 module.exports = factory;
 
 /**
@@ -32,21 +35,22 @@ function *middleware(next) {
 	var data = builders.prepareData(this);
 
 	// STEP 1: get user profile
-	try {
-		data.user = yield usersDomain.matchUser({
-			db: this.db
-			, uid: this.params.uid
-		});
-	} catch(err) {
-		this.app.emit('error', err, this);
-	}
+	data.user = yield usersDomain.matchUser({
+		db: this.db
+		, uid: this.params.uid
+	});
 
 	if (!data.user) {
 		data.message = data.i18n.t('error.not-found-user');
 		data.body.push(builders.notFoundError(data));
-	} else {
-		data.body.push(builders.userProfile(data));
+		this.state.vdoc = builders.doc(data);
+		return;
 	}
+
+	data.user.full_avatar = getAvatarVariant(data.user, 320);
+	data.user.user_origin = getUserOrigin(data.user);
+
+	data.body.push(builders.userProfile(data));
 
 	// render vdoc
 	this.state.vdoc = builders.doc(data);

@@ -22,15 +22,15 @@ function template(data) {
 	var owner = data.owner;
 	var user = data.user;
 
-	var container = h('div.club-profile', [
-		h('div.profile', [
-			h('div.avatar', [
-				h('span.letter', club.title.substr(0, 2))
+	var container = h('div.m-home', [
+		h('div.m-profile', [
+			h('div.m-avatar', [
+				h('span.m-letter', club.initials)
 			])
-			, h('div.info', [
-				h('p.title', club.title)
-				, h('p.owner', [
-					h('span.text', i18n.t('club.club-owner', club))
+			, h('div.m-info', [
+				h('p.m-title', club.title)
+				, h('p.m-owner', [
+					h('span', i18n.t('club.club-owner', club))
 					, h('a.m-link', {
 						href: '/u/' + owner.uid
 					}, [
@@ -39,8 +39,7 @@ function template(data) {
 				])
 			])
 		])
-		, 
-		, h('div.m-content.welcome', [
+		, h('div.m-content', [
 			h('p.line', i18n.t('club.welcome-to-the-club', club))
 			, h('p.line', i18n.t('club.welcome-club-stats', club))
 			, h('p.line', [

@@ -5,8 +5,10 @@
  * Load user session data into global context
  */
 
-var sessionDomain = require('../domains/session');
 var csrf = require('csrf');
+
+var sessionDomain = require('../domains/session');
+var getAvatarVariant = require('../helpers/get-avatar-variant');
 
 module.exports = factory;
 
@@ -56,6 +58,7 @@ function *middleware(next) {
 	}
 
 	if (user) {
+		user.small_avatar = getAvatarVariant(user, 64);
 		this.state.user = user;
 	}
 

@@ -76,3 +76,36 @@
 		width: 90%;
 	}
 }
+
+// 2 column profile page display
+// eg. <div class="m-home"><div class="m-profile">...</div><div class="m-content">...</div></div>
+
+.m-home {
+	// 1 column design on smaller screen
+	padding: 1em;
+	overflow: hidden;
+
+	// larger screen, switch to 2 column design
+	@media @tablet-small {
+		display: flex;
+	}
+
+	// first row, basic profile
+	.m-profile {
+
+		// larger screen, move to left column
+		@media @tablet-small {
+			width: 200px;
+			display: block;
+		}
+	}
+
+	// second row, stats and content
+	.m-content {
+
+		// larger screen, move to right column
+		@media @tablet-small {
+			flex: 1;
+		}
+	}
+}

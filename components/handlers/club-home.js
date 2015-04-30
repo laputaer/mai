@@ -10,6 +10,8 @@ var builders = require('../builders/builders');
 var clubsDomain = require('../domains/clubs');
 var usersDomain = require('../domains/users');
 
+var getCoolInitials = require('../helpers/get-cool-initials');
+
 module.exports = factory;
 
 /**
@@ -38,7 +40,6 @@ function *middleware(next) {
 		db: this.db
 		, slug: this.params.slug
 	});
-	data.current_url = this.request.href;
 
 	if (!data.club) {
 		data.message = data.i18n.t('error.not-found-club');
@@ -47,6 +48,9 @@ function *middleware(next) {
 		this.state.vdoc = builders.doc(data);
 		return;
 	}
+
+	data.current_url = this.request.href;
+	data.club.initials = getCoolInitials(data.club.title);
 
 	if (!data.current_user) {
 		data.body.push(builders.login(data));
