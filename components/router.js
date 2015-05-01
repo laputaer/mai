@@ -19,6 +19,7 @@ var clubUpdate = require('./handlers/club-update');
 var oauth = require('./handlers/oauth');
 var profile = require('./handlers/user-profile');
 var oauthFailure = require('./handlers/oauth-error-handler');
+var loginRedirect = require('./handlers/login-redirect');
 
 module.exports = myRouter;
 
@@ -39,6 +40,8 @@ function myRouter(app) {
 	app.get('/club', club());
 	app.get('/ranking', landing());
 	app.get('/help', landing());
+
+	app.get('/login/redirect', loginRedirect());
 
 	app.get('/u/:uid', profile());
 	app.get('/login/:provider', oauth());

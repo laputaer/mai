@@ -107,5 +107,15 @@ function *middleware(next) {
 		, oauth: user.oauth
 	});
 
+	// STEP 6: follow redirect path
+	var path = yield sessionDomain.getRedirect({
+		session: this.session
+	});
+
+	if (path) {
+		this.redirect(path);
+		return;
+	}
+
 	this.redirect('/u/' + user.local.uid);
 };
