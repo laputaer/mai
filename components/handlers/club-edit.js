@@ -50,9 +50,7 @@ function *middleware(next) {
 
 	// STEP 2: user should be login
 	if (!data.current_user) {
-		data.body.push(builders.login(data));
-
-		this.state.vdoc = builders.doc(data);
+		this.redirect('/login/redirect?section=c&id=' + data.club.slug);
 		return;
 	}
 

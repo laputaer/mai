@@ -41,6 +41,11 @@ function *middleware(next) {
 		return;
 	}
 
+	// get redirect path
+	var path = yield sessionDomain.getRedirect({
+		session: this.session
+	});
+
 	// STEP 1: get oauth response
 	var response = yield sessionDomain.getOauthResponse({
 		session: this.session
@@ -107,11 +112,7 @@ function *middleware(next) {
 		, oauth: user.oauth
 	});
 
-	// STEP 6: follow redirect path
-	var path = yield sessionDomain.getRedirect({
-		session: this.session
-	});
-
+	// STEP 6: follow redirect
 	if (path) {
 		this.redirect(path);
 		return;
