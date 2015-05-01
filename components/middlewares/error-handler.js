@@ -39,6 +39,11 @@ function *middleware(next) {
 		this.app.emit('error', err, this);
 		errorPage(this, err);
 	}
+
+	// STEP 3: handle upstream custom error
+	if (this.state.error_page) {
+		errorPage(this, this.state.error_page);
+	}
 };
 
 /**
@@ -55,8 +60,15 @@ function errorPage(ctx, err) {
 	// prepare common data
 	var data = builders.prepareData(ctx);
 
-	// generic error page
-	data.body.push(builders.internalError(data));
+	if (err.status && err.message) {
+		// upstream specified error
+		data.error_status = data.i18n.t('error.status-code', { code: err.status })
+		data.error_message = err.message;
+		data.body.push(builders.customError(data));
+	} else {
+		// generic error page
+		data.body.push(builders.internalError(data));
+	}
 
 	// render vdoc
 	ctx.state.vdoc = builders.doc(data);

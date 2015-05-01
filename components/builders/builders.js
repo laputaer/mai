@@ -17,10 +17,12 @@ var notFoundError = require('./not-found-error');
 var login = require('./login');
 var userProfile = require('./user-profile');
 var prepareData = require('./prepare-data');
+var customError = require('./custom-error');
 
 module.exports = {
 	doc: doc
 	, prepareData: prepareData
+	, customError: customError
 	, landing: landing
 	, club: club
 	, clubNew: clubNew

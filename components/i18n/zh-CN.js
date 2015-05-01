@@ -36,9 +36,12 @@ module.exports = {
 		, 'login': '请在登录后访问这个功能'
 	}
 	, 'error': {
-		'not-found': 'Error 404'
+		'status-code': 'Error %{code}'
+		, 'not-found': 'Error 404'
 		, 'internal-server': 'Error 500'
+		, 'forbidden': 'Error 403'
 		, 'internal-service-down': '非常抱歉，看来我们的内部服务出了点问题'
+		, 'access-control': '看来你没有权限执行这个操作'
 		, 'invalid-csrf-token': '你提交的内容缺乏验证用的安全Token，请慎防第三方页面诈骗'
 		, 'not-found-user': '你要找的人不存在？'
 		, 'not-found-club': '你要找的社团不存在？'

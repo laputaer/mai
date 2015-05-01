@@ -47,7 +47,7 @@ function *middleware(next) {
 		return;
 	}
 
-	data.user.full_avatar = getAvatarVariant(data.user, 320);
+	data.user.full_avatar = getAvatarVariant(data.user, 400);
 	data.user.user_origin = getUserOrigin(data.user);
 
 	data.body.push(builders.userProfile(data));

@@ -1,6 +1,6 @@
 
 /**
- * club-new.js
+ * club-add.js
  *
  * Koa route handler for new club creation page
  */

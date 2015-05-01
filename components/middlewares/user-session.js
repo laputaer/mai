@@ -58,7 +58,7 @@ function *middleware(next) {
 	}
 
 	if (user) {
-		user.small_avatar = getAvatarVariant(user, 64);
+		user.small_avatar = getAvatarVariant(user, 48);
 		this.state.user = user;
 	}
 
