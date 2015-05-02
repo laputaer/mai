@@ -39,9 +39,9 @@ function template(data) {
 	}
 
 	var form = h('div.m-home', [
-		data.club_form_error
-		, h('div.m-content', [
-			h('h1.subtitle', i18n.t('club.new-club-intro'))
+		h('div.m-content', [
+			data.club_form_error
+			, h('h1.subtitle', i18n.t('club.new-club-intro'))
 			, h('p.line', {
 				innerHTML: i18n.t('club.new-club-help', {
 					help: '<a href="/help" class="link">' + i18n.t('menu.nav.help') + '</a>'

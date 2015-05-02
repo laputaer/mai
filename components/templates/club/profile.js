@@ -34,9 +34,7 @@ function template(data) {
 					, h('a.m-link', {
 						href: '/u/' + owner.uid
 					}, [
-						h('span.m-text.m-lang', {
-							lang: 'en'
-						}, owner.login)
+						h('span.m-text', owner.login)
 					])
 				])
 			])

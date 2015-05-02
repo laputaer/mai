@@ -33,9 +33,7 @@ function template(data) {
 					, h('a.m-link', {
 						href: user.user_origin
 					}, [
-						h('span.m-text.m-lang.cap', {
-							lang: 'en'
-						}, user.provider)
+						h('span.m-text.cap', user.provider)
 					])
 				])
 				/*
