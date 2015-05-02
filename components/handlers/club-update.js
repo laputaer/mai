@@ -12,8 +12,7 @@ var usersDomain = require('../domains/users');
 var clubsDomain = require('../domains/clubs');
 var sessionDomain = require('../domains/session');
 
-var createError = require('../helpers/create-custom-error');
-var formError = require('../helpers/create-form-error');
+var formError = require('../helpers/create-form-message');
 
 module.exports = factory;
 
@@ -40,27 +39,27 @@ function *middleware(next) {
 
 	// STEP 1: user should be login
 	if (!user) {
-		this.redirect('/c/' + slug);
+		this.redirect('/');
 		return;
 	}
 
-	// STEP 2: club should exist and owner should match
+	// STEP 2: find existing club, check owner
 	var club = yield clubsDomain.matchClub({
 		db: this.db
 		, slug: slug
 	});
 
 	if (!club) {
-		this.redirect('/club');
+		this.redirect('/');
 		return;
 	}
 
 	if (club.owner !== user.uid) {
-		this.redirect('/c/' + slug);
+		this.redirect('/');
 		return;
 	}
 
-	// STEP 2: input validation
+	// STEP 3: input validation
 	var body = this.request.body;
 	var result = yield sessionDomain.verifyCsrfToken({
 		session: this.session
@@ -70,10 +69,8 @@ function *middleware(next) {
 
 	if (!result) {
 		this.flash = formError(
-			'error.invalid-csrf-token'
-			, null
-			, null
-			, body
+			body
+			, 'error.invalid-csrf-token'
 		);
 		this.redirect('/c/' + slug + '/edit');
 		return;
@@ -82,7 +79,11 @@ function *middleware(next) {
 	result = yield validate(body, 'club');
 
 	if (!result.valid) {
-		this.flash = createError(result.errors, body);
+		this.flash = formError(
+			body
+			, 'error.form-input-invalid'
+			, result.errors
+		);
 		this.redirect('/c/' + slug + '/edit');
 		return;
 	}
@@ -93,5 +94,5 @@ function *middleware(next) {
 		, data: body
 	});
 
-	this.redirect('/c/' + club.slug + '/edit');
+	this.redirect('/c/' + club.slug);
 };

@@ -1,6 +1,6 @@
 
 /**
- * create-error-response.js
+ * create-error-message.js
  *
  * Create an error for custom error page
  */

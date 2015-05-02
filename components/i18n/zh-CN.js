@@ -43,12 +43,12 @@ module.exports = {
 		, 'internal-service-down': '非常抱歉，看来我们的内部服务出了点问题'
 		, 'access-control': '看来你没有权限执行这个操作'
 		, 'invalid-csrf-token': '你提交的内容缺乏验证用的安全Token，请慎防第三方页面诈骗'
-		, 'not-found-user': '你要找的人不存在？'
-		, 'not-found-club': '你要找的社团不存在？'
-		, 'form-required-input-missing': '必填的内容不应为空。'
-		, 'form-input-invalid': '提交内容的格式不符合要求。'
-		, 'form-internal-error': '非常抱歉，看来我们的内部服务出了点问题，请重新提交。'
-		, 'insufficient-action-point': '看来你的信仰值不足执行动作，需要 %{required} 点信仰，你目前只有 %{current} 点。'
+		, 'not-found-user': '你要找的团员不存在'
+		, 'not-found-club': '你要找的社团不存在'
+		, 'form-required-input-missing': '必填的内容不应为空'
+		, 'form-input-invalid': '提交内容的格式不符合要求'
+		, 'form-internal-error': '非常抱歉，看来我们的内部服务出了点问题，请重新提交'
+		, 'insufficient-action-point': '看来你的信仰值不足执行动作，需要 %{required} 点信仰，你目前只有 %{current} 点'
 	}
 	, 'user-profile': {
 		'from': '来自站点'

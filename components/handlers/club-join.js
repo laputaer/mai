@@ -10,7 +10,7 @@ var builders = require('../builders/builders');
 var clubsDomain = require('../domains/clubs');
 var usersDomain = require('../domains/users');
 
-var formError = require('../helpers/create-form-error');
+var formError = require('../helpers/create-form-message');
 
 module.exports = factory;
 
@@ -50,13 +50,11 @@ function *middleware(next) {
 	// check user action point
 	if (user.action_point < 2) {
 		this.flash = formError(
-			'error.insufficient-action-point'
-			, {
+			body
+			, this.i18n('error.insufficient-action-point', {
 				required: 2
 				, current: user.action_point
-			}
-			, null
-			, body
+			})
 		);
 		this.redirect('/c/' + slug);
 		return;

@@ -12,8 +12,7 @@ var usersDomain = require('../domains/users');
 var clubsDomain = require('../domains/clubs');
 var sessionDomain = require('../domains/session');
 
-var createError = require('../helpers/create-custom-error');
-var formError = require('../helpers/create-form-error');
+var formError = require('../helpers/create-form-message');
 
 module.exports = factory;
 
@@ -53,10 +52,8 @@ function *middleware(next) {
 
 	if (!result) {
 		this.flash = formError(
-			'error.invalid-csrf-token'
-			, null
-			, null
-			, body
+			body
+			, 'error.invalid-csrf-token'
 		);
 		this.redirect('/club/add');
 		return;
@@ -65,7 +62,11 @@ function *middleware(next) {
 	result = yield validate(body, 'club');
 
 	if (!result.valid) {
-		this.flash = createError(result.errors, body);
+		this.flash = formError(
+			body
+			, 'error.form-input-invalid'
+			, result.errors
+		);
 		this.redirect('/club/add');
 		return;
 	}
@@ -79,13 +80,11 @@ function *middleware(next) {
 	// check user action point
 	if (user.action_point < 10) {
 		this.flash = formError(
-			'error.insufficient-action-point'
-			, {
+			body
+			, this.i18n('error.insufficient-action-point', {
 				required: 10
 				, current: user.action_point
-			}
-			, null
-			, body
+			})
 		);
 		this.redirect('/club/add');
 		return;
@@ -100,10 +99,9 @@ function *middleware(next) {
 	// club already exists
 	if (club) {
 		this.flash = formError(
-			'club.already-exist'
-			, null
+			body
+			, 'club.already-exist'
 			, ['slug']
-			, body
 		);
 		this.redirect('/club/add');
 		return;
@@ -119,10 +117,8 @@ function *middleware(next) {
 	// unexpected error
 	if (!club) {
 		this.flash = formError(
-			'error.form-internal-error'
-			, null
-			, null
-			, body
+			body
+			, 'error.form-internal-error'
 		);
 		this.redirect('/club/add');
 		return;

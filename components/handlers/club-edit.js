@@ -6,9 +6,8 @@
  */
 
 var builders = require('../builders/builders');
-var usersDomain = require('../domains/users');
 var clubsDomain = require('../domains/clubs');
-var createError = require('../helpers/create-error-response');
+var createError = require('../helpers/create-error-message');
 
 module.exports = factory;
 
@@ -30,14 +29,20 @@ function factory() {
 function *middleware(next) {
 	yield next;
 
-	// prepare common data
+	// STEP 1: prepare common data
 	var data = builders.prepareData(this);
-	var error;
+	var slug = this.params.slug;
 
-	// STEP 1: find club
+	// STEP 2: user should be login
+	if (!data.current_user) {
+		this.redirect('/login/redirect?section=c&id=' + slug + '&action=edit');
+		return;
+	}
+
+	// STEP 3: find existing club, check owner
 	data.club = yield clubsDomain.matchClub({
 		db: this.db
-		, slug: this.params.slug
+		, slug: slug
 	});
 
 	if (!data.club) {
@@ -48,13 +53,6 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 2: user should be login
-	if (!data.current_user) {
-		this.redirect('/login/redirect?section=c&id=' + data.club.slug + '&action=edit');
-		return;
-	}
-
-	// STEP 3: check user is owner
 	if (data.club.owner !== data.current_user.uid) {
 		this.state.error_page = createError(
 			403
@@ -64,13 +62,7 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 4: find user profile
-	data.user = yield usersDomain.matchUser({
-		db: this.db
-		, uid: data.current_user.uid
-	});
+	// STEP 4: render page
 	data.body.push(builders.clubEditor(data));
-
-	// render vdoc
 	this.state.vdoc = builders.doc(data);
 };
