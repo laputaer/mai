@@ -38,13 +38,13 @@ function *middleware(next) {
 	var slug = this.params.slug;
 	var user = this.state.user;
 
-	// guest user
+	// STEP 1: user should be login
 	if (!user) {
-		this.redirect('/login/redirect?section=c&id=' + slug);
+		this.redirect('/c/' + slug);
 		return;
 	}
 
-	// STEP 1: find existing club
+	// STEP 2: club should exist and owner should match
 	var club = yield clubsDomain.matchClub({
 		db: this.db
 		, slug: slug

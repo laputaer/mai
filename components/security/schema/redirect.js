@@ -17,12 +17,18 @@ function factory() {
 			.using(function(value) {
 				return value === 'c'
 					|| value === 'u'
-			}, 'slug invalid')
+			}, 'section invalid')
 		.validates('id')
+			.optional()
 			.using(function(value) {
 				return validator.supported(value)
 					&& validator.isLength(value, 1, 64)
 					&& validator.matches(value, '^[a-z0-9-_]+$')
-			}, 'slug invalid')
+			}, 'id invalid')
+		.validates('action')
+			.optional()
+			.using(function(value) {
+				return value === 'edit'
+			}, 'action invalid')
 		.build();
 };

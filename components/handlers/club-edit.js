@@ -50,7 +50,7 @@ function *middleware(next) {
 
 	// STEP 2: user should be login
 	if (!data.current_user) {
-		this.redirect('/login/redirect?section=c&id=' + data.club.slug);
+		this.redirect('/login/redirect?section=c&id=' + data.club.slug + '&action=edit');
 		return;
 	}
 
