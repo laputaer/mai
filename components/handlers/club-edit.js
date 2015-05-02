@@ -69,7 +69,7 @@ function *middleware(next) {
 		db: this.db
 		, uid: data.current_user.uid
 	});
-	data.body.push(builders.clubNew(data));
+	data.body.push(builders.clubEditor(data));
 
 	// render vdoc
 	this.state.vdoc = builders.doc(data);

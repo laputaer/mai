@@ -28,7 +28,9 @@ function template(data) {
 				'background-image': 'url(' + user.small_avatar + ')'
 			}
 		})
-		, h('span.m-text', user.login)
+		, h('span.m-text.m-lang', {
+			lang: 'en'
+		}, user.login)
 	]);
 
 	return button;
