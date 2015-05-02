@@ -55,5 +55,6 @@ function myRouter(app) {
 	// TODO: get should not have side-effect
 	app.get('/c/:slug/join', clubJoin());
 	app.get('/c/:slug/edit', clubEdit());
-	app.put('/c/:slug', clubUpdate());
+	// TODO: it should be put
+	app.post('/c/:slug', clubUpdate());
 };

@@ -35,16 +35,33 @@ function factory() {
 function *middleware(next) {
 	yield next;
 
+	var slug = this.params.slug;
+	var user = this.state.user;
+
 	// guest user
-	if (!this.state.user) {
+	if (!user) {
+		this.redirect('/login/redirect?section=c&id=' + slug);
+		return;
+	}
+
+	// STEP 1: find existing club
+	var club = yield clubsDomain.matchClub({
+		db: this.db
+		, slug: slug
+	});
+
+	if (!club) {
 		this.redirect('/club');
 		return;
 	}
 
-	var user = this.state.user;
-	var body = this.request.body;
+	if (club.owner !== user.uid) {
+		this.redirect('/c/' + slug);
+		return;
+	}
 
-	// STEP 1: input validation
+	// STEP 2: input validation
+	var body = this.request.body;
 	var result = yield sessionDomain.verifyCsrfToken({
 		session: this.session
 		, cache: this.cache
@@ -58,7 +75,7 @@ function *middleware(next) {
 			, null
 			, body
 		);
-		this.redirect('/club/add');
+		this.redirect('/c/' + slug + '/edit');
 		return;
 	}
 
@@ -66,67 +83,15 @@ function *middleware(next) {
 
 	if (!result.valid) {
 		this.flash = createError(result.errors, body);
-		this.redirect('/club/add');
+		this.redirect('/c/' + slug + '/edit');
 		return;
 	}
 
-	// STEP 2: get full user data
-	user = yield usersDomain.matchUser({
+	// STEP 3: update club
+	club = yield clubsDomain.updateClub({
 		db: this.db
-		, uid: user.uid
-	});
-
-	// check user action point
-	if (user.action_point < 10) {
-		this.flash = formError(
-			'error.insufficient-action-point'
-			, {
-				required: 10
-				, current: user.action_point
-			}
-			, null
-			, body
-		);
-		this.redirect('/club/add');
-		return;
-	}
-
-	// STEP 3: find existing club
-	var club = yield clubsDomain.matchClub({
-		db: this.db
-		, slug: body.slug
-	});
-
-	// club already exists
-	if (club) {
-		this.flash = formError(
-			'club.already-exist'
-			, null
-			, ['slug']
-			, body
-		);
-		this.redirect('/club/add');
-		return;
-	}
-
-	// STEP 4: create new club
-	club = yield clubsDomain.createClub({
-		db: this.db
-		, user: user
 		, data: body
 	});
 
-	// unexpected error
-	if (!club) {
-		this.flash = formError(
-			'error.form-internal-error'
-			, null
-			, null
-			, body
-		);
-		this.redirect('/club/add');
-		return;
-	}
-
-	this.redirect('/club');
+	this.redirect('/c/' + club.slug + '/edit');
 };
