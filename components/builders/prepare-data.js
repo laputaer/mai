@@ -6,6 +6,7 @@
  */
 
 var removeSlash = require('../helpers/remove-trailing-slash');
+var normalizeFlash = require('../helpers/normalize-form-message');
 
 module.exports = prepareData;
 
@@ -27,7 +28,7 @@ function prepareData(ctx) {
 	// current path
 	data.path = removeSlash(ctx.path);
 	// flash message
-	data.flash = ctx.flash;
+	data.flash = normalizeFlash(ctx.flash);
 	// doc.body
 	data.body = [];
 

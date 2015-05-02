@@ -21,9 +21,7 @@ module.exports = renderer;
  */
 function renderer(data) {
 	data.csrf_field = csrfFieldTemplate({ csrf_token: data.current_user.csrf_token });
-	if (data.flash.type === 'form') {
-		data.club_form_error = formErrorTemplate(data);
-	}
+	data.club_form_error = formErrorTemplate(data);
 	data.main = editorFormTemplate(data);
 
 	return bodyBuilder(data);

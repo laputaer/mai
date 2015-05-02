@@ -53,7 +53,7 @@ function *middleware(next) {
 	if (!result) {
 		this.flash = formError(
 			body
-			, 'error.invalid-csrf-token'
+			, this.i18n.t('error.invalid-csrf-token')
 		);
 		this.redirect('/club/add');
 		return;
@@ -64,7 +64,7 @@ function *middleware(next) {
 	if (!result.valid) {
 		this.flash = formError(
 			body
-			, 'error.form-input-invalid'
+			, this.i18n.t('error.form-input-invalid')
 			, result.errors
 		);
 		this.redirect('/club/add');
@@ -81,7 +81,7 @@ function *middleware(next) {
 	if (user.action_point < 10) {
 		this.flash = formError(
 			body
-			, this.i18n('error.insufficient-action-point', {
+			, this.i18n.t('error.insufficient-action-point', {
 				required: 10
 				, current: user.action_point
 			})
@@ -100,7 +100,7 @@ function *middleware(next) {
 	if (club) {
 		this.flash = formError(
 			body
-			, 'club.already-exist'
+			, this.i18n.t('club.already-exist')
 			, ['slug']
 		);
 		this.redirect('/club/add');
@@ -118,7 +118,7 @@ function *middleware(next) {
 	if (!club) {
 		this.flash = formError(
 			body
-			, 'error.form-internal-error'
+			, this.i18n.t('error.form-internal-error')
 		);
 		this.redirect('/club/add');
 		return;

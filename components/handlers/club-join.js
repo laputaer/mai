@@ -51,7 +51,7 @@ function *middleware(next) {
 	if (user.action_point < 2) {
 		this.flash = formError(
 			body
-			, this.i18n('error.insufficient-action-point', {
+			, this.i18n.t('error.insufficient-action-point', {
 				required: 2
 				, current: user.action_point
 			})

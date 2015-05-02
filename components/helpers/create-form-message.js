@@ -20,7 +20,8 @@ function helper(body, message, errors) {
 	message = message || '';
 	errors = errors || [];
 
-	var err = new Error(message);
+	var err = new Error();
+	err.message = message;
 	err.body = body;
 
 	if (errors instanceof Array) {

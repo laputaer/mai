@@ -18,6 +18,7 @@ module.exports = template;
  */
 function template(data) {
 	var i18n = data.i18n;
+	var flash = data.flash;
 	var attrs = {
 		title: ''
 		, slug: ''
@@ -27,14 +28,14 @@ function template(data) {
 		, slug: ''
 	};
 
-	if (data.flash.type === 'form') {
-		data.flash.attrs.forEach(function(attr) {
+	if (flash) {
+		flash.attrs.forEach(function(attr) {
 			if (attrs.hasOwnProperty(attr)) {
 				attrs[attr] = '.error';
 			}
 		});
 
-		body = data.flash.body;
+		body = flash.body;
 	}
 
 	var club = h('div.club-creation', [

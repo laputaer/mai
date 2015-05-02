@@ -70,7 +70,7 @@ function *middleware(next) {
 	if (!result) {
 		this.flash = formError(
 			body
-			, 'error.invalid-csrf-token'
+			, this.i18n.t('error.invalid-csrf-token')
 		);
 		this.redirect('/c/' + slug + '/edit');
 		return;
@@ -81,7 +81,7 @@ function *middleware(next) {
 	if (!result.valid) {
 		this.flash = formError(
 			body
-			, 'error.form-input-invalid'
+			, this.i18n.t('error.form-input-invalid')
 			, result.errors
 		);
 		this.redirect('/c/' + slug + '/edit');
