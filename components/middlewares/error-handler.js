@@ -28,7 +28,7 @@ function factory() {
 function *middleware(next) {
 	// STEP 1: internal service down, no need to yield downstream
 	if (this.db === false || this.cache === false) {
-		errorPage(this, {});
+		errorPage(this);
 		return;
 	}
 
@@ -37,12 +37,23 @@ function *middleware(next) {
 		yield next;
 	} catch (err) {
 		this.app.emit('error', err, this);
-		errorPage(this, err);
+		errorPage(this);
+		return;
 	}
 
 	// STEP 3: handle upstream custom error
 	if (this.state.error_page) {
 		errorPage(this, this.state.error_page);
+		return;
+	}
+
+	// STEP 4: custom 404 page for unmatched route
+	if (this.status === 404 && !this.state.vdoc) {
+		errorPage(this, {
+			status: 404
+			, message: this.i18n.t('error.not-found-page')
+		});
+		return;
 	}
 };
 
@@ -54,21 +65,24 @@ function *middleware(next) {
  * @return  Void
  */
 function errorPage(ctx, err) {
-	// server status
-	ctx.status = err.status || 500;
+	err = err || {};
 
 	// prepare common data
 	var data = builders.prepareData(ctx);
 
+	// upstream specified error
 	if (err.status && err.message) {
-		// upstream specified error
 		data.error_status = data.i18n.t('error.status-code', { code: err.status })
 		data.error_message = err.message;
 		data.body.push(builders.customError(data));
+
+	// generic error page
 	} else {
-		// generic error page
 		data.body.push(builders.internalError(data));
 	}
+
+	// status code
+	ctx.status = err.status || 500;
 
 	// render vdoc
 	ctx.state.vdoc = builders.doc(data);

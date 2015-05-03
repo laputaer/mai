@@ -9,6 +9,7 @@ var oauthDomain = require('../domains/oauth');
 var usersDomain = require('../domains/users');
 var sessionDomain = require('../domains/session');
 var validate = require('../security/validation');
+var createError = require('../helpers/create-error-message');
 
 module.exports = factory;
 
@@ -32,12 +33,10 @@ function *middleware(next) {
 
 	var provider = this.params.provider;
 	var user = {};
-
-	// TODO: we should make error more verbose
+	var i18n = this.i18n;
 
 	// provider not supported
 	if (!provider || !this.config.oauth[provider]) {
-		this.redirect('/login/' + provider + '/failed');
 		return;
 	}
 
@@ -52,7 +51,12 @@ function *middleware(next) {
 	});
 
 	if (!response) {
-		this.redirect('/login/' + provider + '/failed');
+		this.state.error_page = createError(
+			500
+			, i18n.t('error.oauth-error-response', {
+				provider: provider
+			})
+		);
 		return;
 	}
 
@@ -73,7 +77,12 @@ function *middleware(next) {
 
 	// handle oauth failure
 	if (!user.oauth) {
-		this.redirect('/login/' + provider + '/failed');
+		this.state.error_page = createError(
+			500
+			, i18n.t('error.oauth-error-profile', {
+				provider: provider
+			})
+		);
 		return;
 	}
 
@@ -81,7 +90,12 @@ function *middleware(next) {
 	var result = yield validate(user.oauth, 'oauth');
 
 	if (!result.valid) {
-		this.redirect('/login/' + provider + '/failed');
+		this.state.error_page = createError(
+			500
+			, i18n.t('error.oauth-invalid-profile', {
+				provider: provider
+			})
+		);
 		return;
 	}
 
