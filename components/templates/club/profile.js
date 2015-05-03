@@ -18,6 +18,7 @@ module.exports = template;
  */
 function template(data) {
 	var i18n = data.i18n;
+	var xss = data.xss;
 	var club = data.club;
 	var owner = data.owner;
 	var user = data.user;
@@ -25,12 +26,12 @@ function template(data) {
 	var container = h('div.m-home', [
 		h('div.m-profile', [
 			h('div.m-avatar', [
-				h('span.m-letter', club.initials)
+				h('span.m-letter', xss.data(club.initials))
 			])
 			, h('div.m-info', [
-				h('p.m-title', club.title)
+				h('p.m-title', xss.data(club.title))
 				, h('p.m-owner', [
-					h('span', i18n.t('club.club-owner', club))
+					h('span', xss.data(i18n.t('club.club-owner', club)))
 					, h('a.m-link', {
 						href: '/u/' + owner.uid
 					}, [

@@ -21,6 +21,8 @@ function prepareData(ctx) {
 
 	// translation
 	data.i18n = ctx.i18n;
+	// xss filters
+	data.xss = ctx.xss;
 	// asset version
 	data.version = ctx.config.version;
 	// flash message

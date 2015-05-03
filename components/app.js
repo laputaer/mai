@@ -21,6 +21,7 @@ var errorHandler = require('./middlewares/error-handler');
 var dev = require('./middlewares/local-development');
 var renderer = require('./middlewares/template-renderer');
 var userSession = require('./middlewares/user-session');
+var sanitization = require('./middlewares/output-sanitization');
 
 var router = require('./router');
 var startUp = require('./start-up');
@@ -40,6 +41,7 @@ app.use(flash(config.flash)); // this.flash
 
 app.use(configFactory(true)); // this.config
 app.use(i18nFactory(true)); // this.i18n
+app.use(sanitization(true)); // this.xss
 app.use(db()); // this.db, this.cache
 app.use(renderer()); // this.body
 app.use(errorHandler()); // this.state.vdoc
