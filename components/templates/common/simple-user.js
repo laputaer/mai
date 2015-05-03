@@ -18,7 +18,7 @@ module.exports = template;
  */
 function template(data) {
 	var user = data.current_user;
-	var status = data.path === '/u/' + user.uid ? '.active' : '';
+	var status = data.current_path === '/u/' + user.uid ? '.active' : '';
 
 	var button = h('a.m-button.rounded.navigation' + status, {
 		href: '/u/' + user.uid

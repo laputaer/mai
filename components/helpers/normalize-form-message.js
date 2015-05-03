@@ -8,7 +8,7 @@
 module.exports = helper;
 
 /**
- * Generate a standard error object
+ * Normalize internal error object
  *
  * @param   Object  flash  Flash object
  * @return  Object         Standard flash object

@@ -23,13 +23,15 @@ function prepareData(ctx) {
 	data.i18n = ctx.i18n;
 	// asset version
 	data.version = ctx.config.version;
+	// flash message
+	data.flash = normalizeFlash(ctx.flash);
 	// login user session
 	data.current_user = ctx.state.user;
 	// current path
-	data.path = removeSlash(ctx.path);
-	// flash message
-	data.flash = normalizeFlash(ctx.flash);
-	// doc.body
+	data.current_path = removeSlash(ctx.path);
+	// current url
+	data.current_url = ctx.request.href;
+	// doc.body content
 	data.body = [];
 
 	return data;

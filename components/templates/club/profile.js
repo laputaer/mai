@@ -40,16 +40,19 @@ function template(data) {
 			])
 		])
 		, h('div.m-content', [
-			h('p.line', i18n.t('club.welcome-to-the-club', club))
+			data.club_management
+			, h('p.line', i18n.t('club.welcome-to-the-club', club))
 			, h('p.line', i18n.t('club.welcome-club-stats', club))
 			, h('p.line', [
 				data.join_club_button
 				, data.share_club_button
 			])
+			/*
 			, h('p.line', i18n.t('club.join-stats', {
 				current: user.action_point
 				, base: user.action_base
 			}))
+			*/
 		])
 	]);
 

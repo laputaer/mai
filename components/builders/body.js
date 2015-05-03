@@ -34,7 +34,7 @@ function renderer(data) {
 		, { href: '/help', icon: 'compass', text: i18n.t('menu.nav.help'), version: data.version.asset, type: ['navigation'] }
 	];
 	data.menu_nav = data.menu_nav.map(function(button) {
-		if (data.path === button.href) {
+		if (data.current_path === button.href) {
 			button.type.push('active');
 		}
 		return button;

@@ -85,5 +85,6 @@ module.exports = {
 		, 'join-stats': '你还有 %{current} / %{base} 点信仰值，加入社团需要投入 2 点信仰。'
 		, 'share-button': '分享至Twitter'
 		, 'share-button-text': '我创建了一个叫%{title}的社团，却被告知部员要达到5人才能保留，你能来帮忙吗？'
+		, 'owner-management': '管理社团'
 	}
 };

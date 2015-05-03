@@ -20,6 +20,17 @@ module.exports = renderer;
  */
 function renderer(data) {
 	var i18n = data.i18n;
+
+	if (data.current_user && data.current_user.uid === data.club.owner) {
+		data.club_management = buttonTemplate({
+			href: '/c/' + data.club.slug + '/edit'
+			, icon: 'setting'
+			, text: data.i18n.t('club.owner-management')
+			, type: ['small']
+			, version: data.version.asset
+		});
+	}
+
 	data.join_club_button = buttonTemplate({
 		href: '/c/' + data.club.slug + '/join'
 		, icon: 'dialogue_happy'
@@ -27,6 +38,7 @@ function renderer(data) {
 		, type: ['large', 'accept']
 		, version: data.version.asset
 	})
+
 	data.share_club_button = buttonTemplate({
 		href: 'https://twitter.com/intent/tweet?text='
 			+ i18n.t('club.share-button-text', data.club)
@@ -37,6 +49,7 @@ function renderer(data) {
 		, type: ['large', 'twitter']
 		, version: data.version.asset
 	})
+
 	data.main = profileTemplate(data);
 
 	return bodyBuilder(data);
