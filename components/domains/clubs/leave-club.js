@@ -31,5 +31,6 @@ function *leaveClub(opts) {
 		slug: club.slug
 	}, {
 		members: club.members ? club.members - 1 : 0
+		, points: club.points ? club.points - 2 : 0
 	});
 };
