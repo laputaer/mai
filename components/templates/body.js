@@ -17,19 +17,12 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var main;
-	if (data.main) {
-		main = data.main;
-	} else {
-		main = data.placeholder;
-	}
-
 	var main = h('div.page', [
-		h('div.global-header', [
-			data.heading
-			, data.menu
-		])
-		, main
+		data.heading
+		, data.menu
+		, data.main
+		, data.placeholder
+		, data.mobile_menu
 	]);
 
 	return main;

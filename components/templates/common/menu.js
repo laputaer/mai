@@ -17,6 +17,10 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
+	var hint = h('ul.hint', data.menu_hint.map(function(button) {
+		return h('li.item', button);
+	}));
+
 	var nav = h('ul.nav', data.menu_nav.map(function(button) {
 		return h('li.item', button);
 	}));
@@ -25,7 +29,7 @@ function template(data) {
 		return h('li.item', button);
 	}));
 
-	var menu = h('div.menu', [nav, user]);
+	var menu = h('div.menu', [hint, nav, user]);
 
 	return menu;
 };

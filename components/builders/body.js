@@ -26,9 +26,20 @@ function renderer(data) {
 	data.heading = headingTemplate(data);
 
 	// menu partials
-	data.menu_nav = [
+	data.menu_hint = [
 		{ href: '/', icon: 'squares', text: i18n.t('menu.nav.toggle'), version: data.version.asset, type: ['navigation'] }
-		, { href: '/', icon: 'home', text: i18n.t('menu.nav.home'), version: data.version.asset, type: ['navigation'] }
+	];
+	data.menu_hint = data.menu_hint.map(function(button) {
+		if (data.current_path === button.href) {
+			button.type.push('active');
+		}
+		return button;
+	});
+	data.menu_hint = data.menu_hint.map(buttonTemplate);
+
+	// menu partials
+	data.menu_nav = [
+		{ href: '/', icon: 'home', text: i18n.t('menu.nav.home'), version: data.version.asset, type: ['navigation'] }
 		, { href: '/club', icon: 'heart', text: i18n.t('menu.nav.club'), version: data.version.asset, type: ['navigation'] }
 		, { href: '/ranking', icon: 'graph_rising', text: i18n.t('menu.nav.ranking'), version: data.version.asset, type: ['navigation'] }
 		, { href: '/help', icon: 'compass', text: i18n.t('menu.nav.help'), version: data.version.asset, type: ['navigation'] }
@@ -41,14 +52,13 @@ function renderer(data) {
 	});
 	data.menu_nav = data.menu_nav.map(buttonTemplate);
 
-	// menu login for guest user
+	// menu partials
 	if (!data.current_user) {
 		data.menu_user = [
 			{ href: '/connect/twitter', icon: 'twitter', text: i18n.t('menu.login.twitter'), version: data.version.asset, type: ['navigation'] }
 			, { href: '/connect/github', icon: 'github', text: i18n.t('menu.login.github'), version: data.version.asset, type: ['navigation'] }
 		];
 		data.menu_user = data.menu_user.map(buttonTemplate);
-	// profile link for local user
 	} else {
 		data.menu_user = [ userTemplate(data) ];
 	}

@@ -37,7 +37,7 @@
 	padding: 0.5em 1em;
 	border-bottom: 1px solid @color-gray-pastel;
 
-	.nav, .user {
+	.hint, .nav, .user {
 		.reset-list();
 		overflow: hidden;
 
@@ -48,31 +48,34 @@
 		}
 	}
 
-	.nav {
+	.hint {
 		float: left;
+		display: none;
 
 		@media @supported {
-			.item {
-				display: none;
-			}
-
-			.item:first-child {
-				display: block;
-			}
+			display: block;
 		}
 
 		@media @tablet {
-			.item {
-				display: block;
-			}
+			display: none;
+		}
+	}
 
-			.item:first-child {
-				display: none;
-			}
+	.nav {
+		float: left;
+		display: block;
+
+		@media @supported {
+			display: none;
+		}
+
+		@media @tablet {
+			display: block;
 		}
 	}
 
 	.user {
 		float: right;
+		display: block;
 	}
 }
