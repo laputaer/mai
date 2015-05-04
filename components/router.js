@@ -13,7 +13,7 @@ var clubAdd = require('./handlers/club-add');
 var clubCreate = require('./handlers/club-create');
 var clubSearch = require('./handlers/club-search');
 var clubHome = require('./handlers/club-home');
-var clubJoin = require('./handlers/club-join');
+var clubMembership = require('./handlers/club-membership');
 var clubEdit = require('./handlers/club-edit');
 var clubUpdate = require('./handlers/club-update');
 var oauth = require('./handlers/oauth');
@@ -52,9 +52,9 @@ function myRouter(app) {
 	app.get('/club/search', clubSearch());
 
 	app.get('/c/:slug', clubHome());
-	// TODO: get should not have side-effect
-	app.get('/c/:slug/join', clubJoin());
 	app.get('/c/:slug/edit', clubEdit());
-	// TODO: it should be put
+	// should be PUT and DELETE, alias to POST for html form
+	app.post('/c/:slug/memberships', clubMembership());
+	// should be PUT, alias to POST for html form
 	app.post('/c/:slug', clubUpdate());
 };

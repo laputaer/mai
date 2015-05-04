@@ -4,6 +4,7 @@
 // standard button
 // eg. <a class="m-button" href="..."><svg class="m-icon">...</svg><span class="m-text">...</span></a>
 // eg. <a class="m-button" href="..."><div class="m-image">...</div><span class="m-text">...</span></a>
+// eg. <button class="m-button">...</button>
 
 .m-button {
 	display: inline-block;
@@ -14,6 +15,9 @@
 	text-decoration: none;
 	line-height: 20px;
 	.size(16);
+
+	background-color: transparent;
+	-webkit-appearance: none;
 
 	.m-icon, .m-image {
 		display: inline-block;

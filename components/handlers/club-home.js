@@ -58,11 +58,17 @@ function *middleware(next) {
 		, uid: data.club.owner
 	});
 
-	// STEP 4: find user if login
+	// STEP 4: find user and membership if login
 	if (data.current_user) {
 		data.user = yield usersDomain.matchUser({
 			db: this.db
 			, uid: data.current_user.uid
+		});
+
+		data.membership = yield clubsDomain.matchMembership({
+			db: this.db
+			, uid: data.current_user.uid
+			, slug: data.club.slug
 		});
 	}
 

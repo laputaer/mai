@@ -42,12 +42,16 @@ function template(data) {
 		])
 		, h('div.m-content', [
 			data.club_management
+			, h('form', {
+				action: '/c/' + club.slug + '/memberships'
+				, method: 'POST'
+			}, [
+				data.csrf_field
+				, data.club_join
+				, data.club_leave
+			])
 			, h('p.line', i18n.t('club.welcome-to-the-club', club))
 			, h('p.line', i18n.t('club.welcome-club-stats', club))
-			, h('p.line', [
-				data.join_club_button
-				, data.share_club_button
-			])
 			/*
 			, h('p.line', i18n.t('club.join-stats', {
 				current: user.action_point

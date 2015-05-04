@@ -10,14 +10,14 @@ module.exports = helper;
 /**
  * Generate a standard error object
  *
- * @param   Object  body     Input body
  * @param   String  message  I18N message string
+ * @param   Object  body     Input body
  * @param   Mixed   errors   List of names or validation errors
  * @return  Object           Internal error object
  */
-function helper(body, message, errors) {
-	body = body || {};
+function helper(message, body, errors) {
 	message = message || '';
+	body = body || {};
 	errors = errors || [];
 
 	var err = new Error();

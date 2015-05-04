@@ -13,6 +13,7 @@ var updateClub = require('./clubs/update-club');
 var searchClubs = require('./clubs/search-clubs');
 var matchMembership = require('./clubs/match-membership');
 var joinClub = require('./clubs/join-club');
+var leaveClub = require('./clubs/leave-club');
 
 module.exports = {
 	getUserOwnedClubs: getUserOwnedClubs
@@ -23,4 +24,5 @@ module.exports = {
 	, searchClubs: searchClubs
 	, matchMembership: matchMembership
 	, joinClub: joinClub
+	, leaveClub: leaveClub
 };

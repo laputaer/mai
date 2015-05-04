@@ -86,6 +86,7 @@ module.exports = {
 		, 'welcome-club-stats': '成为正式社团需要 5 名成员，目前社团有 %{members} 成员。'
 		, 'club-owner': '社团创始人'
 		, 'join-button': '加入社团'
+		, 'leave-button': '退出社团'
 		, 'join-stats': '你还有 %{current} / %{base} 点信仰值，加入社团需要投入 2 点信仰。'
 		, 'share-button': '分享至Twitter'
 		, 'share-button-text': '我创建了一个叫%{title}的社团，却被告知部员要达到5人才能保留，你能来帮忙吗？'
