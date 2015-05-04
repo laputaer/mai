@@ -29,7 +29,7 @@ function renderer(data) {
 			href: '/c/' + data.club.slug + '/edit'
 			, icon: 'setting'
 			, text: data.i18n.t('club.owner-management')
-			, type: ['small']
+			, type: ['small', 'highlight']
 			, version: data.version.asset
 		});
 	}
@@ -42,7 +42,7 @@ function renderer(data) {
 			data.club_join = formButtonTemplate({
 				icon: 'profile_add'
 				, text: data.i18n.t('club.join-button')
-				, type: ['accept']
+				, type: ['small', 'accept']
 				, version: data.version.asset
 				, name: 'put'
 				, value: '1'
@@ -52,6 +52,7 @@ function renderer(data) {
 				icon: 'profile_remove'
 				, text: data.i18n.t('club.leave-button')
 				, version: data.version.asset
+				, type: ['small']
 				, name: 'del'
 				, value: '1'
 			});

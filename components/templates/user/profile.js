@@ -19,8 +19,8 @@ module.exports = template;
 function template(data) {
 	var i18n = data.i18n;
 	var user = data.user;
-	var profile = h('div.m-home', [
-		h('div.m-profile.user-profile', [
+	var profile = h('div.m-rows', [
+		h('div.m-profile.m-row-1', [
 			h('div.m-avatar', {
 				style: {
 					'background-image': 'url(' + user.full_avatar + ')'
@@ -45,7 +45,7 @@ function template(data) {
 				*/
 			])
 		])
-		, h('div.m-content', [
+		, h('div.m-content.m-row-2', [
 			h('p.line', i18n.t('user-profile.placeholder-1'))
 			, h('p.line', {
 				innerHTML: i18n.t('user-profile.placeholder-2', {

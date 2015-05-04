@@ -23,8 +23,8 @@ function template(data) {
 	var owner = data.owner;
 	var user = data.user;
 
-	var container = h('div.m-home', [
-		h('div.m-profile', [
+	var container = h('div.m-rows', [
+		h('div.m-profile.m-row-1', [
 			h('div.m-avatar', [
 				h('span.m-letter', xss.data(club.initials))
 			])
@@ -40,7 +40,7 @@ function template(data) {
 				])
 			])
 		])
-		, h('div.m-content', [
+		, h('div.m-content.m-row-2', [
 			data.club_management
 			, h('form', {
 				action: '/c/' + club.slug + '/memberships'
