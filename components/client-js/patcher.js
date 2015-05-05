@@ -7,18 +7,13 @@
 
 'use strict';
 
+// templates
+var templates = require('../templates/index');
+
 // vdom to html
 var diff = require('virtual-dom/diff');
 var patch = require('virtual-dom/patch');
 var createElement = require('virtual-dom/create-element');
-
-// html to vdom
-var VNode = require('virtual-dom/vnode/vnode');
-var VText = require('virtual-dom/vnode/vtext');
-var h2v = require('html-to-vdom')({
-	VNode: VNode
-	, VText: VText
-});
 
 var htmlCache, vdomCache, nodeCache;
 
