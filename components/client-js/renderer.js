@@ -1,8 +1,8 @@
 
 /**
- * patcher.js
+ * renderer.js
  *
- * Take HTML as string, convert into virtual dom and cache, update as HTML change
+ * Take immuntable data model, build virtual dom, render html as model change
  */
 
 'use strict';
@@ -15,20 +15,21 @@ var diff = require('virtual-dom/diff');
 var patch = require('virtual-dom/patch');
 var createElement = require('virtual-dom/create-element');
 
-var htmlCache, vdomCache, nodeCache;
+// cache
+var modelCache, vdomCache, nodeCache;
 
-module.exports = patcher;
+module.exports = renderer;
 
 /**
  * Patch HTML using virtual-dom
  *
- * @param   DOM     base  Container dom
- * @param   String  html  Input HTML string
+ * @param   DOM     base   Container dom
+ * @param   Object  model  Immutable data model
  * @return  Void
  */
-function patcher(base, html) {
+function renderer(base, model) {
 	// STEP 1: same html string, skip rendering
-	if (htmlCache === html) {
+	if (modelCache === html) {
 		return;
 	}
 
