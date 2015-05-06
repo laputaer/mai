@@ -11,50 +11,69 @@
 var templates = require('../templates/index');
 
 // vdom to html
+var h = require('virtual-dom/h');
 var diff = require('virtual-dom/diff');
 var patch = require('virtual-dom/patch');
 var createElement = require('virtual-dom/create-element');
 
-// cache
-var modelCache, vdomCache, nodeCache;
+// html to vdom
+var virtualize = require('vdom-virtualize');
 
-module.exports = renderer;
+module.exports = Renderer;
 
 /**
  * Patch HTML using virtual-dom
  *
- * @param   DOM     base   Container dom
+ * @return  Void
+ */
+function Renderer() {
+	if (!(this instanceof Renderer)) {
+		return new Renderer();
+	}
+
+	this.vdomCache = null;
+	this.nodeCache = null;
+	this.modelCache = null;
+};
+
+/**
+ * Initialize server-rendered dom into vdom  
+ *
+ * @param   DOM   base  Container dom
+ * @return  Void
+ */
+Renderer.prototype.init = function(base) {
+	if (this.vdomCache && this.nodeCache) {
+		return;
+	}
+
+	this.vdomCache = virtualize(base);
+	this.nodeCache = createElement(this.vdomCache);
+
+	var root = base.parentNode;
+	root.removeChild(base);
+	root.appendChild(this.nodeCache);
+};
+
+/**
+ * Update dom using vdom diffing 
+ *
  * @param   Object  model  Immutable data model
  * @return  Void
  */
-function renderer(base, model) {
-	// STEP 1: same html string, skip rendering
-	if (modelCache === html) {
+Renderer.prototype.update = function(model) {
+	if (this.modelCache === model) {
+		return;
+	}
+	this.modelCache = model;
+
+	var vdom;
+	// TODO: render new vdom
+	if (!vdom) {
 		return;
 	}
 
-	// STEP 2: cache html
-	htmlCache = html;
-
-	// STEP 3: convert html into vdom
-	var vdom = h2v(html); 
-
-	// STEP 4: first render
-	if (!vdomCache || !nodeCache) {
-		// update cache
-		vdomCache = vdom;
-		nodeCache = createElement(vdom);
-		// clean up container
-		while (base.firstChild) {
-			base.removeChild(base.firstChild);
-		}
-		// add rendered dom
-		base.appendChild(nodeCache);
-		return;
-	}
-
-	// STEP 5: update view
-	var patches = diff(vdomCache, vdom);
-	patch(nodeCache, patches);
-	vdomCache = vdom;
+	var patches = diff(this.vdomCache, vdom);
+	patch(this.nodeCache, patches);
+	this.vdomCache = vdom;
 };
