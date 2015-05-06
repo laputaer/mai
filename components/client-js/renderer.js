@@ -7,9 +7,6 @@
 
 'use strict';
 
-// templates
-var templates = require('../templates/index');
-
 // vdom to html
 var h = require('virtual-dom/h');
 var diff = require('virtual-dom/diff');
@@ -49,14 +46,11 @@ Renderer.prototype.init = function(base) {
 
 	this.vdomCache = virtualize(base);
 	// solution 1: do not replace existing dom
-	this.nodeCache = base;
-	/*
+	//this.nodeCache = base;
 	// solution 2: replace existing dom
 	this.nodeCache = createElement(this.vdomCache);
-
 	var root = base.parentNode;
 	root.replaceChild(this.nodeCache, base);
-	*/
 };
 
 /**
@@ -72,7 +66,7 @@ Renderer.prototype.update = function(model) {
 	this.modelCache = model;
 
 	var vdom;
-	// TODO: render new vdom
+
 	if (!vdom) {
 		return;
 	}
