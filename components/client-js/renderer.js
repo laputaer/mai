@@ -39,7 +39,7 @@ function Renderer() {
 /**
  * Initialize server-rendered dom into vdom  
  *
- * @param   DOM   base  Container dom
+ * @param   DOM   base  Initial dom
  * @return  Void
  */
 Renderer.prototype.init = function(base) {
@@ -48,11 +48,15 @@ Renderer.prototype.init = function(base) {
 	}
 
 	this.vdomCache = virtualize(base);
+	// solution 1: do not replace existing dom
+	this.nodeCache = base;
+	/*
+	// solution 2: replace existing dom
 	this.nodeCache = createElement(this.vdomCache);
 
 	var root = base.parentNode;
-	root.removeChild(base);
-	root.appendChild(this.nodeCache);
+	root.replaceChild(this.nodeCache, base);
+	*/
 };
 
 /**

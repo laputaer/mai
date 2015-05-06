@@ -8,18 +8,14 @@
 'use strict';
 
 var Renderer = require('./renderer');
-var page = new Renderer();
+var pageRenderer = new Renderer();
 
-console.log('pre-fire');
-setTimeout(function() {
-	page.init(document.body.firstChild);
-	console.log('fired');
-}, 2000);
+window.addEventListener('DOMContentLoaded', init);
 
-setTimeout(function() {
-	page.update();
-	console.log('fired 2');
-}, 4000);
+function init() {
+	var page = document.getElementsByClassName('page')[0];
+	pageRenderer.init(page);
+};
 
 /*
 var raf = require('raf');
