@@ -22,7 +22,7 @@ function partial(data) {
 		id: 'club-title'
 		, name: 'title'
 		, value: flash && flash.body ? flash.body['title'] : data.club.title
-		, error: flash && flash.attrs && flash.attrs.indexOf('title') ? '.error' : ''
+		, error: flash && flash.attrs && flash.attrs.indexOf('title') !== -1 ? '.error' : ''
 		, label: i18n.t('club.new-club-title')
 		, note: i18n.t('club.new-club-title-note')
 		, placeholder: i18n.t('club.new-club-title-placeholder')
@@ -31,7 +31,7 @@ function partial(data) {
 		id: 'club-slug'
 		, name: 'slug'
 		, value: flash && flash.body ? flash.body['slug'] : data.club.slug
-		, error: flash && flash.attrs && flash.attrs.indexOf('slug') ? '.error' : ''
+		, error: flash && flash.attrs && flash.attrs.indexOf('slug') !== -1 ? '.error' : ''
 		, label: i18n.t('club.new-club-slug')
 		, note: i18n.t('club.new-club-slug-note')
 		, placeholder: i18n.t('club.new-club-slug-placeholder')

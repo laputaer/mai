@@ -10,12 +10,13 @@ module.exports = updateClub;
 /**
  * Update and return a club
  *
- * @param   Object  opts  Options { db, data }
+ * @param   Object  opts  Options { db, data, slug }
  * @return  Object        Club data
  */
 function *updateClub(opts) {
 	var db = opts.db;
 	var data = opts.data;
+	var slug = opts.slug;
 	var Club = db.col('clubs');
 
 	// STEP 1: update club
@@ -25,7 +26,7 @@ function *updateClub(opts) {
 		, updated: new Date()
 	}
 	yield Club.update({
-		slug: club.slug
+		slug: slug
 	}, club);
 
 	// null if club not found

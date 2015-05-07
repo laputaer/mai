@@ -89,6 +89,7 @@ function *middleware(next) {
 	club = yield clubsDomain.updateClub({
 		db: this.db
 		, data: body
+		, slug: slug
 	});
 
 	this.redirect('/c/' + club.slug);

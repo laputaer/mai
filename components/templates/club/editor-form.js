@@ -24,12 +24,8 @@ function template(data) {
 	var form = h('div.m-rows', [
 		h('div.m-content.m-row-2', [
 			data.club_form_error
-			, h('h1.subtitle', i18n.t('club.new-club-intro'))
-			, h('p.line', {
-				innerHTML: i18n.t('club.new-club-help', {
-					help: '<a href="/help" class="link">' + i18n.t('menu.nav.help') + '</a>'
-				})
-			})
+			, h('h1.subtitle', i18n.t('club.owner-management'))
+			, h('p.line', i18n.t('club.owner-management-intro'))
 			, h('form.m-form.m-cells', {
 				action: club.slug ? '/c/' + club.slug : '/club'
 				, method: 'POST'

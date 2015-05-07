@@ -91,5 +91,6 @@ module.exports = {
 		, 'share-button': '分享至Twitter'
 		, 'share-button-text': '我创建了一个叫%{title}的社团，却被告知部员要达到5人才能保留，你能来帮忙吗？'
 		, 'owner-management': '管理社团'
+		, 'owner-management-intro': '欢迎回来，部长。在这里你可以管理社团的各种常见设定：名称、路径、简介、团徽等等。更多功能将随着社团的成长加入！'
 	}
 };
