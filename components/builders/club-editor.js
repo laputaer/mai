@@ -2,28 +2,23 @@
 /**
  * club-editor.js
  *
- * Render a club manamgement form
+ * Build a club manamgement form
  */
 
-var editorFormTemplate = require('../templates/club/editor-form');
-var formErrorTemplate = require('../templates/common/form-error');
-var csrfFieldTemplate = require('../templates/common/csrf-field');
-var formGroupTemplate = require('../templates/common/form-group');
+var templates = require('../templates/index');
 
-var bodyBuilder = require('./body');
-
-module.exports = renderer;
+module.exports = partial;
 
 /**
- * Renderer populates templates with data
+ * Populates templates with data
  *
  * @param   Object  data  From data source
- * @return  VNode
+ * @return  Object
  */
-function renderer(data) {
+function partial(data) {
 	var flash = data.flash;
 	var i18n = data.i18n;
-	data.title_group = formGroupTemplate({
+	data.title_group = templates.common.formGroup({
 		id: 'club-title'
 		, name: 'title'
 		, value: flash && flash.body ? flash.body['title'] : ''
@@ -32,7 +27,7 @@ function renderer(data) {
 		, note: i18n.t('club.new-club-title-note')
 		, placeholder: i18n.t('club.new-club-title-placeholder')
 	});
-	data.slug_group = formGroupTemplate({
+	data.slug_group = templates.common.formGroup({
 		id: 'club-slug'
 		, name: 'slug'
 		, value: flash && flash.body ? flash.body['slug'] : ''
@@ -42,9 +37,9 @@ function renderer(data) {
 		, placeholder: i18n.t('club.new-club-slug-placeholder')
 	});
 
-	data.csrf_field = csrfFieldTemplate({ csrf_token: data.current_user.csrf_token });
-	data.club_form_error = formErrorTemplate(data);
-	data.main = editorFormTemplate(data);
+	data.csrf_field = templates.common.csrfField({ csrf_token: data.current_user.csrf_token });
+	data.club_form_error = templates.common.formError(data);
+	data.main = templates.club.editorForm(data);
 
-	return bodyBuilder(data);
+	return data;
 };

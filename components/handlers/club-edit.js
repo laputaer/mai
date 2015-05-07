@@ -5,7 +5,7 @@
  * Koa route handler for club management page
  */
 
-var renderer = require('../builders/index');
+var builder = require('../builders/index');
 var prepareData = require('../builders/prepare-data');
 
 var clubsDomain = require('../domains/clubs');
@@ -64,5 +64,5 @@ function *middleware(next) {
 	}
 
 	// STEP 4: render page
-	this.state.vdoc = renderer(data);
+	this.state.vdoc = builder(data);
 };

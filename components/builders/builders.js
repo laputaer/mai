@@ -6,6 +6,7 @@
  */
 
 var doc = require('./doc');
+var body = require('./body');
 var landing = require('./landing');
 var club = require('./club');
 var clubNew = require('./club-new');
@@ -22,6 +23,7 @@ var customError = require('./custom-error');
 
 module.exports = {
 	doc: doc
+	, body: body
 	, prepareData: prepareData
 	, customError: customError
 	, landing: landing
