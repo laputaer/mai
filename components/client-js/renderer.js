@@ -52,12 +52,7 @@ Renderer.prototype.init = function(base) {
 	}
 
 	this.vdomCache = convert(base);
-	// solution 1: do not replace existing dom
 	this.nodeCache = base;
-	// solution 2: replace existing dom
-	//this.nodeCache = createElement(this.vdomCache);
-	//var root = base.parentNode;
-	//root.replaceChild(this.nodeCache, base);
 };
 
 /**
@@ -73,6 +68,7 @@ Renderer.prototype.update = function(model) {
 	this.modelCache = model;
 
 	var vdom;
+	// TODO: do real rendering
 	var data = {
 		content: h('div.action', {
 			'ev-click': function(ev) {

@@ -7,6 +7,7 @@
 
 'use strict';
 
+/*
 var Renderer = require('./renderer');
 var page = new Renderer();
 
@@ -19,3 +20,4 @@ function init() {
 		page.update();
 	}, 1000);
 }
+*/
