@@ -5,11 +5,7 @@
  * Render common body components
  */
 
-var bodyTemplate = require('../templates/body');
-var headingTemplate = require('../templates/common/heading');
-var menuTemplate = require('../templates/common/menu');
-var buttonTemplate = require('../templates/common/button');
-var userTemplate = require('../templates/common/simple-user');
+var templates = require('../templates/index');
 
 module.exports = renderer;
 
@@ -23,7 +19,7 @@ function renderer(data) {
 	var i18n = data.i18n;
 
 	// heading
-	data.heading = headingTemplate(data);
+	data.heading = templates.common.heading(data);
 
 	// menu partials
 	data.menu_hint = [
@@ -35,7 +31,7 @@ function renderer(data) {
 		}
 		return button;
 	});
-	data.menu_hint = data.menu_hint.map(buttonTemplate);
+	data.menu_hint = data.menu_hint.map(templates.common.button);
 
 	// menu partials
 	data.menu_nav = [
@@ -50,7 +46,7 @@ function renderer(data) {
 		}
 		return button;
 	});
-	data.menu_nav = data.menu_nav.map(buttonTemplate);
+	data.menu_nav = data.menu_nav.map(templates.common.button);
 
 	// menu partials
 	if (!data.current_user) {
@@ -58,12 +54,12 @@ function renderer(data) {
 			{ href: '/connect/twitter', icon: 'twitter', text: i18n.t('menu.login.twitter'), version: data.version.asset, type: ['navigation'] }
 			, { href: '/connect/github', icon: 'github', text: i18n.t('menu.login.github'), version: data.version.asset, type: ['navigation'] }
 		];
-		data.menu_user = data.menu_user.map(buttonTemplate);
+		data.menu_user = data.menu_user.map(templates.common.button);
 	} else {
-		data.menu_user = [ userTemplate(data) ];
+		data.menu_user = [ templates.common.simpleUser(data) ];
 	}
 
-	data.menu = menuTemplate(data);
+	data.menu = templates.common.menu(data);
 
-	return bodyTemplate(data);
+	return templates.body(data);
 };
