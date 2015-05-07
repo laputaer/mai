@@ -2,12 +2,11 @@
 /**
  * club-edit.js
  *
- * Koa route handler for club management page
+ * Koa route handler for club management editor interface
  */
 
 var builder = require('../builders/index');
 var prepareData = require('../builders/prepare-data');
-
 var clubsDomain = require('../domains/clubs');
 var createError = require('../helpers/create-error-message');
 

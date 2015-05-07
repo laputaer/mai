@@ -23,11 +23,11 @@ function helper(message, body, errors) {
 	var err = new Error();
 	err.message = message;
 	err.body = body;
+	err.attrs = [];
 
 	if (errors instanceof Array) {
 		err.attrs = errors;
 	} else {
-		err.attrs = [];
 		for (var prop in errors) {
 			if (errors.hasOwnProperty(prop) && errors[prop].length > 0) {
 				err.attrs.push(prop);

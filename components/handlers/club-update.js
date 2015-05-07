@@ -2,17 +2,13 @@
 /**
  * club-update.js
  *
- * Koa route handler for club update
+ * Koa route handler for club profile update
  */
 
-var builders = require('../builders/builders');
-var validate = require('../security/validation');
-
-var usersDomain = require('../domains/users');
 var clubsDomain = require('../domains/clubs');
 var sessionDomain = require('../domains/session');
-
 var formError = require('../helpers/create-form-message');
+var validate = require('../security/validation');
 
 module.exports = factory;
 
@@ -34,16 +30,17 @@ function factory() {
 function *middleware(next) {
 	yield next;
 
+	// STEP 1: prepare common data
 	var slug = this.params.slug;
 	var user = this.state.user;
 
-	// STEP 1: user should be login
+	// STEP 2: user should be login
 	if (!user) {
 		this.redirect('/');
 		return;
 	}
 
-	// STEP 2: find existing club, check owner
+	// STEP 3: find existing club, check owner
 	var club = yield clubsDomain.matchClub({
 		db: this.db
 		, slug: slug
@@ -55,11 +52,11 @@ function *middleware(next) {
 	}
 
 	if (club.owner !== user.uid) {
-		this.redirect('/');
+		this.redirect('/c/' + slug);
 		return;
 	}
 
-	// STEP 3: input validation
+	// STEP 4: input validation
 	var body = this.request.body;
 	var result = yield sessionDomain.verifyCsrfToken({
 		session: this.session
@@ -88,7 +85,7 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 3: update club
+	// STEP 5: update club
 	club = yield clubsDomain.updateClub({
 		db: this.db
 		, data: body

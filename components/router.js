@@ -53,8 +53,6 @@ function myRouter(app) {
 
 	app.get('/c/:slug', clubHome());
 	app.get('/c/:slug/edit', clubEdit());
-	// should be PUT and DELETE, alias to POST for html form
-	app.post('/c/:slug/memberships', clubMembership());
-	// should be PUT, alias to POST for html form
 	app.post('/c/:slug', clubUpdate());
+	app.post('/c/:slug/memberships', clubMembership());
 };

@@ -21,7 +21,7 @@ function partial(data) {
 	data.title_group = templates.common.formGroup({
 		id: 'club-title'
 		, name: 'title'
-		, value: flash && flash.body ? flash.body['title'] : ''
+		, value: flash && flash.body ? flash.body['title'] : data.club.title
 		, error: flash && flash.attrs && flash.attrs.indexOf('title') ? '.error' : ''
 		, label: i18n.t('club.new-club-title')
 		, note: i18n.t('club.new-club-title-note')
@@ -30,7 +30,7 @@ function partial(data) {
 	data.slug_group = templates.common.formGroup({
 		id: 'club-slug'
 		, name: 'slug'
-		, value: flash && flash.body ? flash.body['slug'] : ''
+		, value: flash && flash.body ? flash.body['slug'] : data.club.slug
 		, error: flash && flash.attrs && flash.attrs.indexOf('slug') ? '.error' : ''
 		, label: i18n.t('club.new-club-slug')
 		, note: i18n.t('club.new-club-slug-note')
