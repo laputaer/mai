@@ -36,6 +36,9 @@ function partial(data) {
 		, note: i18n.t('club.new-club-slug-note')
 		, placeholder: i18n.t('club.new-club-slug-placeholder')
 	});
+	data.form_submit = templates.common.formSubmit({
+		text: data.i18n.t('club.edit-club-submit')
+	});
 
 	data.csrf_field = templates.common.csrfField({ csrf_token: data.current_user.csrf_token });
 	data.club_form_error = templates.common.formError(data);

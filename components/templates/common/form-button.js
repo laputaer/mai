@@ -25,8 +25,8 @@ function template(data) {
 
 	var button = h('button.m-button' + button_type, {
 		'type': 'submit'
-		, 'name': data.name
-		, 'value': data.value
+		, 'name': data.name || ''
+		, 'value': data.value || ''
 	}, [
 		svg('svg.m-icon', [
 			svg('use', {

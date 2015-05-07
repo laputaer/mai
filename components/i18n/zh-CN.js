@@ -73,9 +73,9 @@ module.exports = {
 		, 'new-club-title': '社团名称'
 		, 'new-club-slug': '社团路径'
 		, 'new-club-submit': '确认创建'
-		, 'new-club-title-placeholder': '允许2-32个字符'
+		, 'new-club-title-placeholder': '允许2-16个字符'
 		, 'new-club-title-note': '示例：Love Live'
-		, 'new-club-slug-placeholder': '允许2-32个字符'
+		, 'new-club-slug-placeholder': '允许2-16个字符'
 		, 'new-club-slug-note': '示例：love-live'
 		, 'already-exist': '同路径的社团已存在，请选择另一个路径。'
 		, 'does-not-exist': '社团不存在。'
@@ -92,5 +92,6 @@ module.exports = {
 		, 'share-button-text': '我创建了一个叫%{title}的社团，却被告知部员要达到5人才能保留，你能来帮忙吗？'
 		, 'owner-management': '管理社团'
 		, 'owner-management-intro': '欢迎回来，部长。在这里你可以管理社团的各种常见设定：名称、路径、简介、团徽等等。更多功能将随着社团的成长加入！'
+		, 'edit-club-submit': '确认修改'
 	}
 };

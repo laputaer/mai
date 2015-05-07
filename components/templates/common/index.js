@@ -12,6 +12,7 @@ module.exports = {
 	, formButton: require('./form-button')
 	, formError: require('./form-error')
 	, formGroup: require('./form-group')
+	, formSubmit: require('./form-submit')
 	, heading: require('./heading')
 	, internalError: require('./internal-error')
 	, login: require('./login')

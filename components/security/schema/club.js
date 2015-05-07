@@ -16,12 +16,12 @@ function factory() {
 		.validates('title')
 			.using(function(value) {
 				return validator.supported(value)
-					&& validator.isLength(value, 2, 32)
+					&& validator.isLength(value, 2, 16)
 			}, 'title invalid')
 		.validates('slug')
 			.using(function(value) {
 				return validator.supported(value)
-					&& validator.isLength(value, 2, 32)
+					&& validator.isLength(value, 2, 16)
 					&& validator.matches(value, '^[a-z0-9-]+$')
 					&& value.indexOf('--') === -1
 					&& value.substr(0, 1) !== '-'

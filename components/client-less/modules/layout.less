@@ -34,14 +34,15 @@
 	}
 }
 
-// 1-2 column, equal column width
+// 1-3 column, equal column width
 // eg. <div class="m-grid"><div class="m-cell">...</div><div class="m-cell">...</div></div>
 
 .m-cells {
+	overflow: hidden;
+
 	// 1 column design on smaller screen
 	.m-cell {
 		box-sizing: border-box;
-		padding: 1em;
 		overflow: hidden;
 
 		// larger screen, switch to 2 column design
@@ -49,12 +50,21 @@
 			float: left;
 			width: 50%;
 		}
+
+		// even larger screen, switch to 3 column design
+		@media @monitor-small {
+			float: left;
+			width: 33%;
+		}
 	}
 
 	.m-last-cell {
 		box-sizing: border-box;
-		padding: 1em;
 		overflow: hidden;
 		clear: both;
+
+		@media @tablet-small {
+			padding: 1em 0;
+		}
 	}
 }

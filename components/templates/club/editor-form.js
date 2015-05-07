@@ -33,11 +33,7 @@ function template(data) {
 				data.csrf_field
 				, data.title_group
 				, data.slug_group
-				, h('div.m-group.m-last-cell', [
-					h('button.m-submit', {
-						type: 'submit'
-					}, i18n.t('club.new-club-submit'))
-				])
+				, data.form_submit
 			])
 		])
 	]);
