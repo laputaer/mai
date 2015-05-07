@@ -7,6 +7,9 @@
 
 'use strict';
 
+// templates
+var templates = require('../templates/index');
+
 // vdom to html
 var h = require('virtual-dom/h');
 var diff = require('virtual-dom/diff');
@@ -14,7 +17,11 @@ var patch = require('virtual-dom/patch');
 var createElement = require('virtual-dom/create-element');
 
 // html to vdom
-var virtualize = require('vdom-virtualize');
+var convert = require('vdom-virtualize');
+
+// events
+var Delegator = require('dom-delegator');
+var events = new Delegator();
 
 module.exports = Renderer;
 
@@ -44,13 +51,13 @@ Renderer.prototype.init = function(base) {
 		return;
 	}
 
-	this.vdomCache = virtualize(base);
+	this.vdomCache = convert(base);
 	// solution 1: do not replace existing dom
-	//this.nodeCache = base;
+	this.nodeCache = base;
 	// solution 2: replace existing dom
-	this.nodeCache = createElement(this.vdomCache);
-	var root = base.parentNode;
-	root.replaceChild(this.nodeCache, base);
+	//this.nodeCache = createElement(this.vdomCache);
+	//var root = base.parentNode;
+	//root.replaceChild(this.nodeCache, base);
 };
 
 /**
@@ -66,6 +73,16 @@ Renderer.prototype.update = function(model) {
 	this.modelCache = model;
 
 	var vdom;
+	var data = {
+		content: h('div.action', {
+			'ev-click': function(ev) {
+				console.log('hi');
+			}
+		}, 'click me')
+	};
+	data.placeholder = templates.common.placeholder(data);
+	data.main = templates.body(data);
+	vdom = data.main;
 
 	if (!vdom) {
 		return;
