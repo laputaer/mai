@@ -37,7 +37,7 @@ function myRouter(app) {
 	app.use(router(app));
 
 	app.get('/', landing());
-	app.get('/club', club());
+	app.get('/c', club());
 	app.get('/ranking', landing());
 	app.get('/help', landing());
 
@@ -47,9 +47,9 @@ function myRouter(app) {
 	app.get('/login/:provider', oauth());
 	app.get('/login/:provider/failed', oauthFailure());
 
-	app.get('/club/add', clubAdd());
-	app.post('/club', clubCreate());
-	app.get('/club/search', clubSearch());
+	app.get('/c/add', clubAdd());
+	app.get('/c/search', clubSearch());
+	app.post('/c', clubCreate());
 
 	app.get('/c/:slug', clubHome());
 	app.get('/c/:slug/edit', clubEdit());

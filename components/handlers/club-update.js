@@ -56,7 +56,7 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 4: input validation
+	// STEP 4: csrf validation
 	var body = this.request.body;
 	var result = yield sessionDomain.verifyCsrfToken({
 		session: this.session
@@ -73,6 +73,7 @@ function *middleware(next) {
 		return;
 	}
 
+	// STEP 5: input validation
 	result = yield validate(body, 'club');
 
 	if (!result.valid) {
@@ -85,7 +86,24 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 5: update club
+	// STEP 6: find existing club
+	var club = yield clubsDomain.matchClub({
+		db: this.db
+		, slug: body.slug
+	});
+
+	if (club) {
+		this.flash = formError(
+			this.i18n.t('error.club-already-exist')
+			, body
+			, ['slug']
+		);
+		this.redirect('/c/' + slug + '/edit');
+		return;
+	}
+
+
+	// STEP 7: update club
 	club = yield clubsDomain.updateClub({
 		db: this.db
 		, data: body

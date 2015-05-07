@@ -28,7 +28,7 @@ function renderer(data) {
 		data.club_management = buttonTemplate({
 			href: '/c/' + data.club.slug + '/edit'
 			, icon: 'setting'
-			, text: data.i18n.t('club.owner-management')
+			, text: data.i18n.t('club.edit-club')
 			, type: ['small', 'highlight']
 			, version: data.version.asset
 		});

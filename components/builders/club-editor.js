@@ -40,6 +40,8 @@ function partial(data) {
 		text: data.i18n.t('club.edit-club-submit')
 	});
 
+	data.form_title = i18n.t('club.edit-club');
+	data.form_intro = i18n.t('club.edit-club-intro');
 	data.csrf_field = templates.common.csrfField({ csrf_token: data.current_user.csrf_token });
 	data.club_form_error = templates.common.formError(data);
 	data.main = templates.club.editorForm(data);

@@ -36,7 +36,7 @@ function renderer(data) {
 	// menu partials
 	data.menu_nav = [
 		{ href: '/', icon: 'home', text: i18n.t('menu.nav.home'), version: data.version.asset, type: ['navigation'] }
-		, { href: '/club', icon: 'heart', text: i18n.t('menu.nav.club'), version: data.version.asset, type: ['navigation'] }
+		, { href: '/c', icon: 'heart', text: i18n.t('menu.nav.club'), version: data.version.asset, type: ['navigation'] }
 		, { href: '/ranking', icon: 'graph_rising', text: i18n.t('menu.nav.ranking'), version: data.version.asset, type: ['navigation'] }
 		, { href: '/help', icon: 'compass', text: i18n.t('menu.nav.help'), version: data.version.asset, type: ['navigation'] }
 	];

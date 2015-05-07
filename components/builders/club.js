@@ -24,7 +24,7 @@ module.exports = renderer;
  */
 function renderer(data) {
 	data.club_create_button = buttonTemplate({
-		href: '/club/add'
+		href: '/c/add'
 		, icon: 'dialogue_add'
 		, text: data.i18n.t('club.create-button')
 		, type: ['highlight', 'medium']

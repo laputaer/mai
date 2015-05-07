@@ -36,7 +36,7 @@ function *middleware(next) {
 
 	// guest user
 	if (!this.state.user) {
-		this.redirect('/club');
+		this.redirect('/c');
 		return;
 	}
 
@@ -55,7 +55,7 @@ function *middleware(next) {
 			this.i18n.t('error.invalid-csrf-token')
 			, body
 		);
-		this.redirect('/club/add');
+		this.redirect('/c/add');
 		return;
 	}
 
@@ -67,7 +67,7 @@ function *middleware(next) {
 			, body
 			, result.errors
 		);
-		this.redirect('/club/add');
+		this.redirect('/c/add');
 		return;
 	}
 
@@ -86,7 +86,7 @@ function *middleware(next) {
 			})
 			, body
 		);
-		this.redirect('/club/add');
+		this.redirect('/c/add');
 		return;
 	}
 
@@ -103,7 +103,7 @@ function *middleware(next) {
 			, body
 			, ['slug']
 		);
-		this.redirect('/club/add');
+		this.redirect('/c/add');
 		return;
 	}
 
@@ -120,9 +120,9 @@ function *middleware(next) {
 			this.i18n.t('error.form-internal-error')
 			, body
 		);
-		this.redirect('/club/add');
+		this.redirect('/c/add');
 		return;
 	}
 
-	this.redirect('/club');
+	this.redirect('/c');
 };

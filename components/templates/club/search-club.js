@@ -20,7 +20,7 @@ function template(data) {
 	var i18n = data.i18n;
 	var club = h('div.club-search', [
 		h('form.m-form', {
-			action: '/club/search'
+			action: '/c/search'
 			, method: 'GET'
 		}, [
 			h('div.m-group', [

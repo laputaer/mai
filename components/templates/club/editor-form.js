@@ -24,10 +24,10 @@ function template(data) {
 	var form = h('div.m-rows', [
 		h('div.m-content.m-row-2', [
 			data.club_form_error
-			, h('h1.subtitle', i18n.t('club.owner-management'))
-			, h('p.line', i18n.t('club.owner-management-intro'))
+			, h('h1.subtitle', data.form_title)
+			, h('p.line', data.form_intro)
 			, h('form.m-form.m-cells', {
-				action: club.slug ? '/c/' + club.slug : '/club'
+				action: club.slug ? '/c/' + club.slug : '/c'
 				, method: 'POST'
 			}, [
 				data.csrf_field

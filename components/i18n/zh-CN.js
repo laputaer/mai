@@ -53,6 +53,7 @@ module.exports = {
 		, 'oauth-error-response': '请求 %{provider} 访问权限时发生错误，你允许了我们的请求吗？请再次尝试登陆。'
 		, 'oauth-error-profile': '请求 %{provider} 用户数据时发生错误，如重复出现，请联系我们反馈错误。'
 		, 'oauth-invalid-profile': '请求 %{provider} 时得到了不正确的用户数据，如重复出现，请联系我们反馈错误。'
+		, 'club-already-exist': '同路径的社团已存在，请选择另一个路径。'
 	}
 	, 'user-profile': {
 		'from': '来自站点'
@@ -68,8 +69,8 @@ module.exports = {
 		, 'search-placeholder': '至少两个字符'
 		, 'search-note': '找不到你想要的东西？尝试搜索简写。'
 		, 'search-submit': '提交'
-		, 'new-club-intro': '创建社团'
-		, 'new-club-help': '欢迎创建属于你的社团，如果这是你第一次尝试创建社团，请务必看看%{help}'
+		, 'new-club': '创建社团'
+		, 'new-club-intro': '欢迎创建属于你的社团，如果这是你第一次尝试创建社团，请务必查看使用帮助。'
 		, 'new-club-title': '社团名称'
 		, 'new-club-slug': '社团路径'
 		, 'new-club-submit': '确认创建'
@@ -90,8 +91,8 @@ module.exports = {
 		, 'join-stats': '你还有 %{current} / %{base} 点信仰值，加入社团需要投入 2 点信仰。'
 		, 'share-button': '分享至Twitter'
 		, 'share-button-text': '我创建了一个叫%{title}的社团，却被告知部员要达到5人才能保留，你能来帮忙吗？'
-		, 'owner-management': '管理社团'
-		, 'owner-management-intro': '欢迎回来，部长。在这里你可以管理社团的各种常见设定：名称、路径、简介、团徽等等。更多功能将随着社团的成长加入！'
+		, 'edit-club': '管理社团'
+		, 'edit-club-intro': '欢迎回来，部长。在这里你可以管理社团的各种常见设定：名称、路径、简介、团徽等等。更多功能将随着社团的成长加入！'
 		, 'edit-club-submit': '确认修改'
 	}
 };

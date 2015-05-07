@@ -5,7 +5,8 @@
  * Koa route handler for new club creation page
  */
 
-var builders = require('../builders/builders');
+var builder = require('../builders/index');
+var prepareData = require('../builders/prepare-data');
 var usersDomain = require('../domains/users');
 
 module.exports = factory;
@@ -28,27 +29,15 @@ function factory() {
 function *middleware(next) {
 	yield next;
 
-	// prepare common data
-	var data = builders.prepareData(this);
+	// STEP 1: prepare common data
+	var data = prepareData(this);
 
-	// guest user
+	// STEP 2: user should be login
 	if (!data.current_user) {
-		data.body.push(builders.login(data));
-		this.state.vdoc = builders.doc(data);
+		this.redirect('/login/redirect?section=c&id=add');
 		return;
 	}
 
-	// login user
-	try {
-		data.user = yield usersDomain.matchUser({
-			db: this.db
-			, uid: data.current_user.uid
-		});
-		data.body.push(builders.clubNew(data));
-	} catch(err) {
-		this.app.emit('error', err, this);
-	}
-
-	// render vdoc
-	this.state.vdoc = builders.doc(data);
+	// STEP 3: render page
+	this.state.vdoc = builder(data);
 };
