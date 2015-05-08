@@ -6,20 +6,7 @@
  */
 
 var router = require('koa-router');
-
-var landing = require('./handlers/landing');
-var club = require('./handlers/club');
-var clubSearch = require('./handlers/club-search');
-var clubHome = require('./handlers/club-home');
-var clubMembership = require('./handlers/club-membership');
-var clubAdd = require('./handlers/club-add');
-var clubEdit = require('./handlers/club-edit');
-var clubCreate = require('./handlers/club-create');
-var clubUpdate = require('./handlers/club-update');
-var oauth = require('./handlers/oauth');
-var profile = require('./handlers/user-profile');
-var oauthFailure = require('./handlers/oauth-error-handler');
-var loginRedirect = require('./handlers/login-redirect');
+var handlers = require('./handlers/index');
 
 module.exports = myRouter;
 
@@ -36,23 +23,22 @@ function myRouter(app) {
 
 	app.use(router(app));
 
-	app.get('/', landing());
-	app.get('/c', club());
-	app.get('/ranking', landing());
-	app.get('/help', landing());
+	app.get('/', handlers.landing());
+	app.get('/c', handlers.club());
+	app.get('/ranking', handlers.landing());
+	app.get('/help', handlers.landing());
 
-	app.get('/login/redirect', loginRedirect());
+	app.get('/login/redirect', handlers.loginRedirect());
 
-	app.get('/u/:uid', profile());
-	app.get('/login/:provider', oauth());
-	app.get('/login/:provider/failed', oauthFailure());
+	app.get('/u/:uid', handlers.userProfile());
+	app.get('/login/:provider', handlers.oauth());
 
-	app.get('/c/add', clubAdd());
-	app.get('/c/search', clubSearch());
-	app.post('/c', clubCreate());
+	app.get('/c/add', handlers.clubAdd());
+	app.get('/c/search', handlers.clubSearch());
+	app.post('/c', handlers.clubCreate());
 
-	app.get('/c/:slug', clubHome());
-	app.get('/c/:slug/edit', clubEdit());
-	app.post('/c/:slug', clubUpdate());
-	app.post('/c/:slug/memberships', clubMembership());
+	app.get('/c/:slug', handlers.clubHome());
+	app.get('/c/:slug/edit', handlers.clubEdit());
+	app.post('/c/:slug', handlers.clubUpdate());
+	app.post('/c/:slug/memberships', handlers.clubMembership());
 };
