@@ -74,7 +74,6 @@ function *middleware(next) {
 	}
 
 	// STEP 5: input validation
-	console.log(body);
 	result = yield validate(body, 'club');
 
 	if (!result.valid) {

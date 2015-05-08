@@ -6,7 +6,6 @@
  */
 
 var builders = require('./builders');
-var templates = require('../templates/index');
 var createRoute = require('../helpers/create-named-route');
 
 var routes = {
@@ -38,7 +37,7 @@ function builder(data) {
 		break;
 	}
 
-	data.body.push(builders.body(data));
+	data = builders.body(data);
 
-	return templates.doc(data);
+	return builders.doc(data);
 };

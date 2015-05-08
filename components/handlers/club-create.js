@@ -34,16 +34,17 @@ function factory() {
 function *middleware(next) {
 	yield next;
 
-	// guest user
-	if (!this.state.user) {
-		this.redirect('/c');
+	// STEP 1: prepare common data
+	var user = this.state.user;
+
+	// STEP 2: user should be login
+	if (!user) {
+		this.redirect('/');
 		return;
 	}
 
-	var user = this.state.user;
+	// STEP 3: csrf validation
 	var body = this.request.body;
-
-	// STEP 1: input validation
 	var result = yield sessionDomain.verifyCsrfToken({
 		session: this.session
 		, cache: this.cache
@@ -59,6 +60,7 @@ function *middleware(next) {
 		return;
 	}
 
+	// STEP 4: input validation
 	result = yield validate(body, 'club');
 
 	if (!result.valid) {
@@ -71,13 +73,12 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 2: get full user data
+	// STEP 5: check user action point
 	user = yield usersDomain.matchUser({
 		db: this.db
 		, uid: user.uid
 	});
 
-	// check user action point
 	if (user.action_point < 10) {
 		this.flash = formError(
 			this.i18n.t('error.insufficient-action-point', {
@@ -90,16 +91,15 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 3: find existing club
-	var club = yield clubsDomain.matchClub({
+	// STEP 6: find existing club
+	var exist = yield clubsDomain.matchClub({
 		db: this.db
 		, slug: body.slug
 	});
 
-	// club already exists
-	if (club) {
+	if (exist) {
 		this.flash = formError(
-			this.i18n.t('error.already-exist')
+			this.i18n.t('error.club-already-exist')
 			, body
 			, ['slug']
 		);
@@ -107,22 +107,12 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 4: create new club
+	// STEP 7: create new club
 	club = yield clubsDomain.createClub({
 		db: this.db
 		, user: user
 		, data: body
 	});
 
-	// unexpected error
-	if (!club) {
-		this.flash = formError(
-			this.i18n.t('error.form-internal-error')
-			, body
-		);
-		this.redirect('/c/add');
-		return;
-	}
-
-	this.redirect('/c');
+	this.redirect('/c/' + club.slug);
 };

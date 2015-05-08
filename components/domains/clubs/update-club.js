@@ -34,7 +34,7 @@ function *updateClub(opts) {
 		slug: slug
 	}, club);
 
-	// null if club not found
+	// STEP 2: return new club data
 	return yield Club.findOne({
 		slug: club.slug || slug
 	});

@@ -5,16 +5,16 @@
  * Render document
  */
 
-var main = require('../templates/doc.js');
+var templates = require('../templates/index');
 
-module.exports = renderer;
+module.exports = builder;
 
 /**
- * Renderer populates templates with data
+ * Populates templates with data
  *
  * @param   Object  data  From data source
  * @return  VNode
  */
-function renderer(data) {
-	return main(data);
+function builder(data) {
+	return templates.doc(data);
 };

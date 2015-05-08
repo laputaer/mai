@@ -13,9 +13,7 @@ var clubNew = require('./club-new');
 var clubSearch = require('./club-search');
 var clubProfile = require('./club-profile');
 var clubEditor = require('./club-editor');
-var internalError = require('./internal-error');
 var oauthError = require('./oauth-error');
-var notFoundError = require('./not-found-error');
 var login = require('./login');
 var userProfile = require('./user-profile');
 var prepareData = require('./prepare-data');
@@ -33,8 +31,6 @@ module.exports = {
 	, clubProfile: clubProfile
 	, clubEditor: clubEditor
 	, userProfile: userProfile
-	, internalError: internalError
 	, oauthError: oauthError
-	, notFoundError: notFoundError
 	, login: login
 };

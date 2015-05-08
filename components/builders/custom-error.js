@@ -5,21 +5,18 @@
  * Render custom error page
  */
 
-var customErrorTemplate = require('../templates/common/custom-error');
-var placeholderTemplate = require('../templates/common/placeholder');
+var templates = require('../templates/index');
 
-var bodyBuilder = require('./body');
-
-module.exports = renderer;
+module.exports = partial;
 
 /**
- * Renderer populates templates with data
+ * Populates templates with data
  *
  * @param   Object  data  From data source
- * @return  VNode
+ * @return  Object
  */
-function renderer(data) {
-	data.placeholder = placeholderTemplate({ content: customErrorTemplate(data) });
+function partial(data) {
+	data.placeholder = templates.common.placeholder({ content: templates.common.customError(data) });
 
-	return bodyBuilder(data);
+	return data;
 };

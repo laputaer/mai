@@ -6,7 +6,8 @@
  * eg. cache service down, db query failure etc.
  */
 
-var builders = require('../builders/builders');
+var builder = require('../builders/index-error');
+var prepareData = require('../builders/prepare-data');
 
 module.exports = factory;
 
@@ -65,25 +66,19 @@ function *middleware(next) {
  * @return  Void
  */
 function errorPage(ctx, err) {
-	err = err || {};
-
 	// prepare common data
-	var data = builders.prepareData(ctx);
+	var data = prepareData(ctx);
 
-	// upstream specified error
-	if (err.status && err.message) {
-		data.error_status = data.i18n.t('error.status-code', { code: err.status })
-		data.error_message = err.message;
-		data.body.push(builders.customError(data));
+	// default to generic error
+	err = err || {
+		status: 500
+		, message: data.i18n.t('error.internal-service-down')
+	};
 
-	// generic error page
-	} else {
-		data.body.push(builders.internalError(data));
-	}
+	data.error_status = data.i18n.t('error.status-code', { code: err.status })
+	data.error_message = err.message;
 
-	// status code
-	ctx.status = err.status || 500;
-
-	// render vdoc
-	ctx.state.vdoc = builders.doc(data);
+	// status code and page output
+	ctx.status = err.status;
+	ctx.state.vdoc = builder(data);
 };

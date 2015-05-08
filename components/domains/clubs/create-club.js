@@ -49,7 +49,7 @@ function *createClub(opts) {
 		, updated: new Date()
 	});
 
-	// null if club not found
+	// STEP 4: return new club data
 	return yield Club.findOne({
 		slug: data.slug
 	});

@@ -9,12 +9,12 @@ var router = require('koa-router');
 
 var landing = require('./handlers/landing');
 var club = require('./handlers/club');
-var clubAdd = require('./handlers/club-add');
-var clubCreate = require('./handlers/club-create');
 var clubSearch = require('./handlers/club-search');
 var clubHome = require('./handlers/club-home');
 var clubMembership = require('./handlers/club-membership');
+var clubAdd = require('./handlers/club-add');
 var clubEdit = require('./handlers/club-edit');
+var clubCreate = require('./handlers/club-create');
 var clubUpdate = require('./handlers/club-update');
 var oauth = require('./handlers/oauth');
 var profile = require('./handlers/user-profile');

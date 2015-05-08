@@ -7,15 +7,15 @@
 
 var templates = require('../templates/index');
 
-module.exports = renderer;
+module.exports = partial;
 
 /**
- * Renderer populates templates with data
+ * Populates templates with data
  *
  * @param   Object  data  From data source
- * @return  VNode
+ * @return  Object
  */
-function renderer(data) {
+function partial(data) {
 	var i18n = data.i18n;
 
 	// heading
@@ -60,6 +60,7 @@ function renderer(data) {
 	}
 
 	data.menu = templates.common.menu(data);
+	data.body = templates.body(data);
 
-	return templates.body(data);
+	return data;
 };
