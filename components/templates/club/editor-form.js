@@ -33,6 +33,7 @@ function template(data) {
 				data.csrf_field
 				, data.title_group
 				, data.slug_group
+				, data.intro_group
 				, data.form_submit
 			])
 		])

@@ -99,7 +99,7 @@ function *middleware(next) {
 	// club already exists
 	if (club) {
 		this.flash = formError(
-			this.i18n.t('club.already-exist')
+			this.i18n.t('error.already-exist')
 			, body
 			, ['slug']
 		);

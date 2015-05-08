@@ -27,5 +27,11 @@ function factory() {
 					&& value.substr(0, 1) !== '-'
 					&& value.substr(-1) !== '-'
 			}, 'slug invalid')
+		.validates('intro')
+			.optional()
+			.using(function(value) {
+				return validator.supported(value)
+					&& validator.isLength(value, 2, 32)
+			}, 'intro invalid')
 		.build();
 };

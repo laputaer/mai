@@ -23,18 +23,27 @@ function partial(data) {
 		, name: 'title'
 		, value: flash && flash.body ? flash.body['title'] : data.club.title
 		, error: flash && flash.attrs && flash.attrs.indexOf('title') !== -1 ? '.error' : ''
-		, label: i18n.t('club.new-club-title')
-		, note: i18n.t('club.new-club-title-note')
-		, placeholder: i18n.t('club.new-club-title-placeholder')
+		, label: i18n.t('club.edit-title')
+		, note: i18n.t('club.edit-title-note')
+		, placeholder: i18n.t('club.edit-title-placeholder')
 	});
 	data.slug_group = templates.common.formGroup({
 		id: 'club-slug'
 		, name: 'slug'
 		, value: flash && flash.body ? flash.body['slug'] : data.club.slug
 		, error: flash && flash.attrs && flash.attrs.indexOf('slug') !== -1 ? '.error' : ''
-		, label: i18n.t('club.new-club-slug')
-		, note: i18n.t('club.new-club-slug-note')
-		, placeholder: i18n.t('club.new-club-slug-placeholder')
+		, label: i18n.t('club.edit-slug')
+		, note: i18n.t('club.edit-slug-note')
+		, placeholder: i18n.t('club.edit-slug-placeholder')
+	});
+	data.intro_group = templates.common.formGroup({
+		id: 'club-intro'
+		, name: 'intro'
+		, value: flash && flash.body ? flash.body['intro'] : data.club.intro
+		, error: flash && flash.attrs && flash.attrs.indexOf('intro') !== -1 ? '.error' : ''
+		, label: i18n.t('club.edit-intro')
+		, note: i18n.t('club.edit-intro-note')
+		, placeholder: i18n.t('club.edit-intro-placeholder')
 	});
 	data.form_submit = templates.common.formSubmit({
 		text: data.i18n.t('club.edit-club-submit')

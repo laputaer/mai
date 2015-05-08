@@ -74,6 +74,7 @@ function *middleware(next) {
 	}
 
 	// STEP 5: input validation
+	console.log(body);
 	result = yield validate(body, 'club');
 
 	if (!result.valid) {
@@ -86,13 +87,16 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 6: find existing club
-	var club = yield clubsDomain.matchClub({
-		db: this.db
-		, slug: body.slug
-	});
+	// STEP 6: find existing club, if slug changes
+	var exist;
+	if (body.slug !== slug) {
+		exist = yield clubsDomain.matchClub({
+			db: this.db
+			, slug: body.slug
+		});
+	}
 
-	if (club) {
+	if (exist) {
 		this.flash = formError(
 			this.i18n.t('error.club-already-exist')
 			, body
@@ -101,7 +105,6 @@ function *middleware(next) {
 		this.redirect('/c/' + slug + '/edit');
 		return;
 	}
-
 
 	// STEP 7: update club
 	club = yield clubsDomain.updateClub({

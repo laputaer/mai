@@ -22,15 +22,20 @@ function *updateClub(opts) {
 	// STEP 1: update club
 	var club = {
 		title: data.title
-		, slug: data.slug
+		, intro: data.intro
 		, updated: new Date()
 	}
+
+	if (data.slug !== slug) {
+		club.slug = data.slug
+	}
+
 	yield Club.update({
 		slug: slug
 	}, club);
 
 	// null if club not found
 	return yield Club.findOne({
-		slug: club.slug
+		slug: club.slug || slug
 	});
 };
