@@ -22,6 +22,7 @@ var dev = require('./middlewares/local-development');
 var renderer = require('./middlewares/template-renderer');
 var userSession = require('./middlewares/user-session');
 var sanitization = require('./middlewares/output-sanitization');
+var imageProxy = require('./middlewares/image-proxy');
 
 var router = require('./router');
 var startUp = require('./start-up');
@@ -35,6 +36,7 @@ app.proxy = true;
 
 app.use(logger()); // req+res logging
 app.use(dev(app.env)); // development helpers
+app.use(imageProxy()); // image proxy
 app.use(bodyparser()); // this.request.body
 app.use(session(config.session, app)); // this.session
 app.use(flash(config.flash)); // this.flash

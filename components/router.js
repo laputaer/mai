@@ -41,6 +41,4 @@ function myRouter(app) {
 	app.get('/c/:slug/edit', handlers.clubEdit());
 	app.post('/c/:slug', handlers.clubUpdate());
 	app.post('/c/:slug/memberships', handlers.clubMembership());
-
-	app.get('/ip/:hash', handlers.imageProxy())
 };
