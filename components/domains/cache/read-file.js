@@ -17,7 +17,6 @@ module.exports = readFile;
  */
 function *readFile(path) {
 	return new Promise(function(resolve, reject) {
-		console.log(path);
 		var file = fs.createReadStream(path);
 
 		file.on('error', function(err) {

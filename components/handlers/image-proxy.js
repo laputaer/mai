@@ -5,11 +5,11 @@
  * Koa route handler for image proxy
  */
 
-var PassThrough = require('stream').PassThrough;
 var fetch = require('node-fetch');
 var sharp = require('sharp');
 var cacheDomain = require('../domains/cache');
 var validate = require('../security/validation');
+var PassThrough = require('stream').PassThrough;
 
 module.exports = factory;
 
@@ -35,7 +35,7 @@ function *middleware(next) {
 	var input = {
 		hash: this.params.hash
 		, url: this.request.query.url
-		, size: this.request.query.size
+		, size: parseInt(this.request.query.size, 10)
 		, sizes: this.config.proxy.sizes
 		, key: this.config.proxy.key
 	};
@@ -51,30 +51,35 @@ function *middleware(next) {
 
 	// STEP 3: read cache
 	var path = process.cwd() + '/cache/' + input.hash + '-' + input.size;
-	var file, s1, s2, meta;
+	var pipeline = sharp();
+	var body = new PassThrough();
+	var file, meta;
 	try {
 		file = yield cacheDomain.readFile(path);
-		this.body = file;
+		file.pipe(pipeline);
+		pipeline.pipe(body);
+		meta = yield pipeline.metadata();
+		this.type = meta.format;
+		this.body = body;
 	} catch(err) {
 		// cache miss, ignore
+		//this.app.emit('error', err, this);
 	}
 
-	if (file) {
+	if (this.body) {
 		return;
 	}
 
 	// STEP 4: get remote image
-	var res, type;
+	var res;
 	try {
 		res = yield fetch(input.url, {
 			headers: {
 				'User-Agent': this.config.request.user_agent
 			}
 			, follow: 2
-			, timeout: 1000 * 30
-			, size: 1000 * 1000 * 10
+			, timeout: 1000 * 15
 		});
-		type = res.headers.get('content-type');
 	} catch(err) {
 		this.app.emit('error', err, this);
 	}
@@ -85,14 +90,27 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 5: write to cache
+	// STEP 5: resize image, write to cache
+	var p1 = sharp().limitInputPixels(1024 * 1024 * 10).resize(input.size, input.size).quality(95);
+	var p2 = sharp();
+	var s1 = new PassThrough();
+	var s2 = new PassThrough();
 	try {
 		file = yield cacheDomain.writeFile(path);
-		res.body.pipe(file);
+		res.body.pipe(p1);
+		p1.pipe(s1);
+		s1.pipe(s2);
+		meta = yield p1.metadata();
+		s1.pipe(file);
+		this.type = meta.format;
+		this.body = s2;
 	} catch(err) {
 		this.app.emit('error', err, this);
 	}
 
-	// STEP 6: serve image
-	this.body = res.body;
+	if (!this.body) {
+		this.status = 500;
+		this.body = 'image proxy error';
+		return;
+	}
 };

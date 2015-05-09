@@ -17,7 +17,6 @@ module.exports = writeFile;
  */
 function *writeFile(path) {
 	return new Promise(function(resolve, reject) {
-		console.log(path);
 		var file = fs.createWriteStream(path);
 
 		file.on('error', function(err) {
