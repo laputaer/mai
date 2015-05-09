@@ -40,6 +40,9 @@ function *middleware(next) {
 		, key: this.config.proxy.key
 	};
 
+	this.set('X-Frame-Options', 'deny');
+	this.set('X-Content-Type-Options', 'nosniff');
+
 	// STEP 2: validate input
 	var result = yield validate(input, 'proxy');
 
