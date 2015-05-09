@@ -14,6 +14,7 @@ module.exports = {
 	, clubSearch: require('./club-search')
 	, clubUpdate: require('./club-update')
 	, club: require('./club')
+	, imageProxy: require('./image-proxy')
 	, landing: require('./landing')
 	, loginRedirect: require('./login-redirect')
 	, oauth: require('./oauth')
