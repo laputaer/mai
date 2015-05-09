@@ -10,7 +10,7 @@ module.exports = helper;
 /**
  * Helper
  *
- * @param   String  input
+ * @param   String  input  Name
  * @return  String
  */
 function helper(input) {

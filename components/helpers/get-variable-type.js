@@ -10,7 +10,7 @@ module.exports = helper;
 /**
  * Helper
  *
- * @param   Mixed   input
+ * @param   Mixed   input  Anything
  * @return  String
  */
 function helper(input) {

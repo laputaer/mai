@@ -5,9 +5,10 @@
  * Koa route handler for image proxy
  */
 
+var PassThrough = require('stream').PassThrough;
 var fetch = require('node-fetch');
 var sharp = require('sharp');
-var mime = require('mime-types')
+var cacheDomain = require('../domains/cache');
 var validate = require('../security/validation');
 
 module.exports = factory;
@@ -34,6 +35,8 @@ function *middleware(next) {
 	var input = {
 		hash: this.params.hash
 		, url: this.request.query.url
+		, size: this.request.query.size
+		, sizes: this.config.proxy.sizes
 		, key: this.config.proxy.key
 	};
 
@@ -42,22 +45,54 @@ function *middleware(next) {
 
 	if (!result.valid) {
 		this.status = 403;
-		this.body = 'Invalid url or hash';
+		this.body = 'invalid url, hash or size';
 		return;
 	}
 
-	// STEP 3: get image file
-	var res = yield fetch(input.url, {
-		headers: {
-			'User-Agent': this.config.request.user_agent
-		}
-		, follow: 2
-		, timeout: 1000 * 30
-		, size: 1000 * 1000 * 10
-	});
-	this.type = 'jpg';
-	this.body = res.body;
+	// STEP 3: read cache
+	var path = process.cwd() + '/cache/' + input.hash + '-' + input.size;
+	var file, s1, s2, meta;
+	try {
+		file = yield cacheDomain.readFile(path);
+		this.body = file;
+	} catch(err) {
+		// cache miss, ignore
+	}
 
-	// STEP 4: process and return image
-	//this.body = yield sharp(res.body).toBuffer();
+	if (file) {
+		return;
+	}
+
+	// STEP 4: get remote image
+	var res, type;
+	try {
+		res = yield fetch(input.url, {
+			headers: {
+				'User-Agent': this.config.request.user_agent
+			}
+			, follow: 2
+			, timeout: 1000 * 30
+			, size: 1000 * 1000 * 10
+		});
+		type = res.headers.get('content-type');
+	} catch(err) {
+		this.app.emit('error', err, this);
+	}
+
+	if (!res) {
+		this.status = 504;
+		this.body = 'image not available';
+		return;
+	}
+
+	// STEP 5: write to cache
+	try {
+		file = yield cacheDomain.writeFile(path);
+		res.body.pipe(file);
+	} catch(err) {
+		this.app.emit('error', err, this);
+	}
+
+	// STEP 6: serve image
+	this.body = res.body;
 };

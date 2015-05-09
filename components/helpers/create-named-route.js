@@ -10,7 +10,7 @@ module.exports = helper;
 /**
  * Helper
  *
- * @param   String  route
+ * @param   String  route  Path
  * @return  Regex
  */
 function helper(route) {

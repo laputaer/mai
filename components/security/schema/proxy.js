@@ -6,7 +6,7 @@
  */
 
 var LGTM = require('lgtm');
-var hmac = require('crypto').createHmac;
+var hmac = require('../hmac');
 var ruleset = factory();
 
 module.exports = ruleset;
@@ -19,11 +19,11 @@ function factory() {
 					return false;
 				}
 
-				var h = hmac('sha1', key);
-				h.update(url);
-				var new_hash = h.digest('hex');
-
-				return new_hash === hash;
-			}, 'url/hash/key invalid')
+				return hmac(url, key) === hash;
+			}, 'url invalid')
+		.validates('size')
+			.using('size', 'sizes', function(size, sizes) {
+				return sizes.indexOf(size) !== -1;
+			}, 'size invalid')
 		.build();
 };

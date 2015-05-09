@@ -10,7 +10,7 @@ module.exports = helper;
 /**
  * Helper
  *
- * @param   String  path  location.path or server equivalent
+ * @param   String  path  Location.path or server equivalent
  * @return  String
  */
 function helper(path) {
