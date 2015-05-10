@@ -34,6 +34,7 @@ function template(data) {
 				, data.title_group
 				, data.slug_group
 				, data.intro_group
+				, data.logo_group
 				, data.form_submit
 			])
 		])

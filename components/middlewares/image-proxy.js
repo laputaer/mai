@@ -50,8 +50,6 @@ function *middleware(next) {
 		return;
 	}
 
-	console.log(this.request.query);
-
 	// STEP 2: prepare common data
 	var input = {
 		hash: seg[1]

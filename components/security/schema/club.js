@@ -33,5 +33,16 @@ function factory() {
 				return validator.supported(value)
 					&& validator.isLength(value, 2, 32)
 			}, 'intro invalid')
+		.validates('logo')
+			.optional()
+			.using(function(value) {
+				return validator.supported(value)
+					&& validator.isURL(value, {
+						protocols: ['https', 'http']
+						, require_tld: true
+						, require_protocol: true
+						, host_whitelist: ['flickr.com', 'flic.kr']
+					})
+			}, 'logo invalid')
 		.build();
 };

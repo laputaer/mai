@@ -45,6 +45,15 @@ function partial(data) {
 		, note: i18n.t('club.edit-intro-note')
 		, placeholder: i18n.t('club.edit-intro-placeholder')
 	});
+	data.logo_group = templates.common.formGroup({
+		id: 'club-logo'
+		, name: 'logo'
+		, value: flash && flash.body ? flash.body['logo'] : data.club.logo
+		, error: flash && flash.attrs && flash.attrs.indexOf('logo') !== -1 ? '.error' : ''
+		, label: i18n.t('club.edit-logo')
+		, note: i18n.t('club.edit-logo-note')
+		, placeholder: i18n.t('club.edit-logo-placeholder')
+	});
 	data.form_submit = templates.common.formSubmit({
 		text: data.i18n.t('club.edit-club-submit')
 	});
