@@ -19,7 +19,8 @@
     "build:js": "browserify components/client-js/main.js -s app | uglifyjs > public/assets/app.js",
     "build:svg": "svgo --enable=removeDesc --multipass -f components/client-svg/ && svgshelf components/client-svg/\\*.svg public/assets/icons.svg",
     "build:img": "trash --force public/assets/*.jpg && imagemin -p components/client-image/* public/assets/",
-    "cron:cache": "find ./cache/ -maxdepth 1 -type f -mtime +7d -not -name .gitignore -exec trash {} + && empty-trash"
+    "cron:cache:all": "find ./cache/ -maxdepth 1 -type f -mtime +0d -not -name .gitignore -exec trash {} + && empty-trash",
+    "cron:cache:old": "find ./cache/ -maxdepth 1 -type f -mtime +7d -not -name .gitignore -exec trash {} + && empty-trash"
   },
   "repository": {
     "type": "git",

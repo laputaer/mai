@@ -11,17 +11,26 @@ var sharp = require('sharp');
 var sendfile = require('koa-sendfile');
 
 var validate = require('../security/validation');
-var configFactory = require('../config/config');
-var config = configFactory();
+var config;
 
 module.exports = factory;
 
 /**
  * Export a factory function instead of middleware
  *
+ * @param   Object  opts  Initial config
  * @return  MW
  */
-function factory() {
+function factory(opts) {
+	// TODO: kinda a hack
+	if (!config) {
+		if (!opts) {
+			throw Error('image proxy need to be initialized with config');
+		}
+
+		config = opts;
+	}
+
 	return middleware;
 };
 
@@ -40,6 +49,8 @@ function *middleware(next) {
 		yield next;
 		return;
 	}
+
+	console.log(this.request.query);
 
 	// STEP 2: prepare common data
 	var input = {
@@ -69,7 +80,8 @@ function *middleware(next) {
 		ext = yield fs.readFile(path);
 		yield sendfile.call(this, path + '.' + ext);
 	} catch(err) {
-		this.app.emit('error', err, this);
+		// cache miss
+		//this.app.emit('error', err, this);
 	}
 
 	if (this.status === 200 || this.status === 304) {
@@ -82,12 +94,13 @@ function *middleware(next) {
 	try {
 		res = yield fetch(input.url, {
 			headers: {
-				'User-Agent': this.config.request.user_agent
+				'User-Agent': config.request.user_agent
 			}
 			, follow: 2
 			, timeout: 1000 * 15
 		});
 	} catch(err) {
+		// fetch error
 		this.app.emit('error', err, this);
 	}
 
@@ -111,6 +124,7 @@ function *middleware(next) {
 			.toFile(path + '.' + ext);
 		yield fs.writeFile(path, ext);
 	} catch(err) {
+		// cache error
 		this.app.emit('error', err, this);
 	}
 

@@ -55,6 +55,6 @@ module.exports = {
 		key: 'flash-message'
 	}
 	, proxy: {
-		sizes: [40, 100, 200, 400]
+		sizes: [20, 40, 60, 80, 100, 200, 400, 600, 800]
 	}
 };

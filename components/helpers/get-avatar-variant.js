@@ -23,7 +23,7 @@ function helper(user, size) {
 			return user.avatar.replace('_normal', '');
 		} else if (size > 200 && size < 400) {
 			return user.avatar.replace('_normal', '_400x400');
-		} else if (size > 100 && size < 200) {
+		} else if (size > 50 && size < 200) {
 			return user.avatar.replace('_normal', '_200x200');
 		}
 		return user.avatar;

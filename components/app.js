@@ -36,7 +36,7 @@ app.proxy = true;
 
 app.use(logger()); // req+res logging
 app.use(dev(app.env)); // development helpers
-app.use(imageProxy()); // image proxy
+app.use(imageProxy(config)); // image proxy
 app.use(bodyparser()); // this.request.body
 app.use(session(config.session, app)); // this.session
 app.use(flash(config.flash)); // this.flash

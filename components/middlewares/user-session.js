@@ -9,6 +9,7 @@ var csrf = require('csrf');
 
 var sessionDomain = require('../domains/session');
 var getAvatarVariant = require('../helpers/get-avatar-variant');
+var proxy = require('../security/proxy');
 
 module.exports = factory;
 
@@ -58,7 +59,7 @@ function *middleware(next) {
 	}
 
 	if (user) {
-		user.small_avatar = getAvatarVariant(user, 48);
+		user.small_avatar = proxy(getAvatarVariant(user, 60), this.config.proxy.key, 60);
 		this.state.user = user;
 	}
 
