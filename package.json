@@ -18,7 +18,8 @@
     "build:css": "lessc components/client-less/main.less | autoprefixer | cleancss -o public/assets/app.css",
     "build:js": "browserify components/client-js/main.js -s app | uglifyjs > public/assets/app.js",
     "build:svg": "svgo --enable=removeDesc --multipass -f components/client-svg/ && svgshelf components/client-svg/\\*.svg public/assets/icons.svg",
-    "build:img": "trash --force public/assets/*.jpg && imagemin -p components/client-image/* public/assets/"
+    "build:img": "trash --force public/assets/*.jpg && imagemin -p components/client-image/* public/assets/",
+    "cron:cache": "find ./cache/ -maxdepth 1 -type f -mtime +7d -not -name .gitignore -exec trash {} + && empty-trash"
   },
   "repository": {
     "type": "git",
@@ -45,7 +46,6 @@
     "onchange": "1.1.0",
     "svgo": "0.5.1",
     "svgshelf": "1.0.3",
-    "trash": "1.4.1",
     "uglify-js": "2.4.20",
     "wiper": "1.1.0"
   },
@@ -54,6 +54,7 @@
     "csrf": "2.0.7",
     "deep-extend": "0.4.0",
     "dom-delegator": "13.1.0",
+    "empty-trash": "1.1.3",
     "escape-string-regexp": "1.0.3",
     "grant-koa": "3.2.0",
     "js-beautify": "1.5.5",
@@ -75,6 +76,7 @@
     "purest": "1.1.4",
     "sharp": "0.10.0",
     "then-redis": "1.3.0",
+    "trash": "1.4.1",
     "validator": "3.39.0",
     "vdom-to-html": "2.0.0",
     "vdom-virtualize": "bitinn/vdom-virtualize#special-case",
