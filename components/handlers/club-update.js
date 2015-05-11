@@ -90,7 +90,7 @@ function *middleware(next) {
 
 	// STEP 6: find oembed data, if logo changes
 	var oembed;
-	if (body.logo !== club.logo) {
+	if (body.logo && body.logo !== club.logo) {
 		try {
 			oembed = yield oembedDomain.getImageProfile({
 				url: body.logo

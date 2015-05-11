@@ -28,6 +28,10 @@ function *updateClub(opts) {
 		, updated: new Date()
 	}
 
+	if (!data.logo) {
+		club.oembed = null;
+	}
+
 	if (oembed) {
 		club.oembed = oembed;
 	}
