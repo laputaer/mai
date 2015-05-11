@@ -42,19 +42,20 @@ function factory(opts) {
  */
 function *middleware(next) {
 	// STEP 1: route matching
-	var seg = this.path.split('/').filter(function(item) {
-		return item !== '';
-	});
-	if (seg[0] !== 'ip') {
+	if (this.path.substr(0, 4) !== '/ip/') {
 		yield next;
 		return;
 	}
 
 	// STEP 2: prepare common data
+	var seg = this.path.split('/').filter(function(item) {
+		return item !== '';
+	});
+
 	var input = {
-		hash: seg[1]
-		, url: this.request.query.url
-		, size: parseInt(this.request.query.size, 10)
+		hash: seg.length === 2 ? seg[1] : ''
+		, url: this.request.query.url || ''
+		, size: this.request.query.size || ''
 		, sizes: config.proxy.sizes
 		, key: config.proxy.key
 	};
@@ -111,13 +112,15 @@ function *middleware(next) {
 	// STEP 6: resize image, write to cache
 	var p1 = sharp();
 	var p2 = sharp();
+	var size;
 	try {
 		res.body.pipe(p1);
 		p1.pipe(p2);
 		meta = yield p1.metadata();
 		ext = meta.format;
+		size = parseInt(input.size, 10);
 		yield p2.limitInputPixels(1024 * 1024 * 10)
-			.resize(input.size, input.size)
+			.resize(size, size)
 			.quality(95)
 			.toFile(path + '.' + ext);
 		yield fs.writeFile(path, ext);

@@ -5,7 +5,7 @@
  * Export oembed domain model
  */
 
-var getImageProfile = require('./cache/get-image-profile');
+var getImageProfile = require('./oembed/get-image-profile');
 
 module.exports = {
 	getImageProfile: getImageProfile

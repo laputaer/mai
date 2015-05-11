@@ -7,6 +7,7 @@
 
 var clubsDomain = require('../domains/clubs');
 var sessionDomain = require('../domains/session');
+var oembedDomain = require('../domains/oembed');
 var formError = require('../helpers/create-form-message');
 var validate = require('../security/validation');
 

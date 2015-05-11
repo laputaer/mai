@@ -5,14 +5,16 @@
  * Retrieve oembed image profile
  */
 
+var getFlickrImageProfile = require('./flickr-image-profile');
+
 module.exports = getImageProfile;
 
 /**
  * Get oembed data
  *
- * @param   Object  opts  Options { provider, config, response }
- * @return  Object        User oauth profile
+ * @param   String  url  Site url
+ * @return  Object       Standard image profile
  */
-function *getImageProfile(opts) {
+function *getImageProfile(url) {
 
 };
