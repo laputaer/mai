@@ -12,6 +12,7 @@ var usersDomain = require('../domains/users');
 
 var createError = require('../helpers/create-error-message');
 var getCoolInitials = require('../helpers/get-cool-initials');
+var getClubLevel = require('../helpers/get-club-level');
 var proxyUrl = require('../security/proxy');
 
 
@@ -56,6 +57,7 @@ function *middleware(next) {
 		data.club.full_avatar = proxyUrl(data.club.oembed.image, this.config.proxy.key, 400);
 	}
 
+	data.club.level = getClubLevel(data.club.members);
 	data.club.initials = getCoolInitials(data.club.title);
 
 	// STEP 3: find club owner

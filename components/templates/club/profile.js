@@ -36,19 +36,40 @@ function template(data) {
 		]);
 	}
 
+	var copyright;
+	if (club.oembed) {
+		copyright = h('p.m-copyright', [
+			h('span', i18n.t('club.image-copyright'))
+			, h('a.m-link', {
+				href: club.oembed.source
+			}, [
+				h('span.m-text', club.oembed.author)
+			])
+		]);
+	}
+
+	var action_cost;
+	if (user && data.club_join) {
+		action_cost = h('p.secondary', i18n.t('club.join-stats', {
+			current: user.action_point
+			, base: user.action_base
+		}));
+	}
+
 	var container = h('div.m-rows', [
 		h('div.m-profile.m-row-1', [
 			avatar
 			, h('div.m-info', [
 				h('p.m-title', xss.data(club.title))
 				, h('p.m-owner', [
-					h('span', xss.data(i18n.t('club.club-owner', club)))
+					h('span', i18n.t('club.owner'))
 					, h('a.m-link', {
 						href: '/u/' + owner.uid
 					}, [
 						h('span.m-text', owner.login)
 					])
 				])
+				, copyright
 			])
 		])
 		, h('div.m-content.m-row-2', [
@@ -61,14 +82,14 @@ function template(data) {
 				, data.club_join
 				, data.club_leave
 			])
-			, h('p.line', i18n.t('club.welcome-to-the-club', club))
-			, h('p.line', i18n.t('club.welcome-club-stats', club))
-			/*
-			, h('p.line', i18n.t('club.join-stats', {
-				current: user.action_point
-				, base: user.action_base
-			}))
-			*/
+			, action_cost
+			, h('p.line', i18n.t('club.welcome-message', club))
+			, h('p.line', [
+				i18n.t('club.welcome-stats', club)
+				, ' (' + i18n.t('club.lv' + club.level, club) + ')'
+			])
+			, h('p.subtitle', i18n.t('club.welcome-intro'))
+			, h('p.line', club.intro)
 		])
 	]);
 

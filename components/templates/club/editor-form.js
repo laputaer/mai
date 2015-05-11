@@ -37,6 +37,7 @@ function template(data) {
 				, data.logo_group
 				, data.form_submit
 			])
+			, data.form_cancel
 		])
 	]);
 

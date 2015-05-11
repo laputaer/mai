@@ -57,6 +57,10 @@ function partial(data) {
 	data.form_submit = templates.common.formSubmit({
 		text: data.i18n.t('club.edit-club-submit')
 	});
+	data.form_cancel = templates.common.button({
+		href: '/c/' + data.club.slug
+		, text: data.i18n.t('club.form-cancel')
+	});
 
 	data.form_title = i18n.t('club.edit-club');
 	data.form_intro = i18n.t('club.edit-club-intro');

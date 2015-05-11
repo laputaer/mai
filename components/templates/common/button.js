@@ -23,14 +23,20 @@ function template(data) {
 		button_type = '.' + data.type.join('.');
 	}
 
-	var button = h('a.m-button.rounded' + button_type, {
-		'href': data.href
-	}, [
-		svg('svg.m-icon', [
+	// icon should be optional too
+	var icon;
+	if (data.icon) {
+		icon = svg('svg.m-icon', [
 			svg('use', {
 				'xlink:href': '/assets/icons.svg?' + data.version + '#' + data.icon
 			})
-		])
+		]);
+	}
+
+	var button = h('a.m-button.rounded' + button_type, {
+		'href': data.href
+	}, [
+		icon
 		, h('span.m-text', data.text)
 	]);
 
