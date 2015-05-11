@@ -5,6 +5,7 @@
  * Retrieve oembed image profile
  */
 
+var parser = require('url').parse;
 var getFlickrImageProfile = require('./flickr-image-profile');
 
 module.exports = getImageProfile;
@@ -12,9 +13,16 @@ module.exports = getImageProfile;
 /**
  * Get oembed data
  *
- * @param   String  url  Site url
- * @return  Object       Standard image profile
+ * @param   Object  opts  Options { url, user_agent, follow, timeout }
+ * @return  Object        Standard image profile
  */
-function *getImageProfile(url) {
+function *getImageProfile(opts) {
+	var url = parser(opts.url);
 
+	var profile;
+	if (url.hostname.indexOf('flickr.com') || url.hostname.indexOf('flic.kr')) {
+		profile = yield getFlickrImageProfile(opts);
+	}
+
+	return profile;
 };

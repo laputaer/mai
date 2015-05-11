@@ -10,8 +10,10 @@ var builders = require('../builders/builders');
 var clubsDomain = require('../domains/clubs');
 var usersDomain = require('../domains/users');
 
-var getCoolInitials = require('../helpers/get-cool-initials');
 var createError = require('../helpers/create-error-message');
+var getCoolInitials = require('../helpers/get-cool-initials');
+var proxyUrl = require('../security/proxy');
+
 
 module.exports = factory;
 
@@ -48,6 +50,10 @@ function *middleware(next) {
 			, data.i18n.t('error.not-found-club')
 		);
 		return;
+	}
+
+	if (data.club.oembed) {
+		data.club.full_avatar = proxyUrl(data.club.oembed.image, this.config.proxy.key, 400);
 	}
 
 	data.club.initials = getCoolInitials(data.club.title);

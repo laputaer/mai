@@ -23,11 +23,22 @@ function template(data) {
 	var owner = data.owner;
 	var user = data.user;
 
+	var avatar;
+	if (club.full_avatar) {
+		avatar = h('div.m-avatar', {
+			style: {
+				'background-image': 'url(' + club.full_avatar + ')'
+			}
+		});
+	} else {
+		avatar = h('div.m-avatar', [
+			h('span.m-letter', xss.data(club.initials))
+		]);
+	}
+
 	var container = h('div.m-rows', [
 		h('div.m-profile.m-row-1', [
-			h('div.m-avatar', [
-				h('span.m-letter', xss.data(club.initials))
-			])
+			avatar
 			, h('div.m-info', [
 				h('p.m-title', xss.data(club.title))
 				, h('p.m-owner', [

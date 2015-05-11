@@ -37,6 +37,8 @@ module.exports = {
 	, cookies: {}
 	, request: {
 		user_agent: 'Mai/1.0 (+http://mai3.me/)'
+		, follow: 2
+		, timeout: 1000 * 10
 	}
 	, session: {
 		key: 'mai:session'

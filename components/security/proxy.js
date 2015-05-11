@@ -6,6 +6,8 @@
  */
 
 var hmac = require('./hmac');
+// TODO: safer?
+var encode = require('xss-filters').uriComponentInDoubleQuotedAttr;
 
 module.exports = proxy;
 
@@ -18,6 +20,6 @@ module.exports = proxy;
  * @return  String        Proxy url
  */
 function proxy(url, key, size) {
-	var h = hmac(url, key);
-	return '/ip/' + h + '/?url=' + encodeURIComponent(url) + '&size=' + size;
+	var hash = hmac(url, key);
+	return '/ip/' + hash + '/?url=' + encode(url) + '&size=' + size;
 };

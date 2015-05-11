@@ -17,6 +17,7 @@ function *updateClub(opts) {
 	var db = opts.db;
 	var data = opts.data;
 	var slug = opts.slug;
+	var oembed = opts.oembed;
 	var Club = db.col('clubs');
 
 	// STEP 1: update club
@@ -25,6 +26,10 @@ function *updateClub(opts) {
 		, intro: data.intro
 		, logo: data.logo
 		, updated: new Date()
+	}
+
+	if (oembed) {
+		club.oembed = oembed;
 	}
 
 	if (data.slug !== slug) {

@@ -34,6 +34,7 @@ function *middleware(next) {
 	// STEP 1: prepare common data
 	var slug = this.params.slug;
 	var user = this.state.user;
+	var config = this.config;
 
 	// STEP 2: user should be login
 	if (!user) {
@@ -87,7 +88,44 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 6: find existing club, if slug changes
+	// STEP 6: find oembed data, if logo changes
+	var oembed;
+	if (body.logo !== club.logo) {
+		try {
+			oembed = yield oembedDomain.getImageProfile({
+				url: body.logo
+				, user_agent: config.request.user_agent
+				, follow: config.request.follow
+				, timeout: config.request.timeout
+			});
+		} catch(err) {
+			this.app.emit('error', err, this);
+		}
+
+		if (!oembed) {
+			this.flash = formError(
+				this.i18n.t('error.oembed-error-response')
+				, body
+				, ['logo']
+			);
+			this.redirect('/c/' + slug + '/edit');
+			return;
+		}
+
+		result = yield validate(oembed, 'oembedImage');
+
+		if (!result.valid) {
+			this.flash = formError(
+				this.i18n.t('error.oembed-invalid-profile')
+				, body
+				, ['logo']
+			);
+			this.redirect('/c/' + slug + '/edit');
+			return;
+		}
+	}
+
+	// STEP 7: find existing club, if slug changes
 	var exist;
 	if (body.slug !== slug) {
 		exist = yield clubsDomain.matchClub({
@@ -106,11 +144,12 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 7: update club
+	// STEP 8: update club
 	club = yield clubsDomain.updateClub({
 		db: this.db
 		, data: body
 		, slug: slug
+		, oembed: oembed
 	});
 
 	this.redirect('/c/' + club.slug);

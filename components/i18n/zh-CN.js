@@ -49,6 +49,8 @@ module.exports = {
 		, 'oauth-error-profile': '请求 %{provider} 用户数据时发生错误，如重复出现，请联系我们反馈错误。'
 		, 'oauth-invalid-profile': '请求 %{provider} 时得到了不正确的用户数据，如重复出现，请联系我们反馈错误。'
 		, 'club-already-exist': '同路径的社团已存在，请选择另一个路径。'
+		, 'oembed-error-response': '请求图片时出现了网络错误，如重复出现，请联系我们反馈错误。'
+		, 'oembed-invalid-profile': '请求图片时得到了无法处理的数据，如重复出现，请联系我们反馈错误。'
 	}
 	, 'user-profile': {
 		'from': '来自站点'

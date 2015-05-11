@@ -95,8 +95,8 @@ function *middleware(next) {
 			headers: {
 				'User-Agent': config.request.user_agent
 			}
-			, follow: 2
-			, timeout: 1000 * 15
+			, follow: config.request.follow
+			, timeout: config.request.timeout
 		});
 	} catch(err) {
 		// fetch error
