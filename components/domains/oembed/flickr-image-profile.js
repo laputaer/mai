@@ -26,13 +26,13 @@ function getFlickrImageProfile(opts) {
 				, timeout: opts.timeout
 			}).then(function(res) {
 				if (!res.ok) {
-					return;
+					return Promise.reject(new Error('provider returned non-2xx status code'));
 				}
 
 				return res.json();
 			}).then(function(body) {
 				if (!body || body.type !== 'photo') {
-					return;
+					return Promise.reject(new Error('provider returned non-oembed result'));
 				}
 
 				var is_cc = body.license_url && body.license_url.indexOf('creativecommons.org') >= 0;

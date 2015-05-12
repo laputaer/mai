@@ -99,6 +99,7 @@ function *middleware(next) {
 				, timeout: config.request.timeout
 			});
 		} catch(err) {
+			// TODO: many type of oembed error, we better distinguish them
 			this.app.emit('error', err, this);
 		}
 
