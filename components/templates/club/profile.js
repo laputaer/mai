@@ -73,23 +73,27 @@ function template(data) {
 			])
 		])
 		, h('div.m-content.m-row-2', [
-			data.club_management
-			, h('form', {
-				action: '/c/' + club.slug + '/memberships'
-				, method: 'POST'
-			}, [
-				data.csrf_field
-				, data.club_join
-				, data.club_leave
+			h('div.m-section', [
+				data.club_management
+				, h('form', {
+					action: '/c/' + club.slug + '/memberships'
+					, method: 'POST'
+				}, [
+					data.csrf_field
+					, data.club_join
+					, data.club_leave
+				])
+				, action_cost
+				, h('p.line', i18n.t('club.welcome-message', club))
+				, h('p.line', [
+					i18n.t('club.welcome-stats', club)
+					, ' (' + i18n.t('club.lv' + club.level, club) + ')'
+				])
 			])
-			, action_cost
-			, h('p.line', i18n.t('club.welcome-message', club))
-			, h('p.line', [
-				i18n.t('club.welcome-stats', club)
-				, ' (' + i18n.t('club.lv' + club.level, club) + ')'
+			, h('div.m-section', [
+				h('h2.m-subtitle', i18n.t('club.welcome-intro'))
+				, h('p.m-line', club.intro)
 			])
-			, h('p.subtitle', i18n.t('club.welcome-intro'))
-			, h('p.line', club.intro)
 		])
 	]);
 

@@ -4,8 +4,31 @@
 .m-content {
 	background-image: linear-gradient(to bottom, @color-gray-pastel, @white 50%);
 	border-radius: 20px;
-	margin: 1em 0;
-	padding: 1em;
+
+	.m-section {
+		padding: 1em;
+
+		.m-subtitle {
+			margin: 0.25em 0;
+			padding-left: 4px;
+			font-style: normal;
+			font-weight: 300;
+			line-height: 1em;
+			border-left: 1em solid @color-blue;
+			.size(24);
+		}
+
+		.m-line {
+			margin: 0;
+			line-height: 1.5em;
+			.size(16);
+		}
+	}
+
+	.m-section + .m-section {
+		margin-top: 2em;
+		border-top: 1px solid @color-gray-pastel;
+	}
 
 	.line {
 		margin: 1em 0 0;
