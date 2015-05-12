@@ -52,9 +52,10 @@ module.exports = {
 		, 'oembed-error-response': '请求图片时出现了错误，可能理由：1) 该图片不支持站外引用 2) 不是单一图片链接 3) 网络错误'
 		, 'oembed-invalid-profile': '请求图片时得到了不正确的数据，如重复出现，请联系我们反馈错误。'
 	}
-	, 'user-profile': {
-		'from': '来自站点'
-		, 'faith': '%{current} / %{base} 点信仰值'
+	, 'user': {
+		'oauth-origin': '来自站点'
+		, 'current-action-point': '当前信仰'
+		, 'base-action-point': '信仰基数'
 		, 'placeholder-1': '感谢注册，请静候本站的变化。'
 		, 'placeholder-2': '等不及？请到 %{feedback} 或 %{developer} 反馈你的好点子！'
 	}

@@ -29,30 +29,33 @@ function template(data) {
 			, h('div.m-info', [
 				h('p.m-title', user.name)
 				, h('p.m-owner', [
-					h('span', data.i18n.t('user-profile.from'))
+					h('span', i18n.t('user.oauth-origin'))
 					, h('a.m-link', {
 						href: user.user_origin
 					}, [
 						h('span.m-text.cap', user.provider)
 					])
 				])
-				/*
-				, h('p.m-level', i18n.t('user-profile.faith', {
-					current: user.action_point
-					, base: user.action_base
-				}))
-				, data.user_from
-				*/
+				, h('p.m-stat', [
+					h('span', i18n.t('user.current-action-point'))
+					, h('span.m-stat-value', user.action_point.toString())
+				])
+				, h('p.m-stat', [
+					h('span', i18n.t('user.base-action-point'))
+					, h('span.m-stat-value', user.action_base.toString())
+				])
 			])
 		])
 		, h('div.m-content.m-row-2', [
-			h('p.line', i18n.t('user-profile.placeholder-1'))
-			, h('p.line', {
-				innerHTML: i18n.t('user-profile.placeholder-2', {
-					feedback: '<a href="https://github.com/maihq/feedbacks" class="link">Github</a>'
-					, developer: '<a href="https://twitter.com/bitinn" class="link">@bitinn</a>'
+			h('div.m-section', [
+				h('p.m-line', i18n.t('user.placeholder-1'))
+				, h('p.m-line', {
+					innerHTML: i18n.t('user.placeholder-2', {
+						feedback: '<a href="https://github.com/maihq/feedbacks" class="link">Github</a>'
+						, developer: '<a href="https://twitter.com/bitinn" class="link">@bitinn</a>'
+					})
 				})
-			})
+			])
 		])
 	]);
 
