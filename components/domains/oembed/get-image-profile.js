@@ -20,7 +20,7 @@ function *getImageProfile(opts) {
 	var url = parser(opts.url);
 
 	var profile;
-	if (url.hostname.indexOf('flickr.com') || url.hostname.indexOf('flic.kr')) {
+	if (url.hostname.indexOf('flickr.com') >= 0 || url.hostname.indexOf('flic.kr') >= 0) {
 		profile = yield getFlickrImageProfile(opts);
 	}
 
