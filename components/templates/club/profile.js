@@ -96,14 +96,21 @@ function template(data) {
 					, data.club_leave
 				])
 				, action_cost
-				, h('p.line', i18n.t('club.welcome-message', club))
-				, h('p.line', [
-					i18n.t('club.welcome-stats', club)
+			])
+			, h('div.m-section', [
+				h('h2.m-subtitle', i18n.t('club.welcome-intro'))
+				, h('p.m-line', [
+					i18n.t('club.welcome-message', club)
+					, i18n.t('club.welcome-stats', club)
 					, ' (' + i18n.t('club.lv' + club.level, club) + ')'
 				])
 			])
 			, h('div.m-section', [
-				h('h2.m-subtitle', i18n.t('club.welcome-intro'))
+				h('h2.m-subtitle', i18n.t('club.owner-intro'))
+				, h('p.m-line', club.intro)
+			])
+			, h('div.m-section', [
+				h('h2.m-subtitle', i18n.t('club.message-board'))
 				, h('p.m-line', club.intro)
 			])
 		])

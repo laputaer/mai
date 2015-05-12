@@ -2,33 +2,34 @@
 // content-row.less - reusable content display box
 
 .m-content {
-	background-image: linear-gradient(to bottom, @color-gray-pastel, @white 50%);
-	border-radius: 20px;
 	overflow: hidden;
 
 	.m-section {
 		padding: 1em;
 
 		.m-subtitle {
-			margin: 0.25em 0;
-			padding-left: 4px;
-			font-style: normal;
+			margin: 0 0 1em;
+			padding-left: 0.5em;
 			font-weight: 300;
 			line-height: 1em;
-			border-left: 1em solid @color-blue;
+			border-left: 1em solid @color-blue-light;
 			.size(24);
 		}
 
 		.m-line {
-			margin: 0;
+			margin: 0.5em 0;
 			line-height: 1.5em;
 			.size(16);
+		}
+
+		&:first-child {
+			background-image: linear-gradient(to bottom, @color-gray-pastel, @white);
+			border-radius: 20px 20px 0 0;
 		}
 	}
 
 	.m-section + .m-section {
-		margin-top: 2em;
-		border-top: 1px solid @color-gray-pastel;
+		margin-top: 1em;
 	}
 
 	.line {
