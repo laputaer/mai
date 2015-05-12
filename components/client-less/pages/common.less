@@ -1,54 +1,75 @@
 
-// common.less
+// common.less - shared component across pages
 
 .page {
 	max-width: 1200px;
 	margin: 0 auto;
 }
 
-.heading {
+.page-heading {
 	text-align: center;
-	padding: 2em 1em;
+	padding: 1em;
 	overflow: hidden;
 
-	.title {
-		font-weight: 100;
-		margin: 0;
-		line-height: 1em;
-		color: @color-blue;
-		.size(64);
+	@media @mobile-medium {
+		padding: 1.5em 1em;
 	}
 
-	.subtitle {
-		font-weight: 400;
-		margin: 0;
-		line-height: 1em;
-		color: @color-black-pastel;
-		.size(20);
-	}
-
-	.subtitle + .subtitle {
-		margin: 10px;
+	@media @tablet {
+		padding: 2em 1em;
 	}
 }
 
-.menu {
-	overflow: hidden;
-	padding: 0.5em 1em;
-	border-bottom: 1px solid @color-gray-pastel;
+.page-heading-title {
+	margin: 0;
+	line-height: 1em;
+	.long-text();
 
-	.hint, .nav, .user {
-		.reset-list();
-		overflow: hidden;
+	&.main {
+		font-family: @sans-en;
+		font-weight: 100;
+		color: @color-blue;
+		.size(50);
 
-		.item {
-			margin: 0 0.25em;
-			display: block;
-			float: left;
+		@media @mobile-medium {
+			.size(56);
+		}
+
+		@media @tablet {
+			.size(64);
 		}
 	}
 
-	.hint {
+	&.tagline {
+		font-weight: 400;
+		color: @color-gray-dark;
+		.size(16);
+
+		@media @mobile-medium {
+			.size(18);
+		}
+
+		@media @tablet {
+			.size(20);
+		}
+	}
+}
+
+.page-menu {
+	padding: 1em;
+	overflow: hidden;
+	border-bottom: 1px solid @color-gray-pastel;
+
+	@media @tablet {
+		border-color: transparent;
+	}
+}
+
+.page-menu-group {
+	.reset-list();
+	overflow: hidden;
+
+	&.hint {
 		float: left;
 		display: none;
 
@@ -61,7 +82,7 @@
 		}
 	}
 
-	.nav {
+	&.nav {
 		float: left;
 		display: block;
 
@@ -74,8 +95,17 @@
 		}
 	}
 
-	.user {
+	&.user {
 		float: right;
 		display: block;
 	}
+}
+
+.page-menu-item {
+	display: block;
+	float: left;
+}
+
+.page-menu-item + .page-menu-item {
+	margin: 0 0 0 0.5em;
 }

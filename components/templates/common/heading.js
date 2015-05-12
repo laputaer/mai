@@ -18,11 +18,9 @@ module.exports = template;
  */
 function template(data) {
 	var i18n = data.i18n;
-	var heading = h('div.heading', [
-		h('h1.title.m-lang', {
-			lang: 'en'
-		}, i18n.t('common.domain'))
-		, h('p.subtitle', i18n.t('common.tagline'))
+	var heading = h('div.page-heading', [
+		h('h1.page-heading-title.main', i18n.t('common.domain'))
+		, h('p.page-heading-title.tagline', i18n.t('common.tagline'))
 	]);
 
 	return heading;

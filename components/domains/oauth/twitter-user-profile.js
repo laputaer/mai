@@ -20,7 +20,12 @@ function getTwitterUserProfile(client, opts) {
 			.get('account/verify_credentials')
 			.auth(opts.access_token, opts.access_secret)
 			.request(function(err, res, body) {
-				if (err || (res.statusCode < 200 || res.statusCode >= 300)) {
+				if (err) {
+					reject(new Error('unable to contact remote server, reason: ' + err.message));
+					return;
+				}
+
+				if (res && (res.statusCode < 200 || res.statusCode >= 300)) {
 					reject(new Error('remote server returns status code ' + res.statusCode));
 					return;
 				}

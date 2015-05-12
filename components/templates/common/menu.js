@@ -17,19 +17,19 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var hint = h('ul.hint', data.menu_hint.map(function(button) {
-		return h('li.item', button);
+	var hint = h('ul.page-menu-group.hint', data.menu_hint.map(function(button) {
+		return h('li.page-menu-item', button);
 	}));
 
-	var nav = h('ul.nav', data.menu_nav.map(function(button) {
-		return h('li.item', button);
+	var nav = h('ul.page-menu-group.nav', data.menu_nav.map(function(button) {
+		return h('li.page-menu-item', button);
 	}));
 
-	var user = h('ul.user', data.menu_user.map(function(button) {
-		return h('li.item', button);
+	var user = h('ul.page-menu-group.user', data.menu_user.map(function(button) {
+		return h('li.page-menu-item', button);
 	}));
 
-	var menu = h('div.menu', [hint, nav, user]);
+	var menu = h('div.page-menu', [hint, nav, user]);
 
 	return menu;
 };
