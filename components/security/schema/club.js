@@ -41,7 +41,7 @@ function factory() {
 						protocols: ['https', 'http']
 						, require_tld: true
 						, require_protocol: true
-						, host_whitelist: ['flickr.com', 'flic.kr']
+						, host_whitelist: ['www.flickr.com', 'flickr.com', 'flic.kr']
 					})
 			}, 'logo invalid')
 		.build();
