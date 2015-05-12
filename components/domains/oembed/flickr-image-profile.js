@@ -35,11 +35,14 @@ function getFlickrImageProfile(opts) {
 					return;
 				}
 
+				var is_cc = body.license_url && body.license_url.indexOf('creativecommons.org') >= 0;
+
 				return {
 					image: body.url
 					, author: body.author_name
 					, source: body.web_page
-					, license: body.license_url || undefined
+					, license: is_cc ? body.license_url : ''
+					, license_name: is_cc ? 'Creative Commons' : ''
 					, provider: body.provider_name
 					, domain: body.provider_url
 				};

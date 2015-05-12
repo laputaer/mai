@@ -26,12 +26,20 @@
 
 	// stats and content
 	.m-row-2 {
-		margin: 1em 0 0;
 
 		// larger screen, move to right column
 		@media @tablet {
 			flex: 1;
-			margin: 0 0 0 1em;
+		}
+	}
+
+	// 2 column gap
+	.m-row-1 + .m-row-2 {
+		margin-top: 1em;
+
+		@media @tablet {
+			margin-top: 0;
+			margin-left: 1em;
 		}
 	}
 }
@@ -64,9 +72,6 @@
 		box-sizing: border-box;
 		overflow: hidden;
 		clear: both;
-
-		@media @tablet {
-			padding: 1em 0;
-		}
+		padding: 1em 0;
 	}
 }
