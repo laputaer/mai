@@ -17,7 +17,7 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var group = h('div.m-group.m-last-cell', [
+	var group = h('div.m-group.m-full-cell', [
 		h('button.m-submit', {
 			type: 'submit'
 		}, data.text)

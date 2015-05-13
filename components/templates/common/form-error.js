@@ -24,8 +24,8 @@ function template(data) {
 		return;
 	}
 
-	var error = h('div.m-box.error', [
-		h('p.line', flash.message)
+	var error = h('div.m-section.error', [
+		h('p.m-line', flash.message)
 	]);
 
 	return error;

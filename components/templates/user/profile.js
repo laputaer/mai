@@ -47,7 +47,7 @@ function template(data) {
 			])
 		])
 		, h('div.m-content.m-row-2', [
-			h('div.m-section', [
+			h('div.m-section.lead', [
 				h('p.m-line', i18n.t('user.placeholder-1'))
 				, h('p.m-line', {
 					innerHTML: i18n.t('user.placeholder-2', {

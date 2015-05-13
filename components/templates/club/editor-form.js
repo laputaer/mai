@@ -24,9 +24,9 @@ function template(data) {
 	var form = h('div.m-rows', [
 		h('div.m-content.m-row-2', [
 			data.club_form_error
-			, h('div.m-section', [
-				h('h1.subtitle', data.form_title)
-				, h('p.line', data.form_intro)
+			, h('div.m-section.yellow.lead', [
+				h('h1.m-subtitle', data.form_title)
+				, h('p.m-line', data.form_intro)
 				, h('form.m-form.m-cells', {
 					action: club.slug ? '/c/' + club.slug : '/c'
 					, method: 'POST'

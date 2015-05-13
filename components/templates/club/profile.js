@@ -102,7 +102,7 @@ function template(data) {
 			])
 		])
 		, h('div.m-content.m-row-2', [
-			h('div.m-section', [
+			h('div.m-section.lead', [
 				data.club_management
 				, h('form', {
 					action: '/c/' + club.slug + '/memberships'

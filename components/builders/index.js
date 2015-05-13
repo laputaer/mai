@@ -10,7 +10,7 @@ var createRoute = require('../helpers/create-named-route');
 
 var routes = {
 	clubEditor: createRoute('/c/:slug/edit')
-	, clubNew: createRoute('/c/add')
+	, clubNew: createRoute('/c/club-add')
 };
 
 module.exports = builder;
