@@ -26,6 +26,7 @@ function factory() {
 					&& value.indexOf('--') === -1
 					&& value.substr(0, 1) !== '-'
 					&& value.substr(-1) !== '-'
+					&& value.substr(0, 5) !== 'club-'
 			}, 'slug invalid')
 		.validates('intro')
 			.optional()

@@ -87,7 +87,7 @@ function template(data) {
 				])
 				, h('p.m-stat', [
 					h('span', i18n.t('club.level', club))
-					, h('span.m-stat-value', i18n.t('club.lv7'))
+					, h('span.m-stat-value', i18n.t('club.lv' + club.level))
 				])
 				, h('p.m-stat', [
 					h('span', i18n.t('club.member-count'))
