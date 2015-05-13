@@ -23,22 +23,34 @@ function myRouter(app) {
 
 	app.use(router(app));
 
-	app.get('/', handlers.landing());
-	app.get('/c', handlers.club());
-	app.get('/ranking', handlers.landing());
-	app.get('/help', handlers.landing());
+	// standalone
+	app.get('/', handlers.pageLanding());
+	app.get('/help', handlers.pageHelp());
 
+	// user login
 	app.get('/login/redirect', handlers.loginRedirect());
+	app.get('/login/:provider', handlers.loginOauth());
+	// /connect/ namespace is also used to do initial oauth
 
+	// user profile
 	app.get('/u/:uid', handlers.userProfile());
-	app.get('/login/:provider', handlers.oauth());
 
-	app.get('/c/add', handlers.clubAdd());
-	app.get('/c/search', handlers.clubSearch());
+	// club management
+	app.get('/c/club-home', handlers.clubsFilterUser());
+	app.get('/c/club-ranking', handlers.clubsFilterRanking());
+	app.get('/c/club-search', handlers.clubsFilterSearch());
+	app.get('/c/club-add', handlers.clubAddForm());
+	app.get('/c/:slug', handlers.club());
+	app.get('/c/:slug/edit', handlers.clubEditForm());
 	app.post('/c', handlers.clubCreate());
-
-	app.get('/c/:slug', handlers.clubHome());
-	app.get('/c/:slug/edit', handlers.clubEdit());
 	app.post('/c/:slug', handlers.clubUpdate());
-	app.post('/c/:slug/memberships', handlers.clubMembership());
+	app.post('/c/:slug/memberships', handlers.clubUserMembership());
+
+	// club post
+	app.get('/c/:slug/p', handlers.clubPosts());
+	app.get('/c/:slug/p/post-add', handlers.clubPostAddForm());
+	app.get('/c/:slug/p/:pid', handlers.clubPost());
+	app.get('/c/:slug/p/:pid/edit', handlers.clubPostEditForm());
+	app.post('/c/:slug/p', handlers.clubPostCreate());
+	app.post('/c/:slug/p/:pid', handlers.clubPostUpdate());
 };
