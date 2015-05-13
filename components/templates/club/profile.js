@@ -66,7 +66,7 @@ function template(data) {
 
 	var action_cost;
 	if (user && data.club_join) {
-		action_cost = h('p.secondary', i18n.t('club.join-stats', {
+		action_cost = h('p.m-line.note', i18n.t('club.join-stats', {
 			current: user.action_point
 			, base: user.action_base
 		}));
@@ -102,7 +102,8 @@ function template(data) {
 			])
 		])
 		, h('div.m-content.m-row-2', [
-			h('div.m-section.lead', [
+			data.club_form_error
+			, h('div.m-section.lead', [
 				data.club_management
 				, h('form', {
 					action: '/c/' + club.slug + '/memberships'

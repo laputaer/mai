@@ -39,7 +39,7 @@ function partial(data) {
 				, text: data.i18n.t('club.join-button')
 				, type: ['small', 'accept']
 				, version: data.version.asset
-				, name: 'put'
+				, name: 'join'
 				, value: '1'
 			});
 		} else {
@@ -48,7 +48,7 @@ function partial(data) {
 				, text: data.i18n.t('club.leave-button')
 				, version: data.version.asset
 				, type: ['small']
-				, name: 'del'
+				, name: 'leave'
 				, value: '1'
 			});
 		}
@@ -73,6 +73,7 @@ function partial(data) {
 		, version: data.version.asset
 	})
 
+	data.club_form_error = templates.common.formError(data);
 	data.main = templates.club.profile(data);
 
 	return data;
