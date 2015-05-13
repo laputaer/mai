@@ -31,9 +31,15 @@ module.exports = {
 		, 'line-2': '它会有什么功能'
 		, 'line-3': '但我们隐约之中'
 		, 'line-4': '已经感到它光明的未来'
-		, 'thanks': '感谢注册，请静候本站的变化'
-		, 'oauth-error': 'OAuth 登陆失败'
-		, 'login': '请在登录后访问这个功能'
+	}
+	, 'placeholder': {
+		'apology': '抱歉'
+		, 'explanation': '让你看到了我们还没准备好的页面'
+		, 'suggestion': '如果你认为我们显示了错误的结果'
+		, 'main-feedback': '可联系开发者'
+		, 'secondary-feedback': '或到我们的'
+		, 'secondary-feedback-name': '开放反馈区'
+		, 'secondary-feedback-action': '提交建议'
 	}
 	, 'error': {
 		'status-code': 'Error %{code}'
@@ -51,6 +57,7 @@ module.exports = {
 		, 'club-already-exist': '同路径的社团已存在，请选择另一个路径。'
 		, 'oembed-error-response': '请求图片时出现了错误，可能理由：(1) 该图片不支持站外引用 (2) 不是单一图片链接 (3) 网络错误'
 		, 'oembed-invalid-profile': '请求图片时得到了不正确的数据，如重复出现，请联系我们反馈错误。'
+		, 'login-required': '请在登录后访问这个功能'
 	}
 	, 'user': {
 		'oauth-origin': '来自站点'

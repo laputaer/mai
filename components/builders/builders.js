@@ -13,11 +13,11 @@ var clubNew = require('./club-new');
 var clubSearch = require('./club-search');
 var clubProfile = require('./club-profile');
 var clubEditor = require('./club-editor');
-var oauthError = require('./oauth-error');
 var login = require('./login');
 var userProfile = require('./user-profile');
 var prepareData = require('./prepare-data');
 var customError = require('./custom-error');
+var placeholder = require('./placeholder');
 
 module.exports = {
 	doc: doc
@@ -31,6 +31,6 @@ module.exports = {
 	, clubProfile: clubProfile
 	, clubEditor: clubEditor
 	, userProfile: userProfile
-	, oauthError: oauthError
 	, login: login
+	, placeholder: placeholder
 };

@@ -13,10 +13,10 @@ module.exports = {
 	, formError: require('./form-error')
 	, formGroup: require('./form-group')
 	, formSubmit: require('./form-submit')
+	, genericMessage: require('./generic-message')
 	, heading: require('./heading')
 	, login: require('./login')
 	, menu: require('./menu')
-	, oauthError: require('./oauth-error')
 	, placeholder: require('./placeholder')
 	, simpleUser: require('./simple-user')
 };

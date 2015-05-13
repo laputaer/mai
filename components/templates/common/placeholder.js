@@ -17,7 +17,9 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var placeholder = h('div.placeholder', data.content);
+	var placeholder = h('div.m-rows', [
+		h('div.m-row-2.m-content.placeholder', data.content)
+	]);
 
 	return placeholder;
 };

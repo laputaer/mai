@@ -22,7 +22,7 @@ function template(data) {
 		h('ul.list', data.login.map(function(button) {
 			return h('li.item', button);
 		}))
-		, h('p.line', i18n.t('main.login'))
+		, h('p.line', i18n.t('error.login-required'))
 	]);
 
 	return login;

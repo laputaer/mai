@@ -83,33 +83,19 @@
 		margin-top: 1em;
 	}
 
-	.line {
-		margin: 1em 0 0;
-		line-height: 1.5em;
-		.size(16);
-	}
+	&.placeholder {
+		padding: 2em 0;
 
-	.subtitle {
-		margin: 1em 0 0;
-		line-height: 1.5em;
-		.size(24);
-	}
+		display: flex;
+		align-items: center;
+		justify-content: center;
 
-	.secondary {
-		color: @color-gray-dark;
-		.size(14);
-	}
+		@media @tablet {
+			padding: 4em 0;
+		}
 
-	.line:first-child, .subtitle:first-child {
-		margin-top: 0;
-	}
-
-	.link {
-		.link(@color-blue, 100%);
-	}
-
-	&.error {
-		background-color: @color-red-pastel;
-		color: @color-red;
+		@media @monitor-small {
+			padding: 6em 0;
+		}
 	}
 }
