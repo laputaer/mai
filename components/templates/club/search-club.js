@@ -18,30 +18,23 @@ module.exports = template;
  */
 function template(data) {
 	var i18n = data.i18n;
-	var club = h('div.club-search', [
-		h('form.m-form', {
-			action: '/c/search'
-			, method: 'GET'
-		}, [
-			h('div.m-group', [
-				h('label.m-label', {
-					attributes: {
-						'for': 'club-search'
-					}
-				}, i18n.t('club.search-title'))
-				, h('input.m-field', {
-					placeholder: i18n.t('club.search-placeholder')
-					, name: 'q'
-					, id: 'club-search'
-					, value: data.search || ''
-				})
-				, h('button.m-submit', {
-					type: 'submit'
-				}, i18n.t('club.search-submit'))
-				, h('span.m-note', i18n.t('club.search-note'))
+	var search = h('div.m-rows', [
+		h('div.m-content.m-row-2', [
+			data.club_form_error
+			, h('div.m-section.yellow.lead', [
+				h('h1.m-subtitle', data.form_title)
+				, h('p.m-line', data.form_intro)
+				, h('form.m-form.m-cells', {
+					action: '/c/club-search'
+					, method: 'GET'
+				}, [
+					data.search_group
+					, data.form_submit
+				])
+				, data.form_cancel
 			])
 		])
 	]);
 
-	return club;
+	return search;
 };

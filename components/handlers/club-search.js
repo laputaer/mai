@@ -7,9 +7,11 @@
 
 var escapeRegex = require('escape-string-regexp');
 
-var builders = require('../builders/builders');
+var builder = require('../builders/index');
+var prepareData = require('../builders/prepare-data');
 var clubsDomain = require('../domains/clubs');
 var validate = require('../security/validation');
+var formError = require('../helpers/create-form-message');
 
 module.exports = factory;
 
@@ -31,38 +33,38 @@ function factory() {
 function *middleware(next) {
 	yield next;
 
-	// prepare common data
-	var data = builders.prepareData(this);
+	// STEP 1: prepare common data
+	var data = prepareData(this);
+	var query = this.request.query;
 
-	// guest user
-	if (!data.current_user) {
-		data.body.push(builders.login(data));
-		this.state.vdoc = builders.doc(data);
+	// STEP 2: input validation
+	var result = yield validate(query, 'search');
+
+	if (!result.valid) {
+		this.flash = formError(
+			this.i18n.t('error.form-input-invalid')
+			, query
+			, ['q']
+		);
+		this.redirect('/c/club-search');
 		return;
 	}
 
-	// input validation
-	data.search = this.request.query.q;
-	var result = yield validate(this.request.query, 'search');
-
-	if (!result.valid) {
+	// STEP 3: empty input or initial state
+	if (!query.q) {
 		data.search = '';
-	}
-
-	data.search = escapeRegex(data.search);
-
-	// login user
-	if (!data.search) {
 		data.clubs = [];
-	} else {
-		data.clubs = yield clubsDomain.searchClubs({
-			db: this.db
-			, search: data.search
-		});
+		this.state.vdoc = builder(data);
+		return;
 	}
 
-	data.body.push(builders.clubSearch(data));
+	// STEP 4: run search
+	data.search = escapeRegex(query.q);
+	data.clubs = yield clubsDomain.searchClubs({
+		db: this.db
+		, search: data.search
+	});
 
-	// render vdoc
-	this.state.vdoc = builders.doc(data);
+	// STEP 5: render page
+	this.state.vdoc = builder(data);
 };
