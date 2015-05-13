@@ -9,9 +9,9 @@ var builders = require('./builders');
 var createRoute = require('../helpers/create-named-route');
 
 var routes = {
-	placeholder: createRoute('/')
-	, clubNew: createRoute('/c/club-add')
+	clubNew: createRoute('/c/club-add')
 	, clubEditor: createRoute('/c/:slug/edit')
+	, placeholder: createRoute('/|/help|/c/club-ranking')
 };
 
 module.exports = builder;
