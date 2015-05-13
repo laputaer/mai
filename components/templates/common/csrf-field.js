@@ -17,7 +17,7 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var csrf = h('input.csrf_token', {
+	var csrf = h('input.m-csrf-token', {
 		type: 'hidden'
 		, value: data.csrf_token
 		, name: 'csrf_token'

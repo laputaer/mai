@@ -5,14 +5,9 @@
  * Render club profile body
  */
 
-var profileTemplate = require('../templates/club/profile');
-var buttonTemplate = require('../templates/common/button');
-var formButtonTemplate = require('../templates/common/form-button');
-var csrfFieldTemplate = require('../templates/common/csrf-field');
+var templates = require('../templates/index');
 
-var bodyBuilder = require('./body');
-
-module.exports = renderer;
+module.exports = partial;
 
 /**
  * Renderer populates templates with data
@@ -20,12 +15,12 @@ module.exports = renderer;
  * @param   Object  data  From data source
  * @return  VNode
  */
-function renderer(data) {
+function partial(data) {
 	var i18n = data.i18n;
 
 	// owner
 	if (data.current_user && data.current_user.uid === data.club.owner) {
-		data.club_management = buttonTemplate({
+		data.club_management = templates.common.button({
 			href: '/c/' + data.club.slug + '/edit'
 			, icon: 'setting'
 			, text: data.i18n.t('club.edit-club')
@@ -36,10 +31,10 @@ function renderer(data) {
 
 	// user
 	if (data.current_user && data.current_user.uid !== data.club.owner) {
-		data.csrf_field = csrfFieldTemplate({ csrf_token: data.current_user.csrf_token });
+		data.csrf_field = templates.common.csrfField({ csrf_token: data.current_user.csrf_token });
 
 		if (!data.membership) {
-			data.club_join = formButtonTemplate({
+			data.club_join = templates.common.formButton({
 				icon: 'profile_add'
 				, text: data.i18n.t('club.join-button')
 				, type: ['small', 'accept']
@@ -48,7 +43,7 @@ function renderer(data) {
 				, value: '1'
 			});
 		} else {
-			data.club_leave = formButtonTemplate({
+			data.club_leave = templates.common.formButton({
 				icon: 'profile_remove'
 				, text: data.i18n.t('club.leave-button')
 				, version: data.version.asset
@@ -59,7 +54,7 @@ function renderer(data) {
 		}
 	}
 
-	data.join_club_button = buttonTemplate({
+	data.join_club_button = templates.common.button({
 		href: '/c/' + data.club.slug + '/join'
 		, icon: 'dialogue_happy'
 		, text: data.i18n.t('club.join-button')
@@ -67,7 +62,7 @@ function renderer(data) {
 		, version: data.version.asset
 	})
 
-	data.share_club_button = buttonTemplate({
+	data.share_club_button = templates.common.button({
 		href: 'https://twitter.com/intent/tweet?text='
 			+ i18n.t('club.share-button-text', data.club)
 			+ '&url='
@@ -78,7 +73,7 @@ function renderer(data) {
 		, version: data.version.asset
 	})
 
-	data.main = profileTemplate(data);
+	data.main = templates.club.profile(data);
 
-	return bodyBuilder(data);
+	return data;
 };

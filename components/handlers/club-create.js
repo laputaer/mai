@@ -5,12 +5,10 @@
  * Koa route handler for club page
  */
 
-var builders = require('../builders/builders');
-var validate = require('../security/validation');
-
 var usersDomain = require('../domains/users');
 var clubsDomain = require('../domains/clubs');
 var sessionDomain = require('../domains/session');
+var validate = require('../security/validation');
 
 var formError = require('../helpers/create-form-message');
 

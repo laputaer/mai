@@ -6,7 +6,7 @@
  */
 
 var hmac = require('./hmac');
-// TODO: use css style safe filter
+// TODO: switch to css style filter when available
 var encode = require('xss-filters').uriComponentInDoubleQuotedAttr;
 
 module.exports = proxy;
