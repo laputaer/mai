@@ -36,6 +36,11 @@ function template(data) {
 		]);
 	}
 
+	var intro;
+	if (club.intro) {
+		intro = h('p.m-line', i18n.t('club.owner-intro', club));
+	}
+
 	var author, license;
 	if (club.oembed) {
 		author = h('p.m-copyright', [
@@ -80,6 +85,18 @@ function template(data) {
 						h('span.m-text', owner.login)
 					])
 				])
+				, h('p.m-stat', [
+					h('span', i18n.t('club.level', club))
+					, h('span.m-stat-value', i18n.t('club.lv7'))
+				])
+				, h('p.m-stat', [
+					h('span', i18n.t('club.member-count'))
+					, h('span.m-stat-value', club.members.toString())
+				])
+				, h('p.m-stat', [
+					h('span', i18n.t('club.total-point'))
+					, h('span.m-stat-value', club.points.toString())
+				])
 				, author
 				, license
 			])
@@ -97,21 +114,13 @@ function template(data) {
 				])
 				, action_cost
 			])
-			, h('div.m-section', [
+			, h('div.m-section.blue', [
 				h('h2.m-subtitle', i18n.t('club.welcome-intro'))
-				, h('p.m-line', [
-					i18n.t('club.welcome-message', club)
-					, i18n.t('club.welcome-stats', club)
-					, ' (' + i18n.t('club.lv' + club.level, club) + ')'
-				])
+				, h('p.m-line', i18n.t('club.welcome-message', club))
+				, intro
 			])
-			, h('div.m-section', [
-				h('h2.m-subtitle', i18n.t('club.owner-intro'))
-				, h('p.m-line', club.intro)
-			])
-			, h('div.m-section', [
+			, h('div.m-section.green', [
 				h('h2.m-subtitle', i18n.t('club.message-board'))
-				, h('p.m-line', club.intro)
 			])
 		])
 	]);

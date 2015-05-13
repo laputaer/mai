@@ -12,7 +12,7 @@
 			padding-left: 0.5em;
 			font-weight: 300;
 			line-height: 1em;
-			border-left: 1em solid @color-blue-light;
+			border-left: 1em solid @color-gray-light;
 			.size(24);
 		}
 
@@ -25,6 +25,30 @@
 		&:first-child {
 			background-image: linear-gradient(to bottom, @color-gray-pastel, @white);
 			border-radius: 20px 20px 0 0;
+		}
+
+		&.blue {
+			.m-subtitle {
+				border-left-color: @color-blue-light;
+			}
+		}
+
+		&.red {
+			.m-subtitle {
+				border-left-color: @color-red-light;
+			}
+		}
+
+		&.green {
+			.m-subtitle {
+				border-left-color: @color-green-light;
+			}
+		}
+
+		&.yellow {
+			.m-subtitle {
+				border-left-color: @color-yellow-light;
+			}
 		}
 	}
 

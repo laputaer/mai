@@ -58,13 +58,27 @@
 
 		.m-stat {
 			display: none;
-			margin: 0.25em 0 0;
+			margin: 1em 0 0;
 			color: @color-gray-dark;
-			.size(16);
+			.size(14);
 
 			.m-stat-value {
 				margin: 0 0.25em;
 				color: @color-black;
+			}
+		}
+
+		.m-stat + .m-stat {
+			margin-top: 0;
+		}
+
+		&.active {
+			.m-copyright {
+				display: block;
+			}
+
+			.m-stat {
+				display: block;
 			}
 		}
 	}
