@@ -21,17 +21,15 @@ function template(data) {
 	var search = h('div.m-rows', [
 		h('div.m-content.m-row-2', [
 			data.club_form_error
-			, h('div.m-section.yellow.lead', [
+			, h('div.m-section.green.lead', [
 				h('h1.m-subtitle', data.form_title)
 				, h('p.m-line', data.form_intro)
-				, h('form.m-form.m-cells', {
+				, h('form.m-form', {
 					action: '/c/club-search'
 					, method: 'GET'
 				}, [
 					data.search_group
-					, data.form_submit
 				])
-				, data.form_cancel
 			])
 		])
 	]);

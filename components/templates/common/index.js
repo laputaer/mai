@@ -13,6 +13,7 @@ module.exports = {
 	, formError: require('./form-error')
 	, formGroup: require('./form-group')
 	, formSubmit: require('./form-submit')
+	, formSearch: require('./form-search')
 	, genericMessage: require('./generic-message')
 	, heading: require('./heading')
 	, login: require('./login')
