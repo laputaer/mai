@@ -5,21 +5,18 @@
  * Render user profile body
  */
 
-var profileTemplate = require('../templates/user/profile');
-var buttonTemplate = require('../templates/common/button');
-
-var bodyBuilder = require('./body');
+var templates = require('../templates/index');
 
 module.exports = renderer;
 
 /**
- * Renderer populates templates with data
+ * Populates templates with data
  *
  * @param   Object  data  From data source
- * @return  VNode
+ * @return  Object
  */
 function renderer(data) {
-	data.main = profileTemplate(data);
+	data.main = templates.user.profile(data);
 
-	return bodyBuilder(data);
+	return data;
 };

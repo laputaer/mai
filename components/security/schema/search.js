@@ -17,7 +17,7 @@ function factory() {
 			.optional()
 			.using(function(value) {
 				return validator.supported(value)
-					&& validator.isLength(value, 2, 128)
+					&& validator.isLength(value, 2, 64)
 			}, 'q invalid')
 		.build();
 };

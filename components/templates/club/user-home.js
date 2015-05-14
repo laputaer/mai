@@ -1,8 +1,8 @@
 
 /**
- * search-club.js
+ * user-home.js
  *
- * Template for default search club section
+ * Template for default user club home
  */
 
 var h = require('virtual-dom/h');
@@ -20,8 +20,12 @@ function template(data) {
 	var i18n = data.i18n;
 	var search = h('div.m-rows', [
 		h('div.m-content.m-row-2', [
-			data.club_form_error
-			, h('div.m-section.blue.lead', [
+			h('div.m-section.yellow.lead', [
+				h('h1.m-subtitle', i18n.t('club.create-club'))
+				, h('p.m-line', i18n.t('club.create-club-intro', data.user))
+				, data.club_create_button
+			])
+			, h('div.m-section.blue', [
 				h('h1.m-subtitle', i18n.t('club.search-club'))
 				, h('form.m-form', {
 					action: '/c/club-search'
@@ -31,12 +35,12 @@ function template(data) {
 				])
 			])
 			, h('div.m-section.green', [
-				h('h1.m-subtitle', i18n.t('club.search-result'))
-				, h('p.m-line', i18n.t('club.search-result-intro', {
-					search: data.search
-					, count: data.search_result.length || 0
-				}))
-				, h('div.m-grid', data.search_result)
+				h('h1.m-subtitle', i18n.t('club.owned-club'))
+				, h('div.m-grid', data.my_club_buttons)
+			])
+			, h('div.m-section.green', [
+				h('h1.m-subtitle', i18n.t('club.joined-club'))
+				, h('div.m-grid', data.my_joined_club_buttons)
 			])
 		])
 	]);

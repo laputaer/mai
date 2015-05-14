@@ -5,10 +5,12 @@
  * Set a redirect target when login is completed
  */
 
-var builders = require('../builders/builders');
+var getRoute = require('koa-router').url;
+
+var builder = require('../builders/index');
+var prepareData = require('../builders/prepare-data');
 var sessionDomain = require('../domains/session');
 var validate = require('../security/validation');
-var getRoute = require('koa-router').url;
 
 module.exports = factory;
 
@@ -31,7 +33,7 @@ function *middleware(next) {
 	yield next;
 
 	// STEP 1: prepare common data
-	var data = builders.prepareData(this);
+	var data = prepareData(this);
 	var input = this.request.query;
 
 	// STEP 2: skip login user
@@ -60,13 +62,12 @@ function *middleware(next) {
 		route += '/' + ':action';
 	}
 
-	// STEP 5: redirect path into session store
+	// STEP 5: put route into session store
 	yield sessionDomain.setRedirect({
 		session: this.session
 		, path: getRoute(route, input)
 	});
 
-	// STEP 6: display login page
-	data.body.push(builders.login(data));
-	this.state.vdoc = builders.doc(data);
+	// STEP 6: render page
+	this.state.vdoc = builder(data);
 };

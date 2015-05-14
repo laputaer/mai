@@ -31,21 +31,21 @@ function factory() {
 function *middleware(next) {
 	yield next;
 
+	// STEP 1: prepare common data
 	var provider = this.params.provider;
 	var user = {};
 	var i18n = this.i18n;
 
-	// provider not supported
 	if (!provider || !this.config.oauth[provider]) {
 		return;
 	}
 
-	// get redirect path
+	// STEP 2: get pending redirection
 	var path = yield sessionDomain.getRedirect({
 		session: this.session
 	});
 
-	// STEP 1: get oauth response
+	// STEP 3: get oauth response
 	var response = yield sessionDomain.getOauthResponse({
 		session: this.session
 	});
@@ -60,7 +60,7 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 2: get oauth profile
+	// STEP 4: get oauth profile
 	try {
 		user.oauth = yield oauthDomain.getUserProfile({
 			provider: provider
@@ -75,7 +75,6 @@ function *middleware(next) {
 		this.app.emit('error', err, this);
 	}
 
-	// handle oauth failure
 	if (!user.oauth) {
 		this.state.error_page = createError(
 			500
@@ -86,7 +85,7 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 3: validate user profile
+	// STEP 5: validate user profile
 	var result = yield validate(user.oauth, 'oauth');
 
 	if (!result.valid) {
@@ -99,7 +98,7 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 4: create/update local profile
+	// STEP 6: create/update local profile
 	user.local = yield usersDomain.matchUser({
 		db: this.db
 		, uid: user.oauth.uid
@@ -117,7 +116,7 @@ function *middleware(next) {
 		});
 	}
 
-	// STEP 5: update user session
+	// STEP 7: update user session
 	yield sessionDomain.loginUser({
 		config: this.config
 		, session: this.session
@@ -126,7 +125,7 @@ function *middleware(next) {
 		, oauth: user.oauth
 	});
 
-	// STEP 6: follow redirect
+	// STEP 8: follow redirect, if any
 	if (path) {
 		this.redirect(path);
 		return;

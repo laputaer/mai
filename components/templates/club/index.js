@@ -14,4 +14,5 @@ module.exports = {
 	, joinedClubList: require('./joined-club-list')
 	, profile: require('./profile')
 	, searchClub: require('./search-club')
+	, userHome: require('./user-home')
 };

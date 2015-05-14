@@ -40,6 +40,7 @@ function *middleware(next) {
 	// STEP 2: input validation
 	var result = yield validate(query, 'search');
 
+	// TODO: can we show error without redirect
 	if (!result.valid) {
 		this.flash = formError(
 			this.i18n.t('error.form-input-invalid')

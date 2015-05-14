@@ -11,9 +11,12 @@ var createRoute = require('../helpers/create-named-route');
 // TODO: use a route-matching module that doesn't rely on order of routes
 var routes = {
 	clubNew: createRoute('/c/club-add')
+	, club: createRoute('/c/club-home')
 	, clubSearch: createRoute('/c/club-search')
 	, clubEditor: createRoute('/c/:slug/edit')
 	, clubProfile: createRoute('/c/:slug')
+	, userProfile: createRoute('/u/:uid')
+	, login: createRoute('/login/redirect')
 	, placeholder: createRoute('/|/help|/c/club-ranking')
 };
 

@@ -5,9 +5,9 @@
  * Koa route handler for full user profile
  */
 
-var builders = require('../builders/builders');
+var builder = require('../builders/index');
+var prepareData = require('../builders/prepare-data');
 var usersDomain = require('../domains/users');
-
 var getAvatarVariant = require('../helpers/get-avatar-variant');
 var getUserOrigin = require('../helpers/get-user-origin');
 var proxyUrl = require('../security/proxy');
@@ -32,27 +32,27 @@ function factory() {
 function *middleware(next) {
 	yield next;
 
-	// prepare common data
-	var data = builders.prepareData(this);
+	// STEP 1: prepare common data
+	var data = prepareData(this);
 
-	// STEP 1: get user profile
+	// STEP 2: get user profile
 	data.user = yield usersDomain.matchUser({
 		db: this.db
 		, uid: this.params.uid
 	});
 
 	if (!data.user) {
-		data.message = data.i18n.t('error.not-found-user');
-		data.body.push(builders.notFoundError(data));
-		this.state.vdoc = builders.doc(data);
+		this.state.error_page = createError(
+			404
+			, data.i18n.t('error.not-found-user')
+		);
 		return;
 	}
 
+	// STEP 3: user data transform
 	data.user.full_avatar = proxyUrl(getAvatarVariant(data.user, 400), this.config.proxy.key, 400);
 	data.user.user_origin = getUserOrigin(data.user);
 
-	data.body.push(builders.userProfile(data));
-
-	// render vdoc
-	this.state.vdoc = builders.doc(data);
+	// STEP 4: render page
+	this.state.vdoc = builder(data);
 };

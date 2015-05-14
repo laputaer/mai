@@ -18,11 +18,9 @@ module.exports = template;
  */
 function template(data) {
 	var i18n = data.i18n;
-	var login = h('div.login', [
-		h('ul.list', data.login.map(function(button) {
-			return h('li.item', button);
-		}))
-		, h('p.line', i18n.t('error.login-required'))
+	var login = h('div.m-section', [
+		h('p.m-subtitle', i18n.t('placeholder.login-required'))
+		, h('p.m-line', data.login)
 	]);
 
 	return login;

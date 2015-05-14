@@ -40,6 +40,7 @@ module.exports = {
 		, 'secondary-feedback': '或到我们的'
 		, 'secondary-feedback-name': '开放反馈区'
 		, 'secondary-feedback-action': '提交建议'
+		, 'login-required': '请先登录'
 	}
 	, 'error': {
 		'status-code': 'Error %{code}'
@@ -57,7 +58,6 @@ module.exports = {
 		, 'club-already-exist': '同路径的社团已存在，请选择另一个路径。'
 		, 'oembed-error-response': '请求图片时出现了错误，可能理由：(1) 该图片不支持站外引用 (2) 不是单一图片链接 (3) 网络错误'
 		, 'oembed-invalid-profile': '请求图片时得到了不正确的数据，如重复出现，请联系我们反馈错误。'
-		, 'login-required': '请在登录后访问这个功能'
 	}
 	, 'user': {
 		'oauth-origin': '来自站点'
@@ -67,10 +67,7 @@ module.exports = {
 		, 'placeholder-2': '等不及？请到 %{feedback} 或 %{developer} 反馈你的好点子！'
 	}
 	, 'club': {
-		'create-button': '创建社团'
-		, 'create-message': '你现在可以添加社团了！'
-		, 'create-stats': '你还有 %{current} / %{base} 点信仰值，创建新社团需要投入 10 点信仰。'
-		, 'new-club': '创建社团'
+		'new-club': '创建社团'
 		, 'new-club-intro': '欢迎创建属于你的社团，如果这是你第一次尝试创建社团，请务必查看使用帮助。'
 		, 'new-club-submit': '确认创建'
 		, 'edit-club': '管理社团'
@@ -89,13 +86,18 @@ module.exports = {
 		, 'edit-logo': '社团标志'
 		, 'edit-logo-note': '复制 Flickr 的图片网址'
 		, 'edit-logo-placeholder': '例如：http://flic.kr/p/...'
+		, 'search-club': '搜索社团'
+		, 'search-term': '搜索标题和路径'
+		, 'search-term-note': '允许2-32个字符，可使用前缀，例如搜索 im 会返回 imas 社团。'
 		, 'search-term-placeholder': '例如：imas'
 		, 'search-submit': '搜索'
-		, 'search-club': '搜索社团'
-		, 'search-club-intro': '搜索标题和路径，可使用前缀，例如搜索 im 会返回 imas 社团。'
-		, 'my-club-list': '我创建的社团 (%{count})'
-		, 'my-joined-club-list': '我加入的社团 (%{count})'
-		, 'search-club-list': '以 %{search} 开头的社团 (%{count})'
+		, 'search-result': '搜索结果'
+		, 'search-result-intro': '以 %{search} 开头的社团 (%{count})'
+		, 'create-club': '创建社团'
+		, 'create-club-intro': '你有 %{action_point} 点信仰值，创建社团需要 10 点信仰。'
+		, 'create-button': '创建社团'
+		, 'owned-club': '我创建的社团'
+		, 'joined-club': '我加入的社团'
 		, 'welcome-message': '欢迎访问「%{title}」社团。'
 		, 'welcome-intro': '社团简介'
 		, 'owner-intro': '社团口号：%{intro}'
