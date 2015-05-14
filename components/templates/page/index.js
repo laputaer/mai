@@ -6,5 +6,5 @@
  */
 
 module.exports = {
-	welcome: require('./welcome')
+	userManual: require('./user-manual')
 };

@@ -7,7 +7,7 @@
 
 module.exports = {
 	pageLanding: require('./page-placeholder')
-	, pageHelp: require('./page-placeholder')
+	, pageHelp: require('./page-help')
 	, loginRedirect: require('./login-redirect')
 	, loginOauth: require('./oauth')
 	, userProfile: require('./user-profile')

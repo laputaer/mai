@@ -1,8 +1,8 @@
 
 /**
- * placeholder.js
+ * help.js
  *
- * Render generic placeholder page
+ * Render user manual
  */
 
 var templates = require('../templates/index');
@@ -16,7 +16,7 @@ module.exports = partial;
  * @return  Object
  */
 function partial(data) {
-	data.placeholder = templates.common.placeholder({ content: templates.common.genericMessage(data) });
+	data.main = templates.page.userManual(data);
 
 	return data;
 };

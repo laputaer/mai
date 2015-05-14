@@ -17,7 +17,8 @@ var routes = {
 	, clubProfile: createRoute('/c/:slug')
 	, userProfile: createRoute('/u/:uid')
 	, login: createRoute('/login/redirect')
-	, placeholder: createRoute('/|/help|/c/club-ranking')
+	, help: createRoute('/help')
+	, placeholder: createRoute('/|/c/club-ranking')
 };
 
 module.exports = builder;

@@ -59,7 +59,7 @@ function partial(data) {
 	});
 	data.form_cancel = templates.common.button({
 		href: '/c/' + data.club.slug
-		, text: data.i18n.t('club.form-cancel')
+		, text: data.i18n.t('club.edit-form-cancel')
 	});
 
 	data.form_title = i18n.t('club.edit-club');

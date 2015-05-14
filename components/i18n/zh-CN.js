@@ -26,17 +26,11 @@ module.exports = {
 			, 'github': '登录'
 		}
 	}
-	, 'main': {
-		'line-1': '虽然我们还不知道'
-		, 'line-2': '它会有什么功能'
-		, 'line-3': '但我们隐约之中'
-		, 'line-4': '已经感到它光明的未来'
-	}
 	, 'placeholder': {
 		'apology': '抱歉'
 		, 'explanation': '让你看到了我们还没准备好的页面'
 		, 'suggestion': '如果你认为我们显示了错误的结果'
-		, 'main-feedback': '可联系开发者'
+		, 'main-feedback': '请联系开发者'
 		, 'secondary-feedback': '或到我们的'
 		, 'secondary-feedback-name': '开放反馈区'
 		, 'secondary-feedback-action': '提交建议'
@@ -68,12 +62,12 @@ module.exports = {
 	}
 	, 'club': {
 		'new-club': '创建社团'
-		, 'new-club-intro': '欢迎创建属于你的社团，如果这是你第一次尝试创建社团，请务必查看使用帮助。'
+		, 'new-club-intro': '欢迎创建属于你的社团，如果这是你第一次尝试创建社团，请务必查看「使用帮助」。'
 		, 'new-club-submit': '确认创建'
 		, 'edit-club': '管理社团'
-		, 'edit-club-intro': '欢迎回来，部长。在这里你可以管理社团的各种常见设定：名称、路径、简介、团徽等等。更多功能将随着社团的成长加入！'
+		, 'edit-club-intro': '欢迎回来，团长。在这里你可以管理社团的各种常见设定：名称、路径、简介、团徽等等。更多功能将随着社团的成长加入。'
 		, 'edit-club-submit': '确认修改'
-		, 'form-cancel': '返回社团'
+		, 'edit-form-cancel': '返回社团'
 		, 'edit-title': '社团名称'
 		, 'edit-title-note': '允许2-16个字符'
 		, 'edit-title-placeholder': '例如：Love Live'
@@ -121,7 +115,22 @@ module.exports = {
 		, 'join-button': '加入社团'
 		, 'leave-button': '退出社团'
 		, 'join-stats': '你有 %{current} 点信仰值，将投入 2 点信仰。'
-		, 'share-button': '分享至Twitter'
+		, 'share-button': '分享至 Twitter'
 		, 'share-button-text': '我创建了一个叫%{title}的社团，却被告知部员要达到5人才能保留，你能来帮忙吗？'
+	}
+	, 'help': {
+		'main-title': '使用帮助'
+		, 'main-title-note': '在这里你可以找到有关「买么」的功能介绍与常见问题回答。'
+		, 'main-title-suggestion': '未能找到你关心的解答？'
+		, 'about-us-question': '「买么」是什么？'
+		, 'about-us-answer-1': '我们是一个连接创作者与消费者的社区。'
+		, 'about-us-answer-2': '让创作者能获得更多读者、观众、用户的建议反馈。'
+		, 'about-us-answer-3': '让消费者能与创作者、其他爱好者直接沟通、分享心得与体验。'
+		, 'why-us-question': '为什么创建这个社区？'
+		, 'why-us-answer-1': '我们希望给创作者与消费者一片天地，发现更有价值的内容，建立更有意思的关系。'
+		, 'why-us-answer-2': '我们认为「社团」很好的概括了这种开放、互助的文化。'
+		, 'explain-tagline-question': '什么是「产品信仰」和「消费文化」？'
+		, 'explain-tagline-answer-1': '在我们眼中，「产品」是可以消费的文化，「信仰」是驱动消费的源泉。'
+		, 'explain-tagline-answer-2': '简单归纳，「产品信仰」是人们对产品的喜爱，「消费文化」是喜爱的集合。'
 	}
 };
