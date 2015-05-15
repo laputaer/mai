@@ -38,6 +38,7 @@ function factory() {
 			.optional()
 			.using(function(value) {
 				return validator.supported(value)
+					&& validator.isLength(value, 2, 256)
 					&& validator.isURL(value, {
 						protocols: ['https', 'http']
 						, require_tld: true

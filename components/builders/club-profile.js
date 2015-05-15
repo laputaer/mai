@@ -18,31 +18,21 @@ module.exports = partial;
 function partial(data) {
 	var i18n = data.i18n;
 
-	// owner
-	if (data.current_user && data.current_user.uid === data.club.owner) {
-		data.club_management = templates.common.button({
-			href: '/c/' + data.club.slug + '/edit'
-			, icon: 'setting'
-			, text: data.i18n.t('club.edit-club')
-			, type: ['small', 'highlight']
-			, version: data.version.asset
-		});
-	}
-
 	// user
-	if (data.current_user && data.current_user.uid !== data.club.owner) {
+	if (data.current_user) {
 		data.csrf_field = templates.common.csrfField({ csrf_token: data.current_user.csrf_token });
 
-		if (!data.membership) {
-			data.club_join = templates.common.formButton({
-				icon: 'profile_add'
-				, text: data.i18n.t('club.join-button')
-				, type: ['small', 'accept']
+		if (data.current_user.uid === data.club.owner) {
+			data.club_management = templates.common.button({
+				href: '/c/' + data.club.slug + '/edit'
+				, icon: 'setting'
+				, text: data.i18n.t('club.edit-club')
+				, type: ['small', 'highlight']
 				, version: data.version.asset
-				, name: 'join'
-				, value: '1'
 			});
-		} else {
+		}
+
+		if (data.current_user.uid !== data.club.owner && data.membership) {
 			data.club_leave = templates.common.formButton({
 				icon: 'profile_remove'
 				, text: data.i18n.t('club.leave-button')
@@ -52,6 +42,25 @@ function partial(data) {
 				, value: '1'
 			});
 		}
+
+		if (data.current_user.uid !== data.club.owner && !data.membership) {
+			data.club_join = templates.common.formButton({
+				icon: 'profile_add'
+				, text: data.i18n.t('club.join-button')
+				, type: ['small', 'accept']
+				, version: data.version.asset
+				, name: 'join'
+				, value: '1'
+			});
+		}
+
+		data.add_post = templates.common.button({
+			href: '/c/' + data.club.slug + '/p/post-add'
+			, icon: 'dialogue_add'
+			, text: data.i18n.t('club.post-button')
+			, type: ['small', 'post']
+			, version: data.version.asset
+		});
 	}
 
 	data.join_club_button = templates.common.button({

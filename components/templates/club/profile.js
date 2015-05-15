@@ -122,6 +122,7 @@ function template(data) {
 			])
 			, h('div.m-section.green', [
 				h('h2.m-subtitle', i18n.t('club.message-board'))
+				, data.add_post
 			])
 		])
 	]);

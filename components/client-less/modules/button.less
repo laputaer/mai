@@ -190,6 +190,22 @@
 		}
 	}
 
+	&.post {
+		color: @color-green;
+
+		&:hover, &:focus {
+			background-color: @color-green;
+			color: @white;
+			border-color: @color-green;
+		}
+
+		&:active {
+			background-color: darken(@color-green, 10%);
+			color: @white;
+			border-color: darken(@color-green, 10%);
+		}
+	}
+
 	&.github {
 		color: @color-black-light;
 

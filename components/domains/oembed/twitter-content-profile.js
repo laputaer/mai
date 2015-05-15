@@ -1,22 +1,23 @@
 
 /**
- * flickr-image-profile.js
+ * twitter-content-profile.js
  *
- * Retrieve flickr image metadata
+ * Retrieve twitter content metadata
  */
 
 var fetch = require('node-fetch');
+var cheerio = require('cheerio');
 
-module.exports = getFlickrImageProfile;
+module.exports = getTwitterContentProfile;
 
 /**
- * Get flickr oembed metadata
+ * Get twitter oembed metadata
  *
  * @param   Object   opts  Request options
  * @return  Promise
  */
-function getFlickrImageProfile(opts) {
-	var url = 'https://www.flickr.com/services/oembed.json?url=' + encodeURIComponent(opts.url);
+function getTwitterContentProfile(opts) {
+	var url = 'https://api.twitter.com/1/statuses/oembed.json?omit_script=1&url=' + encodeURIComponent(opts.url);
 
 	return fetch(url, {
 				headers: {
@@ -31,18 +32,20 @@ function getFlickrImageProfile(opts) {
 
 				return res.json();
 			}).then(function(body) {
-				if (!body || body.type !== 'photo') {
+				if (!body || body.type !== 'rich') {
 					return Promise.reject(new Error('provider returned non-oembed result'));
 				}
 
-				var is_cc = body.license_url && body.license_url.indexOf('creativecommons.org') >= 0;
+				var dom = cheerio.load(body.html, {
+					normalizeWhitespace: true
+					, decodeEntities: false
+				});
 
 				return {
-					image: body.url
+					content: dom('p').html()
 					, author: body.author_name
-					, source: body.web_page
-					, license: is_cc ? body.license_url : ''
-					, license_name: is_cc ? 'Creative Commons' : ''
+					, profile: body.author_url
+					, source: body.url
 					, provider: body.provider_name
 					, domain: body.provider_url
 				};

@@ -24,6 +24,6 @@ module.exports = {
 	, clubPostAddForm: require('./club-post-add')
 	, clubPost: require('./page-placeholder')
 	, clubPostEditForm: require('./page-placeholder')
-	, clubPostCreate: require('./page-placeholder')
+	, clubPostCreate: require('./club-post-create')
 	, clubPostUpdate: require('./page-placeholder')
 };

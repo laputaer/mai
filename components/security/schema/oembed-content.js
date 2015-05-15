@@ -1,8 +1,8 @@
 
 /**
- * oembed-image.js
+ * oembed-content.js
  *
- * Image profile oembed object validation schema
+ * Content profile oembed object validation schema
  */
 
 var LGTM = require('lgtm');
@@ -13,37 +13,28 @@ module.exports = ruleset;
 
 function factory() {
 	return LGTM.validator()
-		.validates('image')
+		.validates('content')
 			.using(function(value) {
 				return validator.supported(value)
-					&& validator.isLength(value, 1, 256)
-					&& validator.isURL(value)
-			}, 'image invalid')
+					&& validator.isLength(value, 1, 1024)
+			}, 'content invalid')
 		.validates('author')
 			.using(function(value) {
 				return validator.supported(value)
 					&& validator.isLength(value, 1, 64)
 			}, 'author invalid')
+		.validates('profile')
+			.using(function(value) {
+				return validator.supported(value)
+					&& validator.isLength(value, 1, 256)
+					&& validator.isURL(value)
+			}, 'profile invalid')
 		.validates('source')
 			.using(function(value) {
 				return validator.supported(value)
 					&& validator.isLength(value, 1, 256)
 					&& validator.isURL(value)
 			}, 'source invalid')
-		.validates('license')
-			.optional()
-			.using(function(value) {
-				return validator.supported(value)
-					&& validator.isLength(value, 1, 256)
-					&& validator.isURL(value)
-			}, 'license invalid')
-		.validates('license_name')
-			.optional()
-			.using(function(value) {
-				return validator.supported(value)
-					&& validator.isLength(value, 1, 64)
-					&& validator.isURL(value)
-			}, 'license_name invalid')
 		.validates('provider')
 			.using(function(value) {
 				return validator.supported(value)

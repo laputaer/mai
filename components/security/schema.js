@@ -11,6 +11,8 @@ var search = require('./schema/search');
 var redirect = require('./schema/redirect');
 var proxy = require('./schema/proxy');
 var oembedImage = require('./schema/oembed-image');
+var oembedContent = require('./schema/oembed-content');
+var post = require('./schema/post');
 
 module.exports = {
 	club: club
@@ -19,4 +21,6 @@ module.exports = {
 	, redirect: redirect
 	, proxy: proxy
 	, oembedImage: oembedImage
+	, oembedContent: oembedContent
+	, post: post
 };

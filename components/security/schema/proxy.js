@@ -19,6 +19,10 @@ function factory() {
 					return false
 				}
 
+				if (url.length > 1024) {
+					return false
+				}
+
 				return hmac(url, key) === hash
 			}, 'url invalid')
 		.validates('size')

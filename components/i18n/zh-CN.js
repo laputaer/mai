@@ -122,6 +122,7 @@ module.exports = {
 		, 'post-link': '内容地址'
 		, 'post-link-note': '复制内容对应的网址'
 		, 'post-link-placeholder': '例如：http://twitter.com/...'
+		, 'post-button': '发布新分享'
 		, 'share-button': '分享至 Twitter'
 		, 'share-button-text': '我创建了一个叫%{title}的社团，却被告知部员要达到5人才能保留，你能来帮忙吗？'
 	}
