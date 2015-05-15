@@ -1,14 +1,16 @@
 
 /**
- * club-edit.js
+ * club-post-add.js
  *
- * Koa route handler for club management editor interface
+ * Koa route handler for club post creation page
  */
 
 var builder = require('../builders/index');
 var prepareData = require('../builders/prepare-data');
+var usersDomain = require('../domains/users');
 var clubsDomain = require('../domains/clubs');
 var createError = require('../helpers/create-error-message');
+var formError = require('../helpers/create-form-message');
 
 module.exports = factory;
 
@@ -50,16 +52,22 @@ function *middleware(next) {
 
 	// STEP 3: user should be login
 	if (!data.current_user) {
-		this.redirect('/login/redirect?section=c&id=' + slug + '&action=edit');
+		this.redirect('/login/redirect?section=c&id=' + slug);
 		return;
 	}
 
-	// STEP 4: check owner
-	if (data.club.owner !== data.current_user.uid) {
-		this.state.error_page = createError(
-			403
-			, data.i18n.t('error.access-control')
+	// STEP 4: check membership
+	var membership = yield clubsDomain.matchMembership({
+		db: this.db
+		, uid: data.current_user.uid
+		, slug: slug
+	});
+
+	if (!membership) {
+		this.flash = formError(
+			this.i18n.t('error.membership-required-to-post')
 		);
+		this.redirect('/c/' + slug);
 		return;
 	}
 

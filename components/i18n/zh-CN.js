@@ -52,6 +52,7 @@ module.exports = {
 		, 'club-already-exist': '同路径的社团已存在，请选择另一个路径。'
 		, 'oembed-error-response': '请求图片时出现了错误，可能理由：(1) 该图片不支持站外引用 (2) 不是单一图片链接 (3) 网络错误'
 		, 'oembed-invalid-profile': '请求图片时得到了不正确的数据，如重复出现，请联系我们反馈错误。'
+		, 'membership-required-to-post': '你需要先加入社团才能发布分享。'
 	}
 	, 'user': {
 		'oauth-origin': '来自站点'

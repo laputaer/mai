@@ -18,6 +18,7 @@ var prepareData = require('./prepare-data');
 var customError = require('./custom-error');
 var placeholder = require('./placeholder');
 var help = require('./help');
+var clubAddPostForm = require('./club-add-post-form');
 
 module.exports = {
 	doc: doc
@@ -33,4 +34,5 @@ module.exports = {
 	, login: login
 	, placeholder: placeholder
 	, help: help
+	, clubAddPostForm: clubAddPostForm
 };
