@@ -21,6 +21,7 @@ var help = require('./help');
 var clubAddPostForm = require('./club-add-post-form');
 var clubAddConfirmForm = require('./club-add-confirm-form');
 var home = require('./home');
+var clubRanking = require('./club-ranking');
 
 module.exports = {
 	doc: doc
@@ -39,4 +40,5 @@ module.exports = {
 	, clubAddPostForm: clubAddPostForm
 	, clubAddConfirmForm: clubAddConfirmForm
 	, home: home
+	, clubRanking: clubRanking
 };

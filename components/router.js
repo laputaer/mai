@@ -47,12 +47,12 @@ function myRouter(app) {
 	app.post('/c/:slug/memberships', handlers.clubUserMembership());
 
 	// club post
-	app.get('/c/:slug/p', handlers.clubPosts());
+	//app.get('/c/:slug/p', handlers.clubPosts());
 	app.get('/c/:slug/p/post-add', handlers.clubPostAddForm());
 	app.get('/c/:slug/p/post-add-2', handlers.clubPostConfirmForm());
-	app.get('/c/:slug/p/:pid', handlers.clubPost());
-	app.get('/c/:slug/p/:pid/edit', handlers.clubPostEditForm());
+	//app.get('/c/:slug/p/:pid', handlers.clubPost());
+	//app.get('/c/:slug/p/:pid/edit', handlers.clubPostEditForm());
 	app.post('/c/:slug/p/post-add', handlers.clubPostStart());
 	app.post('/c/:slug/p/post-add-2', handlers.clubPostCreate());
-	app.post('/c/:slug/p/:pid', handlers.clubPostUpdate());
+	//app.post('/c/:slug/p/:pid', handlers.clubPostUpdate());
 };

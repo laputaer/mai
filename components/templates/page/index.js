@@ -8,4 +8,5 @@
 module.exports = {
 	userManual: require('./user-manual')
 	, home: require('./home')
+	, ranking: require('./ranking')
 };

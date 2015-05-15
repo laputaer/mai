@@ -12,7 +12,7 @@ module.exports = {
 	, loginOauth: require('./oauth')
 	, userProfile: require('./user-profile')
 	, clubsFilterUser: require('./club')
-	, clubsFilterRanking: require('./page-placeholder')
+	, clubsFilterRanking: require('./club-ranking')
 	, clubsFilterSearch: require('./club-search')
 	, clubAddForm: require('./club-add')
 	, club: require('./club-home')

@@ -1,8 +1,8 @@
 
 /**
- * home.js
+ * ranking.js
  *
- * Template for home page
+ * Template for default ranked club section
  */
 
 var h = require('virtual-dom/h');
@@ -18,15 +18,14 @@ module.exports = template;
  */
 function template(data) {
 	var i18n = data.i18n;
-
-	var container = h('div.m-rows', [
+	var search = h('div.m-rows', [
 		h('div.m-content.m-row-2', [
-			h('div.m-section.green.lead', [
-				h('h2.m-subtitle', i18n.t('club.home-result'))
-				, h('div.m-list', data.post_list)
+			h('div.m-section.green', [
+				h('h1.m-subtitle', i18n.t('club.ranking-result'))
+				, h('div.m-grid', data.ranking_result)
 			])
 		])
 	]);
 
-	return container;
+	return search;
 };
