@@ -5,6 +5,8 @@
  * Koa route handler for club post confirmation page
  */
 
+var parser = require('url').parse;
+
 var builder = require('../builders/index');
 var prepareData = require('../builders/prepare-data');
 var usersDomain = require('../domains/users');
@@ -13,7 +15,6 @@ var sessionDomain = require('../domains/session');
 var createError = require('../helpers/create-error-message');
 var formError = require('../helpers/create-form-message');
 var proxyUrl = require('../security/proxy');
-var parser = require('url').parse;
 
 module.exports = factory;
 

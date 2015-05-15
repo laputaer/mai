@@ -1,8 +1,8 @@
 
 /**
- * post.js
+ * post-start.js
  *
- * Post object validation schema
+ * Post start object validation schema
  */
 
 var LGTM = require('lgtm');

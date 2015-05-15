@@ -13,7 +13,8 @@ var proxy = require('./schema/proxy');
 var oembedImage = require('./schema/oembed-image');
 var oembedContent = require('./schema/oembed-content');
 var opengraph = require('./schema/opengraph');
-var post = require('./schema/post');
+var postStart = require('./schema/post-start');
+var postConfirm = require('./schema/post-confirm');
 
 module.exports = {
 	club: club
@@ -24,5 +25,6 @@ module.exports = {
 	, oembedImage: oembedImage
 	, oembedContent: oembedContent
 	, opengraph: opengraph
-	, post: post
+	, postStart: postStart
+	, postConfirm: postConfirm
 };

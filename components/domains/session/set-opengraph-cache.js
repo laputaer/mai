@@ -33,5 +33,5 @@ function *setOpenGraphCache(opts) {
 
 	// cache update
 	yield cache.set('og:' + hash, og);
-	yield cache.expire('og:' + hash, 60 * 10);
+	yield cache.expire('og:' + hash, 60 * 15);
 };

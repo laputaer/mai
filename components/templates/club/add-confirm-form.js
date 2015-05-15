@@ -29,7 +29,7 @@ function template(data) {
 				, h('p.m-line', data.form_intro)
 				, data.post_preview
 				, h('form.m-form.m-cells', {
-					action: '/c/' + club.slug + '/p'
+					action: '/c/' + club.slug + '/p/post-add-2'
 					, method: 'POST'
 				}, [
 					data.csrf_field

@@ -1,11 +1,9 @@
 
 /**
- * club-post-create.js
+ * club-post-start.js
  *
  * Koa route handler for post creation
  */
-
-var parser = require('url').parse;
 
 var usersDomain = require('../domains/users');
 var clubsDomain = require('../domains/clubs');
@@ -102,12 +100,12 @@ function *middleware(next) {
 			this.i18n.t('error.invalid-csrf-token')
 			, body
 		);
-		this.redirect('/c/' + slug + '/p/post-add-2');
+		this.redirect('/c/' + slug + '/p/post-add');
 		return;
 	}
 
 	// STEP 7: input validation
-	result = yield validate(body, 'postConfirm');
+	result = yield validate(body, 'postStart');
 
 	if (!result.valid) {
 		this.flash = formError(
@@ -115,48 +113,52 @@ function *middleware(next) {
 			, body
 			, result.errors
 		);
-		this.redirect('/c/' + slug + '/p/post-add-2');
+		this.redirect('/c/' + slug + '/p/post-add');
 		return;
 	}
 
-	// STEP 8: get opengraph cache
-	var og = yield sessionDomain.getOpenGraphCache({
-		session: this.session
-		, cache: this.cache
-	});
+	// STEP 8: get opengraph data
+	var og;
+	try {
+		og = yield oembedDomain.getOpenGraphProfile({
+			url: body.link
+			, user_agent: config.request.user_agent
+			, follow: config.request.follow
+			, timeout: config.request.timeout
+		});
+	} catch(err) {
+		// TODO: many type of opengraph error, we better distinguish them
+		this.app.emit('error', err, this);
+	}
 
 	if (!og) {
 		this.flash = formError(
-			this.i18n.t('error.opengraph-invalid-profile')
+			this.i18n.t('error.opengraph-error-response')
+			, body
+			, ['link']
 		);
-		this.redirect('/c/' + slug);
+		this.redirect('/c/' + slug + '/p/post-add');
 		return;
 	}
 
-	if (og.image && og.image.length > 1) {
-		og.image = og.image.map(function(img) {
-			return img.secure_url || img.url;
-		});
+	result = yield validate(og, 'opengraph');
+
+	if (!result.valid) {
+		this.flash = formError(
+			this.i18n.t('error.opengraph-invalid-profile')
+			, body
+			, ['link']
+		);
+		this.redirect('/c/' + slug + '/p/post-add');
+		return;
 	}
 
-	if (og.url) {
-		og.site_url = parser(og.url);
-		og.site_url = og.site_url.protocol + '//' + og.site_url.hostname + '/';
-	}
-
-	// STEP 9: create post
-	yield clubsDomain.createClubPost({
-		db: this.db
-		, user: user
-		, club: club
-		, body: body
-		, data: og
-	});
-
-	yield sessionDomain.clearOpenGraphCache({
+	// STEP 9: put opengraph data in cache
+	yield sessionDomain.setOpenGraphCache({
 		session: this.session
 		, cache: this.cache
+		, og: og
 	});
 
-	this.redirect('/c/' + slug);
+	this.redirect('/c/' + slug + '/p/post-add-2');
 };

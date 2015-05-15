@@ -17,6 +17,7 @@ var getRedirect = require('./session/get-redirect');
 var setRedirect = require('./session/set-redirect');
 var getOpenGraphCache = require('./session/get-opengraph-cache');
 var setOpenGraphCache = require('./session/set-opengraph-cache');
+var clearOpenGraphCache = require('./session/clear-opengraph-cache');
 
 module.exports = {
 	loginUser: loginUser
@@ -31,4 +32,5 @@ module.exports = {
 	, setRedirect: setRedirect
 	, getOpenGraphCache: getOpenGraphCache
 	, setOpenGraphCache: setOpenGraphCache
+	, clearOpenGraphCache: clearOpenGraphCache
 };

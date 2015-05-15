@@ -25,6 +25,7 @@ module.exports = {
 	, clubPostConfirmForm: require('./club-post-confirm')
 	, clubPost: require('./page-placeholder')
 	, clubPostEditForm: require('./page-placeholder')
+	, clubPostStart: require('./club-post-start')
 	, clubPostCreate: require('./club-post-create')
 	, clubPostUpdate: require('./page-placeholder')
 };

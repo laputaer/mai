@@ -28,7 +28,7 @@ function template(data) {
 				h('h1.m-subtitle', data.form_title)
 				, h('p.m-line', data.form_intro)
 				, h('form.m-form.m-cells', {
-					action: '/c/' + club.slug + '/p'
+					action: '/c/' + club.slug + '/p/post-add'
 					, method: 'POST'
 				}, [
 					data.csrf_field
