@@ -47,14 +47,9 @@ function template(data) {
 			])
 		])
 		, h('div.m-content.m-row-2', [
-			h('div.m-section.lead', [
-				h('p.m-line', i18n.t('user.placeholder-1'))
-				, h('p.m-line', {
-					innerHTML: i18n.t('user.placeholder-2', {
-						feedback: '<a href="https://github.com/maihq/feedbacks" class="link">Github</a>'
-						, developer: '<a href="https://twitter.com/bitinn" class="link">@bitinn</a>'
-					})
-				})
+			h('div.m-section.green.lead', [
+				h('h2.m-subtitle', i18n.t('club.user-result'))
+				, h('div.m-list', data.post_list)
 			])
 		])
 	]);

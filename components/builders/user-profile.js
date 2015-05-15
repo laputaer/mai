@@ -16,6 +16,13 @@ module.exports = renderer;
  * @return  Object
  */
 function renderer(data) {
+	data.post_list = data.posts.map(function(post) {
+		return templates.club.postItemLink({
+			post: post
+			, i18n: data.i18n
+		});
+	});
+
 	data.main = templates.user.profile(data);
 
 	return data;

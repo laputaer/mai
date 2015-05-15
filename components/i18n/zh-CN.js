@@ -140,6 +140,7 @@ module.exports = {
 		, 'activity-item-3': '的内容'
 		, 'ranking-result': '今日社团排名'
 		, 'home-result': '今日社团更新'
+		, 'user-result': '用户近期更新'
 	}
 	, 'help': {
 		'main-title': '使用帮助'

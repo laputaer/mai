@@ -8,6 +8,7 @@
 var builder = require('../builders/index');
 var prepareData = require('../builders/prepare-data');
 var usersDomain = require('../domains/users');
+var clubsDomain = require('../domains/clubs');
 var getAvatarVariant = require('../helpers/get-avatar-variant');
 var getUserOrigin = require('../helpers/get-user-origin');
 var proxyUrl = require('../security/proxy');
@@ -53,6 +54,12 @@ function *middleware(next) {
 	data.user.full_avatar = proxyUrl(getAvatarVariant(data.user, 400), this.config.proxy.key, 400);
 	data.user.user_origin = getUserOrigin(data.user);
 
-	// STEP 4: render page
+	// STEP 4: user post
+	data.posts = yield clubsDomain.getUserPosts({
+		db: this.db
+		, uid: data.user.uid
+	});
+
+	// STEP 5: render page
 	this.state.vdoc = builder(data);
 };
