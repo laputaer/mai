@@ -7,6 +7,7 @@
 
 module.exports = {
 	addClub: require('./add-club')
+	, addPostForm: require('./add-post-form')
 	, clubList: require('./club-list')
 	, clubSearchList: require('./club-search-list')
 	, container: require('./container')

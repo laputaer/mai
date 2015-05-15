@@ -116,6 +116,12 @@ module.exports = {
 		, 'join-button': '加入社团'
 		, 'leave-button': '退出社团'
 		, 'join-stats': '你有 %{current} 点信仰值，将投入 2 点信仰。'
+		, 'new-post': '发布新分享'
+		, 'new-post-intro': '看到或发布了值得分享的内容？只需要输入链接，在下一步你将有机会调整分享内容的细节。'
+		, 'new-post-submit': '进入下一步'
+		, 'post-link': '内容地址'
+		, 'post-link-note': '复制内容对应的网址'
+		, 'post-link-placeholder': '例如：http://twitter.com/...'
 		, 'share-button': '分享至 Twitter'
 		, 'share-button-text': '我创建了一个叫%{title}的社团，却被告知部员要达到5人才能保留，你能来帮忙吗？'
 	}
