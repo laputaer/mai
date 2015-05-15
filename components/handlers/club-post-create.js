@@ -133,7 +133,7 @@ function *middleware(next) {
 		return;
 	}
 
-	if (og.image && og.image.length > 1) {
+	if (og.image && og.image.length > 0) {
 		og.image = og.image.map(function(img) {
 			return img.secure_url || img.url;
 		});

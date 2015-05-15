@@ -131,7 +131,7 @@ function *middleware(next) {
 		this.app.emit('error', err, this);
 	}
 
-	if (!og) {
+	if (!og || !og.url) {
 		this.flash = formError(
 			this.i18n.t('error.opengraph-error-response')
 			, body

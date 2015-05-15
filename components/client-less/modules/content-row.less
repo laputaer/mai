@@ -38,9 +38,19 @@
 
 		.m-list {
 			margin: 2em 0;
+			border-radius: 10px;
+			overflow: hidden;
 
-			.m-post + .m-post {
-				margin: 2em 0;
+			.m-post {
+				padding: 1em;
+			}
+
+			.m-post:nth-child(odd) {
+				background-color: darken(@white, 2%);
+			}
+
+			.m-post:nth-child(even) {
+				background-color: darken(@white, 4%);
 			}
 		}
 

@@ -91,7 +91,7 @@ function *middleware(next) {
 	}
 
 	// STEP 6: transform opengraph data
-	if (data.og.image && data.og.image.length > 1) {
+	if (data.og.image && data.og.image.length > 0) {
 		data.og.image = data.og.image.map(function(img) {
 			var url = img.secure_url || img.url;
 			return proxyUrl(url, config.proxy.key, 400);
@@ -102,6 +102,8 @@ function *middleware(next) {
 		data.og.site_url = parser(data.og.url);
 		data.og.site_url = data.og.site_url.protocol + '//' + data.og.site_url.hostname + '/';
 	}
+
+	console.log(data.og);
 
 	// STEP 7: render page
 	this.state.vdoc = builder(data);

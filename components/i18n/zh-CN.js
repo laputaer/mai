@@ -130,7 +130,7 @@ module.exports = {
 		, 'post-title-placeholder': '例如：一句话介绍内容'
 		, 'post-summary': '内容节选、推荐总结'
 		, 'post-summary-note': '允许2-64个字符'
-		, 'post-summary-placeholder': '例如：展示内容的精彩之处'
+		, 'post-summary-placeholder': '例如：推荐内容的精彩之处'
 		, 'join-stats': '你有 %{current} 点信仰值，将投入 2 点信仰。'
 		, 'share-button': '分享至 Twitter'
 		, 'share-button-text': '我创建了一个叫%{title}的社团，却被告知部员要达到5人才能保留，你能来帮忙吗？'

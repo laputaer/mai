@@ -87,9 +87,9 @@ function *middleware(next) {
 	});
 
 	data.posts = data.posts.map(function(post) {
-		if (post.image) {
-			post.image = post.image.map(function(url) {
-				return proxyUrl(data.club.oembed.image, config.proxy.key, 400);
+		if (post.og.image && post.og.image.length > 0) {
+			post.og.image = post.og.image.map(function(url) {
+				return proxyUrl(url, config.proxy.key, 400);
 			});
 		}
 
