@@ -116,6 +116,7 @@ module.exports = {
 		, 'join-button': '加入社团'
 		, 'leave-button': '退出社团'
 		, 'post-button': '发布新分享'
+		, 'share-button': '分享到 Twitter'
 		, 'new-post': '发布新分享'
 		, 'new-post-intro': '看到或发布了值得分享的内容？只需要输入链接，在下一步你将有机会调整分享内容的细节。'
 		, 'new-post-submit': '进入下一步'
@@ -132,8 +133,8 @@ module.exports = {
 		, 'post-summary-note': '允许2-64个字符'
 		, 'post-summary-placeholder': '例如：推荐内容的精彩之处'
 		, 'join-stats': '你有 %{current} 点信仰值，将投入 2 点信仰。'
-		, 'share-button': '分享至 Twitter'
-		, 'share-button-text': '我创建了一个叫%{title}的社团，却被告知部员要达到5人才能保留，你能来帮忙吗？'
+		, 'share-owner-text': '我创建了一个叫 %{title} 的社团，需要5人才能存活，你不来帮忙吗？'
+		, 'share-other-text': '我加入了一个叫 %{title} 的社团，据说要5人才能存活，你不来帮忙吗？'
 	}
 	, 'help': {
 		'main-title': '使用帮助'

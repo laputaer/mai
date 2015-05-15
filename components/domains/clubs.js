@@ -16,6 +16,7 @@ var joinClub = require('./clubs/join-club');
 var leaveClub = require('./clubs/leave-club');
 var createClubPost = require('./clubs/create-club-post');
 var getClubPosts = require('./clubs/get-club-posts');
+var getPosts = require('./clubs/get-posts');
 
 module.exports = {
 	getUserOwnedClubs: getUserOwnedClubs
@@ -29,4 +30,5 @@ module.exports = {
 	, leaveClub: leaveClub
 	, createClubPost: createClubPost
 	, getClubPosts: getClubPosts
+	, getPosts: getPosts
 };

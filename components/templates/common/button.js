@@ -34,7 +34,8 @@ function template(data) {
 	}
 
 	var button = h('a.m-button.rounded' + button_type, {
-		'href': data.href
+		href: data.href
+		, target: data.target || undefined
 	}, [
 		icon
 		, h('span.m-text', data.text)

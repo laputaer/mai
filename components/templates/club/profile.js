@@ -108,7 +108,8 @@ function template(data) {
 				, h('p.m-line', i18n.t('club.welcome-message', club))
 				, intro
 				, data.club_management
-				, h('form', {
+				, data.share_button
+				, h('form.m-form', {
 					action: '/c/' + club.slug + '/memberships'
 					, method: 'POST'
 				}, [

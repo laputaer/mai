@@ -18,8 +18,7 @@ function *getClubPosts(opts) {
 	var slug = opts.slug;
 	var Post = db.col('posts');
 
-	// null if club not found
 	return yield Post.find({
 		club: slug
-	}).limit(20);
+	}).sort({ created: -1 }).limit(20);
 };

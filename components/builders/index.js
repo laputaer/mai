@@ -20,7 +20,8 @@ var routes = {
 	, userProfile: createRoute('/u/:uid')
 	, login: createRoute('/login/redirect')
 	, help: createRoute('/help')
-	, placeholder: createRoute('/|/c/club-ranking')
+	, placeholder: createRoute('/c/club-ranking')
+	, home: createRoute('/')
 };
 
 module.exports = builder;

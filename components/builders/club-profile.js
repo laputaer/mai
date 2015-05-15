@@ -30,6 +30,17 @@ function partial(data) {
 				, type: ['small', 'highlight']
 				, version: data.version.asset
 			});
+
+			data.share_button = templates.common.button({
+				href: 'https://twitter.com/intent/tweet?url='
+					+ encodeURIComponent(data.current_url)
+					+ '&text=' + i18n.t('club.share-owner-text', data.club)
+				, icon: 'twitter'
+				, text: data.i18n.t('club.share-button')
+				, type: ['small', 'twitter']
+				, target: '_blank'
+				, version: data.version.asset
+			});
 		}
 
 		if (data.current_user.uid !== data.club.owner && data.membership) {
@@ -40,6 +51,17 @@ function partial(data) {
 				, type: ['small']
 				, name: 'leave'
 				, value: '1'
+			});
+
+			data.share_button = templates.common.button({
+				href: 'https://twitter.com/intent/tweet?url='
+					+ encodeURIComponent(data.current_url)
+					+ '&text=' + i18n.t('club.share-other-text', data.club)
+				, icon: 'twitter'
+				, text: data.i18n.t('club.share-button')
+				, type: ['small', 'twitter']
+				, target: '_blank'
+				, version: data.version.asset
 			});
 		}
 
@@ -62,25 +84,6 @@ function partial(data) {
 			, version: data.version.asset
 		});
 	}
-
-	data.join_club_button = templates.common.button({
-		href: '/c/' + data.club.slug + '/join'
-		, icon: 'dialogue_happy'
-		, text: data.i18n.t('club.join-button')
-		, type: ['large', 'accept']
-		, version: data.version.asset
-	})
-
-	data.share_club_button = templates.common.button({
-		href: 'https://twitter.com/intent/tweet?text='
-			+ i18n.t('club.share-button-text', data.club)
-			+ '&url='
-			+ encodeURIComponent(data.current_url)
-		, icon: 'twitter'
-		, text: data.i18n.t('club.share-button')
-		, type: ['large', 'twitter']
-		, version: data.version.asset
-	})
 
 	data.club_form_error = templates.common.formError(data);
 

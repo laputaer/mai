@@ -20,6 +20,7 @@ var placeholder = require('./placeholder');
 var help = require('./help');
 var clubAddPostForm = require('./club-add-post-form');
 var clubAddConfirmForm = require('./club-add-confirm-form');
+var home = require('./home');
 
 module.exports = {
 	doc: doc
@@ -37,4 +38,5 @@ module.exports = {
 	, help: help
 	, clubAddPostForm: clubAddPostForm
 	, clubAddConfirmForm: clubAddConfirmForm
+	, home: home
 };
