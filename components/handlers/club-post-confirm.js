@@ -103,8 +103,6 @@ function *middleware(next) {
 		data.og.site_url = data.og.site_url.protocol + '//' + data.og.site_url.hostname + '/';
 	}
 
-	console.log(data.og);
-
 	// STEP 7: render page
 	this.state.vdoc = builder(data);
 };

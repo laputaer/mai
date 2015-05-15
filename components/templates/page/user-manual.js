@@ -66,7 +66,7 @@ function template(data) {
 				h('h2.m-subtitle', i18n.t('help.club-guideline-question'))
 				, h('p.m-line', i18n.t('help.club-guideline-answer-1'))
 			])
-			, h('div.m-section.red#club-naming', [
+			, h('div.m-section.green#club-naming', [
 				h('h2.m-subtitle', i18n.t('help.club-guideline-naming-question'))
 				, h('p.m-line', i18n.t('help.club-guideline-naming-answer-1'))
 				, h('p.m-line', i18n.t('help.club-guideline-naming-answer-2'))
@@ -78,7 +78,7 @@ function template(data) {
 				, h('p.m-line', i18n.t('help.club-guideline-naming-answer-8'))
 				, h('p.m-line', i18n.t('help.club-guideline-naming-answer-9'))
 			])
-			, h('div.m-section.red#club-operation', [
+			, h('div.m-section.green#club-operation', [
 				h('h2.m-subtitle', i18n.t('help.club-guideline-operation-question'))
 				, h('p.m-line', i18n.t('help.club-guideline-operation-answer-1'))
 				, h('p.m-line', i18n.t('help.club-guideline-operation-answer-2'))
@@ -91,7 +91,7 @@ function template(data) {
 				, h('p.m-line', i18n.t('help.game-rule-answer-1'))
 				, h('p.m-line', i18n.t('help.game-rule-answer-2'))
 			])
-			, h('div.m-section.yellow#user-rule', [
+			, h('div.m-section.green#user-rule', [
 				h('h2.m-subtitle', i18n.t('help.game-rule-user-question'))
 				, h('p.m-line', i18n.t('help.game-rule-user-answer-1'))
 				, h('p.m-line', i18n.t('help.game-rule-user-answer-2'))
@@ -103,7 +103,7 @@ function template(data) {
 				, h('p.m-line', i18n.t('help.game-rule-user-answer-8'))
 				, h('p.m-line', i18n.t('help.game-rule-user-answer-9'))
 			])
-			, h('div.m-section.yellow#club-rule', [
+			, h('div.m-section.green#club-rule', [
 				h('h2.m-subtitle', i18n.t('help.game-rule-club-question'))
 				, h('p.m-line', i18n.t('help.game-rule-club-answer-1'))
 				, h('p.m-line', i18n.t('help.game-rule-club-answer-2'))
