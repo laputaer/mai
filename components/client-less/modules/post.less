@@ -1,0 +1,68 @@
+
+// post.less - reusable post display box
+
+.m-post {
+	display: block;
+	width: 100%;
+	box-sizing: border-box;
+
+	border: 1px solid @color-gray-light;
+	border-radius: 4px;
+	padding: 1em;
+
+	.m-title {
+		margin: 0;
+		font-weight: 300;
+		line-height: 1.4em;
+		.size(20);
+
+		&:before {
+			content: '';
+			display: inline-block;
+			width: 1em;
+			height: 1em;
+			border-radius: 50%;
+			margin-right: 0.25em;
+			vertical-align: text-top;
+			background-color: @color-gray-light;
+		}
+	}
+
+	.m-summary {
+		margin: 0.5em 0;
+		line-height: 1.5em;
+		.size(16);
+	}
+
+	.m-images {
+		display: block;
+		overflow: hidden;
+		margin: 1em 0 0;
+
+		.m-image {
+			display: inline-block;
+			width: 100px;
+			height: 100px;
+			border-radius: 20px;
+			background-color: @color-gray-pastel;
+			.background-cover();
+		}
+
+		@media @tablet {
+			.m-image {
+				width: 200px;
+				height: 200px;
+			}
+		}
+	}
+
+	.m-meta {
+		margin: 0.25em 0 0;
+		color: @color-gray-dark;
+		.size(14);
+	}
+
+	&.preview {
+
+	}
+}

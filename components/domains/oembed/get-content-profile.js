@@ -6,7 +6,7 @@
  */
 
 var parser = require('url').parse;
-var getTwitterContentProfile = require('./twitter-content-profile');
+var getOpenGraphProfile = require('./get-open-graph-profile');
 
 module.exports = getContentProfile;
 
@@ -14,15 +14,10 @@ module.exports = getContentProfile;
  * Get oembed data
  *
  * @param   Object  opts  Options { url, user_agent, follow, timeout }
- * @return  Object        Standard image profile
+ * @return  Object        Standard content profile
  */
 function *getContentProfile(opts) {
 	var url = parser(opts.url);
 
-	var profile;
-	if (url.hostname.indexOf('twitter.com') >= 0) {
-		profile = yield getTwitterContentProfile(opts);
-	}
-
-	return profile;
+	return yield getOpenGraphProfile(opts);
 };

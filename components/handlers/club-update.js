@@ -105,7 +105,7 @@ function *middleware(next) {
 
 		if (!oembed) {
 			this.flash = formError(
-				this.i18n.t('error.oembed-error-response')
+				this.i18n.t('error.opengraph-error-response')
 				, body
 				, ['logo']
 			);
@@ -117,7 +117,7 @@ function *middleware(next) {
 
 		if (!result.valid) {
 			this.flash = formError(
-				this.i18n.t('error.oembed-invalid-profile')
+				this.i18n.t('error.opengraph-invalid-profile')
 				, body
 				, ['logo']
 			);

@@ -12,6 +12,7 @@ var redirect = require('./schema/redirect');
 var proxy = require('./schema/proxy');
 var oembedImage = require('./schema/oembed-image');
 var oembedContent = require('./schema/oembed-content');
+var opengraph = require('./schema/opengraph');
 var post = require('./schema/post');
 
 module.exports = {
@@ -22,5 +23,6 @@ module.exports = {
 	, proxy: proxy
 	, oembedImage: oembedImage
 	, oembedContent: oembedContent
+	, opengraph: opengraph
 	, post: post
 };

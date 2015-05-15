@@ -117,22 +117,23 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 8: get oembed data
+	// STEP 8: get opengraph data
+	var og;
 	try {
-		oembed = yield oembedDomain.getContentProfile({
+		og = yield oembedDomain.getOpenGraphProfile({
 			url: body.link
 			, user_agent: config.request.user_agent
 			, follow: config.request.follow
 			, timeout: config.request.timeout
 		});
 	} catch(err) {
-		// TODO: many type of oembed error, we better distinguish them
+		// TODO: many type of opengraph error, we better distinguish them
 		this.app.emit('error', err, this);
 	}
 
-	if (!oembed) {
+	if (!og) {
 		this.flash = formError(
-			this.i18n.t('error.oembed-error-response')
+			this.i18n.t('error.opengraph-error-response')
 			, body
 			, ['link']
 		);
@@ -140,17 +141,24 @@ function *middleware(next) {
 		return;
 	}
 
-	result = yield validate(oembed, 'oembedContent');
+	result = yield validate(og, 'opengraph');
 
 	if (!result.valid) {
 		this.flash = formError(
-			this.i18n.t('error.oembed-invalid-profile')
+			this.i18n.t('error.opengraph-invalid-profile')
 			, body
-			, ['logo']
+			, ['link']
 		);
 		this.redirect('/c/' + slug + '/p/post-add');
 		return;
 	}
 
-	console.log(oembed);
+	// STEP 9: put opengraph data in cache
+	yield sessionDomain.setOpenGraphCache({
+		session: this.session
+		, cache: this.cache
+		, og: og
+	});
+
+	this.redirect('/c/' + slug + '/p/post-add-2');
 };

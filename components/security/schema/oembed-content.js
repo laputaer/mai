@@ -27,13 +27,19 @@ function factory() {
 			.using(function(value) {
 				return validator.supported(value)
 					&& validator.isLength(value, 1, 256)
-					&& validator.isURL(value)
+					&& validator.isURL(value, {
+						protocols: ['https', 'http']
+						, require_protocol: true
+					})
 			}, 'profile invalid')
 		.validates('source')
 			.using(function(value) {
 				return validator.supported(value)
 					&& validator.isLength(value, 1, 256)
-					&& validator.isURL(value)
+					&& validator.isURL(value, {
+						protocols: ['https', 'http']
+						, require_protocol: true
+					})
 			}, 'source invalid')
 		.validates('provider')
 			.using(function(value) {
@@ -45,7 +51,10 @@ function factory() {
 			.using(function(value) {
 				return validator.supported(value)
 					&& validator.isLength(value, 1, 256)
-					&& validator.isURL(value)
+					&& validator.isURL(value, {
+						protocols: ['https', 'http']
+						, require_protocol: true
+					})
 			}, 'domain invalid')
 		.build();
 };

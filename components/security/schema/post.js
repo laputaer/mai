@@ -19,7 +19,6 @@ function factory() {
 					&& validator.isLength(value, 1, 256)
 					&& validator.isURL(value, {
 						protocols: ['https', 'http']
-						, require_tld: true
 						, require_protocol: true
 					})
 			}, 'link invalid')

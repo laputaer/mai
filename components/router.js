@@ -49,6 +49,7 @@ function myRouter(app) {
 	// club post
 	app.get('/c/:slug/p', handlers.clubPosts());
 	app.get('/c/:slug/p/post-add', handlers.clubPostAddForm());
+	app.get('/c/:slug/p/post-add-2', handlers.clubPostConfirmForm());
 	app.get('/c/:slug/p/:pid', handlers.clubPost());
 	app.get('/c/:slug/p/:pid/edit', handlers.clubPostEditForm());
 	app.post('/c/:slug/p', handlers.clubPostCreate());

@@ -22,6 +22,7 @@ module.exports = {
 	, clubUserMembership: require('./club-membership')
 	, clubPosts: require('./page-placeholder')
 	, clubPostAddForm: require('./club-post-add')
+	, clubPostConfirmForm: require('./club-post-confirm')
 	, clubPost: require('./page-placeholder')
 	, clubPostEditForm: require('./page-placeholder')
 	, clubPostCreate: require('./club-post-create')

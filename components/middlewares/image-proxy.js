@@ -100,6 +100,7 @@ function *middleware(next) {
 		});
 	} catch(err) {
 		// fetch error
+		// TODO: cache error response, so we don't fetch them every time
 		this.app.emit('error', err, this);
 	}
 

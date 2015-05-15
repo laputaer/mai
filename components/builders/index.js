@@ -13,6 +13,7 @@ var routes = {
 	clubNew: createRoute('/c/club-add')
 	, club: createRoute('/c/club-home')
 	, clubSearch: createRoute('/c/club-search')
+	, clubAddConfirmForm: createRoute('/c/:slug/p/post-add-2')
 	, clubAddPostForm: createRoute('/c/:slug/p/post-add')
 	, clubEditor: createRoute('/c/:slug/edit')
 	, clubProfile: createRoute('/c/:slug')

@@ -14,6 +14,7 @@ module.exports = {
 	, formGroup: require('./form-group')
 	, formSubmit: require('./form-submit')
 	, formSearch: require('./form-search')
+	, formTextArea: require('./form-textarea')
 	, genericMessage: require('./generic-message')
 	, heading: require('./heading')
 	, login: require('./login')

@@ -17,7 +17,10 @@ function factory() {
 			.using(function(value) {
 				return validator.supported(value)
 					&& validator.isLength(value, 1, 256)
-					&& validator.isURL(value)
+					&& validator.isURL(value, {
+						protocols: ['https', 'http']
+						, require_protocol: true
+					})
 			}, 'image invalid')
 		.validates('author')
 			.using(function(value) {
@@ -28,21 +31,26 @@ function factory() {
 			.using(function(value) {
 				return validator.supported(value)
 					&& validator.isLength(value, 1, 256)
-					&& validator.isURL(value)
+					&& validator.isURL(value, {
+						protocols: ['https', 'http']
+						, require_protocol: true
+					})
 			}, 'source invalid')
 		.validates('license')
 			.optional()
 			.using(function(value) {
 				return validator.supported(value)
 					&& validator.isLength(value, 1, 256)
-					&& validator.isURL(value)
+					&& validator.isURL(value, {
+						protocols: ['https', 'http']
+						, require_protocol: true
+					})
 			}, 'license invalid')
 		.validates('license_name')
 			.optional()
 			.using(function(value) {
 				return validator.supported(value)
-					&& validator.isLength(value, 1, 64)
-					&& validator.isURL(value)
+					&& validator.isLength(value, 1, 32)
 			}, 'license_name invalid')
 		.validates('provider')
 			.using(function(value) {
@@ -54,7 +62,10 @@ function factory() {
 			.using(function(value) {
 				return validator.supported(value)
 					&& validator.isLength(value, 1, 256)
-					&& validator.isURL(value)
+					&& validator.isURL(value, {
+						protocols: ['https', 'http']
+						, require_protocol: true
+					})
 			}, 'domain invalid')
 		.build();
 };

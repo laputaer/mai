@@ -19,6 +19,7 @@ var customError = require('./custom-error');
 var placeholder = require('./placeholder');
 var help = require('./help');
 var clubAddPostForm = require('./club-add-post-form');
+var clubAddConfirmForm = require('./club-add-confirm-form');
 
 module.exports = {
 	doc: doc
@@ -35,4 +36,5 @@ module.exports = {
 	, placeholder: placeholder
 	, help: help
 	, clubAddPostForm: clubAddPostForm
+	, clubAddConfirmForm: clubAddConfirmForm
 };
