@@ -19,6 +19,7 @@ function *updateClub(opts) {
 	var slug = opts.slug;
 	var oembed = opts.oembed;
 	var Club = db.col('clubs');
+	var Membership = db.col('memberships');
 
 	// STEP 1: update club
 	var club = {
@@ -44,7 +45,18 @@ function *updateClub(opts) {
 		slug: slug
 	}, club);
 
-	// STEP 2: return new club data
+	// STEP 2: update membership
+	if (club.slug) {
+		yield Membership.update({
+			slug: slug
+		}, {
+			slug: club.slug
+		}, {
+			multi: true
+		});
+	}
+
+	// STEP 3: return new club data
 	return yield Club.findOne({
 		slug: club.slug || slug
 	});
