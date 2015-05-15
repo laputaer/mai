@@ -135,6 +135,9 @@ module.exports = {
 		, 'join-stats': '你有 %{current} 点信仰值，将投入 2 点信仰。'
 		, 'share-owner-text': '我创建了一个叫 %{title} 的社团，需要5人才能存活，你不来帮忙吗？'
 		, 'share-other-text': '我加入了一个叫 %{title} 的社团，据说要5人才能存活，你不来帮忙吗？'
+		, 'activity-item-1': '在社团'
+		, 'activity-item-2': '上分享了'
+		, 'activity-item-3': '的内容'
 	}
 	, 'help': {
 		'main-title': '使用帮助'

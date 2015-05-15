@@ -57,7 +57,7 @@ function template(data) {
 			}, [
 				h('span', og.title)
 			])
-			, h('span', ' via ')
+			, h('span', 'via')
 			, h('a.m-link', {
 				href: og.site_url
 				, target: '_blank'

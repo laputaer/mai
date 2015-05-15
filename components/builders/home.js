@@ -25,6 +25,7 @@ function partial(data) {
 			, i18n: i18n
 		});
 	});
+
 	data.main = templates.page.home(data);
 
 	return data;
