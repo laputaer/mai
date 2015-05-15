@@ -55,6 +55,7 @@ function template(data) {
 		})
 		, h('script', {
 			src: '/assets/app.js?' + data.version.js
+			, async: 'async'
 		})
 	]);
 

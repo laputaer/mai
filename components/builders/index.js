@@ -12,6 +12,7 @@ var createRoute = require('../helpers/create-named-route');
 var routes = {
 	clubNew: createRoute('/c/club-add')
 	, club: createRoute('/c/club-home')
+	, placeholder: createRoute('/c/club-ranking')
 	, clubSearch: createRoute('/c/club-search')
 	, clubAddConfirmForm: createRoute('/c/:slug/p/post-add-2')
 	, clubAddPostForm: createRoute('/c/:slug/p/post-add')
@@ -20,7 +21,6 @@ var routes = {
 	, userProfile: createRoute('/u/:uid')
 	, login: createRoute('/login/redirect')
 	, help: createRoute('/help')
-	, placeholder: createRoute('/c/club-ranking')
 	, home: createRoute('/')
 };
 
