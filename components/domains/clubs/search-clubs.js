@@ -31,5 +31,5 @@ function *searchClubs(opts) {
 				}
 			}
 		]
-	}).sort({ created: 1 });
+	}).sort({ created: 1 }).limit(20);
 };

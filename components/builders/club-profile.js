@@ -83,6 +83,13 @@ function partial(data) {
 	})
 
 	data.club_form_error = templates.common.formError(data);
+
+	data.post_list = data.posts.map(function(post) {
+		return templates.club.postItem({
+			post: post
+			, i18n: i18n
+		});
+	});
 	data.main = templates.club.profile(data);
 
 	return data;

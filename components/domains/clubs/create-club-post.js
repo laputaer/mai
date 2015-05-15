@@ -44,7 +44,9 @@ function *createClubPost(opts) {
 	var post = {
 		pid: cuid()
 		, club: club.slug
+		, club_name: club.title
 		, user: user.uid
+		, user_name: user.name
 		, title: body.title
 		, summary: body.summary
 		, og: {

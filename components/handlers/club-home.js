@@ -14,7 +14,6 @@ var getCoolInitials = require('../helpers/get-cool-initials');
 var getClubLevel = require('../helpers/get-club-level');
 var proxyUrl = require('../security/proxy');
 
-
 module.exports = factory;
 
 /**
@@ -37,6 +36,7 @@ function *middleware(next) {
 
 	// STEP 1: prepare common data
 	var data = prepareData(this);
+	var config = this.config;
 
 	// STEP 2: find club
 	data.club = yield clubsDomain.matchClub({
@@ -54,7 +54,7 @@ function *middleware(next) {
 
 	// STEP 3: club data transform
 	if (data.club.oembed) {
-		data.club.full_avatar = proxyUrl(data.club.oembed.image, this.config.proxy.key, 400);
+		data.club.full_avatar = proxyUrl(data.club.oembed.image, config.proxy.key, 400);
 	}
 
 	data.club.level = getClubLevel(data.club.members);
@@ -79,6 +79,22 @@ function *middleware(next) {
 			, slug: data.club.slug
 		});
 	}
+
+	// STEP 6: find posts
+	data.posts = yield clubsDomain.getClubPosts({
+		db: this.db
+		, slug: data.club.slug
+	});
+
+	data.posts = data.posts.map(function(post) {
+		if (post.image) {
+			post.image = post.image.map(function(url) {
+				return proxyUrl(data.club.oembed.image, config.proxy.key, 400);
+			});
+		}
+
+		return post;
+	});
 
 	// STEP 6: render page
 	this.state.vdoc = builder(data);

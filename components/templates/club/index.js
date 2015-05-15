@@ -14,6 +14,7 @@ module.exports = {
 	, container: require('./container')
 	, editorForm: require('./editor-form')
 	, joinedClubList: require('./joined-club-list')
+	, postItem: require('./post-item')
 	, postPreview: require('./post-preview')
 	, profile: require('./profile')
 	, searchClub: require('./search-club')

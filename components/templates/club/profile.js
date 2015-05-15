@@ -103,8 +103,11 @@ function template(data) {
 		])
 		, h('div.m-content.m-row-2', [
 			data.club_form_error
-			, h('div.m-section.lead', [
-				data.club_management
+			, h('div.m-section.yellow.lead', [
+				h('h2.m-subtitle', i18n.t('club.welcome-intro'))
+				, h('p.m-line', i18n.t('club.welcome-message', club))
+				, intro
+				, data.club_management
 				, h('form', {
 					action: '/c/' + club.slug + '/memberships'
 					, method: 'POST'
@@ -115,14 +118,10 @@ function template(data) {
 				])
 				, action_cost
 			])
-			, h('div.m-section.blue', [
-				h('h2.m-subtitle', i18n.t('club.welcome-intro'))
-				, h('p.m-line', i18n.t('club.welcome-message', club))
-				, intro
-			])
 			, h('div.m-section.green', [
 				h('h2.m-subtitle', i18n.t('club.message-board'))
 				, data.add_post
+				, h('div.m-list', data.post_list)
 			])
 		])
 	]);

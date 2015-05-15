@@ -1,8 +1,8 @@
 
 /**
- * post-preview.js
+ * post-item.js
  *
- * Template for post content preview
+ * Template for post content in club profile
  */
 
 var h = require('virtual-dom/h');
@@ -18,12 +18,13 @@ module.exports = template;
  */
 function template(data) {
 	var i18n = data.i18n;
-	var og = data.og;
+	var post = data.post;
 
-	if (!og) {
+	if (!post) {
 		return;
 	}
 
+	var og = post.og;
 	var images;
 	if (og.image) {
 		images = og.image.map(function(url) {
@@ -35,9 +36,19 @@ function template(data) {
 		});
 	}
 
-	var preview = h('div.m-post.preview', [
-		h('p.m-title', i18n.t('club.post-title'))
-		, h('p.m-summary', i18n.t('club.post-summary'))
+	var title;
+	if (post.title) {
+		title = h('p.m-title', post.title);
+	}
+
+	var summary;
+	if (post.summary) {
+		summary = h('p.m-summary', post.summary);
+	}
+
+	var item = h('div.m-post', [
+		title
+		, summary
 		, h('div.m-images', images)
 		, h('p.m-meta', [
 			h('a.m-link', {
@@ -56,5 +67,5 @@ function template(data) {
 		])
 	]);
 
-	return preview;
+	return item;
 };
