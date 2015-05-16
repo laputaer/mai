@@ -42,13 +42,21 @@ function getOpenGraphProfile(opts) {
 					, decodeEntities: false
 				});
 				var meta = d('meta[property^="og:"]');
+				var total = meta.length - 1;
 				var temp = {};
 				var og = {};
 
-				meta.each(function() {
+				meta.each(function(index) {
 					var key = d(this).attr('property');
 					var val = d(this).attr('content');
 					var known = attrs[key.replace('og:', '')];
+
+					// for last run, push final group to output
+					if (index === total && temp.group) {
+						var group = temp.group;
+						delete temp.group;
+						og[group].push(temp);
+					}
 
 					// unknown field, ignore
 					if (!known) {
@@ -61,13 +69,12 @@ function getOpenGraphProfile(opts) {
 						return;
 					}
 
-					// non-root group value, set
-					if (!known.root) {
-						temp[known.field] = val;
-						return;
+					// init group
+					if (!og[known.group]) {
+						og[known.group] = [];
 					}
 
-					// root group value, 1st group, set
+					// no current group, set
 					if (!temp.group) {
 						temp = {};
 						temp.group = known.group;
@@ -75,33 +82,23 @@ function getOpenGraphProfile(opts) {
 						return;
 					}
 
-					// root group, not 1st group, push temp
-					var group = temp.group;
-					delete temp.group;
-
-					if (!og[group]) {
-						og[group] = [];
+					// non-root group value, same as current group, set
+					if (!known.root && known.group === temp.group) {
+						temp[known.field] = val;
+						return;
 					}
 
-					og[group].push(temp);
+					// root group value or different group value, push and set
+					if (known.root || known.group !== temp.group) {
+						var group = temp.group;
+						delete temp.group;
+						og[group].push(temp);
 
-					// prepare new group, set
-					temp = {};
-					temp.group = known.group;
-					temp[known.field] = val;
+						temp = {};
+						temp.group = known.group;
+						temp[known.field] = val;
+					}
 				});
-
-				// push last temp
-				if (temp.group) {
-					var group = temp.group;
-					delete temp.group;
-
-					if (!og[group]) {
-						og[group] = [];
-					}
-
-					og[group].push(temp);
-				}
 
 				return og;
 			});
