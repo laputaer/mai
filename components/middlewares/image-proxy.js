@@ -113,7 +113,7 @@ function *middleware(next) {
 	// STEP 6: resize image, write to cache
 	var p1 = sharp();
 	var p2 = sharp();
-	var size;
+	var size, done;
 	try {
 		res.body.pipe(p1);
 		p1.pipe(p2);
@@ -125,9 +125,16 @@ function *middleware(next) {
 			.quality(95)
 			.toFile(path + '.' + ext);
 		yield fs.writeFile(path, ext);
+		done = true;
 	} catch(err) {
 		// cache error
 		this.app.emit('error', err, this);
+	}
+
+	if (!done) {
+		this.status = 500;
+		this.body = 'content not supported';
+		return;
 	}
 
 	// STEP 7: read cache again

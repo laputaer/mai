@@ -28,7 +28,7 @@ function factory() {
 			.using(function(value) {
 				return validator.supported(value)
 					&& validator.isLength(value, 1, 32)
-					&& validator.matches(value, '^[a-z0-9-_]+$')
+					&& validator.matches(value, '^[a-zA-Z0-9-_]+$')
 			}, 'login invalid')
 		.validates('avatar')
 			.using(function(value) {
