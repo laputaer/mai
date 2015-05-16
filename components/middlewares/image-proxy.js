@@ -115,6 +115,13 @@ function *middleware(next) {
 	var p2 = sharp();
 	var size, done;
 	try {
+		// suppress invalid format error
+		p1.on('error', function(err) {
+			this.app.emit('error', err, this);
+		});
+		p2.on('error', function(err) {
+			this.app.emit('error', err, this);
+		});
 		res.body.pipe(p1);
 		p1.pipe(p2);
 		meta = yield p1.metadata();
