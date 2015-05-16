@@ -20,6 +20,7 @@ function *updateClub(opts) {
 	var oembed = opts.oembed;
 	var Club = db.col('clubs');
 	var Membership = db.col('memberships');
+	var Post = db.col('posts');
 
 	// STEP 1: update club
 	var club = {
@@ -45,12 +46,21 @@ function *updateClub(opts) {
 		slug: slug
 	}, club);
 
-	// STEP 2: update membership
+	// STEP 2: update membership and posts
 	if (club.slug) {
 		yield Membership.update({
 			slug: slug
 		}, {
 			slug: club.slug
+		}, {
+			multi: true
+		});
+
+		yield Post.update({
+			club: slug
+		}, {
+			club: club.slug
+			, club_name: club.title
 		}, {
 			multi: true
 		});
