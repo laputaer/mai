@@ -114,13 +114,14 @@ function *middleware(next) {
 	var p1 = sharp();
 	var p2 = sharp();
 	var size, done;
+	var self = this;
 	try {
 		// suppress invalid format error
 		p1.on('error', function(err) {
-			this.app.emit('error', err, this);
+			self.app.emit('error', err, self);
 		});
 		p2.on('error', function(err) {
-			this.app.emit('error', err, this);
+			self.app.emit('error', err, self);
 		});
 		res.body.pipe(p1);
 		p1.pipe(p2);
