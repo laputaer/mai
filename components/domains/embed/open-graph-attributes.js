@@ -32,6 +32,7 @@ module.exports = {
 	, 'image:url': {
 		field: 'url'
 		, group: 'image'
+		, root: true
 	}
 	, 'image:secure_url': {
 		field: 'secure_url'
@@ -57,6 +58,7 @@ module.exports = {
 	, 'video:url': {
 		field: 'url'
 		, group: 'video'
+		, root: true
 	}
 	, 'video:secure_url': {
 		field: 'secure_url'
@@ -82,6 +84,7 @@ module.exports = {
 	, 'audio:url': {
 		field: 'url'
 		, group: 'audio'
+		, root: true
 	}
 	, 'audio:secure_url': {
 		field: 'secure_url'

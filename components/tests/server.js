@@ -44,10 +44,66 @@ TestServer.prototype.router = function(req, res) {
 		res.end('error');
 	}
 
-	if (p === '/simple') {
+	if (p === '/basic') {
 		res.statusCode = 200;
 		res.setHeader('Content-Type', 'text/html');
 		fs.readFile(fixture_dir + 'opengraph-basic-response.html').then(function(doc) {
+			res.end(doc);
+		});
+	}
+
+	if (p === '/case-1') {
+		res.statusCode = 200;
+		res.setHeader('Content-Type', 'text/html');
+		fs.readFile(fixture_dir + 'opengraph-real-world-case-1.html').then(function(doc) {
+			res.end(doc);
+		});
+	}
+
+	if (p === '/case-2') {
+		res.statusCode = 200;
+		res.setHeader('Content-Type', 'text/html');
+		fs.readFile(fixture_dir + 'opengraph-real-world-case-2.html').then(function(doc) {
+			res.end(doc);
+		});
+	}
+
+	if (p === '/case-3') {
+		res.statusCode = 200;
+		res.setHeader('Content-Type', 'text/html');
+		fs.readFile(fixture_dir + 'opengraph-real-world-case-3.html').then(function(doc) {
+			res.end(doc);
+		});
+	}
+
+	if (p === '/case-4') {
+		res.statusCode = 200;
+		res.setHeader('Content-Type', 'text/html');
+		fs.readFile(fixture_dir + 'opengraph-real-world-case-4.html').then(function(doc) {
+			res.end(doc);
+		});
+	}
+
+	if (p === '/case-5') {
+		res.statusCode = 200;
+		res.setHeader('Content-Type', 'text/html');
+		fs.readFile(fixture_dir + 'opengraph-real-world-case-5.html').then(function(doc) {
+			res.end(doc);
+		});
+	}
+
+	if (p === '/edge-1') {
+		res.statusCode = 200;
+		res.setHeader('Content-Type', 'text/html');
+		fs.readFile(fixture_dir + 'opengraph-edge-case-1.html').then(function(doc) {
+			res.end(doc);
+		});
+	}
+
+	if (p === '/edge-2') {
+		res.statusCode = 200;
+		res.setHeader('Content-Type', 'text/html');
+		fs.readFile(fixture_dir + 'opengraph-edge-case-2.html').then(function(doc) {
 			res.end(doc);
 		});
 	}
