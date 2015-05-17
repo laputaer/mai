@@ -7,7 +7,7 @@
 
 var clubsDomain = require('../domains/clubs');
 var sessionDomain = require('../domains/session');
-var oembedDomain = require('../domains/oembed');
+var embedDomain = require('../domains/embed');
 var formError = require('../helpers/create-form-message');
 var validate = require('../security/validation');
 
@@ -92,7 +92,7 @@ function *middleware(next) {
 	var oembed;
 	if (body.logo && body.logo !== club.logo) {
 		try {
-			oembed = yield oembedDomain.getImageProfile({
+			oembed = yield embedDomain.getImageProfile({
 				url: body.logo
 				, user_agent: config.request.user_agent
 				, follow: config.request.follow

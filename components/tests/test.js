@@ -12,7 +12,7 @@ var expect = chai.expect;
 var TestServer = require('./server');
 
 // test subjects
-var embed = require('../domains/oembed');
+var embed = require('../domains/embed');
 
 var url, local, base;
 

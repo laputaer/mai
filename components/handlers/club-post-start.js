@@ -8,7 +8,7 @@
 var usersDomain = require('../domains/users');
 var clubsDomain = require('../domains/clubs');
 var sessionDomain = require('../domains/session');
-var oembedDomain = require('../domains/oembed');
+var embedDomain = require('../domains/embed');
 var validate = require('../security/validation');
 var formError = require('../helpers/create-form-message');
 
@@ -120,7 +120,7 @@ function *middleware(next) {
 	// STEP 8: get opengraph data
 	var og;
 	try {
-		og = yield oembedDomain.getOpenGraphProfile({
+		og = yield embedDomain.getOpenGraphProfile({
 			url: body.link
 			, user_agent: config.request.user_agent
 			, follow: config.request.follow

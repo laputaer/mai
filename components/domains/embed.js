@@ -1,8 +1,8 @@
 
 /**
- * oembed.js
+ * embed.js
  *
- * Export oembed domain model
+ * Export embed domain model
  */
 
 var getImageProfile = require('./oembed/get-image-profile');
