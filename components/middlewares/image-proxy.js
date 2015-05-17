@@ -62,6 +62,7 @@ function *middleware(next) {
 
 	this.set('X-Frame-Options', 'deny');
 	this.set('X-Content-Type-Options', 'nosniff');
+	//this.set('Cache-Control', ['public', 'max-age=604800']);
 
 	// STEP 3: validate input
 	var result = yield validate(input, 'proxy');
@@ -80,7 +81,7 @@ function *middleware(next) {
 		yield sendfile.call(this, path + '.' + ext);
 	} catch(err) {
 		// cache miss
-		//this.app.emit('error', err, this);
+		this.app.emit('error', err, this);
 	}
 
 	if (this.status === 200 || this.status === 304) {
