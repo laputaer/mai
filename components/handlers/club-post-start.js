@@ -125,6 +125,7 @@ function *middleware(next) {
 			, user_agent: config.request.user_agent
 			, follow: config.request.follow
 			, timeout: config.request.timeout
+			, size: config.request.size
 		});
 	} catch(err) {
 		// TODO: many type of opengraph error, we better distinguish them

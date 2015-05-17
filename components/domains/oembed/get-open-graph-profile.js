@@ -26,6 +26,7 @@ function getOpenGraphProfile(opts) {
 				}
 				, follow: opts.follow
 				, timeout: opts.timeout
+				, size: opts.size
 			}).then(function(res) {
 				if (!res.ok) {
 					return Promise.reject(new Error('provider returned non-2xx status code'));
@@ -34,7 +35,7 @@ function getOpenGraphProfile(opts) {
 				return res.text();
 			}).then(function(body) {
 				if (!body) {
-					return Promise.reject(new Error('provider returned non-html result'));
+					return Promise.reject(new Error('provider returned empty body'));
 				}
 
 				var d = cheerio.load(body, {

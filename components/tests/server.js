@@ -5,8 +5,10 @@
  * A test server for local automate testing
  */
 
+var fs = require('mz/fs');
 var http = require('http');
 var parse = require('url').parse;
+var fixture_dir = process.cwd() + '/components/tests/fixtures/';
 
 module.exports = TestServer;
 
@@ -30,10 +32,24 @@ TestServer.prototype.stop = function(cb) {
 TestServer.prototype.router = function(req, res) {
 	var p = parse(req.url).pathname;
 
-	if (p === '/hello') {
+	if (p === '/empty') {
 		res.statusCode = 200;
 		res.setHeader('Content-Type', 'text/plain');
-		res.end('world');
+		res.end();
+	}
+
+	if (p === '/error') {
+		res.statusCode = 500;
+		res.setHeader('Content-Type', 'text/plain');
+		res.end('error');
+	}
+
+	if (p === '/simple') {
+		res.statusCode = 200;
+		res.setHeader('Content-Type', 'text/html');
+		fs.readFile(fixture_dir + 'opengraph-basic-response.html').then(function(doc) {
+			res.end(doc);
+		});
 	}
 
 	if (p === '/inspect') {
