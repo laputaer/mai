@@ -4,7 +4,7 @@
   "description": "mai codebase",
   "main": "index.js",
   "scripts": {
-    "test": "mocha tests/",
+    "test": "mocha components/tests/test.js",
     "start": "NODE_ENV=production node index.js",
     "setup": "npm install && npm run build:css && npm run build:js && npm run build:svg && npm run build:img && npm run migration",
     "migration": "node migration/migration.js",
@@ -40,7 +40,9 @@
   "devDependencies": {
     "autoprefixer": "5.1.1",
     "browserify": "10.0.0",
+    "chai": "^2.3.0",
     "clean-css": "3.2.7",
+    "co-mocha": "^1.1.0",
     "imagemin": "3.1.0",
     "less": "2.5.0",
     "mocha": "2.2.4",
