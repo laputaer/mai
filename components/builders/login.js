@@ -17,11 +17,22 @@ module.exports = renderer;
  */
 function renderer(data) {
 	var i18n = data.i18n;
-	data.login = [
-		{ type: ['large', 'twitter'], href: '/connect/twitter', icon: 'twitter', text: i18n.t('menu.login.twitter'), version: data.version.asset }
-		, { type: ['large', 'github'], href: '/connect/github', icon: 'github', text: i18n.t('menu.login.github'), version: data.version.asset }
-	];
-	data.login = data.login.map(templates.common.button);
+
+	data.login = [];
+	data.login.push(templates.common.button({
+		type: ['medium', 'twitter']
+		, href: '/connect/twitter'
+		, icon: 'twitter'
+		, text: i18n.t('menu.login.twitter')
+		, version: data.version.asset
+	}));
+	data.login.push(templates.common.button({
+		type: ['medium', 'github']
+		, href: '/connect/github'
+		, icon: 'github'
+		, text: i18n.t('menu.login.github')
+		, version: data.version.asset
+	}));
 	data.content = templates.common.login(data);
 	data.placeholder = templates.common.placeholder(data);
 
