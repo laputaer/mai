@@ -14,7 +14,6 @@ var clubProfile = require('./club-profile');
 var clubEditor = require('./club-editor');
 var login = require('./login');
 var userProfile = require('./user-profile');
-var prepareData = require('./prepare-data');
 var customError = require('./custom-error');
 var placeholder = require('./placeholder');
 var help = require('./help');
@@ -26,7 +25,6 @@ var clubRanking = require('./club-ranking');
 module.exports = {
 	doc: doc
 	, body: body
-	, prepareData: prepareData
 	, customError: customError
 	, club: club
 	, clubNew: clubNew
