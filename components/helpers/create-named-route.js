@@ -14,5 +14,6 @@ module.exports = helper;
  * @return  Regex
  */
 function helper(route) {
-	return new RegExp(route.replace(/:[^\s/]+/g, '([\\w-]+)'));
+	// notice the double escape we use on the replacement
+	return new RegExp(route.replace(/:[^\s\$/]+/g, '([\\w-]+)'));
 };

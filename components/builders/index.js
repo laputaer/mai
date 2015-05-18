@@ -8,20 +8,19 @@
 var builders = require('./builders');
 var createRoute = require('../helpers/create-named-route');
 
-// TODO: use a route-matching module that doesn't rely on order of routes
 var routes = {
-	clubNew: createRoute('/c/club-add')
-	, club: createRoute('/c/club-home')
-	, clubRanking: createRoute('/c/club-ranking')
-	, clubSearch: createRoute('/c/club-search')
-	, clubAddConfirmForm: createRoute('/c/:slug/p/post-add-2')
-	, clubAddPostForm: createRoute('/c/:slug/p/post-add')
-	, clubEditor: createRoute('/c/:slug/edit')
-	, clubProfile: createRoute('/c/:slug')
-	, userProfile: createRoute('/u/:uid')
-	, login: createRoute('/login/redirect')
-	, help: createRoute('/help')
-	, home: createRoute('/')
+	home: createRoute('^/$')
+	, help: createRoute('^/help$')
+	, login: createRoute('^/login/redirect$')
+	, userProfile: createRoute('^/u/:uid$')
+	, club: createRoute('^/c/club-home$')
+	, clubRanking: createRoute('^/c/club-ranking$')
+	, clubSearch: createRoute('^/c/club-search$')
+	, clubNew: createRoute('^/c/club-add$')
+	, clubProfile: createRoute('^/c/:slug$')
+	, clubEditor: createRoute('^/c/:slug/edit$')
+	, clubAddPostForm: createRoute('^/c/:slug/p/post-add$')
+	, clubAddConfirmForm: createRoute('^/c/:slug/p/post-add-2$')
 };
 
 module.exports = builder;
