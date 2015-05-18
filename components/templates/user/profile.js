@@ -21,10 +21,8 @@ function template(data) {
 	var user = data.user;
 	var profile = h('div.m-rows', [
 		h('div.m-profile.m-row-1', [
-			h('div.m-avatar', {
-				style: {
-					'background-image': 'url(' + user.full_avatar + ')'
-				}
+			h('img.m-avatar', {
+				src: user.full_avatar
 			})
 			, h('div.m-info', [
 				h('p.m-title', user.name)

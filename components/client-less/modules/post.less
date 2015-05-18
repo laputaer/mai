@@ -37,14 +37,22 @@
 
 		.m-image {
 			display: inline-block;
+			vertical-align: top;
 			width: 100px;
 			height: 100px;
 			border-radius: 20px;
 			background-color: @color-gray-pastel;
-			.background-cover();
+			margin: 0 2px;
 		}
 
 		@media @tablet {
+			.m-image {
+				width: 140px;
+				height: 140px;
+			}
+		}
+
+		@media @monitor-small {
 			.m-image {
 				width: 200px;
 				height: 200px;

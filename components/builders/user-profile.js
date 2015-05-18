@@ -20,6 +20,7 @@ function renderer(data) {
 		return templates.club.postItemLink({
 			post: post
 			, i18n: data.i18n
+			, xss: data.xss
 		});
 	});
 

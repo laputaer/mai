@@ -28,10 +28,8 @@ function template(data) {
 	var images;
 	if (og.image) {
 		images = og.image.map(function(url) {
-			return h('div.m-image', {
-				style: {
-					'background-image': 'url(' + url + ')'
-				}
+			return h('img.m-image', {
+				src: url
 			});
 		});
 	}

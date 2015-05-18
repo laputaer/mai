@@ -25,10 +25,8 @@ function template(data) {
 
 	var avatar;
 	if (club.full_avatar) {
-		avatar = h('div.m-avatar', {
-			style: {
-				'background-image': 'url(' + club.full_avatar + ')'
-			}
+		avatar = h('img.m-avatar', {
+			src: club.full_avatar
 		});
 	} else {
 		avatar = h('div.m-avatar', [

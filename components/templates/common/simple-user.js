@@ -23,10 +23,8 @@ function template(data) {
 	var button = h('a.m-button.rounded.navigation' + status, {
 		href: '/u/' + user.uid
 	}, [
-		h('div.m-image', {
-			style: {
-				'background-image': 'url(' + user.small_avatar + ')'
-			}
+		h('img.m-image', {
+			src: user.small_avatar
 		})
 		, h('span.m-text', user.login)
 	]);
