@@ -18,7 +18,7 @@ module.exports = template;
  */
 function template(data) {
 	var i18n = data.i18n;
-	var flash = data.flash;
+	var xss = data.xss;
 	var club = data.club || {};
 
 	var form = h('div.m-rows', [
@@ -28,7 +28,7 @@ function template(data) {
 				h('h1.m-subtitle', data.form_title)
 				, h('p.m-line', data.form_intro)
 				, h('form.m-form.m-cells', {
-					action: club.slug ? '/c/' + club.slug : '/c'
+					action: club.slug ? '/c/' + xss.path(club.slug) : '/c'
 					, method: 'POST'
 				}, [
 					data.csrf_field

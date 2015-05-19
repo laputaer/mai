@@ -17,20 +17,21 @@ module.exports = partial;
  */
 function partial(data) {
 	var flash = data.flash;
-	var i18n = data.i18n;
+	var xss = data.xss;
+
 	data.search_group = templates.common.formSearch({
 		id: 'club-search'
 		, name: 'q'
-		, value: flash && flash.body ? flash.body['q'] : data.search
+		, value: flash && flash.body ? xss.attr(flash.body['q']) : xss.attr(data.search)
 		, error: flash && flash.attrs && flash.attrs.indexOf('q') !== -1 ? '.error' : ''
 		, i18n: data.i18n
 	});
 
 	data.search_result = data.clubs.map(function(club) {
 		var button = {
-			href: '/c/' + club.slug
+			href: '/c/' + xss.path(club.slug)
 			, icon: 'arrow_right'
-			, text: club.title
+			, text: xss.data(club.title)
 			, version: data.version.asset
 		};
 		return templates.common.button(button);

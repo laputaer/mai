@@ -16,14 +16,13 @@ module.exports = partial;
  * @return  Object
  */
 function partial(data) {
-	var flash = data.flash;
-	var i18n = data.i18n;
+	var xss = data.xss;
 
 	data.ranking_result = data.clubs.map(function(club) {
 		var button = {
-			href: '/c/' + club.slug
+			href: '/c/' + xss.path(club.slug)
 			, icon: 'arrow_right'
-			, text: club.title
+			, text: xss.data(club.title)
 			, version: data.version.asset
 		};
 		return templates.common.button(button);

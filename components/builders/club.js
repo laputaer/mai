@@ -17,6 +17,7 @@ module.exports = partial;
  */
 function partial(data) {
 	var i18n = data.i18n;
+	var xss = data.xss;
 
 	data.club_create_button = templates.common.button({
 		href: '/c/club-add'
@@ -28,9 +29,9 @@ function partial(data) {
 
 	data.my_club_buttons = data.clubs.map(function(club) {
 		var button = {
-			href: '/c/' + club.slug
+			href: '/c/' + xss.path(club.slug)
 			, icon: 'arrow_right'
-			, text: club.title
+			, text: xss.data(club.title)
 			, version: data.version.asset
 		};
 		return templates.common.button(button);
@@ -38,9 +39,9 @@ function partial(data) {
 
 	data.my_joined_club_buttons = data.joined_clubs.map(function(club) {
 		var button = {
-			href: '/c/' + club.slug
+			href: '/c/' + xss.path(club.slug)
 			, icon: 'arrow_right'
-			, text: club.title
+			, text: xss.data(club.title)
 			, version: data.version.asset
 		};
 		return templates.common.button(button);

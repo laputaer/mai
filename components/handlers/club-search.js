@@ -40,7 +40,6 @@ function *middleware(next) {
 	// STEP 2: input validation
 	var result = yield validate(query, 'search');
 
-	// TODO: can we show error without redirect
 	if (!result.valid) {
 		this.flash = formError(
 			this.i18n.t('error.form-input-invalid')
@@ -60,10 +59,10 @@ function *middleware(next) {
 	}
 
 	// STEP 4: run search
-	data.search = escapeRegex(query.q);
+	data.search = query.q;
 	data.clubs = yield clubsDomain.searchClubs({
 		db: this.db
-		, search: data.search
+		, search: escapeRegex(query.q)
 	});
 
 	// STEP 5: render page

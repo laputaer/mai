@@ -18,6 +18,8 @@ module.exports = template;
  */
 function template(data) {
 	var i18n = data.i18n;
+	var xss = data.xss;
+
 	var search = h('div.m-rows', [
 		h('div.m-content.m-row-2', [
 			data.club_form_error
@@ -33,7 +35,7 @@ function template(data) {
 			, h('div.m-section.green', [
 				h('h1.m-subtitle', i18n.t('club.search-result'))
 				, h('p.m-line', i18n.t('club.search-result-intro', {
-					search: data.search
+					search: xss.data(data.search)
 					, count: data.search_result.length || 0
 				}))
 				, h('div.m-grid', data.search_result)
