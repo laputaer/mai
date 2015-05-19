@@ -18,7 +18,7 @@ module.exports = template;
  */
 function template(data) {
 	var i18n = data.i18n;
-	var flash = data.flash;
+	var xss = data.xss;
 	var club = data.club || {};
 
 	var form = h('div.m-rows', [
@@ -29,7 +29,7 @@ function template(data) {
 				, h('p.m-line', data.form_intro)
 				, data.post_preview
 				, h('form.m-form.m-cells', {
-					action: '/c/' + club.slug + '/p/post-add-2'
+					action: '/c/' + xss.path(club.slug) + '/p/post-add-2'
 					, method: 'POST'
 				}, [
 					data.csrf_field

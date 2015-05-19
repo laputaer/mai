@@ -18,10 +18,12 @@ module.exports = partial;
 function partial(data) {
 	var flash = data.flash;
 	var i18n = data.i18n;
+	var xss = data.xss;
+
 	data.title_group = templates.common.formGroup({
 		id: 'club-title'
 		, name: 'title'
-		, value: flash && flash.body ? flash.body['title'] : data.club.title
+		, value: flash && flash.body ? xss.attr(flash.body['title']) : xss.attr(data.club.title)
 		, error: flash && flash.attrs && flash.attrs.indexOf('title') !== -1 ? '.error' : ''
 		, label: i18n.t('club.edit-title')
 		, note: i18n.t('club.edit-title-note')
@@ -30,7 +32,7 @@ function partial(data) {
 	data.slug_group = templates.common.formGroup({
 		id: 'club-slug'
 		, name: 'slug'
-		, value: flash && flash.body ? flash.body['slug'] : data.club.slug
+		, value: flash && flash.body ? xss.attr(flash.body['slug']) : xss.attr(data.club.slug)
 		, error: flash && flash.attrs && flash.attrs.indexOf('slug') !== -1 ? '.error' : ''
 		, label: i18n.t('club.edit-slug')
 		, note: i18n.t('club.edit-slug-note')
@@ -39,7 +41,7 @@ function partial(data) {
 	data.intro_group = templates.common.formGroup({
 		id: 'club-intro'
 		, name: 'intro'
-		, value: flash && flash.body ? flash.body['intro'] : data.club.intro
+		, value: flash && flash.body ? xss.attr(flash.body['intro']) : xss.attr(data.club.intro)
 		, error: flash && flash.attrs && flash.attrs.indexOf('intro') !== -1 ? '.error' : ''
 		, label: i18n.t('club.edit-intro')
 		, note: i18n.t('club.edit-intro-note')
@@ -48,7 +50,7 @@ function partial(data) {
 	data.logo_group = templates.common.formGroup({
 		id: 'club-logo'
 		, name: 'logo'
-		, value: flash && flash.body ? flash.body['logo'] : data.club.logo
+		, value: flash && flash.body ? xss.attr(flash.body['logo']) : xss.attr(data.club.logo)
 		, error: flash && flash.attrs && flash.attrs.indexOf('logo') !== -1 ? '.error' : ''
 		, label: i18n.t('club.edit-logo')
 		, note: i18n.t('club.edit-logo-note')
@@ -58,7 +60,7 @@ function partial(data) {
 		text: data.i18n.t('club.edit-club-submit')
 	});
 	data.form_cancel = templates.common.button({
-		href: '/c/' + data.club.slug
+		href: '/c/' + xss.path(data.club.slug)
 		, text: data.i18n.t('club.edit-form-cancel')
 	});
 
