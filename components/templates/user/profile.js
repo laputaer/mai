@@ -18,29 +18,31 @@ module.exports = template;
  */
 function template(data) {
 	var i18n = data.i18n;
+	var xss = data.xss;
 	var user = data.user;
+
 	var profile = h('div.m-rows', [
 		h('div.m-profile.m-row-1', [
 			h('img.m-avatar', {
 				src: user.full_avatar
 			})
 			, h('div.m-info', [
-				h('p.m-title', user.name)
+				h('p.m-title', xss.data(user.name))
 				, h('p.m-owner', [
 					h('span', i18n.t('user.oauth-origin'))
 					, h('a.m-link', {
-						href: user.user_origin
+						href: xss.url(user.user_origin)
 					}, [
-						h('span.m-text.cap', user.provider)
+						h('span.m-text.cap', xss.data(user.provider))
 					])
 				])
 				, h('p.m-stat', [
 					h('span', i18n.t('user.current-action-point'))
-					, h('span.m-stat-value', user.action_point.toString())
+					, h('span.m-stat-value', xss.data(user.action_point))
 				])
 				, h('p.m-stat', [
 					h('span', i18n.t('user.base-action-point'))
-					, h('span.m-stat-value', user.action_base.toString())
+					, h('span.m-stat-value', xss.data(user.action_base))
 				])
 			])
 		])

@@ -11,6 +11,9 @@ module.exports = template;
 
 function template(data) {
 	var i18n = data.i18n;
+	var xss = data.xss;
+	var title = data.page_title ? xss.data(data.page_title) + ' | ' : '';
+
 	var head = h('head', [
 		h('meta', {
 			charset: 'UTF-8'
@@ -23,7 +26,7 @@ function template(data) {
 			name: 'referrer'
 			, content: 'no-referrer'
 		})
-		, h('title', i18n.t('common.title'))
+		, h('title', title + i18n.t('common.title'))
 		, h('meta', {
 			name: 'description'
 			, content: i18n.t('common.description')

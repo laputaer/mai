@@ -19,14 +19,15 @@ module.exports = template;
 function template(data) {
 	var user = data.current_user;
 	var status = data.current_path === '/u/' + user.uid ? '.active' : '';
+	var xss = data.xss;
 
 	var button = h('a.m-button.rounded.navigation' + status, {
-		href: '/u/' + user.uid
+		href: '/u/' + xss.path(user.uid)
 	}, [
 		h('img.m-image', {
 			src: user.small_avatar
 		})
-		, h('span.m-text', user.login)
+		, h('span.m-text', xss.data(user.login))
 	]);
 
 	return button;

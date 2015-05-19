@@ -93,7 +93,9 @@ function partial(data) {
 			, i18n: i18n
 		});
 	});
+
 	data.main = templates.club.profile(data);
+	data.page_title = data.club.title;
 
 	return data;
 };
