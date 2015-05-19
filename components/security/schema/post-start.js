@@ -20,6 +20,7 @@ function factory() {
 					&& validator.isURL(value, {
 						protocols: ['https', 'http']
 						, require_protocol: true
+						, host_blacklist: ['localhost', '127.0.0.1']
 					})
 			}, 'link invalid')
 		.build();
