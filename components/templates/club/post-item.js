@@ -18,6 +18,7 @@ module.exports = template;
  */
 function template(data) {
 	var i18n = data.i18n;
+	var xss = data.xss;
 	var post = data.post;
 
 	if (!post) {
@@ -36,12 +37,12 @@ function template(data) {
 
 	var title;
 	if (post.title) {
-		title = h('p.m-title', post.title);
+		title = h('p.m-title', xss.data(post.title));
 	}
 
 	var summary;
 	if (post.summary) {
-		summary = h('p.m-summary', post.summary);
+		summary = h('p.m-summary', xss.data(post.summary));
 	}
 
 	var item = h('div.m-post', [
@@ -50,17 +51,17 @@ function template(data) {
 		, h('div.m-images', images)
 		, h('p.m-meta', [
 			h('a.m-link', {
-				href: og.url
+				href: xss.url(og.url)
 				, target: '_blank'
 			}, [
-				h('span', og.title)
+				h('span', xss.data(og.title))
 			])
 			, h('span', 'via')
 			, h('a.m-link', {
-				href: og.site_url
+				href: xss.url(og.site_url)
 				, target: '_blank'
 			}, [
-				h('span', og.site_name)
+				h('span', xss.data(og.site_name))
 			])
 		])
 	]);

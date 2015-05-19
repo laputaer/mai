@@ -36,7 +36,9 @@ function template(data) {
 
 	var intro;
 	if (club.intro) {
-		intro = h('p.m-line', i18n.t('club.owner-intro', club));
+		intro = h('p.m-line', i18n.t('club.owner-intro', {
+			intro: xss.data(club.intro)
+		}));
 	}
 
 	var author, license;
@@ -45,9 +47,9 @@ function template(data) {
 			h('span', i18n.t('club.image-author'))
 			, h('a.m-link', {
 				target: '_blank'
-				, href: club.oembed.source
+				, href: xss.url(club.oembed.source)
 			}, [
-				h('span.m-text', club.oembed.author)
+				h('span.m-text', xss.data(club.oembed.author))
 			])
 		]);
 
@@ -55,9 +57,9 @@ function template(data) {
 			h('span', i18n.t('club.image-license'))
 			, h('a.m-link', {
 				target: '_blank'
-				, href: club.oembed.license ? club.oembed.license : club.oembed.domain
+				, href: club.oembed.license ? xss.url(club.oembed.license) : xss.url(club.oembed.domain)
 			}, [
-				h('span.m-text', club.oembed.license_name ? club.oembed.license_name : i18n.t('club.image-copyright', club.oembed))
+				h('span.m-text', club.oembed.license_name ? xss.data(club.oembed.license_name) : xss.data(i18n.t('club.image-copyright', club.oembed)))
 			])
 		]);
 	}
@@ -78,22 +80,24 @@ function template(data) {
 				, h('p.m-owner', [
 					h('span', i18n.t('club.owner'))
 					, h('a.m-link', {
-						href: '/u/' + owner.uid
+						href: '/u/' + xss.path(owner.uid)
 					}, [
-						h('span.m-text', owner.login)
+						h('span.m-text', xss.data(owner.login))
 					])
 				])
 				, h('p.m-stat', [
-					h('span', i18n.t('club.level', club))
+					h('span', i18n.t('club.level', {
+						custom: xss.data(club.custom)
+					}))
 					, h('span.m-stat-value', i18n.t('club.lv' + club.level))
 				])
 				, h('p.m-stat', [
 					h('span', i18n.t('club.member-count'))
-					, h('span.m-stat-value', club.members.toString())
+					, h('span.m-stat-value', xss.data(club.members))
 				])
 				, h('p.m-stat', [
 					h('span', i18n.t('club.total-point'))
-					, h('span.m-stat-value', club.points.toString())
+					, h('span.m-stat-value', xss.data(club.points))
 				])
 				, author
 				, license
@@ -103,12 +107,14 @@ function template(data) {
 			data.club_form_error
 			, h('div.m-section.yellow.lead', [
 				h('h2.m-subtitle', i18n.t('club.welcome-intro'))
-				, h('p.m-line', i18n.t('club.welcome-message', club))
+				, h('p.m-line', i18n.t('club.welcome-message', {
+					title: xss.data(club.title)
+				}))
 				, intro
 				, data.club_management
 				, data.share_button
 				, h('form.m-form', {
-					action: '/c/' + club.slug + '/memberships'
+					action: '/c/' + xss.path(club.slug) + '/memberships'
 					, method: 'POST'
 				}, [
 					data.csrf_field
