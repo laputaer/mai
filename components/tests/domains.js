@@ -1,18 +1,23 @@
 
 /**
- * test.js
+ * domains.js
  *
- * A simple collection of test cases
+ * A collection of test cases for domains
  */
 
 // test tools
 var chai = require('chai');
-var coMocha = require('co-mocha');
 var sinon = require('sinon');
 var sinonChai = require('sinon-chai');
 chai.use(sinonChai);
 var expect = chai.expect;
-var TestServer = require('./server');
+
+// test environment polyfills
+require('co-mocha');
+require('babel/polyfill');
+
+// test api
+var TestServer = require('./api/domains-server');
 
 // test subjects
 var embed = require('../domains/embed');

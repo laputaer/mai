@@ -1,8 +1,8 @@
 
 /**
- * server.js
+ * domains-server.js
  *
- * A test server for local automate testing
+ * A test server for domains test
  */
 
 var fs = require('mz/fs');
@@ -17,7 +17,7 @@ function TestServer() {
 	this.port = 40001;
 	this.hostname = 'localhost';
 	this.server.on('error', function(err) {
-		console.log(err.stack);
+		console.error(err.stack);
 	});
 }
 

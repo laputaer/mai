@@ -69,15 +69,7 @@ Renderer.prototype.update = function(model) {
 
 	var vdom;
 	// TODO: do real rendering
-	var data = {
-		content: h('div.action', {
-			'ev-click': function(ev) {
-				console.log('hi');
-			}
-		}, 'click me')
-	};
-	data.placeholder = templates.common.placeholder(data);
-	data.main = templates.body(data);
+	var data = {};
 	vdom = data.main;
 
 	if (!vdom) {
