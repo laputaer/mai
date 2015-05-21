@@ -5,6 +5,8 @@
  * Koa route handler for club profile
  */
 
+var resolver = require('url').resolve;
+
 var builder = require('../builders/index');
 var prepareData = require('../builders/prepare-data');
 var clubsDomain = require('../domains/clubs');
@@ -54,11 +56,12 @@ function *middleware(next) {
 
 	// STEP 3: club data transform
 	if (data.club.oembed) {
-		data.club.full_avatar = proxyUrl(data.club.oembed.image, config.proxy.key, 400);
+		data.club.full_avatar = resolver(data.current_url, proxyUrl(data.club.oembed.image, config.proxy.key, 400));
 	}
 
 	data.club.level = getClubLevel(data.club.members);
 	data.club.initials = getCoolInitials(data.club.title);
+	data.canonical_url = resolver(data.current_url, data.current_path);
 
 	// STEP 4: find club owner
 	data.owner = yield usersDomain.matchUser({

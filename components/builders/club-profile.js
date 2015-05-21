@@ -101,7 +101,16 @@ function partial(data) {
 	});
 
 	data.main = templates.club.profile(data);
+
 	data.page_title = data.club.title;
+	data.page_description = data.club.intro;
+
+	data.page_opengraph = {
+		title: data.club.title
+		, url: data.canonical_url
+		, image: data.club.full_avatar
+		, description: data.club.intro
+	};
 
 	return data;
 };

@@ -14,7 +14,35 @@ function template(data) {
 	var xss = data.xss;
 
 	var title = data.page_title ? xss.data(data.page_title) + ' | ' : '';
-	var description = data.page_description ? xss.data(data.page_description) : i18n.t('common.description');
+	var description = data.page_description ? xss.attr(data.page_description) : i18n.t('common.description');
+
+	var og_title, og_url, og_image, og_type, og_site_name, og_description;
+	if (data.page_opengraph) {
+		og_title = h('meta', {
+			property: 'og:title'
+			, content: xss.attr(data.page_opengraph.title) + ' | ' + i18n.t('common.title')
+		});
+		og_url = h('meta', {
+			property: 'og:url'
+			, content: xss.url(data.page_opengraph.url)
+		});
+		og_image = h('meta', {
+			property: 'og:image'
+			, content: data.page_opengraph.image
+		});
+		og_type = h('meta', {
+			property: 'og:type'
+			, content: 'website'
+		});
+		og_site_name = h('meta', {
+			property: 'og:site_name'
+			, content: i18n.t('common.title')
+		});
+		og_description = h('meta', {
+			property: 'og:description'
+			, content: xss.attr(data.page_opengraph.description)
+		}); 
+	}
 
 	var head = [
 		h('meta', {
@@ -54,6 +82,12 @@ function template(data) {
 			, sizes: '32x32'
 			, href: '/favicon.png?' + data.version.asset
 		})
+		, og_title
+		, og_url
+		, og_image
+		, og_type
+		, og_site_name
+		, og_description
 		, h('link', {
 			rel: 'stylesheet'
 			, href: '/assets/app.css?' + data.version.css
