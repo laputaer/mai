@@ -20,5 +20,9 @@ module.exports = proxy;
  */
 function proxy(url, key, size) {
 	var hash = hmac(url, key);
-	return '/ip/' + hash + '/?url=' + encode(url) + '&size=' + size;
+	// TODO: switch to pathname, be careful about double encode/decode
+	return '/ip/' + hash + '/' + encode(url) + '/' + size;
+
+	// query approach
+	// return '/ip/' + hash + '/?url=' + encode(url) + '&size=' + size;
 };

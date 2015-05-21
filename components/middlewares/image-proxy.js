@@ -53,9 +53,14 @@ function *middleware(next) {
 	});
 
 	var input = {
-		hash: seg.length === 2 ? seg[1] : ''
-		, url: this.request.query.url || ''
-		, size: this.request.query.size || ''
+		// query approach
+		//hash: seg.length === 2 ? seg[1] : ''
+		//, url: this.request.query.url || ''
+		//, size: this.request.query.size || ''
+		// pathname approach
+		hash: seg.length === 4 ? seg[1] : ''
+		, url: seg.length === 4 ? decodeURIComponent(seg[2]) : ''
+		, size: seg.length === 4 ? seg[3] : ''
 		, sizes: config.proxy.sizes
 		, key: config.proxy.key
 	};

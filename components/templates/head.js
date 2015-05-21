@@ -29,7 +29,7 @@ function template(data) {
 		});
 		og_image = h('meta', {
 			property: 'og:image'
-			, content: xss.url(data.page_opengraph.image)
+			, content: data.page_opengraph.image
 		});
 		og_type = h('meta', {
 			property: 'og:type'
@@ -45,7 +45,7 @@ function template(data) {
 		});
 		t_card = h('meta', {
 			name: 'twitter:card'
-			, content: 'summary_large_image'
+			, content: 'summary'
 		});
 		t_site = h('meta', {
 			name: 'twitter:site'
@@ -61,7 +61,7 @@ function template(data) {
 		});
 		t_image = h('meta', {
 			name: 'twitter:image'
-			, content: xss.url(data.page_opengraph.image)
+			, content: data.page_opengraph.image
 		});
 	}
 
