@@ -32,7 +32,7 @@ function prepareData(ctx) {
 	// current path
 	data.current_path = removeSlash(ctx.path);
 	// current url
-	data.current_url = ctx.request.href;
+	data.current_url = ctx.request.href.replace(/^http:/, 'https:');
 	// doc.body content
 	data.body = [];
 
