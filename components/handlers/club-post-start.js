@@ -10,6 +10,7 @@ var clubsDomain = require('../domains/clubs');
 var sessionDomain = require('../domains/session');
 var embedDomain = require('../domains/embed');
 var validate = require('../security/validation');
+var normalize = require('../security/normalize');
 var formError = require('../helpers/create-form-message');
 
 module.exports = factory;
@@ -142,6 +143,9 @@ function *middleware(next) {
 		return;
 	}
 
+	// STEP 9: normalize data
+	og = normalize(og, 'opengraph');
+
 	result = yield validate(og, 'opengraph');
 
 	if (!result.valid) {
@@ -154,7 +158,7 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 9: put opengraph data in cache
+	// STEP 10: put opengraph data in cache
 	yield sessionDomain.setOpenGraphCache({
 		session: this.session
 		, cache: this.cache
