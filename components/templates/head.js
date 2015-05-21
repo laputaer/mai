@@ -17,6 +17,7 @@ function template(data) {
 	var description = data.page_description ? xss.attr(data.page_description) : i18n.t('common.description');
 
 	var og_title, og_url, og_image, og_type, og_site_name, og_description;
+	var t_card, t_site, t_title, t_description, t_image;
 	if (data.page_opengraph) {
 		og_title = h('meta', {
 			property: 'og:title'
@@ -41,7 +42,27 @@ function template(data) {
 		og_description = h('meta', {
 			property: 'og:description'
 			, content: xss.attr(data.page_opengraph.description)
-		}); 
+		});
+		t_card = h('meta', {
+			name: 'twitter:card'
+			, content: 'summary'
+		});
+		t_site = h('meta', {
+			name: 'twitter:site'
+			, content: '@bitinn'
+		});
+		t_title = h('meta', {
+			name: 'twitter:title'
+			, content: xss.attr(data.page_opengraph.title) + ' | ' + i18n.t('common.title')
+		});
+		t_description = h('meta', {
+			name: 'twitter:description'
+			, content: xss.attr(data.page_opengraph.description)
+		});
+		t_image = h('meta', {
+			name: 'twitter:image'
+			, content: data.page_opengraph.image
+		});
 	}
 
 	var head = [
@@ -88,6 +109,11 @@ function template(data) {
 		, og_type
 		, og_site_name
 		, og_description
+		, t_card
+		, t_site
+		, t_title
+		, t_description
+		, t_image
 		, h('link', {
 			rel: 'stylesheet'
 			, href: '/assets/app.css?' + data.version.css
