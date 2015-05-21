@@ -18,7 +18,5 @@ module.exports = builder;
 function builder(data) {
 	data = builders.customError(data);
 
-	data = builders.body(data);
-
 	return builders.doc(data);
 };

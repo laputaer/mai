@@ -47,7 +47,5 @@ function builder(data) {
 		break;
 	}
 
-	data = builders.body(data);
-
 	return builders.doc(data);
 };

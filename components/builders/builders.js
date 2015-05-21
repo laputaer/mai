@@ -6,7 +6,6 @@
  */
 
 var doc = require('./doc');
-var body = require('./body');
 var club = require('./club');
 var clubNew = require('./club-new');
 var clubSearch = require('./club-search');
@@ -24,7 +23,6 @@ var clubRanking = require('./club-ranking');
 
 module.exports = {
 	doc: doc
-	, body: body
 	, customError: customError
 	, club: club
 	, clubNew: clubNew
