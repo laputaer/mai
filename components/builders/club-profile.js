@@ -108,7 +108,7 @@ function partial(data) {
 	data.page_opengraph = {
 		title: data.club.title
 		, url: data.canonical_url
-		, image: data.club.full_avatar
+		, image: data.club.oembed.image
 		, description: data.club.intro
 	};
 
