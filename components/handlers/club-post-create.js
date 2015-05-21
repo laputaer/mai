@@ -119,28 +119,17 @@ function *middleware(next) {
 	}
 
 	// STEP 8: get opengraph cache
-	var og = yield sessionDomain.getOpenGraphCache({
+	var embed = yield sessionDomain.getOpenGraphCache({
 		session: this.session
 		, cache: this.cache
 	});
 
-	if (!og) {
+	if (!embed) {
 		this.flash = formError(
 			this.i18n.t('error.opengraph-invalid-profile')
 		);
 		this.redirect('/c/' + slug);
 		return;
-	}
-
-	if (og.image && og.image.length > 0) {
-		og.image = og.image.map(function(img) {
-			return img.secure_url || img.url;
-		});
-	}
-
-	if (og.url) {
-		og.site_url = parser(og.url);
-		og.site_url = og.site_url.protocol + '//' + og.site_url.hostname + '/';
 	}
 
 	// STEP 9: create post
@@ -149,7 +138,7 @@ function *middleware(next) {
 		, user: user
 		, club: club
 		, body: body
-		, data: og
+		, embed: embed
 	});
 
 	yield sessionDomain.clearOpenGraphCache({

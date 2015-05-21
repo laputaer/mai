@@ -25,10 +25,10 @@ function template(data) {
 		return;
 	}
 
-	var og = post.og;
+	var embed = post.embed;
 	var images;
-	if (og.image) {
-		images = og.image.map(function(url) {
+	if (embed.image) {
+		images = embed.image.map(function(url) {
 			return h('img.m-image', {
 				src: url
 			});
@@ -51,17 +51,17 @@ function template(data) {
 		, h('div.m-images', images)
 		, h('p.m-meta', [
 			h('a.m-link', {
-				href: xss.url(og.url)
+				href: xss.url(embed.url)
 				, target: '_blank'
 			}, [
-				h('span', xss.data(og.title))
+				h('span', xss.data(embed.title))
 			])
 			, h('span', 'via')
 			, h('a.m-link', {
-				href: xss.url(og.site_url)
+				href: xss.url(embed.site_url)
 				, target: '_blank'
 			}, [
-				h('span', xss.data(og.site_name))
+				h('span', xss.data(embed.site_name))
 			])
 		])
 	]);

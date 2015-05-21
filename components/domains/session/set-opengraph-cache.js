@@ -12,13 +12,13 @@ module.exports = setOpenGraphCache;
 /**
  * Set cache
  *
- * @param   Object  opts  Options { cache, session, og }
+ * @param   Object  opts  Options { cache, session, embed }
  * @return  Void
  */
 function *setOpenGraphCache(opts) {
 	var session = opts.session;
 	var cache = opts.cache;
-	var og = JSON.stringify(opts.og);
+	var embed = JSON.stringify(opts.embed);
 	var hash = cuid();
 	var ts = Date.now().toString();
 
@@ -32,6 +32,6 @@ function *setOpenGraphCache(opts) {
 	session.last_seen = ts;
 
 	// cache update
-	yield cache.set('og:' + hash, og);
-	yield cache.expire('og:' + hash, 60 * 15);
+	yield cache.set('embed:' + hash, embed);
+	yield cache.expire('embed:' + hash, 60 * 15);
 };

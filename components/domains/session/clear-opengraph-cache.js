@@ -25,5 +25,5 @@ function *clearOpenGraphCache(opts) {
 
 	// clear cache
 	delete session.new_post_hash;
-	yield cache.del('og:' + hash);
+	yield cache.del('embed:' + hash);
 };

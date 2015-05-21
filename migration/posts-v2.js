@@ -43,18 +43,14 @@ function *migration(db) {
 				});
 			}
 
-			console.log(embed);
-
-			/*
 			yield Target.update({
 				pid: post.pid
 			}, {
 				embed: embed
 			});
-			*/
 		}
 	}
 
 	// update revision
-	//yield updateRev(db, opts);
+	yield updateRev(db, opts);
 };

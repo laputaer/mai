@@ -119,9 +119,9 @@ function *middleware(next) {
 	}
 
 	// STEP 8: get opengraph data
-	var og;
+	var embed;
 	try {
-		og = yield embedDomain.getOpenGraphProfile({
+		embed = yield embedDomain.getOpenGraphProfile({
 			url: body.link
 			, user_agent: config.request.user_agent
 			, follow: config.request.follow
@@ -133,7 +133,7 @@ function *middleware(next) {
 		this.app.emit('error', err, this);
 	}
 
-	if (!og || !og.url) {
+	if (!embed || !embed.url) {
 		this.flash = formError(
 			this.i18n.t('error.opengraph-error-response')
 			, body
@@ -143,10 +143,10 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 9: normalize data
-	og = normalize(og, 'opengraph');
+	// STEP 9: normalize and validate data
+	embed = normalize(embed, 'opengraph');
 
-	result = yield validate(og, 'opengraph');
+	result = yield validate(embed, 'opengraph');
 
 	if (!result.valid) {
 		this.flash = formError(
@@ -162,7 +162,7 @@ function *middleware(next) {
 	yield sessionDomain.setOpenGraphCache({
 		session: this.session
 		, cache: this.cache
-		, og: og
+		, embed: embed
 	});
 
 	this.redirect('/c/' + slug + '/p/post-add-2');

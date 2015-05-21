@@ -21,11 +21,11 @@ function template(data) {
 	var xss = data.xss;
 	var post = data.post;
 
-	if (!post || !post.og) {
+	if (!post || !post.embed) {
 		return;
 	}
 
-	var og = post.og;
+	var embed = post.embed;
 
 	var item = h('div.m-post', [
 		h('p.m-meta', [
@@ -42,17 +42,17 @@ function template(data) {
 			])
 			, h('span', i18n.t('club.activity-item-2'))
 			, h('a.m-link', {
-				href: xss.url(og.site_url)
+				href: xss.url(embed.site_url)
 				, target: '_blank'
 			}, [
-				h('span', xss.data(og.site_name))
+				h('span', xss.data(embed.site_name))
 			])
 			, h('span', i18n.t('club.activity-item-3'))
 			, h('a.m-link', {
-				href: xss.url(og.url)
+				href: xss.url(embed.url)
 				, target: '_blank'
 			}, [
-				h('span', xss.data(og.title))
+				h('span', xss.data(embed.title))
 			])
 		])
 	]);

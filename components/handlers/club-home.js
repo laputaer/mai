@@ -87,9 +87,9 @@ function *middleware(next) {
 	});
 
 	data.posts = data.posts.map(function(post) {
-		if (post.og.image && post.og.image.length > 0) {
-			post.og.image = post.og.image.map(function(url) {
-				return proxyUrl(url, config.proxy.key, 400);
+		if (post.embed.image && post.embed.image.length > 0) {
+			post.embed.image = post.embed.image.map(function(image) {
+				return proxyUrl(image.secure_url || image.url, config.proxy.key, 400);
 			});
 		}
 

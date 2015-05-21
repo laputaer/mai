@@ -12,7 +12,7 @@ module.exports = createClubPost;
 /**
  * Create a post
  *
- * @param   Object  opts  Options { db, user, club, body, data }
+ * @param   Object  opts  Options { db, user, club, body, embed }
  * @return  Void
  */
 function *createClubPost(opts) {
@@ -20,7 +20,7 @@ function *createClubPost(opts) {
 	var user = opts.user;
 	var club = opts.club;
 	var body = opts.body;
-	var data = opts.data;
+	var embed = opts.embed;
 
 	var User = db.col('users');
 	var Club = db.col('clubs');
@@ -49,13 +49,7 @@ function *createClubPost(opts) {
 		, user_name: user.name
 		, title: body.title
 		, summary: body.summary
-		, og: {
-			title: data.title
-			, url: data.url
-			, site_name: data.site_name
-			, site_url: data.site_url
-			, image: data.image
-		}
+		, embed: embed
 		, created: new Date()
 		, updated: new Date()
 	}

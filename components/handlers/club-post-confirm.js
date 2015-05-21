@@ -77,12 +77,12 @@ function *middleware(next) {
 	}
 
 	// STEP 5: get opengraph cache
-	data.og = yield sessionDomain.getOpenGraphCache({
+	data.embed = yield sessionDomain.getOpenGraphCache({
 		session: this.session
 		, cache: this.cache
 	});
 
-	if (!data.og) {
+	if (!data.embed) {
 		this.flash = formError(
 			this.i18n.t('error.opengraph-invalid-profile')
 		);
@@ -90,17 +90,17 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 6: transform opengraph data
-	if (data.og.image && data.og.image.length > 0) {
-		data.og.image = data.og.image.map(function(img) {
+	// STEP 6: transform opengraph data for output
+	if (data.embed.image && data.embed.image.length > 0) {
+		data.embed.image = data.embed.image.map(function(img) {
 			var url = img.secure_url || img.url;
 			return proxyUrl(url, config.proxy.key, 400);
 		});
 	}
 
-	if (data.og.url) {
-		data.og.site_url = parser(data.og.url);
-		data.og.site_url = data.og.site_url.protocol + '//' + data.og.site_url.hostname + '/';
+	if (data.embed.url) {
+		data.embed.site_url = parser(data.embed.url);
+		data.embed.site_url = data.embed.site_url.protocol + '//' + data.embed.site_url.hostname + '/';
 	}
 
 	// STEP 7: render page

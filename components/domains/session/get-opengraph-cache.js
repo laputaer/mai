@@ -26,7 +26,7 @@ function *getOpenGraphCache(opts) {
 	var hash = session.new_post_hash;
 
 	// get cache
-	var og = yield cache.get('og:' + hash);
+	var embed = yield cache.get('embed:' + hash);
 
-	return JSON.parse(og);
+	return JSON.parse(embed);
 };
