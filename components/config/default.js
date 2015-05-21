@@ -60,4 +60,13 @@ module.exports = {
 	, proxy: {
 		sizes: ['20', '40', '60', '80', '100', '200', '400', '600', '800']
 	}
+	, fake_ua: {
+		'pixiv.net': 'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)'
+	}
+	, fake_url: {
+		'pixiv.net': {
+			target: '150x150'
+			, result: '600x600'
+		}
+	}
 };

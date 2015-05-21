@@ -89,12 +89,34 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 5: get remote image
+	// STEP 5: generate user agent and url for specific domain
+	var ua = config.request.user_agent;
+	var url = input.url;
+	for (var prop in config.fake_ua) {
+		if (config.fake_ua.hasOwnProperty(prop)) {
+			if (input.url.indexOf(prop) > -1) {
+				ua = config.fake_ua[prop];
+			}
+		}
+	}
+
+	for (var prop in config.fake_url) {
+		if (config.fake_url.hasOwnProperty(prop)) {
+			if (input.url.indexOf(prop) > -1) {
+				url = url.replace(
+					config.fake_url[prop].target
+					, config.fake_url[prop].result
+				);
+			}
+		}
+	}
+
+	// STEP 6: get remote image
 	var res;
 	try {
-		res = yield fetch(input.url, {
+		res = yield fetch(url, {
 			headers: {
-				'User-Agent': config.request.user_agent
+				'User-Agent': ua
 			}
 			, follow: config.request.follow
 			, timeout: config.request.timeout
@@ -111,7 +133,7 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 6: resize image, write to cache
+	// STEP 7: resize image, write to cache
 	var p1 = sharp();
 	var p2 = sharp();
 	var size, done;
@@ -146,7 +168,7 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 7: read cache again
+	// STEP 8: read cache again
 	try {
 		yield sendfile.call(this, path + '.' + ext);
 	} catch(err) {
@@ -158,7 +180,7 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 8: catch-all
+	// STEP 9: catch-all
 	this.status = 500;
 	this.body = 'proxy not available';
 };
