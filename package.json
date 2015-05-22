@@ -55,7 +55,7 @@
     "sinon-chai": "2.7.0",
     "svgo": "0.5.1",
     "svgshelf": "1.0.3",
-    "trash": "^1.4.1",
+    "trash": "1.4.1",
     "uglify-js": "2.4.20",
     "wiper": "1.1.0"
   },
