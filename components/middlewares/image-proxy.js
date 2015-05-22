@@ -9,6 +9,7 @@ var fs = require('mz/fs');
 var fetch = require('node-fetch');
 var sharp = require('sharp');
 var sendfile = require('koa-sendfile');
+var mime = require('mime-types');
 
 var validate = require('../security/validation');
 var config;
@@ -89,7 +90,30 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 5: generate user agent and url for specific domain
+	// STEP 5: read error cache
+	var error_code;
+	path = process.cwd() + '/cache/' + input.hash + '-error';
+	try {
+		error_code = yield fs.readFile(path);
+		error_code = error_code.toString();
+	} catch(err) {
+		// error cache miss
+		this.app.emit('error', err, this);
+	}
+
+	if (error_code === '500') {
+		this.status = 500;
+		this.body = 'content not supported';
+		return;
+	}
+
+	if (error_code === '504') {
+		this.status = 504;
+		this.body = 'image not available';
+		return;
+	}
+
+	// STEP 6: generate user agent and url for specific domain
 	var ua = config.request.user_agent;
 	var url = input.url;
 	for (var prop in config.fake_ua) {
@@ -111,8 +135,8 @@ function *middleware(next) {
 		}
 	}
 
-	// STEP 6: get remote image
-	var res;
+	// STEP 7: get remote image
+	var res, ctype, ext;
 	try {
 		res = yield fetch(url, {
 			headers: {
@@ -124,19 +148,37 @@ function *middleware(next) {
 		});
 	} catch(err) {
 		// fetch error
-		// TODO: cache error response, so we don't fetch them every time
 		this.app.emit('error', err, this);
 	}
 
 	if (!res || !res.ok) {
+		// cache error
+		path = process.cwd() + '/cache/' + input.hash + '-error';
+		yield fs.writeFile(path, '504');
+
 		this.status = 504;
 		this.body = 'image not available';
 		return;
 	}
 
-	// STEP 7: resize image, write to cache
+	if (res.ok) {
+		ctype = res.headers.get('content-type');
+		ext = mime.extension(ctype);
+	}
+
+	// limit content type
+	if (ext !== 'jpg' && ext !== 'png' && ext !== 'jpeg' && ext !== 'webp') {
+		// cache error
+		path = process.cwd() + '/cache/' + input.hash + '-error';
+		yield fs.writeFile(path, '500');
+
+		this.status = 500;
+		this.body = 'content not supported';
+		return;
+	}
+
+	// STEP 8: resize image, write to cache
 	var p1 = sharp();
-	var p2 = sharp();
 	var size, done;
 	var self = this;
 	try {
@@ -144,15 +186,12 @@ function *middleware(next) {
 		p1.on('error', function(err) {
 			self.app.emit('error', err, self);
 		});
-		p2.on('error', function(err) {
-			self.app.emit('error', err, self);
-		});
+		// pipe stream
 		res.body.pipe(p1);
-		p1.pipe(p2);
-		meta = yield p1.metadata();
-		ext = meta.format;
+		// resize image and save to cache
 		size = parseInt(input.size, 10);
-		yield p2.limitInputPixels(1024 * 1024 * 10)
+		path = process.cwd() + '/cache/' + input.hash + '-' + input.size;
+		yield p1.limitInputPixels(1024 * 1024 * 10)
 			.resize(size, size)
 			.quality(95)
 			.toFile(path + '.' + ext);
@@ -164,12 +203,16 @@ function *middleware(next) {
 	}
 
 	if (!done) {
+		// cache error
+		path = process.cwd() + '/cache/' + input.hash + '-error';
+		yield fs.writeFile(path, '500');
+
 		this.status = 500;
 		this.body = 'content not supported';
 		return;
 	}
 
-	// STEP 8: read cache again
+	// STEP 9: read cache again
 	try {
 		yield sendfile.call(this, path + '.' + ext);
 	} catch(err) {
@@ -181,7 +224,7 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 9: catch-all
+	// STEP 10: catch-all
 	this.status = 500;
 	this.body = 'proxy not available';
 };
