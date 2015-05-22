@@ -42,7 +42,7 @@ function template(data) {
 	}
 
 	var author, license;
-	if (club.oembed) {
+	if (club.embed) {
 		author = h('p.m-copyright', [
 			h('span', i18n.t('club.image-source'))
 			, h('a.m-link', {
