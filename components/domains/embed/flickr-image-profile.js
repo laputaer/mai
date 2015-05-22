@@ -1,6 +1,6 @@
 
 /**
- * flickr-image-profile.js
+ * flickr-image-profile.js (deprecated)
  *
  * Retrieve flickr image metadata
  */

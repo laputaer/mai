@@ -40,9 +40,7 @@ describe('domains', function() {
 
 		it('should expose these public api', function() {
 			expect(embed).to.have.all.keys(
-				'getImageProfile'
-				, 'getContentProfile'
-				, 'getOpenGraphProfile'
+				'getOpenGraphProfile'
 			);
 		});
 

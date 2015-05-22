@@ -1,6 +1,6 @@
 
 /**
- * get-image-profile.js
+ * get-image-profile.js (deprecated)
  *
  * Retrieve oembed image profile
  */
