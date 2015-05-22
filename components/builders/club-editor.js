@@ -41,7 +41,7 @@ function partial(data) {
 	data.intro_group = templates.common.formGroup({
 		id: 'club-intro'
 		, name: 'intro'
-		, value: flash && flash.body ? xss.attr(flash.body['intro']) : xss.attr(data.club.intro)
+		, value: flash && flash.body ? xss.attr(flash.body['intro']) : xss.attr(data.club.intro || '')
 		, error: flash && flash.attrs && flash.attrs.indexOf('intro') !== -1 ? '.error' : ''
 		, label: i18n.t('club.edit-intro')
 		, note: i18n.t('club.edit-intro-note')
@@ -50,7 +50,7 @@ function partial(data) {
 	data.logo_group = templates.common.formGroup({
 		id: 'club-logo'
 		, name: 'logo'
-		, value: flash && flash.body ? xss.attr(flash.body['logo']) : xss.attr(data.club.logo)
+		, value: flash && flash.body ? xss.attr(flash.body['logo']) : xss.attr(data.club.logo || '')
 		, error: flash && flash.attrs && flash.attrs.indexOf('logo') !== -1 ? '.error' : ''
 		, label: i18n.t('club.edit-logo')
 		, note: i18n.t('club.edit-logo-note')
