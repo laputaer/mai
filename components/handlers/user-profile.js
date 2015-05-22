@@ -5,6 +5,8 @@
  * Koa route handler for full user profile
  */
 
+var parser = require('url').parse;
+
 var builder = require('../builders/index');
 var prepareData = require('../builders/prepare-data');
 var usersDomain = require('../domains/users');
@@ -58,6 +60,15 @@ function *middleware(next) {
 	data.posts = yield clubsDomain.getUserPosts({
 		db: this.db
 		, uid: data.user.uid
+	});
+
+	data.posts = data.posts.map(function(post) {
+		if (post.embed.url) {
+			url = parser(post.embed.url);
+			post.embed.site_url = url.protocol + '//' + url.hostname + '/';
+		}
+
+		return post;
 	});
 
 	// STEP 5: render page

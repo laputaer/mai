@@ -5,6 +5,8 @@
  * Koa route handler for index page
  */
 
+var parser = require('url').parse;
+
 var builder = require('../builders/index');
 var prepareData = require('../builders/prepare-data');
 var clubsDomain = require('../domains/clubs');
@@ -35,6 +37,15 @@ function *middleware(next) {
 	// STEP 2: get latest posts
 	data.posts = yield clubsDomain.getPosts({
 		db: this.db
+	});
+
+	data.posts = data.posts.map(function(post) {
+		if (post.embed.url) {
+			url = parser(post.embed.url);
+			post.embed.site_url = url.protocol + '//' + url.hostname + '/';
+		}
+
+		return post;
 	});
 
 	// STEP 3: render page
