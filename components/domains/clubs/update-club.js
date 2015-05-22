@@ -10,14 +10,14 @@ module.exports = updateClub;
 /**
  * Update and return a club
  *
- * @param   Object  opts  Options { db, data, slug }
+ * @param   Object  opts  Options { db, data, slug, embed }
  * @return  Object        Club data
  */
 function *updateClub(opts) {
 	var db = opts.db;
 	var data = opts.data;
 	var slug = opts.slug;
-	var oembed = opts.oembed;
+	var embed = opts.embed;
 	var Club = db.col('clubs');
 	var Membership = db.col('memberships');
 	var Post = db.col('posts');
@@ -31,11 +31,11 @@ function *updateClub(opts) {
 	}
 
 	if (!data.logo) {
-		club.oembed = null;
+		club.embed = null;
 	}
 
-	if (oembed) {
-		club.oembed = oembed;
+	if (embed) {
+		club.embed = embed;
 	}
 
 	if (data.slug !== slug) {

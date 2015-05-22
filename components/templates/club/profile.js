@@ -44,22 +44,26 @@ function template(data) {
 	var author, license;
 	if (club.oembed) {
 		author = h('p.m-copyright', [
-			h('span', i18n.t('club.image-author'))
+			h('span', i18n.t('club.image-source'))
 			, h('a.m-link', {
 				target: '_blank'
-				, href: xss.url(club.oembed.source)
+				, href: xss.url(club.avatar_source)
 			}, [
-				h('span.m-text', xss.data(club.oembed.author))
+				h('span.m-text',  xss.data(i18n.t('club.image-source-url', {
+					provider: club.avatar_domain
+				})))
 			])
 		]);
 
 		license = h('p.m-copyright', [
-			h('span', i18n.t('club.image-license'))
+			h('span', i18n.t('club.image-copyright'))
 			, h('a.m-link', {
 				target: '_blank'
-				, href: club.oembed.license ? xss.url(club.oembed.license) : xss.url(club.oembed.domain)
+				, href: xss.url(club.avatar_home)
 			}, [
-				h('span.m-text', club.oembed.license_name ? xss.data(club.oembed.license_name) : xss.data(i18n.t('club.image-copyright', club.oembed)))
+				h('span.m-text', xss.data(i18n.t('club.image-copyright-url', {
+					provider: club.avatar_copyright
+				})))
 			])
 		]);
 	}

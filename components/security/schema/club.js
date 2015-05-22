@@ -37,14 +37,7 @@ function factory() {
 		.validates('logo')
 			.optional()
 			.using(function(value) {
-				return validator.supported(value)
-					&& validator.isLength(value, 2, 256)
-					&& validator.isURL(value, {
-						protocols: ['https', 'http']
-						, require_tld: true
-						, require_protocol: true
-						, host_whitelist: ['www.flickr.com', 'flickr.com', 'flic.kr']
-					})
+				return validator.testUrl(value)
 			}, 'logo invalid')
 		.build();
 };

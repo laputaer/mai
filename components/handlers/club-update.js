@@ -10,6 +10,7 @@ var sessionDomain = require('../domains/session');
 var embedDomain = require('../domains/embed');
 var formError = require('../helpers/create-form-message');
 var validate = require('../security/validation');
+var normalize = require('../security/normalization');
 
 module.exports = factory;
 
@@ -88,22 +89,22 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 6: find oembed data, if logo changes
-	var oembed;
+	// STEP 6: find embed data, if logo changes
+	var embed;
 	if (body.logo && body.logo !== club.logo) {
 		try {
-			oembed = yield embedDomain.getImageProfile({
+			embed = yield embedDomain.getOpenGraphProfile({
 				url: body.logo
 				, user_agent: config.request.user_agent
 				, follow: config.request.follow
 				, timeout: config.request.timeout
+				, size: config.request.size
 			});
 		} catch(err) {
-			// TODO: many type of oembed error, we better distinguish them
 			this.app.emit('error', err, this);
 		}
 
-		if (!oembed) {
+		if (!embed) {
 			this.flash = formError(
 				this.i18n.t('error.opengraph-error-response')
 				, body
@@ -113,7 +114,9 @@ function *middleware(next) {
 			return;
 		}
 
-		result = yield validate(oembed, 'oembedImage');
+		embed = normalize(embed, 'opengraph');
+
+		result = yield validate(embed, 'opengraph');
 
 		if (!result.valid) {
 			this.flash = formError(
@@ -150,7 +153,7 @@ function *middleware(next) {
 		db: this.db
 		, data: body
 		, slug: slug
-		, oembed: oembed
+		, embed: embed
 	});
 
 	this.redirect('/c/' + club.slug);
