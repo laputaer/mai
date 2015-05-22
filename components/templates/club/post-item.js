@@ -33,6 +33,8 @@ function template(data) {
 				src: url
 			});
 		});
+
+		images = h('div.m-images', images);
 	}
 
 	var title;
@@ -48,7 +50,7 @@ function template(data) {
 	var item = h('div.m-post', [
 		title
 		, summary
-		, h('div.m-images', images)
+		, images
 		, h('p.m-meta', [
 			h('a.m-link', {
 				href: xss.url(embed.url)
