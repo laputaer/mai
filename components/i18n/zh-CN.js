@@ -80,7 +80,7 @@ module.exports = {
 		, 'edit-intro-note': '允许2-32个字符，可留空'
 		, 'edit-intro-placeholder': '例如：LL大法好！'
 		, 'edit-logo': '社团标志'
-		, 'edit-logo-note': '复制 Flickr 的图片网址'
+		, 'edit-logo-note': '支持 Flickr / Pixiv / DeviantArt 等图片网址，可留空'
 		, 'edit-logo-placeholder': '例如：http://flic.kr/p/...'
 		, 'search-club': '搜索社团'
 		, 'search-term': '搜索标题和路径'
