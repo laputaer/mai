@@ -10,7 +10,7 @@ var clubsDomain = require('../domains/clubs');
 var sessionDomain = require('../domains/session');
 var embedDomain = require('../domains/embed');
 var validate = require('../security/validation');
-var normalize = require('../security/normalize');
+var normalize = require('../security/normalization');
 var formError = require('../helpers/create-form-message');
 
 module.exports = factory;

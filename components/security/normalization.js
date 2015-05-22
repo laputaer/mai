@@ -1,6 +1,6 @@
 
 /**
- * normalize.js
+ * normalization.js
  *
  * Normalize an input object according certain spec
  */

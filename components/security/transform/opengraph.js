@@ -55,13 +55,17 @@ function tranform(input) {
 		input.site_name = url.hostname;
 	}
 
-	// description: trim, decode
+	// description: trim, decode, shorten
 	if (input.description) {
 		input.description = input.description.trim();
 
 		input.description = he.decode(input.description, {
 			isAttributeValue: true
 		});
+
+		if (input.site_name.length > 1020) {
+			input.site_name = input.site_name.substr(0, 1020) + '...';
+		}
 	}
 
 	// image: trim, decode
