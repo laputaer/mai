@@ -75,6 +75,12 @@ function getOpenGraphProfile(opts) {
 				$('link[rel^="apple-touch-icon"]').each(function(index, link) {
 					var el = $(link);
 					var sizes = el.attr('sizes') || '';
+
+					if (!sizes) {
+						preview = el.attr('href');
+						return;
+					}
+
 					var size = parseInt(sizes.split('x')[0], 10);
 
 					if (size > cache_size) {

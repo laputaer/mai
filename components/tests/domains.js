@@ -292,7 +292,7 @@ describe('domains', function() {
 				expect(result.url).to.equal(input.url);
 				expect(result.title).to.equal('OSX compress, zip64 and large file madness | 比特客栈的文艺复兴');
 				expect(result.type).to.equal('fallback');
-				expect(result.description).to.be.undefined;
+				expect(result.description).to.equal('  (since we are talking about zipping and unzipping&#8230; image credit: 119) Just a quick note to s...')
 				expect(result.image).to.eql([
 					{
 						url: 'http://bitinn.net/wp-images/blogimage/2014/01/zipper-354x500.jpg'
