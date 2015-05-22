@@ -262,18 +262,9 @@ describe('domains', function() {
 				]);
 			});
 
-			it('should handle page without opengraph', function *() {
-				input = config.request;
-				input.url = base + '/edge-1';
-
-				result = yield embed.getOpenGraphProfile(input);
-
-				expect(result).to.be.empty;
-			});
-
 			it('should discard structured property without root', function *() {
 				input = config.request;
-				input.url = base + '/edge-2';
+				input.url = base + '/edge-1';
 
 				result = yield embed.getOpenGraphProfile(input);
 
@@ -281,6 +272,30 @@ describe('domains', function() {
 				expect(result.image).to.eql([
 					{
 						url: 'http://ogp.me/logo.png'
+					}
+				]);
+			});
+
+			it('should fallback to full content extraction, bitinn.net', function *() {
+				input = config.request;
+				input.url = base + '/case-6';
+
+				result = yield embed.getOpenGraphProfile(input);
+
+				expect(result).to.have.all.keys(
+					'url'
+					, 'title'
+					, 'type'
+					, 'description'
+					, 'image'
+				);
+				expect(result.url).to.equal(input.url);
+				expect(result.title).to.equal('OSX compress, zip64 and large file madness | 比特客栈的文艺复兴');
+				expect(result.type).to.equal('fallback');
+				expect(result.description).to.be.undefined;
+				expect(result.image).to.eql([
+					{
+						url: 'http://bitinn.net/wp-images/blogimage/2014/01/zipper-354x500.jpg'
 					}
 				]);
 			});

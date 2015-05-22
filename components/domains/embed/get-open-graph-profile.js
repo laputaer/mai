@@ -57,11 +57,11 @@ function getOpenGraphProfile(opts) {
 			og.title = $('title').first().text();
 			og.url = url;
 			og.type = 'fallback';
-			og.description = $('meta[name="description"]').attr('content');
+			og.description = $('meta[name="description"]').first().attr('content');
 
 			node = getMainContent($);
 
-			if (node && node.find('img').length > 0) {
+			if (node) {
 				preview = node.find('img').first().attr('src');
 			}
 

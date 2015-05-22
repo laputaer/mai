@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+
+<html lang="en-US" xmlns:fb="http://ogp.me/ns/fb#" xmlns:addthis="http://www.addthis.com/help/api-spec" >
+
+	<head>
+		
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" >
+																		
+		<title>OSX compress, zip64 and large file madness | 比特客栈的文艺复兴</title>
+				
+				 
+		<link rel="alternate" type="application/rss+xml" title="比特客栈的文艺复兴 &raquo; Feed" href="http://bitinn.net/feed/" />
+<link rel="alternate" type="application/rss+xml" title="比特客栈的文艺复兴 &raquo; Comments Feed" href="http://bitinn.net/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="比特客栈的文艺复兴 &raquo; OSX compress, zip64 and large file madness Comments Feed" href="http://bitinn.net/10716/feed/" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"http:\/\/s.w.org\/images\/core\/emoji\/72x72\/","ext":".png","source":{"concatemoji":"http:\/\/bitinn.net\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.2.2"}};
+			!function(a,b,c){function d(a){var c=b.createElement("canvas"),d=c.getContext&&c.getContext("2d");return d&&d.fillText?(d.textBaseline="top",d.font="600 32px Arial","flag"===a?(d.fillText(String.fromCharCode(55356,56812,55356,56807),0,0),c.toDataURL().length>3e3):(d.fillText(String.fromCharCode(55357,56835),0,0),0!==d.getImageData(16,16,1,1).data[0])):!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g;c.supports={simple:d("simple"),flag:d("flag")},c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.simple&&c.supports.flag||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel='stylesheet' id='yarppWidgetCss-css'  href='http://bitinn.net/wp-content/plugins/yet-another-related-posts-plugin/style/widget.css?ver=4.2.2' type='text/css' media='all' />
+<link rel='stylesheet' id='output-css'  href='http://bitinn.net/wp-content/plugins/addthis/css/output.css?ver=4.2.2' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-polls-css'  href='http://bitinn.net/wp-content/plugins/wp-polls/polls-css.css?ver=2.69' type='text/css' media='all' />
+<style id='wp-polls-inline-css' type='text/css'>
+.wp-polls .pollbar {
+	margin: 1px;
+	font-size: 6px;
+	line-height: 8px;
+	height: 8px;
+	background: #FFF799;
+	border: 1px solid #F8DE58;
+}
+
+</style>
+<link rel='stylesheet' id='yarpp-thumbnails-yarpp-thumbnail-css'  href='http://bitinn.net/wp-content/plugins/yet-another-related-posts-plugin/includes/styles_thumbnails.css.php?width=120&#038;height=120&#038;ver=4.2.4' type='text/css' media='all' />
+<link rel='stylesheet' id='baskerville_style-css'  href='http://bitinn.net/wp-content/themes/baskerville/style.css?ver=4.2.2' type='text/css' media='all' />
+<script type='text/javascript' src='http://bitinn.net/wp-includes/js/jquery/jquery.js?ver=1.11.2'></script>
+<script type='text/javascript' src='http://bitinn.net/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.2.1'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://bitinn.net/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://bitinn.net/wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='说单口相声的声优，才真的是怪物。' href='http://bitinn.net/10707/' />
+<link rel='next' title='AddLeaf 1.0，让我们为你的阅读生活“添叶”' href='http://bitinn.net/10729/' />
+<meta name="generator" content="WordPress 4.2.2" />
+<link rel='canonical' href='http://bitinn.net/10716/' />
+<link rel='shortlink' href='http://bitinn.net/?p=10716' />
+	
+	</head>
+	
+	<body class="single single-post postid-10716 single-format-standard has-featured-image">
+	
+		<div class="header section small-padding bg-dark bg-image" style="background-image: url(http://bitinn.net/wp-content/themes/baskerville/images/header.jpg);">
+		
+			<div class="cover"></div>
+			
+			<div class="header-search-block bg-graphite hidden">
+			
+				<form method="get" class="searchform" action="http://bitinn.net/">
+	<input type="search" value="" placeholder="Search form" name="s" class="s" /> 
+	<input type="submit" class="searchsubmit" value="Search">
+</form>			
+			</div> <!-- /header-search-block -->
+					
+			<div class="header-inner section-inner">
+			
+												
+						<h1 class="blog-title">
+							<a href="http://bitinn.net" title="比特客栈的文艺复兴 &mdash; We don&#039;t choose who we are, but we do choose who we become." rel="home">比特客栈的文艺复兴</a>
+						</h1>
+						
+												
+							<h3 class="blog-description">We don&#039;t choose who we are, but we do choose who we become.</h3>
+							
+																
+											
+			</div> <!-- /header-inner -->
+						
+		</div> <!-- /header -->
+		
+		<div class="navigation section no-padding bg-dark">
+		
+			<div class="navigation-inner section-inner">
+			
+				<div class="nav-toggle fleft hidden">
+					
+					<div class="bar"></div>
+					<div class="bar"></div>
+					<div class="bar"></div>
+					
+					<div class="clear"></div>
+					
+				</div>
+						
+				<ul class="main-menu">
+				
+					<li id="menu-item-7758" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-7758"><a title="返回首页" href="http://bitinn.net/">首页</a></li>
+<li id="menu-item-7759" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children has-children menu-item-7759"><a title="比特客栈的简介" href="http://bitinn.net/about/">关于客栈</a>
+<ul class="sub-menu">
+	<li id="menu-item-7767" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7767"><a title="客栈人员的联系方式" href="http://bitinn.net/contact/">联系我们 | Contact</a></li>
+	<li id="menu-item-7766" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7766"><a title="留言本" href="http://bitinn.net/sign-in/">留言非语 | Guestbook</a></li>
+	<li id="menu-item-7762" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7762"><a title="申请友情链接" href="http://bitinn.net/links/">友情连接 | Links</a></li>
+</ul>
+</li>
+<li id="menu-item-7765" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children has-children menu-item-7765"><a title="新番评论的总集" href="http://bitinn.net/anime/">新番评测</a>
+<ul class="sub-menu">
+	<li id="menu-item-7761" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7761"><a title="过往投票的统计" href="http://bitinn.net/pollsarchive/">投票存档</a></li>
+</ul>
+</li>
+<li id="menu-item-7760" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7760"><a title="客栈有关凉宫春日的文章总集" href="http://bitinn.net/haruhi/">凉宫春日</a></li>
+<li id="menu-item-7763" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children has-children menu-item-7763"><a href="http://bitinn.net/danbooru-shimmie/">图站精选</a>
+<ul class="sub-menu">
+	<li id="menu-item-7768" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7768"><a href="http://bitinn.net/evil/">邪恶专集</a></li>
+	<li id="menu-item-7769" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7769"><a href="http://bitinn.net/evil2/">邪恶起源</a></li>
+</ul>
+</li>
+<li id="menu-item-7793" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children has-children menu-item-7793"><a title="及时获取客栈更新" href="http://bitinn.net/feed/">订阅客栈</a>
+<ul class="sub-menu">
+	<li id="menu-item-7794" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-7794"><a title="比特客栈的寻行数墨" href="http://twitter.com/bitinn">@Twitter</a></li>
+	<li id="menu-item-8043" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-8043"><a title="比特客栈的口是心非" href="http://weibo.com/bitinn">@新浪微博</a></li>
+	<li id="menu-item-8242" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-8242"><a title="David Frank&#8217;s Google+" href="https://plus.google.com/105846217830917135862/posts">@Google+</a></li>
+</ul>
+</li>
+											
+				 </ul> <!-- /main-menu -->
+				 
+				 <a class="search-toggle fright" href="#"></a>
+				 
+				 <div class="clear"></div>
+				 
+			</div> <!-- /navigation-inner -->
+			
+		</div> <!-- /navigation -->
+		
+		<div class="mobile-navigation section bg-graphite no-padding hidden">
+					
+			<ul class="mobile-menu">
+			
+				<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-7758"><a title="返回首页" href="http://bitinn.net/">首页</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children has-children menu-item-7759"><a title="比特客栈的简介" href="http://bitinn.net/about/">关于客栈</a>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7767"><a title="客栈人员的联系方式" href="http://bitinn.net/contact/">联系我们 | Contact</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7766"><a title="留言本" href="http://bitinn.net/sign-in/">留言非语 | Guestbook</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7762"><a title="申请友情链接" href="http://bitinn.net/links/">友情连接 | Links</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children has-children menu-item-7765"><a title="新番评论的总集" href="http://bitinn.net/anime/">新番评测</a>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7761"><a title="过往投票的统计" href="http://bitinn.net/pollsarchive/">投票存档</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7760"><a title="客栈有关凉宫春日的文章总集" href="http://bitinn.net/haruhi/">凉宫春日</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children has-children menu-item-7763"><a href="http://bitinn.net/danbooru-shimmie/">图站精选</a>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7768"><a href="http://bitinn.net/evil/">邪恶专集</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7769"><a href="http://bitinn.net/evil2/">邪恶起源</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children has-children menu-item-7793"><a title="及时获取客栈更新" href="http://bitinn.net/feed/">订阅客栈</a>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-7794"><a title="比特客栈的寻行数墨" href="http://twitter.com/bitinn">@Twitter</a></li>
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-8043"><a title="比特客栈的口是心非" href="http://weibo.com/bitinn">@新浪微博</a></li>
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-8242"><a title="David Frank&#8217;s Google+" href="https://plus.google.com/105846217830917135862/posts">@Google+</a></li>
+</ul>
+</li>
+										
+			 </ul> <!-- /main-menu -->
+		
+		</div> <!-- /mobile-navigation -->
+<div class="wrapper section medium-padding">
+										
+	<div class="section-inner">
+	
+		<div class="content fleft">
+												        
+									
+				<div id="post-10716" class="post-10716 post type-post status-publish format-standard has-post-thumbnail hentry category-asides tag-7-zip tag-apple tag-ditto tag-os-x tag-windows tag-zip64">
+				
+									
+					<div class="post-header">
+						
+					    <h2 class="post-title"><a href="http://bitinn.net/10716/" rel="bookmark" title="OSX compress, zip64 and large file madness">OSX compress, zip64 and large file madness</a></h2>
+					    
+					</div> <!-- /post-header -->
+					
+										
+						<div class="featured-media">
+						
+														
+																
+						</div> <!-- /featured-media -->
+					
+																			                                    	    
+					<div class="post-content">
+						    		            			            	                                                                                            
+						<p><a href="http://bitinn.net/wp-images/blogimage/2014/01/zipper.jpg"><img class="alignnone size-medium wp-image-10724" alt="" src="http://bitinn.net/wp-images/blogimage/2014/01/zipper-354x500.jpg" width="354" height="500" /></a></p>
+<p><em>(since we are talking about zipping and unzipping&#8230; image credit: <a href="http://donmai.us/artists/7732">119</a>)</em></p>
+<p>Just a quick note to save you 3 hours of troubleshooting:</p>
+<blockquote><p>Do NOT use OSX built-in &#8220;compress&#8221; function unless you are dealing with less than 65,535 files or files smaller than 4GB. Or else you risk not being able to decompress (unzip) them in other applications (or other OS).</p></blockquote>
+<p><span id="more-10716"></span></p>
+<p>To fully understand this issue, we need to go through a few basics first.</p>
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Zip_%28file_format%29">ZIP</a>, when it was originally introduced by Phil Katz in 1989, has a 4GB limit on total archive size and original file size, as well as 65,535 limit on the number of files allowed in an archive. These limits exists because the <a href="http://en.wikipedia.org/wiki/Zip_%28file_format%29#File_headers">headers </a>for filesize has only 4 bytes, while header for total file count has 2 bytes.</li>
+<li><a href="http://en.wikipedia.org/wiki/Zip_%28file_format%29#ZIP64">ZIP64 extension</a> was later added to raise both limit to 2^64 &#8211; 1, around 16 Exbibytes, more than enough for most use cases today. In order to be backward compatible with ZIP standard, new headers with 8 bytes field were added.</li>
+<li>An archiving tool with ZIP implementation would automatically switch to ZIP64 extension (ie. adds ZIP64 headers) when any of limits are reached.</li>
+</ul>
+<p>But OS X, being <em>unique</em> as it is, has a different idea in mind.</p>
+<ul>
+<li>As of OS X Mavericks (10.9.1), the default tool used for compress/decompress is <em>Archive Utility</em>, or <strong>ditto</strong> in terminal. Mavericks also has <strong>zip</strong> and <strong>unzip</strong> commands built-in.</li>
+<li>However, <strong>ditto</strong> (dated 2008 December) doesn&#8217;t follow ZIP64 spec and continue to write headers in the old ZIP headers. The result? <strong>Your ZIP archive is corrupted on creation</strong>. Unless an archiving tool is written specifically to ignore CRC checksum and enumerate all files. You will end up losing files or obtain partially extracted file.</li>
+<li>How about <strong>zip</strong> and <strong>unzip</strong> then? Well the zip binary (<a href="http://en.wikipedia.org/wiki/Info-ZIP">Info-ZIP</a>) shipped with Mavericks is v3.0 (dated 2008) and has proper ZIP64 support. But unfortunately unzip is on v5.52 (dated 2005) and without ZIP64 support. <strong>So trying to zip any files/directories that require ZIP64 extension support, will result in an archive not supported by built-in unzip</strong>.</li>
+</ul>
+<p>Just to prove these points, I tried to compress a directory with files over 4GB and check them against this command on OSX: <code>unzip -l -v zipfile</code></p>
+<pre>df$ unzip -l -v ditto-pack.zip
+
+Archive: ditto-pack.zip
+
+Length Method Size Ratio Date Time CRC-32 Name
+-------- ------ ------- ----- ---- ---- ------ ----
+...
+389792011 Defl:N 1855397934 -376% 01-19-14 16:08 5c4394fa large.file
+...
+-------- ------- --- -------
+390195922 1855483050 -376% 34 files</pre>
+<pre>df$ unzip -l -v zip-pack.zip
+
+Archive: zip-pack.zip
+warning [zip-pack.zip]: 76 extra bytes at beginning or within zipfile
+(attempting to process anyway)
+error [zip-pack.zip]: reported length of central directory is
+-76 bytes too long (Atari STZip zipfile? J.H.Holm ZIPSPLIT 1.1
+zipfile?). Compensating...
+
+Length Method Size Ratio Date Time CRC-32 Name
+-------- ------ ------- ----- ---- ---- ------ ----
+...
+4294967295 Defl:N 1858047072 57% 01-19-14 16:08 5c4394fa large.file
+...
+-------- ------- --- -------
+4295370966 1858132732 57% 29 files
+
+note: didn't find end-of-central-dir signature at end of central dir.</pre>
+<p>The archive utility zipfile result in incorrect CRC, filesize and compression ratio (-376% means archive is 2 times larger than original files). This means neither Windows Explorer nor 7-Zip will handle zipfile from OS X archive utility if ZIP64 extension is required, as they both enforce CRC checks (even if correct data exists).</p>
+<p>The proper zip archive is not supported by built-in unzip (see warning message about missing EOCD header, as ZIP64 archive using a updated EOCD header; another hint is the 4GB limit for individual files, 4294967295 is 2^32 &#8211; 1). However they do work with Windows (Vista and above) as well as 7-Zip.</p>
+<p>So in conclusion: <strong><em>Do NOT use OSX built-in &#8220;compress&#8221; function unless you use OSX exclusively and don&#8217;t care about corrupted ZIP files.</em></strong></p>
+<p>Further readings:</p>
+<ul>
+<li><a href="http://www.springyarchiver.com/blog/topic/topic/203">Apple Archive Utility (and ditto) and very large ZIP archives</a>.</li>
+<li><a href="http://stackoverflow.com/questions/107903/how-to-create-a-zip-file-in-the-same-format-as-the-finders-compress-menu-item">How to create a zip file in the same format as the Finder&#8217;s “Compress” menu item?</a></li>
+<li><a href="http://code.google.com/p/theunarchiver/issues/detail?id=339">unzipping zip64 broken</a></li>
+</ul>
+<!-- AddThis Button BEGIN -->
+<div addthis:url='http://bitinn.net/10716/' addthis:title='OSX compress, zip64 and large file madness ' class="addthis_toolbox addthis_default_style addthis_32x32_style">
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_twitter"></a>
+<a class="addthis_button_google_plusone_share"></a>
+<a class="addthis_button_sinaweibo"></a>
+<a class="addthis_button_email"></a>
+<a class="addthis_button_favorites"></a>
+<a class="addthis_counter addthis_bubble_style"></a>
+</div>
+<!-- AddThis Button END --><div class='yarpp-related'>
+<h3>相关文章：</h3>
+<div class="yarpp-thumbnails-horizontal">
+<a class='yarpp-thumbnail' href='http://bitinn.net/8789/' title='客户文化'>
+<img width="120" height="120" src="http://bitinn.net/wp-images/blogimage/2011/09/microsoft-120x120.jpg" class="attachment-yarpp-thumbnail wp-post-image" alt="microsoft" /><span class="yarpp-thumbnail-title">客户文化</span></a>
+<a class='yarpp-thumbnail' href='http://bitinn.net/9705/' title='次世代的路'>
+<img width="120" height="120" src="http://bitinn.net/wp-images/blogimage/2012/09/who-s-turn-is-it-120x120.jpg" class="attachment-yarpp-thumbnail wp-post-image" alt="who-s-turn-is-it" /><span class="yarpp-thumbnail-title">次世代的路</span></a>
+</div>
+</div>
+								
+												
+						<div class="clear"></div>
+									        
+					</div> <!-- /post-content -->
+					            					
+					<div class="post-meta-container">
+						
+						<div class="post-author">
+						
+							<div class="post-author-content">
+							
+								<h4>店长</h4>
+								
+								<p>The Master of BitInn</p>
+								
+																
+								<div class="author-links">
+									
+									<a class="author-link-posts" title="Author archive" href="http://bitinn.net/author/landlord/">Author archive</a>
+									
+																		
+										<a class="author-link-website" title="Author website" href="http://bitinn.net/">Author website</a>
+										
+																		
+										<a class="author-link-twitter" title="@bitinn on Twitter" href="http://www.twitter.com/bitinn">@bitinn on Twitter</a>
+										
+																		
+								</div> <!-- /author-links -->
+							
+							</div> <!-- /post-author-content -->
+						
+						</div> <!-- /post-author -->
+						
+						<div class="post-meta">
+						
+							<p class="post-date">January 19, 2014</p>
+							
+														
+							<p class="post-categories"><a href="http://bitinn.net/category/asides/" rel="category tag">旁门左道 | Asides</a></p>
+							
+														
+								<p class="post-tags"><a href="http://bitinn.net/tag/7-zip/" rel="tag">7-zip</a>, <a href="http://bitinn.net/tag/apple/" rel="tag">Apple</a>, <a href="http://bitinn.net/tag/ditto/" rel="tag">Ditto</a>, <a href="http://bitinn.net/tag/os-x/" rel="tag">OS X</a>, <a href="http://bitinn.net/tag/windows/" rel="tag">Windows</a>, <a href="http://bitinn.net/tag/zip64/" rel="tag">Zip64</a></p>
+							
+														
+							<div class="clear"></div>
+							
+							<div class="post-nav">
+							
+																
+									<a class="post-nav-prev" title="Previous post: 说单口相声的声优，才真的是怪物。" href="http://bitinn.net/10707/">Previous post</a>
+							
+																
+																	
+									<a class="post-nav-next" title="Next post: AddLeaf 1.0，让我们为你的阅读生活“添叶”" href="http://bitinn.net/10729/">Next post</a>
+							
+																
+																	
+								<div class="clear"></div>
+							
+							</div>
+						
+						</div> <!-- /post-meta -->
+						
+						<div class="clear"></div>
+							
+					</div> <!-- /post-meta-container -->
+																		
+					
+		
+		<div class="comments">
+		
+			<a name="comments"></a>
+			
+			<div class="comments-title-container">
+				
+				<h2 class="comments-title fleft">
+				
+					6 Comments					
+				</h2>
+				
+								
+				<div class="clear"></div>
+			
+			</div> <!-- /comments-title-container -->
+	
+			<ol class="commentlist">
+			    	<li class="comment even thread-even depth-1" id="li-comment-227911">
+	
+		<div id="comment-227911" class="comment">
+		
+			<img alt='' src='http://1.gravatar.com/avatar/de4a3291389a953447ca77c99ccf9b54?s=80&#038;d=mm&#038;r=r' srcset='http://1.gravatar.com/avatar/de4a3291389a953447ca77c99ccf9b54?s=160&amp;d=mm&amp;r=r 2x' class='avatar avatar-80 photo' height='80' width='80' />		
+			<div class="comment-inner">
+
+				<div class="comment-header">
+											
+					<cite class="fn">Secluded</cite>					
+					<p><a href="http://bitinn.net/10716/#comment-227911">January 20, 2014 at 18:24</a></p>
+					
+					<div class="comment-actions">
+					
+												
+												
+						<div class="clear"></div>
+					
+					</div> <!-- /comment-actions -->
+					
+				</div> <!-- /comment-header -->
+
+				<div class="comment-content">
+				
+									
+					<p>刚点开进来时发现全篇都是英文，当时还被吓着了，读了一下后莫非是就如标题所写的那样，已经快被OSX给逼疯了么233<br />
+虽然不用OSX，但是看了文章确实觉得很有病，不知道原因的用户碰到这种状况多半真会如文章开头所写的那样，花费3个小时去弄清这个问题，也许更甚。<br />
+另外，看到&#8221;But OS X, being unique as it is, has a different idea in mind.&#8221;时忍不住笑了出来（手动表情： <a href="http://staticbbs.acfun.tv//Images/Upload2/Images/2013-10-15/51a0355b-e52c-419d-a070-1986bcde051e.jpg）" rel="nofollow">http://staticbbs.acfun.tv//Images/Upload2/Images/2013-10-15/51a0355b-e52c-419d-a070-1986bcde051e.jpg）</a></p>
+					
+				</div><!-- /comment-content -->
+				
+				<div class="comment-actions-below hidden">
+					
+										
+										
+					<div class="clear"></div>
+				
+				</div> <!-- /comment-actions -->
+				
+			</div> <!-- /comment-inner -->
+
+		</div><!-- /comment-## -->
+	</li><!-- #comment-## -->
+	<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-237993">
+	
+		<div id="comment-237993" class="comment">
+		
+			<img alt='' src='http://1.gravatar.com/avatar/78d7f9dc10db08b0c1e9733f6381fe16?s=80&#038;d=mm&#038;r=r' srcset='http://1.gravatar.com/avatar/78d7f9dc10db08b0c1e9733f6381fe16?s=160&amp;d=mm&amp;r=r 2x' class='avatar avatar-80 photo' height='80' width='80' />		
+			<div class="comment-inner">
+
+				<div class="comment-header">
+											
+					<cite class="fn"><a href='http://bbstripe.me' rel='external nofollow' class='url'>流河</a></cite>					
+					<p><a href="http://bitinn.net/10716/#comment-237993">January 23, 2014 at 16:18</a></p>
+					
+					<div class="comment-actions">
+					
+												
+												
+						<div class="clear"></div>
+					
+					</div> <!-- /comment-actions -->
+					
+				</div> <!-- /comment-header -->
+
+				<div class="comment-content">
+				
+									
+					<p>实在是一个蛋疼的历史遗留问题&#8230;.</p>
+<p>说起来Windows资源管理器自带的zip功能又是怎样呢？</p>
+					
+				</div><!-- /comment-content -->
+				
+				<div class="comment-actions-below hidden">
+					
+										
+										
+					<div class="clear"></div>
+				
+				</div> <!-- /comment-actions -->
+				
+			</div> <!-- /comment-inner -->
+
+		</div><!-- /comment-## -->
+	<ul class="children">
+	<li class="comment even depth-2" id="li-comment-246623">
+	
+		<div id="comment-246623" class="comment">
+		
+			<img alt='' src='http://1.gravatar.com/avatar/75c4efd36758462bb5758b1310d37bf2?s=80&#038;d=mm&#038;r=r' srcset='http://1.gravatar.com/avatar/75c4efd36758462bb5758b1310d37bf2?s=160&amp;d=mm&amp;r=r 2x' class='avatar avatar-80 photo' height='80' width='80' />		
+			<div class="comment-inner">
+
+				<div class="comment-header">
+											
+					<cite class="fn">mouzhai</cite>					
+					<p><a href="http://bitinn.net/10716/#comment-246623">January 25, 2014 at 22:57</a></p>
+					
+					<div class="comment-actions">
+					
+												
+												
+						<div class="clear"></div>
+					
+					</div> <!-- /comment-actions -->
+					
+				</div> <!-- /comment-header -->
+
+				<div class="comment-content">
+				
+									
+					<p>像打开文件夹一样打开</p>
+					
+				</div><!-- /comment-content -->
+				
+				<div class="comment-actions-below hidden">
+					
+										
+										
+					<div class="clear"></div>
+				
+				</div> <!-- /comment-actions -->
+				
+			</div> <!-- /comment-inner -->
+
+		</div><!-- /comment-## -->
+	</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+	<li class="comment odd alt thread-even depth-1" id="li-comment-306628">
+	
+		<div id="comment-306628" class="comment">
+		
+			<img alt='' src='http://1.gravatar.com/avatar/da2a4c7ae09f8a71a17521632342ab7d?s=80&#038;d=mm&#038;r=r' srcset='http://1.gravatar.com/avatar/da2a4c7ae09f8a71a17521632342ab7d?s=160&amp;d=mm&amp;r=r 2x' class='avatar avatar-80 photo' height='80' width='80' />		
+			<div class="comment-inner">
+
+				<div class="comment-header">
+											
+					<cite class="fn">Champ</cite>					
+					<p><a href="http://bitinn.net/10716/#comment-306628">February 13, 2014 at 12:26</a></p>
+					
+					<div class="comment-actions">
+					
+												
+												
+						<div class="clear"></div>
+					
+					</div> <!-- /comment-actions -->
+					
+				</div> <!-- /comment-header -->
+
+				<div class="comment-content">
+				
+									
+					<p>扩展了一次size字段还是定长（64bit最大限制16EB，别跟我说这个完全够用，当年盖茨还说过640K内存未来完全够用呢），糟糕的设计啊。为什么不用VLQ呢？</p>
+					
+				</div><!-- /comment-content -->
+				
+				<div class="comment-actions-below hidden">
+					
+										
+										
+					<div class="clear"></div>
+				
+				</div> <!-- /comment-actions -->
+				
+			</div> <!-- /comment-inner -->
+
+		</div><!-- /comment-## -->
+	</li><!-- #comment-## -->
+	<li class="comment even thread-odd thread-alt depth-1" id="li-comment-318624">
+	
+		<div id="comment-318624" class="comment">
+		
+			<img alt='' src='http://2.gravatar.com/avatar/2b6f767d19dd920431616134d39f1360?s=80&#038;d=mm&#038;r=r' srcset='http://2.gravatar.com/avatar/2b6f767d19dd920431616134d39f1360?s=160&amp;d=mm&amp;r=r 2x' class='avatar avatar-80 photo' height='80' width='80' />		
+			<div class="comment-inner">
+
+				<div class="comment-header">
+											
+					<cite class="fn"><a href='http://glacjay.info' rel='external nofollow' class='url'>GlacJAY</a></cite>					
+					<p><a href="http://bitinn.net/10716/#comment-318624">February 16, 2014 at 12:50</a></p>
+					
+					<div class="comment-actions">
+					
+												
+												
+						<div class="clear"></div>
+					
+					</div> <!-- /comment-actions -->
+					
+				</div> <!-- /comment-header -->
+
+				<div class="comment-content">
+				
+									
+					<p>话说配图和主题啥关系？求科普。</p>
+					
+				</div><!-- /comment-content -->
+				
+				<div class="comment-actions-below hidden">
+					
+										
+										
+					<div class="clear"></div>
+				
+				</div> <!-- /comment-actions -->
+				
+			</div> <!-- /comment-inner -->
+
+		</div><!-- /comment-## -->
+	<ul class="children">
+	<li class="comment byuser comment-author-landlord bypostauthor odd alt depth-2" id="li-comment-319692">
+	
+		<div id="comment-319692" class="comment">
+		
+			<img alt='' src='http://0.gravatar.com/avatar/9a8104ac432b50b9f01f0d75be493699?s=80&#038;d=mm&#038;r=r' srcset='http://0.gravatar.com/avatar/9a8104ac432b50b9f01f0d75be493699?s=160&amp;d=mm&amp;r=r 2x' class='avatar avatar-80 photo' height='80' width='80' />		
+			<div class="comment-inner">
+
+				<div class="comment-header">
+											
+					<cite class="fn"><a href='http://bitinn.net/' rel='external nofollow' class='url'>店长</a></cite>					
+					<p><a href="http://bitinn.net/10716/#comment-319692">February 16, 2014 at 23:21</a></p>
+					
+					<div class="comment-actions">
+					
+												
+												
+						<div class="clear"></div>
+					
+					</div> <!-- /comment-actions -->
+					
+				</div> <!-- /comment-header -->
+
+				<div class="comment-content">
+				
+									
+					<p>zipper &#8211; 拉链</p>
+					
+				</div><!-- /comment-content -->
+				
+				<div class="comment-actions-below hidden">
+					
+										
+										
+					<div class="clear"></div>
+				
+				</div> <!-- /comment-actions -->
+				
+			</div> <!-- /comment-inner -->
+
+		</div><!-- /comment-## -->
+	</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+			</ol>
+			
+							
+						
+		</div><!-- /comments -->
+		
+		
+		
+		<p class="nocomments">Comments are closed.</p>
+		
+		
+													                        
+			   	    
+		
+			</div> <!-- /post -->
+		
+		</div> <!-- /content -->
+		
+		
+	<div class="sidebar fright" role="complementary">
+	
+		<div class="widget widget_polls-widget"><div class="widget-content"><h3 class="widget-title">Polls &#8211; 全民激投</h3><div id="polls-117" class="wp-polls">
+	<form id="polls_form_117" class="wp-polls-form" action="/10716/" method="post">
+		<p style="display: none;"><input type="hidden" id="poll_117_nonce" name="wp-polls-nonce" value="0a5d68b4b1" /></p>
+		<p style="display: none;"><input type="hidden" name="poll_id" value="117" /></p>
+		<p style="text-align: center;"><strong>新番Top 5投票还有继续的价值吗？</strong></p>
+<div id="polls-117-ans" class="wp-polls-ans">
+<ul class="wp-polls-ul">
+		<li><input type="radio" id="poll-answer-933" name="poll_117" value="933" /> <label for="poll-answer-933">有</label></li>
+		<li><input type="radio" id="poll-answer-934" name="poll_117" value="934" /> <label for="poll-answer-934">没有</label></li>
+		<li><input type="radio" id="poll-answer-935" name="poll_117" value="935" /> <label for="poll-answer-935">我才不会投票呢</label></li>
+		</ul>
+<p style="text-align: center;"><input type="button" name="vote" value="   Vote   " class="Buttons" onclick="poll_vote(117);" /></p>
+<p style="text-align: center;"><a href="#ViewPollResults" onclick="poll_result(117); return false;" title="View Results Of This Poll">View Results</a></p>
+</div>
+	</form>
+</div>
+<div id="polls-117-loading" class="wp-polls-loading"><img src="http://bitinn.net/wp-content/plugins/wp-polls/images/loading.gif" width="16" height="16" alt="Loading ..." title="Loading ..." class="wp-polls-image" />&nbsp;Loading ...</div>
+</div><div class="clear"></div></div><div class="widget widget_links"><div class="widget-content"><h3 class="widget-title">Elsewhere - 客栈之外</h3>
+	<ul class='xoxo blogroll'>
+<li><a href="http://beginhq.com/" rel="co-worker colleague" title="我们的现实工作">Begin* HQ</a></li>
+<li><a href="http://neta.bitinn.net/" rel="me" title="曾经的协作wiki">捏它营</a></li>
+<li><a href="https://addleaf.com/" rel="me" title="可能是最好的阅读工具">添叶</a></li>
+
+	</ul>
+</div><div class="clear"></div></div>
+<div class="widget widget_links"><div class="widget-content"><h3 class="widget-title">Friends - 客栈旅客</h3>
+	<ul class='xoxo blogroll'>
+<li><a href="http://www.52acg.org/" title="已经没救的技术宅">ACG审查</a></li>
+<li><a href="http://www.acgpiping.net/" rel="friend met" title="孩子你需要被电">ACG批评</a></li>
+<li><a href="http://air.googol.im/" rel="acquaintance met" title="Go Lover">Air on G</a></li>
+<li><a href="http://www.animetaste.net/" title="当死宅遇上欧美">AnimeTaste</a></li>
+<li><a href="http://www.hgamecn.com/" title="和jgames.net一样属于古老的记忆……">Hgamecn</a></li>
+<li><a href="http://jackycally.blog.163.com/" title="成龙的ACG博客（拖走">JackyのACG</a></li>
+<li><a href="http://www.jpbeta.net/" rel="friend met" title="继续下海的天仓姐">JPbeta</a></li>
+<li><a href="http://b.doneta.org/" title="死宅IT部">Key君的理想鄉</a></li>
+<li><a href="http://kamui520.com/" rel="acquaintance" title="业内观察">Lapis Lazuli</a></li>
+<li><a href="http://www.yurapoi.com/" title="不正常页游攻略">meteor-yutira</a></li>
+<li><a href="http://miharuya.lofter.com/" rel="friend met" title="国内漫画家、CG sky难民？">MIHARUYA</a></li>
+<li><a href="http://mjmkacg.com/" title="欧美动漫搅拌机">MJMK&#039;s ACG</a></li>
+<li><a href="http://moe.akibarika.org/" title="无码猎奇幼齿禁止，有码一切禁止">Orcland的随想录</a></li>
+<li><a href="http://things-fascinate-me.lofter.com/" title="Everything fascinates M.">Things Fascinate Me</a></li>
+<li><a href="http://www.yaca.cn/" rel="friend" title="全称是Young Animation and Comic Association">YACA动漫</a></li>
+<li><a href="http://blog.livedoor.jp/kashikou/" title="赞美也好，批评也罢，文化碰撞没有火花怎么升华？GJ百元籠羊！">「日中文化交流」</a></li>
+<li><a href="http://www.rgwt.net/yichai/" rel="friend" title="Probably something about K">三千烦恼</a></li>
+<li><a href="http://bombdance.blogspot.hk/" title="自称普通人的乞丐。">乞丐甲隨筆</a></li>
+<li><a href="http://legendt.me/" title="Random Gifness?">伝説の所</a></li>
+<li><a href="http://www.cuhkacs.org/~benng/Bo-Blog/index.php" title="哈日反日不如知日">吳偉明知日部屋</a></li>
+<li><a href="http://www.hexieshe.com/" rel="friend met" title="充满了中国式的和谐">和邪社</a></li>
+<li><a href="http://www.jiongtz.com/" title="窗外阴雨连绵，裙底风景独好。">囧TZ</a></li>
+<li><a href="http://otaku.xiyu.in/" rel="acquaintance" title="青年人说二次元">夕语宅谈</a></li>
+<li><a href="http://otakism.org/" title="前“理想鄉(Riviera)”">宅谈</a></li>
+<li><a href="http://tsukisoratoumi.net/wpblog/" rel="friend met" title="月之下，海空交界之处，回荡着雪姐在电脑屏幕前频密的鼠标点击声">月、空与海</a></li>
+<li><a href="http://www.oii.ox.ac.uk/" rel="friend colleague" title="Oxford Internet Institute">牛津互联网学院</a></li>
+<li><a href="http://www.ox.ac.uk/media/science_blog/" rel="met colleague" title="Latest breaking news of scientific developments at Oxford University">牛津大学科学博客联盟</a></li>
+<li><a href="https://holywhite.com/" rel="acquaintance" title="不务正业的运维">白翼的服務器運維博客</a></li>
+<li><a href="http://www.moejoy.com/" title="你有特殊癖好吗？">萌之轨迹</a></li>
+<li><a href="http://eggfan.org/" title="我更喜欢扬州炒饭的说">蛋炒饭</a></li>
+<li><a href="http://www.otokaze.cn/" title="各色评测，任君选择">音風の部屋</a></li>
+
+	</ul>
+</div><div class="clear"></div></div>
+		
+	</div><!-- /sidebar -->
+
+		
+		<div class="clear"></div>
+		
+	</div> <!-- /section-inner -->
+
+</div> <!-- /wrapper -->
+		
+<div class="footer section medium-padding bg-graphite">
+	
+	<div class="section-inner row">
+	
+				
+			<div class="column column-1 one-third">
+			
+				<div class="widgets">
+		
+					<div class="widget widget_search"><div class="widget-content"><h3 class="widget-title">Search &#8211; 搜索文章</h3><form method="get" class="searchform" action="http://bitinn.net/">
+	<input type="search" value="" placeholder="Search form" name="s" class="s" /> 
+	<input type="submit" class="searchsubmit" value="Search">
+</form></div><div class="clear"></div></div>										
+				</div>
+				
+			</div>
+			
+		 <!-- /footer-a -->
+			
+				
+			<div class="column column-2 one-third">
+			
+				<div class="widgets">
+		
+							<div class="widget widget_recent_entries"><div class="widget-content">		<h3 class="widget-title">Latest &#8211; 最新情报</h3>		<ul>
+					<li>
+				<a href="http://bitinn.net/11249/">正版动画的审查陷阱</a>
+						</li>
+					<li>
+				<a href="http://bitinn.net/11224/">动画笔记 Rev.20150419</a>
+						</li>
+					<li>
+				<a href="http://bitinn.net/11215/">买买买！社区，限时开放注册 (mai3.me)</a>
+						</li>
+				</ul>
+		</div><div class="clear"></div></div>										
+				</div> <!-- /widgets -->
+				
+			</div>
+			
+		 <!-- /footer-b -->
+							
+				
+			<div class="column column-3 one-third">
+		
+				<div class="widgets">
+		
+					<div class="widget widget_meta"><div class="widget-content"><h3 class="widget-title">Kitchen &#8211; 客栈厨房</h3>			<ul>
+						<li><a href="http://bitinn.net/wp-login.php">Log in</a></li>
+			<li><a href="http://bitinn.net/feed/">Entries <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a href="http://bitinn.net/comments/feed/">Comments <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+<li><a href="https://wordpress.org/" title="Powered by WordPress, state-of-the-art semantic personal publishing platform.">WordPress.org</a></li>			</ul>
+</div><div class="clear"></div></div>										
+				</div> <!-- /widgets -->
+				
+			</div>
+			
+		 <!-- /footer-c -->
+		
+		<div class="clear"></div>
+	
+	</div> <!-- /footer-inner -->
+
+</div> <!-- /footer -->
+
+<div class="credits section bg-dark small-padding">
+
+	<div class="credits-inner section-inner">
+
+		<p class="credits-left fleft">
+		
+			&copy; 2015 <a href="http://bitinn.net" title="比特客栈的文艺复兴">比特客栈的文艺复兴</a><span> &mdash; Powered by <a href="http://www.wordpress.org">WordPress</a></span>
+		
+		</p>
+		
+		<p class="credits-right fright">
+			
+			<span>Theme by <a href="http://www.andersnoren.se">Anders Noren</a> &mdash; </span><a class="tothetop" title="To the top" href="#">Up &uarr;</a>
+			
+		</p>
+		
+		<div class="clear"></div>
+	
+	</div> <!-- /credits-inner -->
+	
+</div> <!-- /credits -->
+
+<script type="text/javascript">if (typeof(addthis_share) == "undefined"){ addthis_share = {"url_transforms":{"shorten":{"twitter":"bitly"}},"shorteners":{"bitly":{"login":"bitinn","apiKey":"R_ec8d98dcb9559b12317bd8d7ec6bcb4e"}}};}
+
+var addthis_config = {"data_track_clickback":true,"data_track_addressbar":false,"data_track_textcopy":false,"ui_language":"en","ui_atversion":"300"};
+var addthis_product = 'wpp-4.0.7';
+</script><script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=bitinn"></script><!-- Tracking code easily added by NK Google Analytics -->
+<script type="text/javascript"> 
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ 
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), 
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m) 
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga'); 
+ga('create', 'UA-51089740-1', 'bitinn.net', {}); 
+ga('send', 'pageview'); 
+</script> 
+<link rel='stylesheet' id='yarppRelatedCss-css'  href='http://bitinn.net/wp-content/plugins/yet-another-related-posts-plugin/style/related.css?ver=4.2.2' type='text/css' media='all' />
+<script type='text/javascript' src='http://bitinn.net/wp-includes/js/comment-reply.min.js?ver=4.2.2'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var pollsL10n = {"ajax_url":"http:\/\/bitinn.net\/wp-admin\/admin-ajax.php","text_wait":"Your last request is still being processed. Please wait a while ...","text_valid":"Please choose a valid poll answer.","text_multiple":"Maximum number of choices allowed: ","show_loading":"1","show_fading":"1"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://bitinn.net/wp-content/plugins/wp-polls/polls-js.js?ver=2.69'></script>
+<script type='text/javascript' src='http://bitinn.net/wp-includes/js/masonry.min.js?ver=3.1.2'></script>
+<script type='text/javascript' src='http://bitinn.net/wp-content/themes/baskerville/js/imagesloaded.pkgd.js?ver=4.2.2'></script>
+<script type='text/javascript' src='http://bitinn.net/wp-content/themes/baskerville/js/mediaelement-and-player.min.js?ver=4.2.2'></script>
+<script type='text/javascript' src='http://bitinn.net/wp-content/themes/baskerville/js/flexslider.min.js?ver=4.2.2'></script>
+<script type='text/javascript' src='http://bitinn.net/wp-content/themes/baskerville/js/global.js?ver=4.2.2'></script>
+<!--wp_footer-->
+</body>
+</html>
+<!-- Dynamic page generated in 0.276 seconds. -->
+<!-- Page not cached by WP Super Cache. Check your settings page. Not caching requests by known users. (See Advanced Settings page) -->

@@ -92,18 +92,18 @@ TestServer.prototype.router = function(req, res) {
 		});
 	}
 
-	if (p === '/edge-1') {
+	if (p === '/case-6') {
 		res.statusCode = 200;
 		res.setHeader('Content-Type', 'text/html');
-		fs.readFile(fixture_dir + 'opengraph-edge-case-1.html').then(function(doc) {
+		fs.readFile(fixture_dir + 'opengraph-real-world-case-6.html').then(function(doc) {
 			res.end(doc);
 		});
 	}
 
-	if (p === '/edge-2') {
+	if (p === '/edge-1') {
 		res.statusCode = 200;
 		res.setHeader('Content-Type', 'text/html');
-		fs.readFile(fixture_dir + 'opengraph-edge-case-2.html').then(function(doc) {
+		fs.readFile(fixture_dir + 'opengraph-edge-case-1.html').then(function(doc) {
 			res.end(doc);
 		});
 	}
