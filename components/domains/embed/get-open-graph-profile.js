@@ -8,6 +8,7 @@
 var fetch = require('node-fetch');
 var cheerio = require('cheerio');
 var attrs = require('./open-graph-attributes');
+var getMainContent = require('./get-main-content');
 
 module.exports = getOpenGraphProfile;
 
@@ -39,21 +40,44 @@ function getOpenGraphProfile(opts) {
 		}
 
 		// extract opengraph meta tags
-		var d = cheerio.load(body, {
+		var $ = cheerio.load(body, {
 			normalizeWhitespace: true
 			, decodeEntities: false
 		});
-		var meta = d('meta[property^="og:"]');
+		var meta = $('meta[property^="og:"]');
 		var temp = {
 			root: false
 			, group: {}
 		};
 		var og = {};
+		var node, preview;
 
-		// run through tags and compose opengraph object
+		// case 1: no opengraph data, try to build an opengraph compatible object
+		if (meta.length === 0) {
+			og.title = $('title').first().text();
+			og.url = url;
+			og.type = 'fallback';
+			og.description = $('meta[name="description"]').attr('content');
+
+			node = getMainContent($);
+
+			if (node && node.find('img').length > 0) {
+				preview = node.find('img').first().attr('src');
+			}
+
+			if (preview) {
+				og.image = [{
+					url: preview
+				}];
+			}
+
+			return og;
+		}
+
+		// case 2: opengraph data found, run through meta and compose opengraph object
 		meta.each(function(index) {
-			var key = d(this).attr('property');
-			var value = d(this).attr('content');
+			var key = $(this).attr('property');
+			var value = $(this).attr('content');
 			var known = attrs[key.replace('og:', '')];
 
 			// unknown property, ignore it

@@ -120,6 +120,7 @@ function *middleware(next) {
 			}
 			, follow: config.request.follow
 			, timeout: config.request.timeout
+			, size: config.request.size
 		});
 	} catch(err) {
 		// fetch error

@@ -81,6 +81,7 @@ function *middleware(next) {
 		session: this.session
 		, cache: this.cache
 	});
+	console.log(data.embed);
 
 	if (!data.embed) {
 		this.flash = formError(
