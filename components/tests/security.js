@@ -125,6 +125,102 @@ describe('security', function() {
 			expect(result.errors.audio).to.be.empty;
 			expect(result.valid).to.be.true;
 		});
+
+		it('should reject opengraph without title', function *() {
+			input = {
+				url: 'http://example.com/'
+			};
+
+			result = yield validate(input, 'opengraph');
+
+			expect(result.valid).to.be.false;
+			expect(result.errors.title).to.include('title invalid');
+			expect(result.errors.url).to.be.empty;
+			expect(result.errors.type).to.be.empty;
+		});
+
+		it('should reject opengraph without url', function *() {
+			input = {
+				title: 'some title'
+			};
+
+			result = yield validate(input, 'opengraph');
+
+			expect(result.valid).to.be.false;
+			expect(result.errors.title).to.be.empty;
+			expect(result.errors.url).to.include('url invalid');
+			expect(result.errors.type).to.be.empty;
+		});
+
+		it('should reject opengraph with invalid url', function *() {
+			input = {
+				title: 'some title'
+				, url: 'example.com'
+			};
+
+			result = yield validate(input, 'opengraph');
+
+			expect(result.valid).to.be.false;
+			expect(result.errors.title).to.be.empty;
+			expect(result.errors.url).to.include('url invalid');
+			expect(result.errors.type).to.be.empty;
+		});
+
+		it('should reject opengraph with invalid image url', function *() {
+			input = {
+				title: 'some title'
+				, url: 'http://example.com'
+				, image: [{
+					url: '/image.jpg'
+				}]
+			};
+
+			result = yield validate(input, 'opengraph');
+
+			expect(result.valid).to.be.false;
+			expect(result.errors.title).to.be.empty;
+			expect(result.errors.url).to.be.empty;
+			expect(result.errors.type).to.be.empty;
+			expect(result.errors.image).to.include('image invalid');
+		});
+
+		it('should reject opengraph with invalid image width', function *() {
+			input = {
+				title: 'some title'
+				, url: 'http://example.com'
+				, image: [{
+					url: 'http://example.com/image.jpg'
+					, width: 'abc'
+				}]
+			};
+
+			result = yield validate(input, 'opengraph');
+
+			expect(result.valid).to.be.false;
+			expect(result.errors.title).to.be.empty;
+			expect(result.errors.url).to.be.empty;
+			expect(result.errors.type).to.be.empty;
+			expect(result.errors.image).to.include('image invalid');
+		});
+
+		it('should reject opengraph with invalid image type', function *() {
+			input = {
+				title: 'some title'
+				, url: 'http://example.com'
+				, image: [{
+					url: 'http://example.com/image.jpg'
+					, width: '400'
+					, type: 'jpg'
+				}]
+			};
+
+			result = yield validate(input, 'opengraph');
+
+			expect(result.valid).to.be.false;
+			expect(result.errors.title).to.be.empty;
+			expect(result.errors.url).to.be.empty;
+			expect(result.errors.type).to.be.empty;
+			expect(result.errors.image).to.include('image invalid');
+		});
 	});
 });
-

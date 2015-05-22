@@ -61,7 +61,6 @@ function factory() {
 						return false;
 					}
 
-					// TODO: until mime.lookup supports full content-type
 					if (item.type && !mime.extension(item.type)) {
 						return false;
 					}
