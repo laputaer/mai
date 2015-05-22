@@ -41,7 +41,7 @@ function template(data) {
 		});
 		og_description = h('meta', {
 			property: 'og:description'
-			, content: xss.attr(data.page_opengraph.description)
+			, content: description
 		});
 		t_card = h('meta', {
 			name: 'twitter:card'
@@ -57,7 +57,7 @@ function template(data) {
 		});
 		t_description = h('meta', {
 			name: 'twitter:description'
-			, content: xss.attr(data.page_opengraph.description)
+			, content: description
 		});
 		t_image = h('meta', {
 			name: 'twitter:image'

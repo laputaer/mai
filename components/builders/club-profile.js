@@ -109,7 +109,6 @@ function partial(data) {
 		title: data.club.title
 		, url: data.canonical_url
 		, image: data.club.full_avatar
-		, description: data.club.intro
 	};
 
 	return data;
