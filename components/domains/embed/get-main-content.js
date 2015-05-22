@@ -100,7 +100,6 @@ function getMainContent($) {
 
 		// select better candidate
 		if (score - 50 * current_offset > top_score) {
-			console.log(score);
 			top_score = Math.floor(score - 50 * current_offset);
 			current_offset++;
 			main_node = $(el);

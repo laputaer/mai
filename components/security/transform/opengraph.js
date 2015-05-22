@@ -17,7 +17,7 @@ module.exports = tranform;
  * @return  Object         Transformed input object
  */
 function tranform(input) {
-	// title: trim, decode, shorten
+	// title: trim, decode, shorten or create one
 	if (input.title) {
 		input.title = input.title.trim();
 
@@ -28,6 +28,8 @@ function tranform(input) {
 		if (input.title.length > 128) {
 			input.title = input.title.substr(0, 120) + '...';
 		}
+	} else {
+		input.title = 'unknown title';
 	}
 
 	// url: trim, decode

@@ -5,6 +5,7 @@
  * Load and parse opengraph meta
  */
 
+var resolver = require('url').resolve;
 var fetch = require('node-fetch');
 var cheerio = require('cheerio');
 var attrs = require('./open-graph-attributes');
@@ -50,7 +51,7 @@ function getOpenGraphProfile(opts) {
 			, group: {}
 		};
 		var og = {};
-		var node, preview;
+		var node, preview, cache_size;
 
 		// case 1: no opengraph data, try to build an opengraph compatible object
 		if (meta.length === 0) {
@@ -61,11 +62,32 @@ function getOpenGraphProfile(opts) {
 
 			node = getMainContent($);
 
+			// detect the main image and description
 			if (node) {
+				og.description = node.text().substr(0, 100) + '...';
+
 				preview = node.find('img').first().attr('src');
 			}
 
+			// fallback to touch icon
+			if (!preview) {
+				cache_size = 0;
+				$('link[rel^="apple-touch-icon"]').each(function(index, link) {
+					var el = $(link);
+					var sizes = el.attr('sizes') || '';
+					var size = parseInt(sizes.split('x')[0], 10);
+
+					if (size > cache_size) {
+						preview = el.attr('href');
+						cache_size = size;
+					}
+				});
+			}
+
+			// make sure this is an absolute url
 			if (preview) {
+				preview = resolver(url, preview);
+
 				og.image = [{
 					url: preview
 				}];
