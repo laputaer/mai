@@ -61,9 +61,7 @@ function template(data) {
 				target: '_blank'
 				, href: xss.url(club.avatar_home)
 			}, [
-				h('span.m-text', xss.data(i18n.t('club.image-copyright-url', {
-					provider: club.avatar_copyright
-				})))
+				h('span.m-text', i18n.t('club.image-copyright-url'))
 			])
 		]);
 	}

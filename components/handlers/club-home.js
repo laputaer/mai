@@ -60,7 +60,6 @@ function *middleware(next) {
 	if (data.club.embed && data.club.embed.image && data.club.embed.image.length > 0) {
 		data.club.full_avatar = resolver(data.current_url, proxyUrl(data.club.embed.image[0].url, config.proxy.key, 400));
 		data.club.avatar_source = data.club.embed.url;
-		data.club.avatar_copyright = data.club.embed.site_name;
 		url = parser(data.club.embed.url);
 		data.club.avatar_domain = url.hostname;
 		data.club.avatar_home = url.protocol + '//' + url.hostname + '/';
