@@ -113,8 +113,6 @@ module.exports = {
 		, 'owner': '社团创始人'
 		, 'image-source': '图片来源'
 		, 'image-source-url': '%{provider}'
-		, 'image-copyright': '图片版权'
-		, 'image-copyright-url': '详见来源'
 		, 'join-button': '加入社团'
 		, 'leave-button': '退出社团'
 		, 'post-button': '发布新分享'

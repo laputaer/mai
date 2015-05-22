@@ -54,16 +54,6 @@ function template(data) {
 				})))
 			])
 		]);
-
-		license = h('p.m-copyright', [
-			h('span', i18n.t('club.image-copyright'))
-			, h('a.m-link', {
-				target: '_blank'
-				, href: xss.url(club.avatar_home)
-			}, [
-				h('span.m-text', i18n.t('club.image-copyright-url'))
-			])
-		]);
 	}
 
 	var action_cost;
