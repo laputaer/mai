@@ -69,4 +69,7 @@ module.exports = {
 			, result: '600x600'
 		}
 	}
+	, fake_referer: {
+		'anim-babblers.com': 'http://anim-babblers.com/'
+	}
 };

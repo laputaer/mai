@@ -113,9 +113,10 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 6: generate user agent and url for specific domain
+	// STEP 6: generate user agent, url, referer for specific domain
 	var ua = config.request.user_agent;
 	var url = input.url;
+	var referer;
 	for (var prop in config.fake_ua) {
 		if (config.fake_ua.hasOwnProperty(prop)) {
 			if (input.url.indexOf(prop) > -1) {
@@ -135,12 +136,21 @@ function *middleware(next) {
 		}
 	}
 
+	for (var prop in config.fake_referer) {
+		if (config.fake_referer.hasOwnProperty(prop)) {
+			if (input.url.indexOf(prop) > -1) {
+				referer = config.fake_referer[prop];
+			}
+		}
+	}
+
 	// STEP 7: get remote image
 	var res, ctype, ext;
 	try {
 		res = yield fetch(url, {
 			headers: {
 				'User-Agent': ua
+				, 'Referer': referer
 			}
 			, follow: config.request.follow
 			, timeout: config.request.timeout
