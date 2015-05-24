@@ -132,7 +132,7 @@ function *middleware(next) {
 		this.app.emit('error', err, this);
 	}
 
-	if (!embed || !embed.url) {
+	if (!embed) {
 		this.flash = formError(
 			this.i18n.t('error.opengraph-error-response')
 			, body
@@ -143,6 +143,7 @@ function *middleware(next) {
 	}
 
 	// STEP 9: normalize and validate data
+	embed.url = embed.url || body.link;
 	embed = normalize(embed, 'opengraph');
 
 	result = yield validate(embed, 'opengraph');
