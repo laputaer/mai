@@ -21,6 +21,8 @@ function prepareData(ctx) {
 
 	// translation
 	data.i18n = ctx.i18n;
+	// locale
+	data.locale = ctx.locale;
 	// xss filters
 	data.xss = ctx.xss;
 	// asset version
@@ -33,6 +35,8 @@ function prepareData(ctx) {
 	data.current_path = removeSlash(ctx.path);
 	// current url
 	data.current_url = ctx.request.href.replace(/^http:/, 'https:');
+	// doc.head content
+	data.head = [];
 	// doc.body content
 	data.body = [];
 
