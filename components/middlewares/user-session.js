@@ -5,8 +5,6 @@
  * Load user session data into global context
  */
 
-var csrf = require('csrf');
-
 var sessionDomain = require('../domains/session');
 var getAvatarVariant = require('../helpers/get-avatar-variant');
 var proxyUrl = require('../security/proxy');

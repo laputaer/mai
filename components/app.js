@@ -34,9 +34,10 @@ var grant = new Grant(config.oauth);
 app.keys = [config.cookies.key];
 app.proxy = true;
 
-app.use(logger()); // req+res logging
-app.use(dev(app.env)); // development helpers
+app.use(logger()); // logging
+app.use(dev(app.env)); // livereload, static file
 app.use(imageProxy(config)); // image proxy
+
 app.use(bodyparser()); // this.request.body
 app.use(session(config.session, app)); // this.session
 app.use(flash(config.flash)); // this.flash
@@ -51,4 +52,5 @@ app.use(userSession()); // this.state.user
 
 app.use(mount(grant)); // this.session.grant
 router(app); // this.state.vdoc, this.state.error
+
 startUp(app, config); // run server
