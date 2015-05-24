@@ -24,19 +24,26 @@ function Translation(i18n) {
 }
 
 /**
- * Set locale
+ * Get or set locale
  *
- * @param   String  locale  
- * @return  Void
+ * @param   String  name  Locale name  
+ * @return  String        Current locale
  */
 Translation.prototype.locale = function(name) {
-	this.prefix = name || 'zh-cn';
+	if (!name) {
+		return this.prefix;
+	}
 
+	this.prefix = name;
+
+	// decide pluralization strategy
 	if (this.prefix.indexOf('zh') === 0) {
 		this.i18n.locale('zh');
 	} else if (this.prefix.indexOf('en') === 0) {
 		this.i18n.locale('en');
 	}
+
+	return this.prefix;
 };
 
 /**

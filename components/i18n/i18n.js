@@ -50,6 +50,7 @@ function *middleware(next) {
 	// pass our translation object
 	i18n.locale(prefix);
 	this.i18n = i18n;
+	this.locale = prefix;
 
 	yield next;
 };

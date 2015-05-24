@@ -42,7 +42,7 @@ app.use(session(config.session, app)); // this.session
 app.use(flash(config.flash)); // this.flash
 
 app.use(configFactory(true)); // this.config
-app.use(i18nFactory(true)); // this.i18n
+app.use(i18nFactory(true)); // this.i18n, this.locale
 app.use(sanitization(true)); // this.xss
 app.use(db()); // this.db, this.cache
 app.use(renderer()); // this.body
