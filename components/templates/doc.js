@@ -15,7 +15,7 @@ function template(data) {
 	var body = h('body', data.body);
 
 	var html = h('html', {
-		lang: 'zh'
+		lang: data.locale
 	}, [head, body]);
 
 	return html;

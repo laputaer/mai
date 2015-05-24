@@ -29,7 +29,9 @@ function factory(env) {
 
 	// static asset
 	if (env === 'development' || env === 'local') {
-		tools.push(asset('public'));
+		tools.push(asset('public', {
+			maxage: 1000 * 60 * 60 * 24
+		}));
 	}
 
 	return compose(tools);

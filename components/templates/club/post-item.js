@@ -58,7 +58,7 @@ function template(data) {
 			}, [
 				h('span', xss.data(embed.title))
 			])
-			, h('span', 'via')
+			, h('span', ' via ')
 			, h('a.m-link', {
 				href: xss.url(embed.site_url)
 				, target: '_blank'
