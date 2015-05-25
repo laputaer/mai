@@ -47,9 +47,9 @@ module.exports = {
 		, maxAge: 1000 * 60 * 60 * 24 * 30
 	}
 	, version: {
-		css: 'v1.0.9'
-		, js: 'v1.0.2'
-		, asset: 'v1.0.3'
+		css: 'v1.0.10'
+		, js: 'v1.0.10'
+		, asset: 'v1.0.10'
 	}
 	, output: {
 		format: true
