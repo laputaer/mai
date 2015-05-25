@@ -7,6 +7,8 @@
 
 var stringify = require('vdom-to-html');
 var beautify = require('js-beautify').html;
+var inline_elements = require('inline-elements');
+var unformatted = inline_elements.concat('style', 'script');
 
 module.exports = factory;
 
@@ -40,6 +42,7 @@ function *middleware(next) {
 	if (this.config.output.format) {
 		html = beautify(html, {
 			preserve_newlines: false
+			, unformatted: unformatted
 		});
 	}
 

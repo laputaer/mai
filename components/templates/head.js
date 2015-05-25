@@ -20,6 +20,8 @@ function template(data) {
 
 	var og_title, og_url, og_image, og_type, og_site_name, og_description;
 	var t_card, t_site, t_title, t_description, t_image;
+	var vendor;
+
 	if (data.page_opengraph) {
 		og_title = h('meta', {
 			property: 'og:title'
@@ -64,6 +66,13 @@ function template(data) {
 		t_image = h('meta', {
 			name: 'twitter:image'
 			, content: data.page_opengraph.image
+		});
+	}
+
+	if (data.production) {
+		vendor = h('script', {
+			src: base_url + '/assets/vendor.js?' + data.version.js
+			, async: 'async'
 		});
 	}
 
@@ -116,18 +125,26 @@ function template(data) {
 		, t_title
 		, t_description
 		, t_image
-		, h('link', {
-			rel: 'stylesheet'
-			, href: base_url + '/assets/app.css?' + data.version.css
+		, h('style', {
+			innerHTML: data.inline_css
 		})
+		, h('script', {
+			innerHTML: data.inline_js
+		})
+		, h('script', {
+			innerHTML: 'loadCSS("' + base_url + '/assets/app.css?' + data.version.css + '");'
+		})
+		, h('noscript', [
+			h('link', {
+				rel: 'stylesheet'
+				, href: base_url + '/assets/app.css?' + data.version.css
+			})
+		])
 		, h('script', {
 			src: base_url + '/assets/app.js?' + data.version.js
 			, async: 'async'
 		})
-		, h('script', {
-			src: base_url + '/assets/vendor.js?' + data.version.js
-			, async: 'async'
-		})
+		, vendor
 	];
 
 	return head;

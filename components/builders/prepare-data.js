@@ -37,6 +37,12 @@ function prepareData(ctx) {
 	data.current_url = ctx.request.href;
 	// asset base url
 	data.base_url = ctx.state.base_url;
+	// inline css
+	data.inline_css = ctx.state.inline_css;
+	// inline js
+	data.inline_js = ctx.state.inline_js;
+	// environment
+	data.production = ctx.state.production;
 	// doc.head content
 	data.head = [];
 	// doc.body content

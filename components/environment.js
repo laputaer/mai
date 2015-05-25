@@ -5,8 +5,10 @@
  * Setup environment specific koa components
  */
 
+var fs = require('mz/fs');
 var livereload = require('koa-livereload');
 var asset = require('koa-static');
+var inline_css, inline_js;
 
 module.exports = factory;
 
@@ -31,7 +33,7 @@ function factory(app) {
 		}));
 	}
 
-	// base url
+	// base url, inline asset
 	app.use(function *(next) {
 		if (this.app.env === 'production') {
 			this.state.base_url = this.config.server.cdn_url;
@@ -40,6 +42,22 @@ function factory(app) {
 		} else {
 			this.state.base_url = '';
 		}
+
+		if (inline_css) {
+			this.state.inline_css = inline_css;
+		} else {
+			inline_css = yield fs.readFile(process.cwd() + '/public/assets/inline.css');
+			this.state.inline_css = inline_css;
+		}
+
+		if (inline_js) {
+			this.state.inline_js = inline_js;
+		} else {
+			inline_js = yield fs.readFile(process.cwd() + '/public/assets/inline.js');
+			this.state.inline_js = inline_js;
+		}
+
+		this.state.production = this.app.env === 'production';
 
 		yield next;
 	});
