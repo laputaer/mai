@@ -13,6 +13,7 @@ function template(data) {
 	var i18n = data.i18n;
 	var xss = data.xss;
 
+	// TODO: refactor into a standalone template
 	var title = data.page_title ? xss.data(data.page_title) + ' | ' : '';
 	var description = data.page_description ? xss.attr(data.page_description) : i18n.t('common.description');
 
@@ -120,6 +121,10 @@ function template(data) {
 		})
 		, h('script', {
 			src: '/assets/app.js?' + data.version.js
+			, async: 'async'
+		})
+		, h('script', {
+			src: '/assets/vendor.js?' + data.version.js
 			, async: 'async'
 		})
 	];

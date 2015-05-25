@@ -5,36 +5,19 @@
  * Available template builders
  */
 
-var doc = require('./doc');
-var club = require('./club');
-var clubNew = require('./club-new');
-var clubSearch = require('./club-search');
-var clubProfile = require('./club-profile');
-var clubEditor = require('./club-editor');
-var login = require('./login');
-var userProfile = require('./user-profile');
-var customError = require('./custom-error');
-var placeholder = require('./placeholder');
-var help = require('./help');
-var clubAddPostForm = require('./club-add-post-form');
-var clubAddConfirmForm = require('./club-add-confirm-form');
-var home = require('./home');
-var clubRanking = require('./club-ranking');
-
 module.exports = {
-	doc: doc
-	, customError: customError
-	, club: club
-	, clubNew: clubNew
-	, clubSearch: clubSearch
-	, clubProfile: clubProfile
-	, clubEditor: clubEditor
-	, userProfile: userProfile
-	, login: login
-	, placeholder: placeholder
-	, help: help
-	, clubAddPostForm: clubAddPostForm
-	, clubAddConfirmForm: clubAddConfirmForm
-	, home: home
-	, clubRanking: clubRanking
+	clubAddConfirmForm: require('./club-add-confirm-form')
+	, clubAddPostForm: require('./club-add-post-form')
+	, clubEditor: require('./club-editor')
+	, clubNew: require('./club-new')
+	, clubProfile: require('./club-profile')
+	, clubRanking: require('./club-ranking')
+	, clubSearch: require('./club-search')
+	, club: require('./club')
+	, customError: require('./custom-error')
+	, doc: require('./doc')
+	, help: require('./help')
+	, home: require('./home')
+	, login: require('./login')
+	, userProfile: require('./user-profile')
 };

@@ -17,7 +17,7 @@
     "watch:js": "DEBUG=onchange onchange components/client-js/\\*\\*/\\*.js components/client-js/\\*.js components/templates/\\*\\*/\\*.js components/templates/\\*.js components/i18n/\\*.js -- npm run build:js",
     "watch:svg": "DEBUG=onchange onchange components/client-svg/\\*\\*/\\*.svg -- npm run build:svg",
     "build:css": "lessc components/client-less/main.less | autoprefixer | cleancss -o public/assets/app.css",
-    "build:js": "browserify components/client-js/main.js -s app | uglifyjs > public/assets/app.js",
+    "build:js": "browserify components/client-js/main.js -s app | uglifyjs > public/assets/app.js && cp ./components/client-js/vendor.js ./public/assets/vendor.js",
     "build:svg": "svgo --enable=removeDesc --multipass -f components/client-svg/ && svgshelf components/client-svg/\\*.svg public/assets/icons.svg",
     "build:img": "trash --force public/assets/*.jpg && imagemin -p components/client-image/* public/assets/",
     "cron:cache:all": "find ./cache/ -maxdepth 1 -type f -not -name .gitignore -exec rm -fv {} + | wc -w",
