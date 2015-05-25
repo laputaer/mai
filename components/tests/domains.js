@@ -268,7 +268,16 @@ describe('domains', function() {
 
 				result = yield embed.getOpenGraphProfile(input);
 
-				expect(result).to.have.all.keys('image');
+				// note that we normalize url, title, type when they are missing
+				expect(result).to.have.all.keys(
+					'image'
+					, 'url'
+					, 'title'
+					, 'type'
+				);
+				expect(result.title).to.equal('Document');
+				expect(result.url).to.equal(input.url);
+				expect(result.type).to.equal('website');
 				expect(result.image).to.eql([
 					{
 						url: 'http://ogp.me/logo.png'

@@ -114,7 +114,6 @@ function *middleware(next) {
 			return;
 		}
 
-		embed.url = embed.url || body.logo;
 		embed = normalize(embed, 'opengraph');
 
 		result = yield validate(embed, 'opengraph');

@@ -45,6 +45,7 @@ function getOpenGraphProfile(opts) {
 			normalizeWhitespace: true
 			, decodeEntities: false
 		});
+		var title = $('title').first().text();
 		var meta = $('meta[property^="og:"]');
 		var temp = {
 			root: false
@@ -55,7 +56,7 @@ function getOpenGraphProfile(opts) {
 
 		// case 1: no opengraph data, try to build an opengraph compatible object
 		if (meta.length === 0) {
-			og.title = $('title').first().text();
+			og.title = title;
 			og.url = url;
 			og.type = 'fallback';
 			og.description = $('meta[name="description"]').first().attr('content');
@@ -147,6 +148,21 @@ function getOpenGraphProfile(opts) {
 		// push last temp group to opengraph object
 		if (temp.root) {
 			og[temp.root].push(temp.group);
+		}
+
+		// og:url missing, we append input url to opengraph object
+		if (!og.url) {
+			og.url = url;
+		}
+
+		// og:title missing, we append title to opengraph object
+		if (!og.title) {
+			og.title = title;
+		}
+
+		// og:type missing, we default to website
+		if (!og.type) {
+			og.type = 'website';
 		}
 
 		return og;

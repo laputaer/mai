@@ -143,7 +143,6 @@ function *middleware(next) {
 	}
 
 	// STEP 9: normalize and validate data
-	embed.url = embed.url || body.link;
 	embed = normalize(embed, 'opengraph');
 
 	result = yield validate(embed, 'opengraph');
