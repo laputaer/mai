@@ -12,26 +12,15 @@ var sendfile = require('koa-sendfile');
 var mime = require('mime-types');
 
 var validate = require('../security/validation');
-var config;
 
 module.exports = factory;
 
 /**
  * Export a factory function instead of middleware
  *
- * @param   Object  opts  Initial config
  * @return  MW
  */
 function factory(opts) {
-	// TODO: kinda a hack
-	if (!config) {
-		if (!opts) {
-			throw Error('image proxy need to be initialized with config');
-		}
-
-		config = opts;
-	}
-
 	return middleware;
 };
 
@@ -42,6 +31,8 @@ function factory(opts) {
  * @return  Void
  */
 function *middleware(next) {
+	var config = this.config;
+
 	// STEP 1: route matching
 	if (this.path.substr(0, 4) !== '/ip/') {
 		yield next;

@@ -14,7 +14,7 @@ module.exports = myRouter;
  * Internal router
  *
  * @param   Object  app  Koa object
- * @return  MW
+ * @return  Void
  */
 function myRouter(app) {
 	if (!app) {

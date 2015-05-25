@@ -34,7 +34,9 @@ function prepareData(ctx) {
 	// current path
 	data.current_path = removeSlash(ctx.path);
 	// current url
-	data.current_url = ctx.request.href.replace(/^http:/, 'https:');
+	data.current_url = ctx.request.href;
+	// asset base url
+	data.base_url = ctx.state.base_url;
 	// doc.head content
 	data.head = [];
 	// doc.body content

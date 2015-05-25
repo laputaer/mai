@@ -18,13 +18,13 @@ var configFactory = require('./config/config');
 var i18nFactory = require('./i18n/i18n');
 
 var errorHandler = require('./middlewares/error-handler');
-var dev = require('./middlewares/local-development');
 var renderer = require('./middlewares/template-renderer');
 var userSession = require('./middlewares/user-session');
 var sanitization = require('./middlewares/output-sanitization');
 var imageProxy = require('./middlewares/image-proxy');
 
 var router = require('./router');
+var environment = require('./environment');
 var startUp = require('./start-up');
 
 var app = koa();
@@ -32,17 +32,17 @@ var config = configFactory();
 var grant = new Grant(config.oauth);
 
 app.keys = [config.cookies.key];
-app.proxy = true;
+app.proxy = config.server.proxy;
 
 app.use(logger()); // logging
-app.use(dev(app.env)); // livereload, static file
-app.use(imageProxy(config)); // image proxy
+app.use(configFactory(true)); // this.config
+environment(app); // livereload, static fileserver, base url
+app.use(imageProxy()); // image proxy
 
 app.use(bodyparser()); // this.request.body
 app.use(session(config.session, app)); // this.session
 app.use(flash(config.flash)); // this.flash
 
-app.use(configFactory(true)); // this.config
 app.use(i18nFactory(true)); // this.i18n, this.locale
 app.use(sanitization(true)); // this.xss
 app.use(db()); // this.db, this.cache
