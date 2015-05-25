@@ -9,6 +9,7 @@ var oauthDomain = require('../domains/oauth');
 var usersDomain = require('../domains/users');
 var sessionDomain = require('../domains/session');
 var validate = require('../security/validation');
+var normalize = require('../security/normalization');
 var createError = require('../helpers/create-error-message');
 
 module.exports = factory;
@@ -85,7 +86,9 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 5: validate user profile
+	// STEP 5: normalize and validate user profile
+	user.oauth = normalize(user.oauth, 'oauth');
+
 	var result = yield validate(user.oauth, 'oauth');
 
 	if (!result.valid) {

@@ -31,7 +31,7 @@ function getGithubUserProfile(client, opts) {
 				}
 
 				resolve({
-					id: body.id.toString()
+					id: body.id
 					, name: body.name
 					, login: body.login
 					, avatar: body.avatar_url
