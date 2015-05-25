@@ -32,9 +32,7 @@ function factory() {
 			}, 'login invalid')
 		.validates('avatar')
 			.using(function(value) {
-				return validator.supported(value)
-					&& validator.isLength(value, 1, 256)
-					&& validator.isURL(value)
+				return validator.testUrl(value)
 			}, 'avatar invalid')
 		.validates('access_token')
 			.using(function(value) {
