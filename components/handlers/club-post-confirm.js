@@ -40,6 +40,7 @@ function *middleware(next) {
 	var data = prepareData(this);
 	var slug = this.params.slug;
 	var config = this.config;
+	var state = this.state;
 
 	// STEP 2: find existing club
 	data.club = yield clubsDomain.matchClub({
@@ -94,7 +95,7 @@ function *middleware(next) {
 	if (data.embed.image && data.embed.image.length > 0) {
 		data.embed.image = data.embed.image.map(function(img) {
 			var url = img.secure_url || img.url;
-			return proxyUrl(url, config.proxy.key, 400);
+			return proxyUrl(url, config.proxy.key, 400, state.base_url);
 		});
 	}
 

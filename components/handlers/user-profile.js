@@ -53,7 +53,12 @@ function *middleware(next) {
 	}
 
 	// STEP 3: user data transform
-	data.user.full_avatar = proxyUrl(getAvatarVariant(data.user, 400), this.config.proxy.key, 400);
+	data.user.full_avatar = proxyUrl(
+		getAvatarVariant(data.user, 400)
+		, this.config.proxy.key
+		, 400
+		, this.state.base_url
+	);
 	data.user.user_origin = getUserOrigin(data.user);
 
 	// STEP 4: user post

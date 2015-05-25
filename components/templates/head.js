@@ -10,6 +10,7 @@ var h = require('virtual-dom/h');
 module.exports = template;
 
 function template(data) {
+	var base_url = data.base_url;
 	var i18n = data.i18n;
 	var xss = data.xss;
 
@@ -117,14 +118,14 @@ function template(data) {
 		, t_image
 		, h('link', {
 			rel: 'stylesheet'
-			, href: '/assets/app.css?' + data.version.css
+			, href: base_url + '/assets/app.css?' + data.version.css
 		})
 		, h('script', {
-			src: '/assets/app.js?' + data.version.js
+			src: base_url + '/assets/app.js?' + data.version.js
 			, async: 'async'
 		})
 		, h('script', {
-			src: '/assets/vendor.js?' + data.version.js
+			src: base_url + '/assets/vendor.js?' + data.version.js
 			, async: 'async'
 		})
 	];

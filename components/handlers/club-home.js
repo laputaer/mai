@@ -40,6 +40,7 @@ function *middleware(next) {
 	// STEP 1: prepare common data
 	var data = prepareData(this);
 	var config = this.config;
+	var state = this.state;
 
 	// STEP 2: find club
 	data.club = yield clubsDomain.matchClub({
@@ -58,11 +59,15 @@ function *middleware(next) {
 	// STEP 3: club data transform
 	var url;
 	if (data.club.embed && data.club.embed.image && data.club.embed.image.length > 0) {
-		data.club.full_avatar = resolver(data.current_url, proxyUrl(data.club.embed.image[0].url, config.proxy.key, 400));
+		data.club.full_avatar = proxyUrl(
+			data.club.embed.image[0].url
+			, config.proxy.key
+			, 400
+			, state.base_url
+		);
 		data.club.avatar_source = data.club.embed.url;
 		url = parser(data.club.embed.url);
 		data.club.avatar_domain = url.hostname;
-		data.club.avatar_home = url.protocol + '//' + url.hostname + '/';
 	}
 
 	data.club.level = getClubLevel(data.club.members);
@@ -98,7 +103,7 @@ function *middleware(next) {
 	data.posts = data.posts.map(function(post) {
 		if (post.embed.image && post.embed.image.length > 0) {
 			post.embed.image = post.embed.image.map(function(image) {
-				return proxyUrl(image.secure_url || image.url, config.proxy.key, 400);
+				return proxyUrl(image.secure_url || image.url, config.proxy.key, 400, state.base_url);
 			});
 		}
 
