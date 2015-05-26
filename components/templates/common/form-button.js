@@ -23,7 +23,7 @@ function template(data) {
 		button_type = '.' + data.type.join('.');
 	}
 
-	var base_url = data.base_url || '';
+	var base_url = '';
 
 	var button = h('button.m-button' + button_type, {
 		'type': 'submit'

@@ -23,7 +23,7 @@ function template(data) {
 		button_type = '.' + data.type.join('.');
 	}
 
-	var base_url = data.base_url || '';
+	var base_url = '';
 
 	// icon should be optional too
 	var icon;
