@@ -13,14 +13,26 @@ module.exports = proxy;
 /**
  * Image url generator
  *
- * @param   String  url   Full url
- * @param   String  key   Secret key
- * @param   String  size  Image size
- * @param   String  base  Base url
- * @return  String        Proxy url
+ * @param   Object  input  { url, key, size, base }
+ * @return  String         Proxy url
  */
-function proxy(url, key, size, base) {
-	var hash = hmac(url, key);
+function proxy(input) {
+	if (!input.url || !input.key) {
+		throw new Error('origin url and hmac key must be specified');
+	}
 
-	return base + '/ip/' + hash + '/?url=' + encode(url) + '&size=' + size;
+	var output = '';
+	var hash = hmac(input.url, input.key);
+
+	if (input.base) {
+		output += input.base;
+	}
+
+	output += '/ip/' + hash + '/?url=' + encode(input.url);
+
+	if (input.size) {
+		output += '&size=' + input.size;
+	}
+
+	return output;
 };

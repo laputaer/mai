@@ -57,7 +57,12 @@ function *middleware(next) {
 	}
 
 	if (user) {
-		user.small_avatar = proxyUrl(getAvatarVariant(user, 60), this.config.proxy.key, 60, this.state.base_url);
+		user.small_avatar = proxyUrl({
+			url: getAvatarVariant(user, 60)
+			, key: this.config.proxy.key
+			, size: 60
+			, base: this.state.base_url
+		});
 		this.state.user = user;
 	}
 

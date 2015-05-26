@@ -95,7 +95,12 @@ function *middleware(next) {
 	if (data.embed.image && data.embed.image.length > 0) {
 		data.embed.image = data.embed.image.map(function(img) {
 			var url = img.secure_url || img.url;
-			return proxyUrl(url, config.proxy.key, 400, state.base_url);
+			return proxyUrl({
+				url: url
+				, key: config.proxy.key
+				, size: 400
+				, basE: state.base_url
+			});
 		});
 	}
 

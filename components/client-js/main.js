@@ -7,6 +7,8 @@
 
 'use strict';
 
+var lazySizes = require('lazysizes');
+
 /*
 var Renderer = require('./renderer');
 var page = new Renderer();

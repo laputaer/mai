@@ -82,6 +82,7 @@
     "koa-sendfile": "1.1.1",
     "koa-session": "3.1.0",
     "koa-static": "1.4.9",
+    "lazysizes": "1.1.2",
     "lgtm": "1.0.4",
     "mime-types": "2.0.12",
     "mixpanel": "0.2.1",

@@ -59,12 +59,12 @@ function *middleware(next) {
 	// STEP 3: club data transform
 	var url;
 	if (data.club.embed && data.club.embed.image && data.club.embed.image.length > 0) {
-		data.club.full_avatar = proxyUrl(
-			data.club.embed.image[0].url
-			, config.proxy.key
-			, 400
-			, state.base_url
-		);
+		data.club.full_avatar = proxyUrl({
+			url: data.club.embed.image[0].url
+			, key: config.proxy.key
+			, size: 400
+			, base: state.base_url
+		});
 		data.club.avatar_source = data.club.embed.url;
 		url = parser(data.club.embed.url);
 		data.club.avatar_domain = url.hostname;
@@ -103,7 +103,12 @@ function *middleware(next) {
 	data.posts = data.posts.map(function(post) {
 		if (post.embed.image && post.embed.image.length > 0) {
 			post.embed.image = post.embed.image.map(function(image) {
-				return proxyUrl(image.secure_url || image.url, config.proxy.key, 400, state.base_url);
+				return proxyUrl({
+					url: image.secure_url || image.url
+					, key: config.proxy.key
+					, size: 400
+					, base: state.base_url
+				});
 			});
 		}
 
