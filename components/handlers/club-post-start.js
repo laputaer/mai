@@ -151,12 +151,8 @@ function *middleware(next) {
 		return;
 	}
 
-	console.log(embed);
-
 	// STEP 9: normalize and validate data
 	embed = normalize(embed, 'opengraph');
-
-	console.log(embed);
 
 	result = yield validate(embed, 'opengraph');
 
