@@ -20,7 +20,7 @@ function template(data) {
 
 	var og_title, og_url, og_image, og_type, og_site_name, og_description;
 	var t_card, t_site, t_title, t_description, t_image;
-	var vendor;
+	var vendor, prefetch;
 
 	if (data.page_opengraph) {
 		og_title = h('meta', {
@@ -74,6 +74,11 @@ function template(data) {
 			src: base_url + '/assets/vendor.js?' + data.version.js
 			, async: 'async'
 		});
+
+		prefetch = h('link', {
+			rel: 'dns-prefetch'
+			, href: '//mai-maihq.netdna-ssl.com'
+		});
 	}
 
 	var head = [
@@ -125,6 +130,7 @@ function template(data) {
 		, t_title
 		, t_description
 		, t_image
+		, prefetch
 		, h('style', {
 			innerHTML: data.inline_css
 		})
