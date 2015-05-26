@@ -31,7 +31,7 @@ function template(data) {
 		images = embed.image.map(function(url) {
 			return h('img.m-image.lazyload', {
 				src: url + '&size=100'
-				, alt: xss.attr(post.title) + i18n.t('placeholder.image-preview')
+				, alt: xss.attr(embed.title) + i18n.t('placeholder.image-preview')
 				, attributes: {
 					'data-src': url + '&size=400'
 				}
