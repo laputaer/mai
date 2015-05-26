@@ -62,6 +62,7 @@ module.exports = {
 	}
 	, fake_ua: {
 		'pixiv.net': 'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)'
+		, 'www.toranoana.jp': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
 	}
 	, fake_url: {
 		'pixiv.net': {

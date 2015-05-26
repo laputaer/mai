@@ -119,11 +119,20 @@ function *middleware(next) {
 	}
 
 	// STEP 8: get opengraph data
-	var embed;
+	var embed, ua;
 	try {
+		ua = config.request.user_agent;
+		for (var prop in config.fake_ua) {
+			if (config.fake_ua.hasOwnProperty(prop)) {
+				if (body.link.indexOf(prop) > -1) {
+					ua = config.fake_ua[prop];
+				}
+			}
+		}
+
 		embed = yield embedDomain.getOpenGraphProfile({
 			url: body.link
-			, user_agent: config.request.user_agent
+			, user_agent: ua
 			, follow: config.request.follow
 			, timeout: config.request.timeout
 			, size: config.request.size
