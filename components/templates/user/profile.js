@@ -27,7 +27,8 @@ function template(data) {
 				src: user.full_avatar + '&size=100'
 				, alt: xss.attr(user.name) + i18n.t('placeholder.avatar-preview')
 				, attributes: {
-					'data-src': user.full_avatar + '&size=400'
+					'data-srcset': user.full_avatar + '&size=100 100w, ' + user.full_avatar + '&size=200 200w, ' + user.full_avatar + '&size=400 400w'
+					, 'data-sizes': 'auto' 
 				}
 			})
 			, h('div.m-info', [

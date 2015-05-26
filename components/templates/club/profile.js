@@ -29,7 +29,8 @@ function template(data) {
 			src: club.full_avatar + '&size=100'
 			, alt: xss.attr(club.title) + i18n.t('placeholder.avatar-preview')
 			, attributes: {
-				'data-src': club.full_avatar + '&size=400'
+				'data-srcset': club.full_avatar + '&size=100 100w, ' + club.full_avatar + '&size=200 200w, ' + club.full_avatar + '&size=400 400w'
+				, 'data-sizes': 'auto' 
 			}
 		});
 	} else {

@@ -7,6 +7,8 @@
 
 'use strict';
 
+// browserify
+var respimgPolyfill = require('lazysizes/plugins/respimg/ls.respimg.js');
 var lazySizes = require('lazysizes');
 
 /*

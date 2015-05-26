@@ -33,7 +33,8 @@ function template(data) {
 				src: url + '&size=100'
 				, alt: xss.attr(embed.title) + i18n.t('placeholder.image-preview')
 				, attributes: {
-					'data-src': url + '&size=400'
+					'data-srcset': url + '&size=100 100w, ' + url + '&size=200 200w, ' + url + '&size=400 400w'
+					, 'data-sizes': 'auto' 
 				}
 			});
 		});
