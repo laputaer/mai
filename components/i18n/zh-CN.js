@@ -35,6 +35,8 @@ module.exports = {
 		, 'secondary-feedback-name': '开放反馈区'
 		, 'secondary-feedback-action': '提交建议'
 		, 'login': '登录社区'
+		, 'image-preview': '的预览图片'
+		, 'avatar-preview': '的预览头像'
 	}
 	, 'error': {
 		'status-code': 'Error %{code}'

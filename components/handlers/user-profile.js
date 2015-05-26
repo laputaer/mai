@@ -56,7 +56,6 @@ function *middleware(next) {
 	data.user.full_avatar = proxyUrl({
 		url: getAvatarVariant(data.user, 400)
 		, key: this.config.proxy.key
-		, size: 400
 		, base: this.state.base_url
 	});
 	data.user.user_origin = getUserOrigin(data.user);

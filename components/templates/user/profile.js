@@ -23,8 +23,12 @@ function template(data) {
 
 	var profile = h('div.m-rows', [
 		h('div.m-profile.m-row-1', [
-			h('img.m-avatar', {
-				src: user.full_avatar
+			h('img.m-avatar.lazyload', {
+				src: user.full_avatar + '&size=100'
+				, alt: xss.attr(user.name) + i18n.t('placeholder.avatar-preview')
+				, attributes: {
+					'data-src': user.full_avatar + '&size=400'
+				}
 			})
 			, h('div.m-info', [
 				h('p.m-title', xss.data(user.name))

@@ -106,7 +106,6 @@ function *middleware(next) {
 				return proxyUrl({
 					url: image.secure_url || image.url
 					, key: config.proxy.key
-					, size: 400
 					, base: state.base_url
 				});
 			});

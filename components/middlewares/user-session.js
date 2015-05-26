@@ -58,9 +58,9 @@ function *middleware(next) {
 
 	if (user) {
 		user.small_avatar = proxyUrl({
-			url: getAvatarVariant(user, 60)
+			url: getAvatarVariant(user, 400)
 			, key: this.config.proxy.key
-			, size: 60
+			, size: 100
 			, base: this.state.base_url
 		});
 		this.state.user = user;

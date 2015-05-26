@@ -29,8 +29,12 @@ function template(data) {
 	var images;
 	if (embed.image) {
 		images = embed.image.map(function(url) {
-			return h('img.m-image', {
-				src: url
+			return h('img.m-image.lazyload', {
+				src: url + '&size=100'
+				, alt: xss.attr(post.title) + i18n.t('placeholder.image-preview')
+				, attributes: {
+					'data-src': url + '&size=400'
+				}
 			});
 		});
 

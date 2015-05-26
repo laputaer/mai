@@ -98,7 +98,6 @@ function *middleware(next) {
 			return proxyUrl({
 				url: url
 				, key: config.proxy.key
-				, size: 400
 				, basE: state.base_url
 			});
 		});
