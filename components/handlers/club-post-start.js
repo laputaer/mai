@@ -122,10 +122,10 @@ function *middleware(next) {
 	var embed, ua;
 	try {
 		ua = config.request.user_agent;
-		for (var prop in config.fake_ua) {
-			if (config.fake_ua.hasOwnProperty(prop)) {
+		for (var prop in config.fake_fetch_ua) {
+			if (config.fake_fetch_ua.hasOwnProperty(prop)) {
 				if (body.link.indexOf(prop) > -1) {
-					ua = config.fake_ua[prop];
+					ua = config.fake_fetch_ua[prop];
 				}
 			}
 		}
@@ -151,8 +151,12 @@ function *middleware(next) {
 		return;
 	}
 
+	console.log(embed);
+
 	// STEP 9: normalize and validate data
 	embed = normalize(embed, 'opengraph');
+
+	console.log(embed);
 
 	result = yield validate(embed, 'opengraph');
 
