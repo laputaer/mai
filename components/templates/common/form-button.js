@@ -23,6 +23,8 @@ function template(data) {
 		button_type = '.' + data.type.join('.');
 	}
 
+	var base_url = data.base_url || '';
+
 	var button = h('button.m-button' + button_type, {
 		'type': 'submit'
 		, 'name': data.name || ''
@@ -30,7 +32,7 @@ function template(data) {
 	}, [
 		svg('svg.m-icon', [
 			svg('use', {
-				'xlink:href': '/assets/icons.svg?' + data.version + '#' + data.icon
+				'xlink:href': base_url + '/assets/icons.svg?' + data.version + '#' + data.icon
 			})
 		])
 		, h('span.m-text', data.text)

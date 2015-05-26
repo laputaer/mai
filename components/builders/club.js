@@ -25,6 +25,7 @@ function partial(data) {
 		, text: data.i18n.t('club.create-button')
 		, type: ['highlight']
 		, version: data.version.asset
+		, base_url: data.base_url
 	});
 
 	data.my_club_buttons = data.clubs.map(function(club) {
@@ -33,6 +34,7 @@ function partial(data) {
 			, icon: 'arrow_right'
 			, text: xss.data(club.title)
 			, version: data.version.asset
+			, base_url: data.base_url
 		};
 		return templates.common.button(button);
 	});
@@ -43,6 +45,7 @@ function partial(data) {
 			, icon: 'arrow_right'
 			, text: xss.data(club.title)
 			, version: data.version.asset
+			, base_url: data.base_url
 		};
 		return templates.common.button(button);
 	});

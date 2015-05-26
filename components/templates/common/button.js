@@ -23,12 +23,14 @@ function template(data) {
 		button_type = '.' + data.type.join('.');
 	}
 
+	var base_url = data.base_url || '';
+
 	// icon should be optional too
 	var icon;
 	if (data.icon) {
 		icon = svg('svg.m-icon', [
 			svg('use', {
-				'xlink:href': '/assets/icons.svg?' + data.version + '#' + data.icon
+				'xlink:href': base_url + '/assets/icons.svg?' + data.version + '#' + data.icon
 			})
 		]);
 	}

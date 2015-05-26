@@ -25,6 +25,7 @@ function renderer(data) {
 		, icon: 'twitter'
 		, text: i18n.t('menu.login.twitter')
 		, version: data.version.asset
+		, base_url: data.base_url
 	}));
 	data.login.push(templates.common.button({
 		type: ['medium', 'github']
@@ -32,6 +33,7 @@ function renderer(data) {
 		, icon: 'github'
 		, text: i18n.t('menu.login.github')
 		, version: data.version.asset
+		, base_url: data.base_url
 	}));
 	data.content = templates.common.login(data);
 	data.placeholder = templates.common.placeholder(data);

@@ -24,6 +24,7 @@ function partial(data) {
 			, icon: 'arrow_right'
 			, text: xss.data(club.title)
 			, version: data.version.asset
+			, base_url: data.base_url
 		};
 		return templates.common.button(button);
 	});

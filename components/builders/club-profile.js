@@ -30,6 +30,7 @@ function partial(data) {
 				, text: data.i18n.t('club.edit-club')
 				, type: ['small', 'highlight']
 				, version: data.version.asset
+				, base_url: data.base_url
 			});
 
 			data.share_button = templates.common.button({
@@ -43,6 +44,7 @@ function partial(data) {
 				, type: ['small', 'twitter']
 				, target: '_blank'
 				, version: data.version.asset
+				, base_url: data.base_url
 			});
 		}
 
@@ -54,6 +56,7 @@ function partial(data) {
 				, type: ['small']
 				, name: 'leave'
 				, value: '1'
+				, base_url: data.base_url
 			});
 
 			data.share_button = templates.common.button({
@@ -67,6 +70,7 @@ function partial(data) {
 				, type: ['small', 'twitter']
 				, target: '_blank'
 				, version: data.version.asset
+				, base_url: data.base_url
 			});
 		}
 
@@ -78,6 +82,7 @@ function partial(data) {
 				, version: data.version.asset
 				, name: 'join'
 				, value: '1'
+				, base_url: data.base_url
 			});
 		}
 
@@ -87,6 +92,7 @@ function partial(data) {
 			, text: data.i18n.t('club.post-button')
 			, type: ['small', 'post']
 			, version: data.version.asset
+			, base_url: data.base_url
 		});
 	}
 
