@@ -54,7 +54,6 @@ function *middleware(next) {
 
 	this.set('X-Frame-Options', 'deny');
 	this.set('X-Content-Type-Options', 'nosniff');
-	//this.set('Cache-Control', ['public', 'max-age=604800']);
 
 	// STEP 3: validate input
 	var result = yield validate(input, 'proxy');
@@ -104,7 +103,7 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 6: generate user agent, url, referer for specific domain
+	// STEP 6: generate user_agent, url, referer for specific domain
 	var ua = config.request.user_agent;
 	var url = input.url;
 	var referer;
@@ -153,7 +152,6 @@ function *middleware(next) {
 	}
 
 	if (!res || !res.ok) {
-		// cache error
 		path = process.cwd() + '/cache/' + input.hash + '-error';
 		yield fs.writeFile(path, '504');
 
@@ -169,7 +167,6 @@ function *middleware(next) {
 
 	// limit content type
 	if (ext !== 'jpg' && ext !== 'png' && ext !== 'jpeg' && ext !== 'webp') {
-		// cache error
 		path = process.cwd() + '/cache/' + input.hash + '-error';
 		yield fs.writeFile(path, '500');
 
@@ -199,12 +196,11 @@ function *middleware(next) {
 		yield fs.writeFile(path, ext);
 		done = true;
 	} catch(err) {
-		// cache error
+		// process error
 		this.app.emit('error', err, this);
 	}
 
 	if (!done) {
-		// cache error
 		path = process.cwd() + '/cache/' + input.hash + '-error';
 		yield fs.writeFile(path, '500');
 
