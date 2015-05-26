@@ -25,8 +25,12 @@ function template(data) {
 
 	var avatar;
 	if (club.full_avatar) {
-		avatar = h('img.m-avatar', {
-			src: club.full_avatar
+		avatar = h('img.m-avatar.lazyload', {
+			src: club.full_avatar + '&size=100'
+			, alt: xss.attr(club.title) + i18n.t('placeholder.avatar-preview')
+			, attributes: {
+				'data-src': club.full_avatar + '&size=400'
+			}
 		});
 	} else {
 		avatar = h('div.m-avatar', [

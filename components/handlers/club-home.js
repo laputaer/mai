@@ -62,7 +62,6 @@ function *middleware(next) {
 		data.club.full_avatar = proxyUrl({
 			url: data.club.embed.image[0].url
 			, key: config.proxy.key
-			, size: 400
 			, base: state.base_url
 		});
 		data.club.avatar_source = data.club.embed.url;
