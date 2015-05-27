@@ -8,6 +8,7 @@
 var usersDomain = require('../domains/users');
 var clubsDomain = require('../domains/clubs');
 var sessionDomain = require('../domains/session');
+var mixpanelDomain = require('../domains/mixpanel');
 var validate = require('../security/validation');
 
 var formError = require('../helpers/create-form-message');
@@ -110,6 +111,12 @@ function *middleware(next) {
 		db: this.db
 		, user: user
 		, data: body
+	});
+
+	mixpanelDomain.clubCreate({
+		mixpanel: this.mixpanel
+		, club: club
+		, request: this.request
 	});
 
 	this.redirect('/c/' + club.slug);

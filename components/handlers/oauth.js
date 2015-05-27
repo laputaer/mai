@@ -132,7 +132,7 @@ function *middleware(next) {
 		});
 	}
 
-	mixpanelDomain.updateUser({
+	mixpanelDomain.userProfileUpdate({
 		mixpanel: this.mixpanel
 		, user: user.local
 		, request: this.request

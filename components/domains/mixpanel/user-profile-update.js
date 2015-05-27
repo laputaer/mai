@@ -1,11 +1,11 @@
 
 /**
- * update-user.js
+ * user-profile-update.js
  *
  * Record user profile
  */
 
-module.exports = updateUser;
+module.exports = userProfileUpdate;
 
 /**
  * Send the user profile for reporting
@@ -13,7 +13,7 @@ module.exports = updateUser;
  * @param   Object  opts  { mixpanel, user, request }
  * @return  Void
  */
-function updateUser(opts) {
+function userProfileUpdate(opts) {
 	var mixpanel = opts.mixpanel;
 	var user = opts.user;
 	var request = opts.request;

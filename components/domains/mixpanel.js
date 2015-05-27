@@ -7,10 +7,12 @@
 
 var userLogin = require('./mixpanel/user-login');
 var userRegister = require('./mixpanel/user-register');
-var updateUser = require('./mixpanel/update-user');
+var userProfileUpdate = require('./mixpanel/user-profile-update');
+var clubCreate = require('./mixpanel/club-create');
 
 module.exports = {
 	userLogin: userLogin
 	, userRegister: userRegister
-	, updateUser: updateUser
+	, userProfileUpdate: userProfileUpdate
+	, clubCreate: clubCreate
 };
