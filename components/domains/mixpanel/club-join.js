@@ -1,25 +1,26 @@
 
 /**
- * club-create.js
+ * club-join.js
  *
- * Report club creation event
+ * Report club membership event
  */
 
-module.exports = clubCreate;
+module.exports = clubJoin;
 
 /**
  * Send the user and club profile for reporting
  *
- * @param   Object  opts  { mixpanel, club, request }
+ * @param   Object  opts  { mixpanel, user, club, request }
  * @return  Void
  */
-function clubCreate(opts) {
+function clubJoin(opts) {
 	var mixpanel = opts.mixpanel;
+	var user = opts.user;
 	var club = opts.club;
 	var request = opts.request;
 
-	mixpanel.track('Club Create', {
-		distinct_id: club.owner
+	mixpanel.track('Club Join', {
+		distinct_id: user.uid
 		, slug: club.slug
 		, title: club.title
 		, owner: club.owner
@@ -28,14 +29,14 @@ function clubCreate(opts) {
 	});
 
 	mixpanel.people.increment(
-		club.owner
-		, 'club_create_count'
+		user.uid
+		, 'club_join_count'
 		, 1
 	);
 
 	mixpanel.people.increment(
 		club.owner
-		, 'club_join_count'
+		, 'total_member_count'
 		, 1
 	);
 };

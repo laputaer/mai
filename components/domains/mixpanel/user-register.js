@@ -23,4 +23,15 @@ function userRegister(opts) {
 		, source: 'server'
 		, ip: request.ip
 	});
+
+	mixpanel.people.set(user.uid, {
+		'$name': user.login
+		, '$first_name': user.name
+		, '$created': user.created.toISOString()
+		, updated: user.updated.toISOString()
+		, provider: user.provider
+		, action_point: user.action_point
+		, action_base: user.action_base
+		, ip: request.ip
+	});
 };

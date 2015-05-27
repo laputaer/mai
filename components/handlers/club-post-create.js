@@ -10,6 +10,7 @@ var parser = require('url').parse;
 var usersDomain = require('../domains/users');
 var clubsDomain = require('../domains/clubs');
 var sessionDomain = require('../domains/session');
+var mixpanelDomain = require('../domains/mixpanel');
 var validate = require('../security/validation');
 var formError = require('../helpers/create-form-message');
 
@@ -144,6 +145,15 @@ function *middleware(next) {
 	yield sessionDomain.clearOpenGraphCache({
 		session: this.session
 		, cache: this.cache
+	});
+
+	mixpanelDomain.postCreate({
+		mixpanel: this.mixpanel
+		, request: this.request
+		, club: club
+		, user: user
+		, embed: embed
+		, body: body
 	});
 
 	this.redirect('/c/' + slug);

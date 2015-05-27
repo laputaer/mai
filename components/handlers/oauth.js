@@ -132,12 +132,6 @@ function *middleware(next) {
 		});
 	}
 
-	mixpanelDomain.userProfileUpdate({
-		mixpanel: this.mixpanel
-		, user: user.local
-		, request: this.request
-	});
-
 	// STEP 7: update user session
 	yield sessionDomain.loginUser({
 		config: this.config

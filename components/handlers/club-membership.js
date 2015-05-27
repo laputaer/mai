@@ -8,6 +8,7 @@
 var clubsDomain = require('../domains/clubs');
 var usersDomain = require('../domains/users');
 var sessionDomain = require('../domains/session');
+var mixpanelDomain = require('../domains/mixpanel');
 var formError = require('../helpers/create-form-message');
 
 module.exports = factory;
@@ -109,11 +110,25 @@ function *middleware(next) {
 			, club: club
 			, user: user
 		});
+
+		mixpanelDomain.clubJoin({
+			mixpanel: this.mixpanel
+			, user: user
+			, club: club
+			, request: this.request
+		});
 	} else if (body.leave === '1') {
 		yield clubsDomain.leaveClub({
 			db: this.db
 			, club: club
 			, user: user
+		});
+
+		mixpanelDomain.clubLeave({
+			mixpanel: this.mixpanel
+			, user: user
+			, club: club
+			, request: this.request
 		});
 	}
 
