@@ -37,10 +37,16 @@ function factory(app) {
 	app.use(function *(next) {
 		if (this.app.env === 'production') {
 			this.state.base_url = this.config.server.cdn_url;
-		} else if (this.app.env === 'development' || this.app.env === 'local') {
+			this.state.production = true;
+		} else if (this.app.env === 'local') {
 			this.state.base_url = this.config.server.base_url;
+			this.state.production = true;
+		} else if (this.app.env === 'development') {
+			this.state.base_url = this.config.server.base_url;
+			this.state.production = false;
 		} else {
 			this.state.base_url = '';
+			this.state.production = false;
 		}
 
 		if (inline_css) {
@@ -56,8 +62,6 @@ function factory(app) {
 			inline_js = yield fs.readFile(process.cwd() + '/public/assets/inline.js');
 			this.state.inline_js = inline_js;
 		}
-
-		this.state.production = this.app.env === 'production';
 
 		yield next;
 	});

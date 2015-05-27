@@ -20,7 +20,7 @@ function template(data) {
 
 	var og_title, og_url, og_image, og_type, og_site_name, og_description;
 	var t_card, t_site, t_title, t_description, t_image;
-	var vendor, prefetch;
+	var vendor, prefetch_cdn, prefetch_gs, prefetch_gs_1, prefetch_gs_2;
 
 	if (data.page_opengraph) {
 		og_title = h('meta', {
@@ -75,9 +75,24 @@ function template(data) {
 			, async: 'async'
 		});
 
-		prefetch = h('link', {
+		prefetch_cdn = h('link', {
 			rel: 'dns-prefetch'
 			, href: '//mai-maihq.netdna-ssl.com'
+		});
+
+		prefetch_gs = h('link', {
+			rel: 'dns-prefetch'
+			, href: '//d1l6p2sc9645hc.cloudfront.net'
+		});
+
+		prefetch_gs_1 = h('link', {
+			rel: 'dns-prefetch'
+			, href: '//data.gosquared.com'
+		});
+
+		prefetch_gs_2 = h('link', {
+			rel: 'dns-prefetch'
+			, href: '//data2.gosquared.com'
 		});
 	}
 
@@ -130,7 +145,10 @@ function template(data) {
 		, t_title
 		, t_description
 		, t_image
-		, prefetch
+		, prefetch_cdn
+		, prefetch_gs
+		, prefetch_gs_1
+		, prefetch_gs_2
 		, h('style', {
 			innerHTML: data.inline_css
 		})
