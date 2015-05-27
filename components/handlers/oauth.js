@@ -114,7 +114,7 @@ function *middleware(next) {
 		});
 
 		this.mixpanel.track('user_login', {
-			distinct_id: user.oauth.uid
+			distinct_id: user.local.uid
 		});
 	} else {
 		user.local = yield usersDomain.createUser({
@@ -123,9 +123,18 @@ function *middleware(next) {
 		});
 
 		this.mixpanel.track('user_register', {
-			distinct_id: user.oauth.uid
-		})
+			distinct_id: user.local.uid
+		});
 	}
+
+	this.mixpanel.people.set(user.local.uid, {
+		'$first_name': user.local.name
+		, '$last_name': user.local.login
+		, '$created': user.local.created.toISOString()
+		, provider: user.local.provider
+		, action_point: user.local.action_point
+		, action_base: user.local.action_base
+	});
 
 	// STEP 7: update user session
 	yield sessionDomain.loginUser({
