@@ -48,7 +48,7 @@ module.exports = {
 	}
 	, version: {
 		css: 'v1.0.12'
-		, js: 'v1.0.12'
+		, js: 'v1.0.13'
 		, asset: 'v1.0.11'
 	}
 	, output: {

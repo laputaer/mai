@@ -8,6 +8,7 @@
 var oauthDomain = require('../domains/oauth');
 var usersDomain = require('../domains/users');
 var sessionDomain = require('../domains/session');
+var mixpanelDomain = require('../domains/mixpanel');
 var validate = require('../security/validation');
 var normalize = require('../security/normalization');
 var createError = require('../helpers/create-error-message');
@@ -113,8 +114,10 @@ function *middleware(next) {
 			, profile: user.oauth
 		});
 
-		this.mixpanel.track('user_login', {
-			distinct_id: user.local.uid
+		mixpanelDomain.userLogin({
+			mixpanel: this.mixpanel
+			, user: user.local
+			, request: this.request
 		});
 	} else {
 		user.local = yield usersDomain.createUser({
@@ -122,18 +125,17 @@ function *middleware(next) {
 			, profile: user.oauth
 		});
 
-		this.mixpanel.track('user_register', {
-			distinct_id: user.local.uid
+		mixpanelDomain.userRegister({
+			mixpanel: this.mixpanel
+			, user: user.local
+			, request: this.request
 		});
 	}
 
-	this.mixpanel.people.set(user.local.uid, {
-		'$first_name': user.local.name
-		, '$last_name': user.local.login
-		, '$created': user.local.created.toISOString()
-		, provider: user.local.provider
-		, action_point: user.local.action_point
-		, action_base: user.local.action_base
+	mixpanelDomain.updateUser({
+		mixpanel: this.mixpanel
+		, user: user.local
+		, request: this.request
 	});
 
 	// STEP 7: update user session
