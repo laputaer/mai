@@ -112,11 +112,19 @@ function *middleware(next) {
 			db: this.db
 			, profile: user.oauth
 		});
+
+		this.mixpanel.track('user_login', {
+			distinct_id: user.oauth.uid
+		});
 	} else {
 		user.local = yield usersDomain.createUser({
 			db: this.db
 			, profile: user.oauth
 		});
+
+		this.mixpanel.track('user_register', {
+			distinct_id: user.oauth.uid
+		})
 	}
 
 	// STEP 7: update user session

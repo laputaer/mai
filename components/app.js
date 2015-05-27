@@ -22,6 +22,7 @@ var renderer = require('./middlewares/template-renderer');
 var userSession = require('./middlewares/user-session');
 var sanitization = require('./middlewares/output-sanitization');
 var imageProxy = require('./middlewares/image-proxy');
+var eventAnalytics = require('./middlewares/event-analytics');
 
 var router = require('./router');
 var environment = require('./environment');
@@ -43,6 +44,7 @@ app.use(bodyparser()); // this.request.body
 app.use(session(config.session, app)); // this.session
 app.use(flash(config.flash)); // this.flash
 
+app.use(eventAnalytics()); // this.mixpanel
 app.use(i18nFactory(true)); // this.i18n, this.locale
 app.use(sanitization(true)); // this.xss
 app.use(db()); // this.db, this.cache
