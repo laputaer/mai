@@ -108,13 +108,13 @@ function partial(data) {
 
 	data.main = templates.club.profile(data);
 
-	data.page_title = data.club.title;
+	data.page_title = data.club.title + ' (' + data.club.slug + ')';
 	data.page_description = data.club.intro;
 
 	data.page_opengraph = {
-		title: data.club.title
+		title: data.page_title
 		, url: data.canonical_url
-		, image: data.club.full_avatar
+		, image: data.club.full_avatar + '&size=400'
 	};
 
 	return data;

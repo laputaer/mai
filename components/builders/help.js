@@ -18,5 +18,7 @@ module.exports = partial;
 function partial(data) {
 	data.main = templates.page.userManual(data);
 
+	data.page_title = data.i18n.t('menu.nav.help');
+
 	return data;
 };

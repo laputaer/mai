@@ -15,7 +15,7 @@ function template(data) {
 	var xss = data.xss;
 
 	// TODO: refactor into a standalone template
-	var title = data.page_title ? xss.data(data.page_title) + ' | ' : '';
+	var title = data.page_title ? xss.data(data.page_title) + ' - ' : '';
 	var description = data.page_description ? xss.attr(data.page_description) : i18n.t('common.description');
 
 	var og_title, og_url, og_image, og_type, og_site_name, og_description;
@@ -25,7 +25,7 @@ function template(data) {
 	if (data.page_opengraph) {
 		og_title = h('meta', {
 			property: 'og:title'
-			, content: xss.attr(data.page_opengraph.title) + ' | ' + i18n.t('common.title')
+			, content: xss.attr(data.page_opengraph.title) + ' - ' + i18n.t('common.title')
 		});
 		og_url = h('meta', {
 			property: 'og:url'
@@ -57,7 +57,7 @@ function template(data) {
 		});
 		t_title = h('meta', {
 			name: 'twitter:title'
-			, content: xss.attr(data.page_opengraph.title) + ' | ' + i18n.t('common.title')
+			, content: xss.attr(data.page_opengraph.title) + ' - ' + i18n.t('common.title')
 		});
 		t_description = h('meta', {
 			name: 'twitter:description'

@@ -60,5 +60,7 @@ function partial(data) {
 
 	data.main = templates.club.userHome(data);
 
+	data.page_title = i18n.t('menu.nav.club');
+
 	return data;
 };

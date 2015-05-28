@@ -17,6 +17,7 @@ module.exports = partial;
  */
 function partial(data) {
 	var flash = data.flash;
+	var i18n = data.i18n;
 	var xss = data.xss;
 
 	data.search_group = templates.common.formSearch({
@@ -40,6 +41,8 @@ function partial(data) {
 
 	data.club_form_error = templates.common.formError(data);
 	data.main = templates.club.searchClub(data);
+
+	data.page_title = i18n.t('club.search-club');
 
 	return data;
 };

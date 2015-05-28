@@ -26,5 +26,13 @@ function renderer(data) {
 
 	data.main = templates.user.profile(data);
 
+	data.page_title = data.user.name + ' (' + data.user.login + ')';
+
+	data.page_opengraph = {
+		title: data.page_title
+		, url: data.canonical_url
+		, image: data.user.full_avatar + '&size=400'
+	};
+
 	return data;
 };

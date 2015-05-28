@@ -56,5 +56,7 @@ function partial(data) {
 	data.post_preview = templates.club.postPreview(data);
 	data.main = templates.club.addConfirmForm(data);
 
+	data.page_title = i18n.t('club.confirm-post');
+
 	return data;
 };

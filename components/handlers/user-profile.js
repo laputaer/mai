@@ -5,6 +5,7 @@
  * Koa route handler for full user profile
  */
 
+var resolver = require('url').resolve;
 var parser = require('url').parse;
 
 var builder = require('../builders/index');
@@ -59,6 +60,7 @@ function *middleware(next) {
 		, base: this.state.base_url
 	});
 	data.user.user_origin = getUserOrigin(data.user);
+	data.canonical_url = resolver(data.current_url, data.current_path);
 
 	// STEP 4: user post
 	data.posts = yield clubsDomain.getUserPosts({

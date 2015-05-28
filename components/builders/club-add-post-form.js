@@ -43,5 +43,7 @@ function partial(data) {
 	data.club_form_error = templates.common.formError(data);
 	data.main = templates.club.addPostForm(data);
 
+	data.page_title = i18n.t('club.new-post');
+
 	return data;
 };

@@ -16,6 +16,7 @@ module.exports = partial;
  * @return  Object
  */
 function partial(data) {
+	var i18n = data.i18n;
 	var xss = data.xss;
 
 	data.ranking_result = data.clubs.map(function(club) {
@@ -30,6 +31,8 @@ function partial(data) {
 	});
 
 	data.main = templates.page.ranking(data);
+
+	data.page_title = i18n.t('menu.nav.ranking');
 
 	return data;
 };

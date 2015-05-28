@@ -70,5 +70,7 @@ function partial(data) {
 	data.club_form_error = templates.common.formError(data);
 	data.main = templates.club.editorForm(data);
 
+	data.page_title = i18n.t('club.edit-club');
+
 	return data;
 };
