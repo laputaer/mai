@@ -15,6 +15,7 @@ var clubsDomain = require('../domains/clubs');
 var getAvatarVariant = require('../helpers/get-avatar-variant');
 var getUserOrigin = require('../helpers/get-user-origin');
 var proxyUrl = require('../security/proxy');
+var createError = require('../helpers/create-error-message');
 
 module.exports = factory;
 
