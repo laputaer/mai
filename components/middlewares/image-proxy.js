@@ -10,7 +10,9 @@ var fetch = require('node-fetch');
 var sharp = require('sharp');
 var sendfile = require('koa-sendfile');
 var mime = require('mime-types');
+var parser = require('url').parse;
 
+var matchUrl = require('../helpers/match-url-pattern');
 var validate = require('../security/validation');
 
 module.exports = factory;
@@ -107,31 +109,20 @@ function *middleware(next) {
 	var ua = config.request.user_agent;
 	var url = input.url;
 	var referer;
-	for (var prop in config.fake_ua) {
-		if (config.fake_ua.hasOwnProperty(prop)) {
-			if (input.url.indexOf(prop) > -1) {
-				ua = config.fake_ua[prop];
-			}
-		}
+	var host = parser(url);
+	host = host.hostname;
+	var res;
+
+	if (res = matchUrl(host, config.fake_ua)) {
+		ua = res;
 	}
 
-	for (var prop in config.fake_url) {
-		if (config.fake_url.hasOwnProperty(prop)) {
-			if (input.url.indexOf(prop) > -1) {
-				url = url.replace(
-					config.fake_url[prop].target
-					, config.fake_url[prop].result
-				);
-			}
-		}
+	if (res = matchUrl(host, config.fake_url)) {
+		url = url.replace(res.target, res.result);
 	}
 
-	for (var prop in config.fake_referer) {
-		if (config.fake_referer.hasOwnProperty(prop)) {
-			if (input.url.indexOf(prop) > -1) {
-				referer = config.fake_referer[prop];
-			}
-		}
+	if (res = matchUrl(host, config.fake_referer)) {
+		referer = res;
 	}
 
 	// STEP 7: get remote image
