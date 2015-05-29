@@ -57,7 +57,7 @@ function tranform(input) {
 		input.site_name = url.hostname;
 	}
 
-	// description: trim, decode, shorten
+	// description: trim, decode, normalize whitespace, shorten
 	if (input.description) {
 		input.description = input.description.trim();
 
@@ -65,16 +65,20 @@ function tranform(input) {
 			isAttributeValue: true
 		});
 
-		if (input.site_name.length > 1020) {
-			input.site_name = input.site_name.substr(0, 1020) + '...';
+		input.description = input.description.replace(/\s/g, ' ');
+
+		if (input.description.length > 1020) {
+			input.description = input.description.substr(0, 1020) + '...';
 		}
 	}
 
-	// image: trim, decode
+	// image: trim, normalize whitespace, decode
 	if (input.image) {
 		input.image = input.image.map(function(image) {
 			if (image.url) {
 				image.url = image.url.trim();
+
+				image.url = image.url.replace(/\s/g, '%20');
 
 				image.url = he.decode(image.url, {
 					isAttributeValue: true
@@ -83,6 +87,8 @@ function tranform(input) {
 
 			if (image.secure_url) {
 				image.secure_url = image.secure_url.trim();
+
+				image.secure_url = image.secure_url.replace(/\s/g, '%20');
 
 				image.secure_url = he.decode(image.secure_url, {
 					isAttributeValue: true
@@ -93,11 +99,13 @@ function tranform(input) {
 		});
 	}
 
-	// video: trim, decode
+	// video: trim, normalize whitespace, decode
 	if (input.video) {
 		input.video = input.video.map(function(video) {
 			if (video.url) {
 				video.url = video.url.trim();
+
+				video.url = video.url.replace(/\s/g, '%20');
 
 				video.url = he.decode(video.url, {
 					isAttributeValue: true
@@ -106,6 +114,8 @@ function tranform(input) {
 
 			if (video.secure_url) {
 				video.secure_url = video.secure_url.trim();
+
+				video.secure_url = video.secure_url.replace(/\s/g, '%20');
 
 				video.secure_url = he.decode(video.secure_url, {
 					isAttributeValue: true
@@ -116,11 +126,13 @@ function tranform(input) {
 		});
 	}
 
-	// audio: trim, decode
+	// audio: trim, normalize whitespace, decode
 	if (input.audio) {
 		input.audio = input.audio.map(function(audio) {
 			if (audio.url) {
 				audio.url = audio.url.trim();
+
+				audio.url = audio.url.replace(/\s/g, '%20');
 
 				audio.url = he.decode(audio.url, {
 					isAttributeValue: true
@@ -129,6 +141,8 @@ function tranform(input) {
 
 			if (audio.secure_url) {
 				audio.secure_url = audio.secure_url.trim();
+
+				audio.secure_url = audio.secure_url.replace(/\s/g, '%20');
 
 				audio.secure_url = he.decode(audio.secure_url, {
 					isAttributeValue: true

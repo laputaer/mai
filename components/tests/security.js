@@ -342,5 +342,29 @@ describe('security', function() {
 			expect(result.image[0].url).to.equal('http://example.com/image.jpg?a=1&b=1');
 			expect(result.image[0].secure_url).to.equal('https://example.com/image.jpg?a=1&b=1');
 		});
+
+		it('should encode whitespace in image url', function *() {
+			input = {
+				image: [{
+					url: 'http://example.com/image name.jpg'
+					, secure_url: 'https://example.com/image name.jpg'
+				}]
+			};
+
+			result = yield normalize(input, 'opengraph');
+
+			expect(result.image[0].url).to.equal('http://example.com/image%20name.jpg');
+			expect(result.image[0].secure_url).to.equal('https://example.com/image%20name.jpg');
+		});
+
+		it('should strip whitespace in description', function *() {
+			input = {
+				description: '\nhi\rthere\t! man!'
+			};
+
+			result = yield normalize(input, 'opengraph');
+
+			expect(result.description).to.equal('hi there ! man!');
+		});
 	});
 });
