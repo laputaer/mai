@@ -20,5 +20,6 @@ module.exports = {
 	, login: require('./login')
 	, menu: require('./menu')
 	, placeholder: require('./placeholder')
+	, post: require('./post')
 	, simpleUser: require('./simple-user')
 };

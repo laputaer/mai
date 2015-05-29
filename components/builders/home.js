@@ -21,7 +21,7 @@ function partial(data) {
 	var xss = data.xss;
 
 	data.post_list = data.posts.map(function(post) {
-		return templates.club.postItemLink({
+		return templates.common.post({
 			post: post
 			, i18n: i18n
 			, xss: xss

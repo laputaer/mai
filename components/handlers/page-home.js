@@ -10,6 +10,7 @@ var parser = require('url').parse;
 var builder = require('../builders/index');
 var prepareData = require('../builders/prepare-data');
 var clubsDomain = require('../domains/clubs');
+var proxyUrl = require('../security/proxy');
 
 module.exports = factory;
 
@@ -33,6 +34,7 @@ function *middleware(next) {
 
 	// STEP 1: prepare common data
 	var data = prepareData(this);
+	var config = this.config;
 
 	// STEP 2: get latest posts
 	data.posts = yield clubsDomain.getPosts({
@@ -40,6 +42,16 @@ function *middleware(next) {
 	});
 
 	data.posts = data.posts.map(function(post) {
+		if (post.embed.image && post.embed.image.length > 0) {
+			post.embed.image = post.embed.image.map(function(image) {
+				return proxyUrl({
+					url: image.secure_url || image.url
+					, key: config.proxy.key
+					, base: data.base_url
+				});
+			});
+		}
+
 		if (post.embed.url) {
 			url = parser(post.embed.url);
 			post.embed.site_url = url.protocol + '//' + url.hostname + '/';
