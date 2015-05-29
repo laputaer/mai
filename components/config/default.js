@@ -67,7 +67,7 @@ module.exports = {
 	, fake_url: {
 		'pixiv.net': {
 			target: '150x150'
-			, result: '600x600'
+			, replaced: '600x600'
 		}
 	}
 	, fake_referer: {

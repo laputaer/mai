@@ -11,9 +11,13 @@ var sharp = require('sharp');
 var sendfile = require('koa-sendfile');
 var mime = require('mime-types');
 var parser = require('url').parse;
+var debug = require('debug')('mai:proxy');
 
 var matchUrl = require('../helpers/match-url-pattern');
 var validate = require('../security/validation');
+
+// TODO: support gif, need stream support from libvips 8+ or buffer image data
+var extensions = ['jpg', 'jpeg', 'png', 'webp'];
 
 module.exports = factory;
 
@@ -33,8 +37,6 @@ function factory(opts) {
  * @return  Void
  */
 function *middleware(next) {
-	var config = this.config;
-
 	// STEP 1: route matching
 	if (this.path.substr(0, 4) !== '/ip/') {
 		yield next;
@@ -46,23 +48,33 @@ function *middleware(next) {
 		return item !== '';
 	});
 
+	if (seg.length !== 2) {
+		this.status = 403;
+		this.body = 'invalid hash';
+		return;
+	}
+
+	// STEP 3: validate input
+	var config = this.config;
 	var input = {
-		hash: seg.length === 2 ? seg[1] : ''
+		hash: seg[1] || ''
 		, url: this.request.query.url || ''
 		, size: this.request.query.size || ''
 		, sizes: config.proxy.sizes
 		, key: config.proxy.key
 	};
 
-	this.set('X-Frame-Options', 'deny');
-	this.set('X-Content-Type-Options', 'nosniff');
-
-	// STEP 3: validate input
 	var result = yield validate(input, 'proxy');
 
 	if (!result.valid) {
 		this.status = 403;
-		this.body = 'invalid url, hash or size';
+		if (result.errors.size.length > 0) {
+			this.body = 'invalid size';
+		} else if (result.errors.url.length > 0) {
+			this.body = 'invalid url';
+		} else {
+			this.body = 'unknown error';
+		}
 		return;
 	}
 
@@ -70,65 +82,46 @@ function *middleware(next) {
 	var path = process.cwd() + '/cache/' + input.hash + '-' + input.size;
 	var ext;
 	try {
+		// load extension name and serve the actual image
 		ext = yield fs.readFile(path);
 		yield sendfile.call(this, path + '.' + ext);
 	} catch(err) {
 		// cache miss
-		this.app.emit('error', err, this);
+		debug(err);
 	}
 
 	if (this.status === 200 || this.status === 304) {
+		this.set('Cache-Control', ['public', 'max-age=604800']);
 		this.set('X-Cache', 'hit');
+		this.set('X-Frame-Options', 'deny');
+		this.set('X-Content-Type-Options', 'nosniff');
 		return;
 	}
 
-	// STEP 5: read error cache
-	var error_code;
-	path = process.cwd() + '/cache/' + input.hash + '-error';
-	try {
-		error_code = yield fs.readFile(path);
-		error_code = error_code.toString();
-	} catch(err) {
-		// error cache miss
-		this.app.emit('error', err, this);
-	}
-
-	if (error_code === '500') {
-		this.status = 500;
-		this.body = 'content not supported';
-		return;
-	}
-
-	if (error_code === '504') {
-		this.status = 504;
-		this.body = 'image not available';
-		return;
-	}
-
-	// STEP 6: generate user_agent, url, referer for specific domain
+	// STEP 5: generate user_agent, url, referer for specific domain
 	var ua = config.request.user_agent;
 	var url = input.url;
 	var referer;
-	var host = parser(url);
-	host = host.hostname;
-	var res;
+	var parsed_url = parser(url);
+	var host = parsed_url.hostname;
 
-	if (res = matchUrl(host, config.fake_ua)) {
-		ua = res;
+	if (result = matchUrl(host, config.fake_ua)) {
+		ua = result;
 	}
 
-	if (res = matchUrl(host, config.fake_url)) {
-		url = url.replace(res.target, res.result);
+	if (result = matchUrl(host, config.fake_url)) {
+		url = url.replace(result.target, result.replaced);
 	}
 
-	if (res = matchUrl(host, config.fake_referer)) {
-		referer = res;
+	if (result = matchUrl(host, config.fake_referer)) {
+		referer = result;
 	}
 
-	// STEP 7: get remote image
-	var res, ctype, ext;
+	debug('request started');
+
+	// STEP 6: start loading remote image
 	try {
-		res = yield fetch(url, {
+		result = yield fetch(url, {
 			headers: {
 				'User-Agent': ua
 				, 'Referer': referer
@@ -139,76 +132,102 @@ function *middleware(next) {
 		});
 	} catch(err) {
 		// fetch error
-		this.app.emit('error', err, this);
+		debug(err);
 	}
 
-	if (!res || !res.ok) {
-		path = process.cwd() + '/cache/' + input.hash + '-error';
-		yield fs.writeFile(path, '504');
+	debug('response started');
 
-		this.status = 504;
+	if (!result || !result.ok) {
+		this.status = 500;
 		this.body = 'image not available';
 		return;
 	}
 
-	if (res.ok) {
-		ctype = res.headers.get('content-type');
-		ext = mime.extension(ctype);
-	}
+	// STEP 7: buffer image when supported
+	var ctype = result.headers.get('content-type');
+	ext = mime.extension(ctype);
 
-	// limit content type
-	if (ext !== 'jpg' && ext !== 'png' && ext !== 'jpeg' && ext !== 'webp') {
-		path = process.cwd() + '/cache/' + input.hash + '-error';
-		yield fs.writeFile(path, '500');
-
+	if (extensions.indexOf(ext) === -1) {
 		this.status = 500;
-		this.body = 'content not supported';
+		this.body = 'image not supported';
 		return;
 	}
 
-	// STEP 8: resize image, write to cache
-	var p1 = sharp();
-	var size, done;
-	var self = this;
+	var image;
 	try {
-		// suppress invalid format error
-		p1.on('error', function(err) {
-			self.app.emit('error', err, self);
+		image = yield new Promise(function(resolve, reject) {
+			var rejected = false;
+			var length = 0;
+			var raw = [];
+
+			result.body.on('error', function(err) {
+				reject(err);
+			});
+
+			result.body.on('data', function(chunk) {
+				if (chunk === null || rejected) {
+					return;
+				}
+
+				length += chunk.length;
+
+				if (length > config.request.size) {
+					rejected = true;
+					reject(new Error('image too large'));
+					return;
+				}
+
+				raw.push(chunk);
+			});
+
+			result.body.on('end', function() {
+				if (rejected) {
+					return;
+				}
+
+				resolve(Buffer.concat(raw));
+			});
 		});
-		// pipe stream
-		res.body.pipe(p1);
-		// resize image and save to cache
-		size = parseInt(input.size, 10);
-		path = process.cwd() + '/cache/' + input.hash + '-' + input.size;
-		yield p1.limitInputPixels(1024 * 1024 * 10)
+	} catch(err) {
+		// buffer error
+		debug(err);
+	}
+
+	if (!image) {
+		this.status = 500;
+		this.body = 'image not valid';
+		return;
+	}
+
+	debug('image loaded');
+
+	// STEP 8: resize image and write to cache
+	var size = parseInt(input.size, 10);
+	try {
+		yield sharp(image)
+			.limitInputPixels(config.request.size)
 			.resize(size, size)
 			.quality(95)
 			.toFile(path + '.' + ext);
 		yield fs.writeFile(path, ext);
-		done = true;
 	} catch(err) {
-		// process error
-		this.app.emit('error', err, this);
-	}
-
-	if (!done) {
-		path = process.cwd() + '/cache/' + input.hash + '-error';
-		yield fs.writeFile(path, '500');
-
-		this.status = 500;
-		this.body = 'content not supported';
-		return;
+		// cache error
+		debug(err);
 	}
 
 	// STEP 9: read cache again
 	try {
 		yield sendfile.call(this, path + '.' + ext);
 	} catch(err) {
-		this.app.emit('error', err, this);
+		// unexpected error
+		debug(err);
 	}
 
 	if (this.status === 200 || this.status === 304) {
-		this.set('X-Cache', 'miss');
+		this.set('Cache-Control', ['public', 'max-age=604800']);
+		this.set('X-Cache', 'hit');
+		this.set('X-Frame-Options', 'deny');
+		this.set('X-Content-Type-Options', 'nosniff');
 		return;
 	}
 
