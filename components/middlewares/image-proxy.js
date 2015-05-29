@@ -91,7 +91,7 @@ function *middleware(next) {
 
 	if (this.status === 200 || this.status === 304) {
 		this.set('Cache-Control', ['public', 'max-age=604800']);
-		this.set('X-Cache', 'hit');
+		this.set('X-Mai-Cache', 'hit');
 		this.set('X-Frame-Options', 'deny');
 		this.set('X-Content-Type-Options', 'nosniff');
 		return;
@@ -186,7 +186,7 @@ function *middleware(next) {
 
 	if (this.status === 200 || this.status === 304) {
 		this.set('Cache-Control', ['public', 'max-age=604800']);
-		this.set('X-Cache', 'miss');
+		this.set('X-Mai-Cache', 'miss');
 		this.set('X-Frame-Options', 'deny');
 		this.set('X-Content-Type-Options', 'nosniff');
 		return;
