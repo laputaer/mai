@@ -158,6 +158,7 @@ function *middleware(next) {
 		image = yield new Promise(function(resolve, reject) {
 			var rejected = false;
 			var length = 0;
+			var start = Date.now();
 			var raw = [];
 
 			result.body.on('error', function(err) {
@@ -166,6 +167,12 @@ function *middleware(next) {
 
 			result.body.on('data', function(chunk) {
 				if (chunk === null || rejected) {
+					return;
+				}
+
+				if (Date.now() - start > config.request.timeout) {
+					rejected = true;
+					reject(new Error('image request timeout'));
 					return;
 				}
 
@@ -195,7 +202,7 @@ function *middleware(next) {
 
 	if (!image) {
 		this.status = 500;
-		this.body = 'image not valid';
+		this.body = 'image not loaded';
 		return;
 	}
 
@@ -219,13 +226,13 @@ function *middleware(next) {
 	try {
 		yield sendfile.call(this, path + '.' + ext);
 	} catch(err) {
-		// unexpected error
+		// cache miss
 		debug(err);
 	}
 
 	if (this.status === 200 || this.status === 304) {
 		this.set('Cache-Control', ['public', 'max-age=604800']);
-		this.set('X-Cache', 'hit');
+		this.set('X-Cache', 'miss');
 		this.set('X-Frame-Options', 'deny');
 		this.set('X-Content-Type-Options', 'nosniff');
 		return;
