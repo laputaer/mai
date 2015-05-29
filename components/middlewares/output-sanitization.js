@@ -7,11 +7,21 @@
 
 var xss = require('xss-filters');
 var filters = {
-	data: xss.inHTMLData
-	, attr: xss.inDoubleQuotedAttr
-	, url: xss.uriInDoubleQuotedAttr
-	, path: xss.uriPathInDoubleQuotedAttr
-	, encode: xss.uriComponentInDoubleQuotedAttr
+	data: function(input) {
+		return xss.inHTMLData(input);
+	}
+	, attr: function(input) {
+		return xss.inDoubleQuotedAttr(input);
+	}
+	, url: function(input) {
+		return xss.uriInDoubleQuotedAttr(decodeURI(input));
+	}
+	, path: function(input) {
+		return xss.uriPathInDoubleQuotedAttr(input);
+	}
+	, encode: function(input) {
+		return xss.uriComponentInDoubleQuotedAttr(input);
+	}
 };
 
 module.exports = factory;

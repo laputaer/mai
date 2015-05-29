@@ -1,6 +1,6 @@
 
 /**
- * post.js
+ * preview.js
  *
  * Template for post content in general
  */

@@ -20,6 +20,6 @@ module.exports = {
 	, login: require('./login')
 	, menu: require('./menu')
 	, placeholder: require('./placeholder')
-	, post: require('./post')
+	, preview: require('./preview')
 	, simpleUser: require('./simple-user')
 };

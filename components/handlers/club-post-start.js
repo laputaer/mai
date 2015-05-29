@@ -13,6 +13,7 @@ var mixpanelDomain = require('../domains/mixpanel');
 var validate = require('../security/validation');
 var normalize = require('../security/normalization');
 var formError = require('../helpers/create-form-message');
+var debug = require('debug')('mai:post');
 
 module.exports = factory;
 
@@ -152,10 +153,16 @@ function *middleware(next) {
 		return;
 	}
 
+	debug(embed);
+
 	// STEP 9: normalize and validate data
 	embed = normalize(embed, 'opengraph');
 
+	debug(embed);
+
 	result = yield validate(embed, 'opengraph');
+
+	debug(result);
 
 	if (!result.valid) {
 		this.flash = formError(
