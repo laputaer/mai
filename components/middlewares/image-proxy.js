@@ -16,8 +16,7 @@ var debug = require('debug')('mai:proxy');
 var matchUrl = require('../helpers/match-url-pattern');
 var validate = require('../security/validation');
 
-// TODO: support gif, need stream support from libvips 8+ or buffer image data
-var extensions = ['jpg', 'jpeg', 'png', 'webp'];
+var extensions = ['jpeg', 'png', 'webp', 'gif'];
 
 module.exports = factory;
 
@@ -143,7 +142,7 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 7: buffer image when supported
+	// STEP 7: limit image type to common format
 	var ctype = result.headers.get('content-type');
 	ext = mime.extension(ctype);
 
@@ -153,68 +152,23 @@ function *middleware(next) {
 		return;
 	}
 
-	var image;
-	try {
-		image = yield new Promise(function(resolve, reject) {
-			var rejected = false;
-			var length = 0;
-			var start = Date.now();
-			var raw = [];
-
-			result.body.on('error', function(err) {
-				reject(err);
-			});
-
-			result.body.on('data', function(chunk) {
-				if (chunk === null || rejected) {
-					return;
-				}
-
-				if (Date.now() - start > config.request.timeout) {
-					rejected = true;
-					reject(new Error('image request timeout'));
-					return;
-				}
-
-				length += chunk.length;
-
-				if (length > config.request.size) {
-					rejected = true;
-					reject(new Error('image too large'));
-					return;
-				}
-
-				raw.push(chunk);
-			});
-
-			result.body.on('end', function() {
-				if (rejected) {
-					return;
-				}
-
-				resolve(Buffer.concat(raw));
-			});
-		});
-	} catch(err) {
-		// buffer error
-		debug(err);
+	// gif output is not supported, normalized to jpeg
+	if (ext === 'gif') {
+		ext = 'jpeg';
 	}
-
-	if (!image) {
-		this.status = 500;
-		this.body = 'image not loaded';
-		return;
-	}
-
-	debug('image loaded');
 
 	// STEP 8: resize image and write to cache
 	var size = parseInt(input.size, 10);
+	var s1 = sharp();
 	try {
-		yield sharp(image)
-			.limitInputPixels(config.request.size)
+		s1.on('error', function(err) {
+			debug(err);
+		});
+		result.body.pipe(s1);
+		yield s1.limitInputPixels(config.request.size)
 			.resize(size, size)
 			.quality(95)
+			.toFormat(ext)
 			.toFile(path + '.' + ext);
 		yield fs.writeFile(path, ext);
 	} catch(err) {
