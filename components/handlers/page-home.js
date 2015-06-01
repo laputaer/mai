@@ -49,7 +49,7 @@ function *middleware(next) {
 					, key: config.proxy.key
 					, base: data.base_url
 				});
-			});
+			}).slice(0, 4);
 		}
 
 		if (post.embed.url) {

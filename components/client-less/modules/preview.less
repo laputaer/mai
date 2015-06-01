@@ -2,5 +2,44 @@
 // preview.less - reusable preview display box
 
 .m-preview {
+	.m-meta {
+		border: 1px solid @color-gray;
+		border-top: 0;
+		overflow: hidden;
+	}
 
+	.m-images {
+		display: block;
+		overflow: hidden;
+		margin: 1em 0 0;
+
+		.m-image {
+			position: relative;
+			float: left;
+			width: 100%;
+			padding-bottom: 100%;
+			background-color: @color-gray-pastel;
+			display: none;
+
+			img {
+				position: absolute;
+				width: 100%;
+			}
+
+			&:first-child {
+				display: block;
+
+				img {
+					border-radius: 20px 20px 0 0;
+				}
+			}
+		}
+
+		@media @tablet {
+			.m-image {
+				width: 25%;
+				padding-bottom: 25%;
+			}
+		}
+	}
 }
