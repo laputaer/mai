@@ -366,5 +366,20 @@ describe('security', function() {
 
 			expect(result.description).to.equal('hi there ! man!');
 		});
+
+		it('should resolve relative image url', function *() {
+			input = {
+				url: 'https://example.com/'
+				, image: [{
+					url: '//example.com/image.jpg'
+					, secure_url: '//example.com/image.jpg'
+				}]
+			};
+
+			result = yield normalize(input, 'opengraph');
+
+			expect(result.image[0].url).to.equal('https://example.com/image.jpg');
+			expect(result.image[0].secure_url).to.equal('https://example.com/image.jpg');
+		});
 	});
 });

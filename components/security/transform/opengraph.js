@@ -7,6 +7,7 @@
 
 var he = require('he');
 var parser = require('url').parse;
+var resolver = require('url').resolve;
 
 module.exports = tranform;
 
@@ -72,85 +73,65 @@ function tranform(input) {
 		}
 	}
 
-	// image: trim, normalize whitespace, decode
+	// image: mediaTranform
 	if (input.image) {
-		input.image = input.image.map(function(image) {
-			if (image.url) {
-				image.url = image.url.trim();
-
-				image.url = image.url.replace(/\s/g, '%20');
-
-				image.url = he.decode(image.url, {
-					isAttributeValue: true
-				});
-			}
-
-			if (image.secure_url) {
-				image.secure_url = image.secure_url.trim();
-
-				image.secure_url = image.secure_url.replace(/\s/g, '%20');
-
-				image.secure_url = he.decode(image.secure_url, {
-					isAttributeValue: true
-				});
-			}
-
-			return image;
+		input.image = input.image.map(function(item) {
+			return mediaTranform(item, input.url);
 		});
 	}
 
-	// video: trim, normalize whitespace, decode
+	// video: mediaTranform
 	if (input.video) {
-		input.video = input.video.map(function(video) {
-			if (video.url) {
-				video.url = video.url.trim();
-
-				video.url = video.url.replace(/\s/g, '%20');
-
-				video.url = he.decode(video.url, {
-					isAttributeValue: true
-				});
-			}
-
-			if (video.secure_url) {
-				video.secure_url = video.secure_url.trim();
-
-				video.secure_url = video.secure_url.replace(/\s/g, '%20');
-
-				video.secure_url = he.decode(video.secure_url, {
-					isAttributeValue: true
-				});
-			}
-
-			return video;
+		input.video = input.video.map(function(item) {
+			return mediaTranform(item, input.url);
 		});
 	}
 
-	// audio: trim, normalize whitespace, decode
+	// audio: mediaTranform
 	if (input.audio) {
-		input.audio = input.audio.map(function(audio) {
-			if (audio.url) {
-				audio.url = audio.url.trim();
-
-				audio.url = audio.url.replace(/\s/g, '%20');
-
-				audio.url = he.decode(audio.url, {
-					isAttributeValue: true
-				});
-			}
-
-			if (audio.secure_url) {
-				audio.secure_url = audio.secure_url.trim();
-
-				audio.secure_url = audio.secure_url.replace(/\s/g, '%20');
-
-				audio.secure_url = he.decode(audio.secure_url, {
-					isAttributeValue: true
-				});
-			}
-
-			return audio;
+		input.audio = input.audio.map(function(item) {
+			return mediaTranform(item, input.url);
 		});
+	}
+
+	return input;
+};
+
+/**
+ * Transform media object
+ *
+ * @param   Object  input  Media object
+ * @param   String  base   Source url
+ * @return  Object         Transformed media object
+ */
+function mediaTranform(input, url) {
+	// trim, normalize whitespace, decode
+	if (input.url) {
+		input.url = input.url.trim();
+
+		input.url = input.url.replace(/\s/g, '%20');
+
+		input.url = he.decode(input.url, {
+			isAttributeValue: true
+		});
+
+		if (url && input.url.substr(0, 4) !== 'http') {
+			input.url = resolver(url, input.url);
+		}
+	}
+
+	if (input.secure_url) {
+		input.secure_url = input.secure_url.trim();
+
+		input.secure_url = input.secure_url.replace(/\s/g, '%20');
+
+		input.secure_url = he.decode(input.secure_url, {
+			isAttributeValue: true
+		});
+
+		if (url && input.secure_url.substr(0, 5) !== 'https') {
+			input.secure_url = resolver(url, input.secure_url);
+		}
 	}
 
 	return input;

@@ -268,7 +268,7 @@ describe('domains', function() {
 
 				result = yield embed.getOpenGraphProfile(input);
 
-				// note that we normalize url, title, type when they are missing
+				// note that we normalize url, title, type when they are missing or invalid
 				expect(result).to.have.all.keys(
 					'image'
 					, 'url'

@@ -150,8 +150,10 @@ function getOpenGraphProfile(opts) {
 			og[temp.root].push(temp.group);
 		}
 
-		// og:url missing, we append input url to opengraph object
+		// og:url missing or not absolute, we append input url to opengraph object
 		if (!og.url) {
+			og.url = url;
+		} else if (og.url.substr(0, 4) !== 'http') {
 			og.url = url;
 		}
 
