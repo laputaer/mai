@@ -5,18 +5,46 @@
 	.m-meta {
 		border: 1px solid @color-gray;
 		border-radius: 20px;
+		padding: 1em;
 		overflow: hidden;
-		padding: 0.5em;
 
 		.m-title {
 			margin: 0;
 			font-weight: 300;
-			.size(22);
+			.size(20);
 		}
 
 		.m-summary {
+			overflow: hidden;
+		}
+
+		.m-quote {
+			position: relative;
+			border-radius: 10px;
+			background-color: @color-green-pastel;
+			color: @color-green-dark;
+			padding: 1em;
+			margin: 1em 0 2em;
 			font-weight: 400;
 			.size(16);
+
+			&:after {
+				content: "";
+				position: absolute;
+				left: 20px;
+				bottom: -20px;
+				width: 0;
+				height: 0;
+				border-top: 20px solid @color-green-pastel;
+				border-left: 10px solid transparent;
+				border-right: 10px solid transparent;
+			}
+		}
+
+		.m-author {
+			margin: 0;
+			color: @color-gray-dark;
+			.size(14);
 		}
 	}
 

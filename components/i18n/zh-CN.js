@@ -140,6 +140,7 @@ module.exports = {
 		, 'activity-item-1': '在社团'
 		, 'activity-item-2': '上分享了'
 		, 'activity-item-3': '的内容'
+		, 'posted-on': '发布在'
 		, 'ranking-result': '今日社团排名'
 		, 'home-result': '今日社团更新'
 		, 'user-result': '用户近期更新'

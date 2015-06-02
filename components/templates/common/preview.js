@@ -46,13 +46,28 @@ function template(data) {
 	var title;
 	if (post.title) {
 		// no need for xss filter, we consider title as pure text
-		title = h('p.m-title', post.title);
+		title = h('h2.m-title', post.title);
 	}
 
 	var summary;
 	if (post.summary) {
 		// no need for xss filter, we consider summary as pure text
-		summary = h('p.m-summary', post.summary);
+		summary = h('div.m-summary', [
+			h('p.m-quote', post.summary)
+			, h('p.m-author', [
+				h('a.m-link', {
+					href: '/u/' + post.user
+				}, [
+					h('span.m-text', post.user_name)
+				])
+				, h('span', i18n.t('club.posted-on'))
+				, h('a.m-link', {
+					href: '/c/' + post.club
+				}, [
+					h('span.m-text', post.club_name)
+				])
+			])
+		]);
 	}
 
 	var item = h('div.m-preview', [
