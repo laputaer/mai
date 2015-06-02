@@ -44,18 +44,17 @@ function *middleware(next) {
 
 	data.posts = data.posts.map(function(post) {
 		if (post.embed.image && post.embed.image.length > 0) {
-			post.embed.image = post.embed.image.map(function(image) {
-				return proxyUrl({
-					url: image.secure_url || image.url
-					, key: config.proxy.key
-					, base: state.image_base_url
-				});
-			}).slice(0, 1);
+			post.embed.image = post.embed.image[0];
+			post.embed.image.url = proxyUrl({
+				url: post.embed.image.secure_url || post.embed.image.url
+				, key: config.proxy.key
+				, base: state.image_base_url
+			});
 		}
 
 		if (post.embed.url) {
 			url = parser(post.embed.url);
-			post.embed.site_url = url.protocol + '//' + url.hostname + '/';
+			post.embed.domain = url.hostname;
 		}
 
 		return post;
