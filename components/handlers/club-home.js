@@ -62,7 +62,7 @@ function *middleware(next) {
 		data.club.full_avatar = proxyUrl({
 			url: data.club.embed.image[0].url
 			, key: config.proxy.key
-			, base: state.base_url
+			, base: state.image_base_url
 		});
 		data.club.avatar_source = data.club.embed.url;
 		url = parser(data.club.embed.url);
@@ -105,7 +105,7 @@ function *middleware(next) {
 				return proxyUrl({
 					url: image.secure_url || image.url
 					, key: config.proxy.key
-					, base: state.base_url
+					, base: state.image_base_url
 				});
 			});
 		}

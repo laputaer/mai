@@ -61,7 +61,7 @@ function *middleware(next) {
 			url: getAvatarVariant(user, 400)
 			, key: this.config.proxy.key
 			, size: 100
-			, base: this.state.base_url
+			, base: this.state.image_base_url
 		});
 		this.state.user = user;
 	}

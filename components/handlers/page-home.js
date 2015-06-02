@@ -35,6 +35,7 @@ function *middleware(next) {
 	// STEP 1: prepare common data
 	var data = prepareData(this);
 	var config = this.config;
+	var state = this.state;
 
 	// STEP 2: get latest posts
 	data.posts = yield clubsDomain.getPosts({
@@ -47,7 +48,7 @@ function *middleware(next) {
 				return proxyUrl({
 					url: image.secure_url || image.url
 					, key: config.proxy.key
-					, base: data.base_url
+					, base: state.image_base_url
 				});
 			}).slice(0, 4);
 		}

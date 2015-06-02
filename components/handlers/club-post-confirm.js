@@ -98,7 +98,7 @@ function *middleware(next) {
 			return proxyUrl({
 				url: url
 				, key: config.proxy.key
-				, basE: state.base_url
+				, basE: state.image_base_url
 			});
 		});
 	}

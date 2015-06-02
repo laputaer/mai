@@ -49,6 +49,12 @@ function factory(app) {
 			this.state.production = false;
 		}
 
+		if (this.config.server.image_base_url) {
+			this.state.image_base_url = this.config.server.image_base_url;
+		} else {
+			this.state.image_base_url = this.state.base_url;
+		}
+
 		if (inline_css) {
 			this.state.inline_css = inline_css;
 		} else {

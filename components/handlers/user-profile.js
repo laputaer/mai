@@ -58,7 +58,7 @@ function *middleware(next) {
 	data.user.full_avatar = proxyUrl({
 		url: getAvatarVariant(data.user, 400)
 		, key: this.config.proxy.key
-		, base: this.state.base_url
+		, base: this.state.image_base_url
 	});
 	data.user.user_origin = getUserOrigin(data.user);
 	data.canonical_url = resolver(data.current_url, data.current_path);
