@@ -58,19 +58,32 @@ function template(data) {
 	var item = h('div.m-preview', [
 		images
 		, h('div.m-meta', [
-			title
+			h('p.m-external', [
+				h('a.m-link.external', {
+					// url is protocol safe, usually encoded
+					href: embed.url
+					, target: '_blank'
+				}, [
+					h('span', embed.site_name)
+				])
+			])
+			, title
 			, summary
 			, h('p.m-author', [
 				h('a.m-link', {
+					// user id is safe
 					href: '/u/' + post.user
 				}, [
-					h('span.m-text', post.user_name)
+					// pure text string
+					h('span', post.user_name)
 				])
 				, h('span', i18n.t('club.posted-on'))
 				, h('a.m-link', {
+					// club id is safe
 					href: '/c/' + post.club
 				}, [
-					h('span.m-text', post.club_name)
+					// pure text string
+					h('span', post.club_name)
 				])
 			])
 		])
