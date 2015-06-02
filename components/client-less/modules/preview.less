@@ -4,13 +4,19 @@
 .m-preview {
 	.m-meta {
 		border: 1px solid @color-gray;
-		border-top: 0;
-		border-radius: 0 0 20px 20px;
+		border-radius: 20px;
 		overflow: hidden;
+		padding: 0.5em;
 
 		.m-title {
-			font-weight: 100;
-			.size(20);
+			margin: 0;
+			font-weight: 300;
+			.size(22);
+		}
+
+		.m-summary {
+			font-weight: 400;
+			.size(16);
 		}
 	}
 
@@ -31,7 +37,7 @@
 
 			img {
 				position: absolute;
-				top: -20%;
+				top: -40%;
 				width: 100%;
 			}
 
@@ -43,5 +49,10 @@
 		@media @tablet {
 
 		}
+	}
+
+	.m-images + .m-meta {
+		border-top: 0;
+		border-radius: 0 0 20px 20px;
 	}
 }

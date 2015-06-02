@@ -50,7 +50,7 @@ function *middleware(next) {
 					, key: config.proxy.key
 					, base: state.image_base_url
 				});
-			}).slice(0, 4);
+			}).slice(0, 1);
 		}
 
 		if (post.embed.url) {
