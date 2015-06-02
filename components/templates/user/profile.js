@@ -35,10 +35,11 @@ function template(data) {
 				h('p.m-title', xss.data(user.name))
 				, h('p.m-owner', [
 					h('span', i18n.t('user.oauth-origin'))
-					, h('a.m-link', {
+					, h('a.m-link.external', {
 						href: xss.url(user.user_origin)
+						, target: '_blank'
 					}, [
-						h('span.m-text.cap', xss.data(user.provider))
+						h('span.m-text.m-cap', xss.data(user.provider))
 					])
 				])
 				, h('p.m-stat', [

@@ -6,6 +6,7 @@
 
 .m-link {
 	.link(@color-blue);
+	margin: 0 0.25em;
 
 	&.external {
 		.link(@color-yellow-dark);
@@ -13,14 +14,21 @@
 
 	.m-text {
 		vertical-align: top;
-		margin: 0 0.25em;
+	}
 
-		&.cap {
-			text-transform: capitalize;
-		}
+	.m-cap {
+		text-transform: capitalize;
+	}
 
-		&.en {
-			font-family: @sans-en;
-		}
+	.m-latin {
+		font-family: @sans-en;
+	}
+
+	&:first-child {
+		margin-left: 0;
+	}
+
+	&:last-child {
+		margin-right: 0;
 	}
 }

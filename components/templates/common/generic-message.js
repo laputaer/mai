@@ -28,7 +28,7 @@ function template(data) {
 				href: 'https://twitter.com/bitinn'
 				, target: '_blank'
 			}, [
-				h('span.m-text.en', '@bitinn')
+				h('span.m-text.m-latin', '@bitinn')
 			])
 		])
 		, h('p.m-line', [
