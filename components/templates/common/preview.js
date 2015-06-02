@@ -52,8 +52,14 @@ function template(data) {
 	var summary;
 	if (post.summary) {
 		// no need for xss filter, we consider summary as pure text
-		summary = h('div.m-summary', [
-			h('p.m-quote', post.summary)
+		summary = h('p.m-quote', post.summary);
+	}
+
+	var item = h('div.m-preview', [
+		images
+		, h('div.m-meta', [
+			title
+			, summary
 			, h('p.m-author', [
 				h('a.m-link', {
 					href: '/u/' + post.user
@@ -67,14 +73,6 @@ function template(data) {
 					h('span.m-text', post.club_name)
 				])
 			])
-		]);
-	}
-
-	var item = h('div.m-preview', [
-		images
-		, h('div.m-meta', [
-			title
-			, summary
 		])
 	]);
 
