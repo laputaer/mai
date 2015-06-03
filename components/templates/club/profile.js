@@ -50,7 +50,7 @@ function template(data) {
 	if (club.embed) {
 		author = h('p.m-copyright', [
 			h('span', i18n.t('club.image-source'))
-			, h('a.m-link', {
+			, h('a.m-link.external', {
 				target: '_blank'
 				, href: xss.url(club.avatar_source)
 			}, [
