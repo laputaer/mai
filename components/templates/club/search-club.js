@@ -38,7 +38,7 @@ function template(data) {
 					search: xss.data(data.search)
 					, count: data.search_result.length || 0
 				}))
-				, h('div.m-grid', data.search_result)
+				, h('div.m-list', data.search_result)
 			])
 		])
 	]);

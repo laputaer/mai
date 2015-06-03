@@ -29,14 +29,11 @@ function partial(data) {
 	});
 
 	data.search_result = data.clubs.map(function(club) {
-		var button = {
-			href: '/c/' + xss.path(club.slug)
-			, icon: 'arrow_right'
-			, text: xss.data(club.title)
-			, version: data.version.asset
-			, base_url: data.base_url
-		};
-		return templates.common.button(button);
+		return templates.common.clubPreview({
+			club: club
+			, i18n: i18n
+			, xss: xss
+		});
 	});
 
 	data.club_form_error = templates.common.formError(data);

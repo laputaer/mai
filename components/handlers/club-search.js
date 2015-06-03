@@ -12,6 +12,7 @@ var prepareData = require('../builders/prepare-data');
 var clubsDomain = require('../domains/clubs');
 var validate = require('../security/validation');
 var formError = require('../helpers/create-form-message');
+var proxyUrl = require('../security/proxy');
 
 module.exports = factory;
 
@@ -36,6 +37,8 @@ function *middleware(next) {
 	// STEP 1: prepare common data
 	var data = prepareData(this);
 	var query = this.request.query;
+	var config = this.config;
+	var state = this.state;
 
 	// STEP 2: input validation
 	var result = yield validate(query, 'search');
@@ -65,6 +68,31 @@ function *middleware(next) {
 		, search: escapeRegex(query.q)
 	});
 
+	data.clubs = data.clubs.map(function(club) {
+		return clubPreviewOutput(club, config, state);
+	});
+
 	// STEP 5: render page
 	this.state.vdoc = builder(data);
+};
+
+/**
+ * Prepare club preview output
+ *
+ * @param   Object  club    Club profile
+ * @param   Object  config  Global config
+ * @param   Object  state   View state
+ * @return  Object          Update club profile
+ */
+function clubPreviewOutput(club, config, state) {
+	if (club.embed && club.embed.image && club.embed.image.length > 0) {
+		club.embed.image = club.embed.image[0];
+		club.embed.image.url = proxyUrl({
+			url: club.embed.image.secure_url || club.embed.image.url
+			, key: config.proxy.key
+			, base: state.image_base_url
+		});
+	}
+
+	return club;
 };

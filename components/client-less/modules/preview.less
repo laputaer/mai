@@ -180,10 +180,11 @@
 
 .m-club-preview {
 	display: flex;
+	align-items: center;
 
 	.m-meta {
 		flex: 1;
-		padding: 1em;
+		padding: 0.5em 1em;
 		overflow: hidden;
 
 		.m-title {
@@ -193,7 +194,7 @@
 		}
 
 		.m-stat {
-			margin: 1em 0 0;
+			margin: 0.5em 0 0;
 			color: @color-gray-dark;
 			.size(14);
 		}
@@ -208,21 +209,35 @@
 		border-radius: 20px;
 		overflow: hidden;
 		position: relative;
-		width: 200px;
+		width: 100px;
 		height: 100px;
 		background-color: @color-gray;
 		display: block;
 
 		img {
 			position: absolute;
-			top: -40%;
+			top: 0;
 			width: 100%;
 		}
 	}
 
-	@media @tablet {
+	@media @mobile-large {
+		.m-image {
+			width: 150px;
+
+			img {
+				top: -20%;
+			}
+		}
+	}
+
+	@media @tablet-small {
 		width: 50%;
 		float: left;
 		box-sizing: border-box;
+	}
+
+	@media @monitor-small {
+		width: 33%;
 	}
 }
