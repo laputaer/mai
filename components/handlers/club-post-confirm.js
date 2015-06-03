@@ -93,7 +93,7 @@ function *middleware(next) {
 
 	// STEP 6: transform opengraph data for output
 	if (data.embed.image && data.embed.image.length > 0) {
-		data.embed.image = data.embed.image.map(function(img) {
+		data.embed.image = data.embed.image.slice(0, 4).map(function(img) {
 			var url = img.secure_url || img.url;
 			return proxyUrl({
 				url: url
@@ -104,8 +104,8 @@ function *middleware(next) {
 	}
 
 	if (data.embed.url) {
-		data.embed.site_url = parser(data.embed.url);
-		data.embed.site_url = data.embed.site_url.protocol + '//' + data.embed.site_url.hostname + '/';
+		url = parser(data.embed.url);
+		data.embed.domain = url.hostname;
 	}
 
 	// STEP 7: render page
