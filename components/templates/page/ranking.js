@@ -22,7 +22,7 @@ function template(data) {
 		h('div.m-content.m-row-2', [
 			h('div.m-section.green', [
 				h('h1.m-subtitle', i18n.t('club.ranking-result'))
-				, h('div.m-grid', data.ranking_result)
+				, h('div.m-list', data.ranking_result)
 			])
 		])
 	]);

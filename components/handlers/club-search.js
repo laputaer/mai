@@ -12,6 +12,7 @@ var prepareData = require('../builders/prepare-data');
 var clubsDomain = require('../domains/clubs');
 var validate = require('../security/validation');
 var formError = require('../helpers/create-form-message');
+var getCoolInitials = require('../helpers/get-cool-initials');
 var proxyUrl = require('../security/proxy');
 
 module.exports = factory;
@@ -93,6 +94,8 @@ function clubPreviewOutput(club, config, state) {
 			, base: state.image_base_url
 		});
 	}
+
+	club.initials = getCoolInitials(club.title);
 
 	return club;
 };

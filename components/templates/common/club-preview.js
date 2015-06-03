@@ -40,6 +40,10 @@ function template(data) {
 				}
 			})
 		]);
+	} else {
+		image = h('div.m-image.initials', [
+			h('span.m-letter', club.initials)
+		]);
 	}
 
 	var title;

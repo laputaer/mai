@@ -214,6 +214,17 @@
 		background-color: @color-gray;
 		display: block;
 
+		&.initials {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+
+			.m-letter {
+				color: @color-gray-dark;
+				.size(36);
+			}
+		}
+
 		img {
 			position: absolute;
 			top: 0;
