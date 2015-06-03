@@ -22,6 +22,8 @@
 
 		.m-quote {
 			display: inline-block;
+			box-sizing: border-box;
+			max-width: 100%;
 			position: relative;
 			border-radius: 10px;
 			background-color: @color-green-pastel;
@@ -83,19 +85,28 @@
 		}
 	}
 
+	@media screen and (min-width: 550px) {
+		.m-image {
+			padding-bottom: 40%;
+
+			img {
+				top: -60%;
+			}
+		}
+	}
+
 	@media @tablet-small {
 		overflow: hidden;
 		display: flex;
 
 		.m-meta {
 			flex: 1;
-			max-height: 200px;
-			overflow: hidden;
-			box-sizing: border-box;
+			border: 0;
+			border-radius: 0;
 		}
 
 		.m-image {
-			border-radius: 20px 0 0 20px;
+			border-radius: 20px;
 			width: 200px;
 			height: 200px;
 			padding-bottom: 0;
@@ -103,12 +114,6 @@
 			img {
 				top: auto;
 			}
-		}
-
-		.m-image + .m-meta {
-			border-top: 1px solid @color-gray;
-			border-left: 0;
-			border-radius: 0 20px 20px 0;
 		}
 
 		&.small {

@@ -53,8 +53,12 @@
 				background-color: darken(@white, 2%);
 			}
 
-			.m-preview {
+			.m-preview + .m-preview {
 				margin: 1.5em 0;
+
+				@media @tablet-small {
+					margin: 3em 0;
+				}
 			}
 		}
 
