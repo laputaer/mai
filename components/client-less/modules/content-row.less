@@ -41,16 +41,12 @@
 			border-radius: 10px;
 			overflow: hidden;
 
-			.m-post {
-				padding: 1em;
-			}
+			.m-post + .m-post {
+				margin: 1.5em 0;
 
-			.m-post:nth-child(even) {
-				background-color: @white;
-			}
-
-			.m-post:nth-child(odd) {
-				background-color: darken(@white, 2%);
+				@media @tablet-small {
+					margin: 3em 0;
+				}
 			}
 
 			.m-preview + .m-preview {

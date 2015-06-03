@@ -2,77 +2,95 @@
 // post.less - reusable post display box
 
 .m-post {
-	display: block;
-	width: 100%;
-	box-sizing: border-box;
+	border-radius: 20px;
+	padding: 1em;
 
-	.m-title {
-		margin: 0;
-		font-weight: 300;
-		line-height: 1.4em;
-		.size(20);
-
-		&:before {
-			content: '';
-			display: inline-block;
-			width: 1em;
-			height: 1em;
-			border-radius: 50%;
-			margin-right: 0.25em;
-			vertical-align: text-top;
-			background-color: @color-green-pastel;
-		}
+	&:nth-child(odd) {
+		background-color: darken(@white, 2%);
 	}
 
-	.m-summary {
-		margin: 0.5em 0;
-		line-height: 1.5em;
-		.size(16);
+	&:nth-child(even) {
+		background-color: darken(@white, 0%);
 	}
 
-	.m-images {
-		display: block;
+	.m-meta {
+		padding: 1em 0;
 		overflow: hidden;
-		margin: 1em 0 0;
 
-		.m-image {
-			display: inline-block;
-			vertical-align: top;
-			width: 100px;
-			height: 100px;
-			border-radius: 20px;
-			background-color: @color-gray-pastel;
-			margin: 0 2px;
+		.m-external {
+			margin: 0;
+			color: @color-gray-dark;
+			.size(16);
 		}
 
-		@media @tablet {
-			.m-image {
-				width: 160px;
-				height: 160px;
+		.m-title {
+			margin: 0.5em 0 0;
+			font-weight: 300;
+			.size(20);
+		}
+
+		.m-quote {
+			display: inline-block;
+			box-sizing: border-box;
+			max-width: 100%;
+			position: relative;
+			border-radius: 10px;
+			background-color: @color-green-pastel;
+			color: @color-green-dark;
+			padding: 1em;
+			margin: 1em 0 12px;
+			font-weight: 400;
+			word-wrap: break-word;
+			.size(16);
+
+			&:after {
+				content: "";
+				position: absolute;
+				left: 20px;
+				bottom: -12px;
+				width: 0;
+				height: 0;
+				border-top: 12px solid @color-green-pastel;
+				border-left: 6px solid transparent;
+				border-right: 6px solid transparent;
 			}
 		}
 
-		@media @monitor-small {
-			.m-image {
+		.m-author {
+			margin: 1em 0 0;
+			color: @color-gray-dark;
+			.size(14);
+		}
+	}
+
+	.m-images {
+		overflow: hidden;
+
+		img {
+			display: block;
+			float: left;
+			width: 100px;
+			height: 100px;
+			margin: 0 0.25em 0.25em 0;
+			border-radius: 20px;
+		}
+	}
+
+	@media @tablet {
+		.m-images {
+			img {
+				width: 150px;
+				height: 150px;
+			}
+		}
+	}
+
+	@media @monitor-small {
+		.m-images {
+			img {
 				width: 200px;
 				height: 200px;
 			}
 		}
-	}
-
-	.m-meta {
-		margin: 0.25em 0 0;
-		color: @color-gray-dark;
-		.size(14);
-
-		.m-link {
-			margin: 0 0.5em;
-		}
-	}
-
-	&.preview {
-		border: 1px solid @color-gray-light;
-		border-radius: 4px;
-		padding: 1em;
 	}
 }

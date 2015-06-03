@@ -10,7 +10,6 @@ module.exports = {
 	, addPostForm: require('./add-post-form')
 	, editorForm: require('./editor-form')
 	, postItem: require('./post-item')
-	, postItemLink: require('./post-item-link')
 	, postPreview: require('./post-preview')
 	, profile: require('./profile')
 	, searchClub: require('./search-club')

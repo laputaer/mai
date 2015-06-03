@@ -1,6 +1,6 @@
 
 /**
- * post-item-link.js
+ * post-item-link.js (deprecated)
  *
  * Template for simple post content in home page
  */
