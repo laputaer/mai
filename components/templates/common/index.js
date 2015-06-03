@@ -7,6 +7,7 @@
 
 module.exports = {
 	button: require('./button')
+	, clubPreview: require('./club-preview')
 	, csrfField: require('./csrf-field')
 	, customError: require('./custom-error')
 	, formButton: require('./form-button')

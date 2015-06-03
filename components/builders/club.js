@@ -36,7 +36,7 @@ function partial(data) {
 			, version: data.version.asset
 			, base_url: data.base_url
 		};
-		return templates.common.button(button);
+		return templates.common.clubPreview(button);
 	});
 
 	data.my_joined_club_buttons = data.joined_clubs.map(function(club) {
@@ -47,7 +47,7 @@ function partial(data) {
 			, version: data.version.asset
 			, base_url: data.base_url
 		};
-		return templates.common.button(button);
+		return templates.common.clubPreview(button);
 	});
 
 	data.search_group = templates.common.formSearch({
