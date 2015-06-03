@@ -18,6 +18,7 @@ var clubsV1 = require('./clubs-v1');
 var clubsV2 = require('./clubs-v2');
 var clubsV3 = require('./clubs-v3');
 var clubsV4 = require('./clubs-v4');
+var clubsV5 = require('./clubs-v5');
 var membershipsV1 = require('./memberships-v1');
 var cacheUsersV1 = require('./cache-users-v1');
 var postsV1 = require('./posts-v1');
@@ -44,6 +45,7 @@ function *migration() {
 	yield postsV1(db);
 	yield postsV2(db);
 	yield clubsV4(db);
+	yield clubsV5(db);
 };
 
 co(migration).then(function() {
