@@ -8,7 +8,7 @@
 'use strict';
 
 // templates
-var templates = require('../templates/index');
+var builder = require('../builders/index');
 
 // vdom to html
 var h = require('virtual-dom/h');
@@ -17,7 +17,7 @@ var patch = require('virtual-dom/patch');
 var createElement = require('virtual-dom/create-element');
 
 // html to vdom
-var convert = require('vdom-virtualize');
+var virtualize = require('vdom-virtualize');
 
 // events
 var Delegator = require('dom-delegator');
@@ -41,7 +41,7 @@ function Renderer() {
 };
 
 /**
- * Initialize server-rendered dom into vdom  
+ * Initialize server-rendered dom into vdom
  *
  * @param   DOM   base  Initial dom
  * @return  Void
@@ -51,7 +51,7 @@ Renderer.prototype.init = function(base) {
 		return;
 	}
 
-	this.vdomCache = convert(base);
+	this.vdomCache = virtualize(base);
 	this.nodeCache = base;
 };
 
@@ -67,11 +67,7 @@ Renderer.prototype.update = function(model) {
 	}
 	this.modelCache = model;
 
-	var vdom;
-	// TODO: do real rendering
-	var data = {};
-	vdom = data.main;
-
+	var vdom = builder(model);
 	if (!vdom) {
 		return;
 	}
