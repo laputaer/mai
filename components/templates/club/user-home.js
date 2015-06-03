@@ -36,11 +36,11 @@ function template(data) {
 			])
 			, h('div.m-section.green', [
 				h('h1.m-subtitle', i18n.t('club.owned-club'))
-				, h('div.m-grid', data.my_club_buttons)
+				, h('div.m-list', data.my_club_buttons)
 			])
 			, h('div.m-section.green', [
 				h('h1.m-subtitle', i18n.t('club.joined-club'))
-				, h('div.m-grid', data.my_joined_club_buttons)
+				, h('div.m-list', data.my_joined_club_buttons)
 			])
 		])
 	]);

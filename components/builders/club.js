@@ -29,25 +29,19 @@ function partial(data) {
 	});
 
 	data.my_club_buttons = data.clubs.map(function(club) {
-		var button = {
-			href: '/c/' + xss.path(club.slug)
-			, icon: 'arrow_right'
-			, text: xss.data(club.title)
-			, version: data.version.asset
-			, base_url: data.base_url
-		};
-		return templates.common.clubPreview(button);
+		return templates.common.clubPreview({
+			club: club
+			, i18n: i18n
+			, xss: xss
+		});
 	});
 
 	data.my_joined_club_buttons = data.joined_clubs.map(function(club) {
-		var button = {
-			href: '/c/' + xss.path(club.slug)
-			, icon: 'arrow_right'
-			, text: xss.data(club.title)
-			, version: data.version.asset
-			, base_url: data.base_url
-		};
-		return templates.common.clubPreview(button);
+		return templates.common.clubPreview({
+			club: club
+			, i18n: i18n
+			, xss: xss
+		});
 	});
 
 	data.search_group = templates.common.formSearch({

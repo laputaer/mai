@@ -110,7 +110,7 @@ module.exports = {
 		, 'lv7': '史诗社团'
 		, 'lv8': '%{custom}'
 		, 'member-count': '成员总数'
-		, 'total-point': '累计积分'
+		, 'total-point': '累计信仰'
 		, 'level': '社团级别'
 		, 'owner': '社团创始人'
 		, 'image-source': '图片来源'

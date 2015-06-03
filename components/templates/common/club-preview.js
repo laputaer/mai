@@ -17,31 +17,57 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	// optional data.type to pass button variant names
-	var button_type = '';
-	if (data.type && data.type.length > 0) {
-		button_type = '.' + data.type.join('.');
-	}
+	var i18n = data.i18n;
 
-	var base_url = '';
+	// TODO: should we make sure they both exist?
+	var club = data.club;
+	var embed = club.embed;
 
-	// icon should be optional too
-	var icon;
-	if (data.icon) {
-		icon = svg('svg.m-icon', [
-			svg('use', {
-				'xlink:href': base_url + '/assets/icons.svg?' + data.version + '#' + data.icon
+	var image;
+	if (embed && embed.image) {
+		image = h('div.m-image', [
+			h('img.lazyload', {
+				src: embed.image.url + '&size=100'
+				, alt: embed.title + i18n.t('placeholder.image-preview')
+				, attributes: {
+					'data-srcset': embed.image.url
+						+ '&size=100 100w, '
+						+ embed.image.url
+						+ '&size=200 200w, '
+						+ embed.image.url
+						+ '&size=400 400w'
+					, 'data-sizes': 'auto'
+				}
 			})
 		]);
 	}
 
-	var button = h('a.m-button.rounded' + button_type, {
-		href: data.href
-		, target: data.target || undefined
-	}, [
-		icon
-		, h('span.m-text', data.text)
+	var title;
+	if (club.title) {
+		title = h('h2.m-title', [
+			h('a.m-link', {
+				href: '/c/' + club.slug
+			}, [
+				h('span.m-text', club.title)
+			])
+		]);
+	}
+
+	var stat;
+	if (club.points) {
+		stat = h('p.m-stat', [
+			h('span', i18n.t('club.total-point'))
+			, h('span.m-stat-value', club.points.toString())
+		]);
+	}
+
+	var item = h('div.m-club-preview', [
+		image
+		, h('div.m-meta', [
+			title
+			, stat
+		])
 	]);
 
-	return button;
+	return item;
 };
