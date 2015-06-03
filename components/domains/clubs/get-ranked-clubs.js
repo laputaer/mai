@@ -17,7 +17,7 @@ function *getRankedClubs(opts) {
 	var db = opts.db;
 	var Club = db.col('clubs');
 
-	var clubs = yield Club.find().sort({ members: -1 }).limit(50);
+	var clubs = yield Club.find().sort({ points: -1 }).limit(15);
 
 	return clubs;
 };

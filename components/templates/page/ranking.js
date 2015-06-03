@@ -20,9 +20,13 @@ function template(data) {
 	var i18n = data.i18n;
 	var search = h('div.m-rows', [
 		h('div.m-content.m-row-2', [
-			h('div.m-section.green', [
+			h('div.m-section.green.lead', [
 				h('h1.m-subtitle', i18n.t('club.ranking-result'))
 				, h('div.m-list', data.ranking_result)
+			])
+			, h('div.m-section.green', [
+				h('h1.m-subtitle', i18n.t('club.ranking-created'))
+				, h('div.m-list', data.created_result)
 			])
 		])
 	]);

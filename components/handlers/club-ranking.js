@@ -41,7 +41,15 @@ function *middleware(next) {
 		db: this.db
 	});
 
+	data.clubs_created = yield clubsDomain.getRecentlyCreatedClubs({
+		db: this.db
+	});
+
 	data.clubs = data.clubs.map(function(club) {
+		return clubPreviewOutput(club, config, state);
+	});
+
+	data.clubs_created = data.clubs_created.map(function(club) {
 		return clubPreviewOutput(club, config, state);
 	});
 

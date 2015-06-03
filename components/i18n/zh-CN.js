@@ -142,6 +142,7 @@ module.exports = {
 		, 'activity-item-3': '的内容'
 		, 'posted-on': '发布在'
 		, 'ranking-result': '今日社团排名'
+		, 'ranking-created': '新社团列表'
 		, 'home-result': '今日社团更新'
 		, 'user-result': '用户近期更新'
 	}

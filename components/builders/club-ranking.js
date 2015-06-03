@@ -27,6 +27,14 @@ function partial(data) {
 		});
 	});
 
+	data.created_result = data.clubs_created.map(function(club) {
+		return templates.common.clubPreview({
+			club: club
+			, i18n: i18n
+			, xss: xss
+		});
+	});
+
 	data.main = templates.page.ranking(data);
 
 	data.page_title = i18n.t('menu.nav.ranking');
