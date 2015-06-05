@@ -6,6 +6,7 @@
  */
 
 var sessionDomain = require('../domains/session');
+var mixpanelDomain = require('../domains/mixpanel');
 var getAvatarVariant = require('../helpers/get-avatar-variant');
 var proxyUrl = require('../security/proxy');
 
@@ -28,7 +29,7 @@ function factory() {
  */
 function *middleware(next) {
 	// STEP 1: load from cache
-	var user;
+	var user, now, last_seen;
 	try {
 		user = yield sessionDomain.currentUser({
 			session: this.session
@@ -44,12 +45,25 @@ function *middleware(next) {
 			delete user.csrf_secret;
 		}
 
+		// make sure we are dealing with login user
+		now = Date.now();
+		last_seen = user ? parseInt(user.last_seen, 10) : false;
+
 		// refresh session/cache at most every 5 minutes
-		if (user && parseInt(user.last_seen, 10) < Date.now() - 1000 * 60 * 5) {
+		if (last_seen && last_seen < now - 1000 * 60 * 5) {
 			user = yield sessionDomain.refreshUser({
 				session: this.session
 				, cache: this.cache
 				, config: this.config
+			});
+		}
+
+		// report user visit if last visit is more than 24 hours ago
+		if (last_seen && last_seen < now - 1000 * 60 * 60 * 24) {
+			mixpanelDomain.userVisit({
+				mixpanel: this.mixpanel
+				, user: user
+				, request: this.request
 			});
 		}
 	} catch(err) {

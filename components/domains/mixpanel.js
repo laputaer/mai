@@ -7,6 +7,7 @@
 
 var userLogin = require('./mixpanel/user-login');
 var userRegister = require('./mixpanel/user-register');
+var userVisit = require('./mixpanel/user-visit');
 var clubCreate = require('./mixpanel/club-create');
 var clubJoin = require('./mixpanel/club-join');
 var clubLeave = require('./mixpanel/club-leave');
@@ -16,6 +17,7 @@ var postCreate = require('./mixpanel/post-create');
 module.exports = {
 	userLogin: userLogin
 	, userRegister: userRegister
+	, userVisit: userVisit
 	, clubCreate: clubCreate
 	, clubJoin: clubJoin
 	, clubLeave: clubLeave
