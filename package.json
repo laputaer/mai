@@ -22,7 +22,8 @@
     "build:img": "trash --force public/assets/*.jpg && imagemin -p components/client-image/* public/assets/",
     "cron:cache:all": "find ./cache/ -maxdepth 1 -type f -not -name .gitignore -exec rm -fv {} + | wc -w",
     "cron:cache:old": "find ./cache/ -maxdepth 1 -type f -mtime +7 -not -name .gitignore -exec rm -fv {} + | wc -w",
-    "cron:ap:all": "node cron/action-point-recovery.js"
+    "cron:ap:all": "node cron/action-point-recovery.js",
+    "review:build": "browserify components/client-js/main.js -s app --list"
   },
   "repository": {
     "type": "git",
