@@ -11,14 +11,14 @@
 var respimgPolyfill = require('lazysizes/plugins/respimg/ls.respimg.js');
 var lazySizes = require('lazysizes');
 
-var Renderer = require('./renderer');
-var bodyRenderer = new Renderer();
+//var Renderer = require('./renderer');
+//var bodyRenderer = new Renderer();
 
-window.addEventListener('DOMContentLoaded', init);
+//window.addEventListener('DOMContentLoaded', init);
 
-function init() {
+//function init() {
 	// TODO
-}
+//}
 
 // polyfill for svg, need browserify-shim
-require('./vendor/svg4everybody');
+//require('./vendor/svg4everybody');
