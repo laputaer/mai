@@ -8,8 +8,8 @@
 'use strict';
 
 // browserify
-var respimgPolyfill = require('lazysizes/plugins/respimg/ls.respimg.js');
-var lazySizes = require('lazysizes');
+//var respimgPolyfill = require('lazysizes/plugins/respimg/ls.respimg.js');
+//var lazySizes = require('lazysizes');
 
 //var Renderer = require('./renderer');
 //var bodyRenderer = new Renderer();
