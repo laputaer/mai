@@ -21,6 +21,8 @@ var classIdMatch = /([\.#]?[a-zA-Z0-9_:-]+)/;
 var nonEmpty = function(input) {
 	return input !== '';
 };
+
+var getType = require('../helpers/get-variable-type');
 */
 
 module.exports = vdom;
@@ -48,38 +50,105 @@ function vdom(el, props, children) {
 /**
  * A simple api that abstracts vdom api
  *
- * @param   String  el        Tagname with class or id
- * @param   Object  props     Element properties
- * @param   Array   children  List of child nodes
+ * @param   Mixed  el        Tagname with class or id
+ * @param   Mixed  props     Element properties
+ * @param   Mixed  children  List of child nodes
  * @return  VNode
  */
 /*
 function vdom(el, props, children) {
-	if (typeof el === 'String' && props === undefined && children === undefined) {
-		return text(el);
+	if (el === 'head') {
+		console.log(el, props, children);
+	}
+	// build attributes
+	var new_props, new_children;
+	// $('div', 'abc');
+	if (getType(props) === 'String' && children === undefined) {
+		new_props = {
+			attrs: {}
+		};
+		new_children = [ text(props) ];
+	// $('div', { abc: 'abc' });
+	} else if (getType(props) === 'Object' && children === undefined) {
+		new_props = {
+			attrs: props
+		};
+		new_children = [];
+	// $('div', ['abc', $('span', 'abc')]);
+	} else if (getType(props) === 'Array' && children === undefined) {
+		new_props = {
+			attrs: {}
+		};
+		new_children = [];
+		props.forEach(function(child) {
+			var node = createNode(child);
+			if (node) {
+				new_children.push(node);
+			}
+		});
+	// $('div', { abc: 'abc' }, ['abc', $('span', 'abc')]);
+	} else if (getType(props) === 'Object' && getType(children) === 'Array') {
+		new_props = {
+			attrs: props
+		};
+		new_children = [];
+		children.forEach(function(child) {
+			var node = createNode(child);
+			if (node) {
+				new_children.push(node);
+			}
+		});
 	}
 
-	// build attributes
-	var new_props = {
-		attrs: props
-	};
+	// special case for innerHTML property
+	if (new_props.attrs.innerHTML) {
+		new_props.props = {};
+		new_props.props = {
+			innerHTML: new_props.attrs.innerHTML
+		};
+		delete new_props.attrs.innerHTML;
+	}
 
 	// split el into tagName and class/id
 	var new_el;
 	el.split(classIdMatch).filter(nonEmpty).forEach(function(prop) {
-		var hint = prop.charAt(0);
+		var hint = prop.substr(0, 1);
 		if (hint === '#') {
-			new_props.attrs.id = prop;
+			new_props.attrs.id = prop.substr(1);
 		} else if (hint === '.') {
-			if (!new_props.attrs.class) {
-				new_props.attrs.class = {};
+			if (!new_props.attrs['class']) {
+				new_props.attrs['class'] = {};
 			}
-			new_props.attrs.class[prop] = true;
+			new_props.attrs['class'][prop.substr(1)] = true;
 		} else {
 			new_el = prop;
 		}
 	});
 
-	return tag(new_el, new_props, children);
+	return tag(new_el, new_props, new_children);
 };
 */
+
+/**
+ * Helper function to convert child node recursively
+ *
+ * @param   Mixed  child  Any valid node value
+ * @return  VNode
+ */
+/*
+function createNode(child) {
+	var output;
+	if (getType(child) === 'String') {
+		output = text(child);
+	} else if (child instanceof DomLayerTag || child instanceof DomLayerText) {
+		output = child;
+	} else if (getType(child) === 'Function' && child.name === 'vdom') {
+		output = child();
+	} else if (getType(child) === 'Function') {
+		output = vdom(child());
+	}
+
+	return output;
+};
+*/
+
