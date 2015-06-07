@@ -17,7 +17,6 @@ module.exports = partial;
  */
 function partial(data) {
 	var i18n = data.i18n;
-	var xss = data.xss;
 
 	data.club_create_button = templates.common.button({
 		href: '/c/club-add'
@@ -32,7 +31,6 @@ function partial(data) {
 		return templates.common.clubPreview({
 			club: club
 			, i18n: i18n
-			, xss: xss
 		});
 	});
 
@@ -40,7 +38,6 @@ function partial(data) {
 		return templates.common.clubPreview({
 			club: club
 			, i18n: i18n
-			, xss: xss
 		});
 	});
 

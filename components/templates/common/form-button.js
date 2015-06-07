@@ -5,8 +5,7 @@
  * Template for default single submit button
  */
 
-var h = require('virtual-dom/h');
-var svg = require('virtual-dom/virtual-hyperscript/svg');
+var $ = require('../vdom');
 
 module.exports = template;
 
@@ -25,17 +24,17 @@ function template(data) {
 
 	var base_url = '';
 
-	var button = h('button.m-button' + button_type, {
+	var button = $('button.m-button' + button_type, {
 		'type': 'submit'
 		, 'name': data.name || ''
 		, 'value': data.value || ''
 	}, [
-		svg('svg.m-icon', [
-			svg('use', {
+		$('svg.m-icon', [
+			$('use', {
 				'xlink:href': base_url + '/assets/icons.svg?' + data.version + '#' + data.icon
 			})
 		])
-		, h('span.m-text', data.text)
+		, $('span.m-text', data.text)
 	]);
 
 	return button;

@@ -20,7 +20,6 @@ function renderer(data) {
 		return templates.common.preview({
 			post: post
 			, i18n: data.i18n
-			, xss: data.xss
 		});
 	});
 

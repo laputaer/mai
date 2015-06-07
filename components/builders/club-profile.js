@@ -17,7 +17,6 @@ module.exports = partial;
  */
 function partial(data) {
 	var i18n = data.i18n;
-	var xss = data.xss;
 
 	// user
 	if (data.current_user) {
@@ -25,7 +24,7 @@ function partial(data) {
 
 		if (data.current_user.uid === data.club.owner) {
 			data.club_management = templates.common.button({
-				href: '/c/' + xss.path(data.club.slug) + '/edit'
+				href: '/c/' + data.club.slug + '/edit'
 				, icon: 'setting'
 				, text: data.i18n.t('club.edit-club')
 				, type: ['small', 'highlight']
@@ -35,9 +34,9 @@ function partial(data) {
 
 			data.share_button = templates.common.button({
 				href: 'https://twitter.com/intent/tweet?url='
-					+ xss.encode(data.current_url)
+					+ encodeURIComponent(data.current_url)
 					+ '&text=' + i18n.t('club.share-owner-text', {
-						title: xss.data(data.club.title)
+						title: data.club.title
 					})
 				, icon: 'twitter'
 				, text: data.i18n.t('club.share-button')
@@ -61,9 +60,9 @@ function partial(data) {
 
 			data.share_button = templates.common.button({
 				href: 'https://twitter.com/intent/tweet?url='
-					+ xss.encode(data.current_url)
+					+ encodeURIComponent(data.current_url)
 					+ '&text=' + i18n.t('club.share-other-text', {
-						title: xss.data(data.club.title)
+						title: data.club.title
 					})
 				, icon: 'twitter'
 				, text: data.i18n.t('club.share-button')
@@ -87,7 +86,7 @@ function partial(data) {
 		}
 
 		data.add_post = templates.common.button({
-			href: '/c/' + xss.path(data.club.slug) + '/p/post-add'
+			href: '/c/' + data.club.slug + '/p/post-add'
 			, icon: 'dialogue_add'
 			, text: data.i18n.t('club.post-button')
 			, type: ['small', 'post']
@@ -102,7 +101,6 @@ function partial(data) {
 		return templates.club.postItem({
 			post: post
 			, i18n: i18n
-			, xss: xss
 		});
 	});
 

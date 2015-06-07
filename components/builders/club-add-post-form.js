@@ -18,12 +18,11 @@ module.exports = partial;
 function partial(data) {
 	var flash = data.flash;
 	var i18n = data.i18n;
-	var xss = data.xss;
 
 	data.url_group = templates.common.formGroup({
 		id: 'club-post-link'
 		, name: 'link'
-		, value: flash && flash.body ? xss.attr(flash.body['link']) : ''
+		, value: flash && flash.body ? flash.body['link'] : ''
 		, error: flash && flash.attrs && flash.attrs.indexOf('link') !== -1 ? '.error' : ''
 		, label: i18n.t('club.post-link')
 		, note: i18n.t('club.post-link-note')
@@ -33,7 +32,7 @@ function partial(data) {
 		text: data.i18n.t('club.new-post-submit')
 	});
 	data.form_cancel = templates.common.button({
-		href: '/c/' + xss.path(data.club.slug)
+		href: '/c/' + data.club.slug
 		, text: data.i18n.t('club.edit-form-cancel')
 	});
 

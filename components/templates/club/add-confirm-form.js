@@ -5,8 +5,7 @@
  * Template for post confirm
  */
 
-var h = require('virtual-dom/h');
-var svg = require('virtual-dom/virtual-hyperscript/svg');
+var $ = require('../vdom');
 
 module.exports = template;
 
@@ -18,18 +17,17 @@ module.exports = template;
  */
 function template(data) {
 	var i18n = data.i18n;
-	var xss = data.xss;
 	var club = data.club || {};
 
-	var form = h('div.m-rows', [
-		h('div.m-content.m-row-2', [
+	var form = $('div.m-rows', [
+		$('div.m-content.m-row-2', [
 			data.club_form_error
-			, h('div.m-section.yellow.lead', [
-				h('h1.m-subtitle', data.form_title)
-				, h('p.m-line', data.form_intro)
+			, $('div.m-section.yellow.lead', [
+				$('h1.m-subtitle', data.form_title)
+				, $('p.m-line', data.form_intro)
 				, data.post_preview
-				, h('form.m-form.m-cells', {
-					action: '/c/' + xss.path(club.slug) + '/p/post-add-2'
+				, $('form.m-form.m-cells', {
+					action: '/c/' + club.slug + '/p/post-add-2'
 					, method: 'POST'
 				}, [
 					data.csrf_field

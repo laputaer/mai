@@ -5,8 +5,7 @@
  * Template for default ranked club section
  */
 
-var h = require('virtual-dom/h');
-var svg = require('virtual-dom/virtual-hyperscript/svg');
+var $ = require('../vdom');
 
 module.exports = template;
 
@@ -18,15 +17,15 @@ module.exports = template;
  */
 function template(data) {
 	var i18n = data.i18n;
-	var search = h('div.m-rows', [
-		h('div.m-content.m-row-2', [
-			h('div.m-section.green.lead', [
-				h('h1.m-subtitle', i18n.t('club.ranking-result'))
-				, h('div.m-list', data.ranking_result)
+	var search = $('div.m-rows', [
+		$('div.m-content.m-row-2', [
+			$('div.m-section.green.lead', [
+				$('h1.m-subtitle', i18n.t('club.ranking-result'))
+				, $('div.m-list', data.ranking_result)
 			])
-			, h('div.m-section.green', [
-				h('h1.m-subtitle', i18n.t('club.ranking-created'))
-				, h('div.m-list', data.created_result)
+			, $('div.m-section.green', [
+				$('h1.m-subtitle', i18n.t('club.ranking-created'))
+				, $('div.m-list', data.created_result)
 			])
 		])
 	]);

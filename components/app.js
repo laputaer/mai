@@ -20,7 +20,6 @@ var i18nFactory = require('./i18n/i18n');
 var errorHandler = require('./middlewares/error-handler');
 var renderer = require('./middlewares/template-renderer');
 var userSession = require('./middlewares/user-session');
-var sanitization = require('./middlewares/output-sanitization');
 var imageProxy = require('./middlewares/image-proxy');
 var eventAnalytics = require('./middlewares/event-analytics');
 
@@ -46,7 +45,6 @@ app.use(flash(config.flash)); // this.flash
 
 app.use(eventAnalytics()); // this.mixpanel
 app.use(i18nFactory(true)); // this.i18n, this.locale
-app.use(sanitization(true)); // this.xss
 app.use(db()); // this.db, this.cache
 app.use(renderer()); // this.body
 app.use(errorHandler()); // this.state.vdoc

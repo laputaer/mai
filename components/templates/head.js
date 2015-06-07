@@ -5,130 +5,129 @@
  * Render <head> document
  */
 
-var h = require('virtual-dom/h');
+var $ = require('./vdom');
 
 module.exports = template;
 
 function template(data) {
 	var base_url = data.base_url;
 	var i18n = data.i18n;
-	var xss = data.xss;
 
 	// TODO: refactor into a standalone template
-	var title = data.page_title ? xss.data(data.page_title) + ' - ' : '';
-	var description = data.page_description ? xss.attr(data.page_description) : i18n.t('common.description');
+	var title = data.page_title ? data.page_title + ' - ' : '';
+	var description = data.page_description ? data.page_description : i18n.t('common.description');
 
 	var og_title, og_url, og_image, og_type, og_site_name, og_description;
 	var t_card, t_site, t_title, t_description, t_image;
 	var vendor, prefetch_cdn, prefetch_gs, prefetch_gs_1, prefetch_gs_2;
 
 	if (data.page_opengraph) {
-		og_title = h('meta', {
+		og_title = $('meta', {
 			property: 'og:title'
-			, content: xss.attr(data.page_opengraph.title) + ' - ' + i18n.t('common.title')
+			, content: data.page_opengraph.title + ' - ' + i18n.t('common.title')
 		});
-		og_url = h('meta', {
+		og_url = $('meta', {
 			property: 'og:url'
-			, content: xss.url(data.page_opengraph.url)
+			, content: data.page_opengraph.url
 		});
-		og_image = h('meta', {
+		og_image = $('meta', {
 			property: 'og:image'
 			, content: data.page_opengraph.image
 		});
-		og_type = h('meta', {
+		og_type = $('meta', {
 			property: 'og:type'
 			, content: 'website'
 		});
-		og_site_name = h('meta', {
+		og_site_name = $('meta', {
 			property: 'og:site_name'
 			, content: i18n.t('common.title')
 		});
-		og_description = h('meta', {
+		og_description = $('meta', {
 			property: 'og:description'
 			, content: description
 		});
-		t_card = h('meta', {
+		t_card = $('meta', {
 			name: 'twitter:card'
 			, content: 'summary'
 		});
-		t_site = h('meta', {
+		t_site = $('meta', {
 			name: 'twitter:site'
 			, content: '@bitinn'
 		});
-		t_title = h('meta', {
+		t_title = $('meta', {
 			name: 'twitter:title'
-			, content: xss.attr(data.page_opengraph.title) + ' - ' + i18n.t('common.title')
+			, content: data.page_opengraph.title + ' - ' + i18n.t('common.title')
 		});
-		t_description = h('meta', {
+		t_description = $('meta', {
 			name: 'twitter:description'
 			, content: description
 		});
-		t_image = h('meta', {
+		t_image = $('meta', {
 			name: 'twitter:image'
 			, content: data.page_opengraph.image
 		});
 	}
 
 	if (data.production) {
-		vendor = h('script', {
+		vendor = $('script', {
 			src: base_url + '/assets/vendor.js?' + data.version.js
 			, async: 'async'
 		});
 
-		prefetch_cdn = h('link', {
+		prefetch_cdn = $('link', {
 			rel: 'dns-prefetch'
 			, href: '//mai-maihq.netdna-ssl.com'
 		});
 
-		prefetch_gs = h('link', {
+		prefetch_gs = $('link', {
 			rel: 'dns-prefetch'
 			, href: '//d1l6p2sc9645hc.cloudfront.net'
 		});
 
-		prefetch_gs_1 = h('link', {
+		prefetch_gs_1 = $('link', {
 			rel: 'dns-prefetch'
 			, href: '//data.gosquared.com'
 		});
 
-		prefetch_gs_2 = h('link', {
+		prefetch_gs_2 = $('link', {
 			rel: 'dns-prefetch'
 			, href: '//data2.gosquared.com'
 		});
 	}
 
 	var head = [
-		h('meta', {
+		$('meta', {
 			charset: 'UTF-8'
 		})
-		, h('meta', {
+		, $('meta', {
 			name: 'viewport'
 			, content: 'width=device-width, initial-scale=1.0'
 		})
-		, h('meta', {
+		, $('meta', {
 			name: 'referrer'
 			, content: 'no-referrer'
 		})
-		, h('title', title + i18n.t('common.title'))
-		, h('meta', {
+		, $('title', title + i18n.t('common.title'))
+		, $('meta', {
 			name: 'description'
 			, content: description
 		})
-		, h('meta', {
+		, $('meta', {
 			name: 'apple-mobile-web-app-title'
 			, content: i18n.t('common.app-title')
 		})
-		, h('link', {
+		, $('link', {
 			rel: 'apple-touch-icon'
 			, sizes: '180x180'
 			, href: '/apple-touch-icon.png?' + data.version.asset
 		})
-		, h('link', {
+		, $('link', {
 			rel: 'icon'
 			, type: 'image/png'
 			, sizes: '192x192'
 			, href: '/android-chrome.png?' + data.version.asset
 		})
-		, h('link', {
+		, $('link', {
 			rel: 'icon'
 			, type: 'image/png'
 			, sizes: '32x32'
@@ -149,22 +148,19 @@ function template(data) {
 		, prefetch_gs
 		, prefetch_gs_1
 		, prefetch_gs_2
-		, h('style', {
+		, $('style', {
 			innerHTML: data.inline_css
 		})
-		, h('script', {
-			innerHTML: data.inline_js
+		, $('script', {
+			innerHTML: data.inline_js + ';loadCSS("' + base_url + '/assets/app.css?' + data.version.css + '");'
 		})
-		, h('script', {
-			innerHTML: 'loadCSS("' + base_url + '/assets/app.css?' + data.version.css + '");'
-		})
-		, h('noscript', [
-			h('link', {
+		, $('noscript', [
+			$('link', {
 				rel: 'stylesheet'
 				, href: base_url + '/assets/app.css?' + data.version.css
 			})
 		])
-		, h('script', {
+		, $('script', {
 			src: base_url + '/assets/app.js?' + data.version.js
 			, async: 'async'
 		})

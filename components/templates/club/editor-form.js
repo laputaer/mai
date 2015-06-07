@@ -5,8 +5,7 @@
  * Template for club management
  */
 
-var h = require('virtual-dom/h');
-var svg = require('virtual-dom/virtual-hyperscript/svg');
+var $ = require('../vdom');
 
 module.exports = template;
 
@@ -18,17 +17,16 @@ module.exports = template;
  */
 function template(data) {
 	var i18n = data.i18n;
-	var xss = data.xss;
 	var club = data.club || {};
 
-	var form = h('div.m-rows', [
-		h('div.m-content.m-row-2', [
+	var form = $('div.m-rows', [
+		$('div.m-content.m-row-2', [
 			data.club_form_error
-			, h('div.m-section.yellow.lead', [
-				h('h1.m-subtitle', data.form_title)
-				, h('p.m-line', data.form_intro)
-				, h('form.m-form.m-cells', {
-					action: club.slug ? '/c/' + xss.path(club.slug) : '/c'
+			, $('div.m-section.yellow.lead', [
+				$('h1.m-subtitle', data.form_title)
+				, $('p.m-line', data.form_intro)
+				, $('form.m-form.m-cells', {
+					action: club.slug ? '/c/' + club.slug : '/c'
 					, method: 'POST'
 				}, [
 					data.csrf_field

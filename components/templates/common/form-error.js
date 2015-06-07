@@ -5,8 +5,7 @@
  * Template for generic form errors
  */
 
-var h = require('virtual-dom/h');
-var svg = require('virtual-dom/virtual-hyperscript/svg');
+var $ = require('../vdom');
 
 module.exports = template;
 
@@ -24,8 +23,8 @@ function template(data) {
 		return;
 	}
 
-	var error = h('div.m-section.error', [
-		h('p.m-line', flash.message)
+	var error = $('div.m-section.error', [
+		$('p.m-line', flash.message)
 	]);
 
 	return error;

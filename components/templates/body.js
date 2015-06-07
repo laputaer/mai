@@ -5,8 +5,7 @@
  * Template for default page body
  */
 
-var h = require('virtual-dom/h');
-var svg = require('virtual-dom/virtual-hyperscript/svg');
+var $ = require('./vdom');
 
 module.exports = template;
 
@@ -17,7 +16,7 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var main = h('div.page', [
+	var main = $('div.page#page', [
 		data.heading
 		, data.menu
 		, data.main

@@ -17,13 +17,11 @@ module.exports = partial;
  */
 function partial(data) {
 	var i18n = data.i18n;
-	var xss = data.xss;
 
 	data.ranking_result = data.clubs.map(function(club) {
 		return templates.common.clubPreview({
 			club: club
 			, i18n: i18n
-			, xss: xss
 		});
 	});
 
@@ -31,7 +29,6 @@ function partial(data) {
 		return templates.common.clubPreview({
 			club: club
 			, i18n: i18n
-			, xss: xss
 		});
 	});
 

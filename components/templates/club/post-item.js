@@ -5,8 +5,7 @@
  * Template for post content in club profile
  */
 
-var h = require('virtual-dom/h');
-var svg = require('virtual-dom/virtual-hyperscript/svg');
+var $ = require('../vdom');
 
 module.exports = template;
 
@@ -26,7 +25,7 @@ function template(data) {
 	var images;
 	if (embed && embed.image) {
 		images = embed.image.map(function(url, index) {
-			return h('img.lazyload', {
+			return $('img.lazyload', {
 				src: url + '&size=100'
 				, alt: embed.title + i18n.t('placeholder.image-preview')
 					+ ' 0' + index.toString()
@@ -42,48 +41,48 @@ function template(data) {
 			});
 		});
 
-		images = h('div.m-images', images);
+		images = $('div.m-images', images);
 	}
 
 	var title;
 	if (post.title) {
-		title = h('h2.m-title', post.title);
+		title = $('h2.m-title', post.title);
 	}
 
 	var summary;
 	if (post.summary) {
-		summary = h('p.m-quote', post.summary);
+		summary = $('p.m-quote', post.summary);
 	}
 
 	var external;
 	if (embed.url) {
-		external = h('p.m-external', [
-			h('a.m-link.external', {
+		external = $('p.m-external', [
+			$('a.m-link.external', {
 				href: embed.url
 				, target: '_blank'
 				, title: embed.title
 			}, [
-				h('span.m-text', embed.domain)
+				$('span.m-text', embed.domain)
 			])
-			, h('span', embed.title)
+			, $('span', embed.title)
 		]);
 	}
 
 	var author;
 	if (post.user) {
-		author = h('p.m-author', [
-			h('span', i18n.t('club.posted-by'))
-			, h('a.m-link', {
+		author = $('p.m-author', [
+			$('span', i18n.t('club.posted-by'))
+			, $('a.m-link', {
 				href: '/u/' + post.user
 			}, [
-				h('span.m-text', post.user_name)
+				$('span.m-text', post.user_name)
 			])
 		]);
 	}
 
-	var item = h('div.m-post', [
+	var item = $('div.m-post', [
 		images
-		, h('div.m-meta', [
+		, $('div.m-meta', [
 			external
 			, title
 			, summary

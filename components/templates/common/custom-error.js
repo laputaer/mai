@@ -5,8 +5,7 @@
  * Template for generic custom error
  */
 
-var h = require('virtual-dom/h');
-var svg = require('virtual-dom/virtual-hyperscript/svg');
+var $ = require('../vdom');
 
 module.exports = template;
 
@@ -18,28 +17,28 @@ module.exports = template;
  */
 function template(data) {
 	var i18n = data.i18n;
-	var error = h('div.m-section', [
-		h('p.m-subtitle', data.error_status)
-		, h('p.m-line', data.error_message)
-		, h('p.m-line', i18n.t('placeholder.suggestion'))
-		, h('p.m-line', [
-			h('span', i18n.t('placeholder.main-feedback'))
-			, h('a.m-link', {
+	var error = $('div.m-section', [
+		$('p.m-subtitle', data.error_status)
+		, $('p.m-line', data.error_message)
+		, $('p.m-line', i18n.t('placeholder.suggestion'))
+		, $('p.m-line', [
+			$('span', i18n.t('placeholder.main-feedback'))
+			, $('a.m-link', {
 				href: 'https://twitter.com/bitinn'
 				, target: '_blank'
 			}, [
-				h('span.m-text.m-latin', '@bitinn')
+				$('span.m-text.m-latin', '@bitinn')
 			])
 		])
-		, h('p.m-line', [
-			h('span', i18n.t('placeholder.secondary-feedback'))
-			, h('a.m-link', {
+		, $('p.m-line', [
+			$('span', i18n.t('placeholder.secondary-feedback'))
+			, $('a.m-link', {
 				href: 'https://github.com/maihq/feedbacks'
 				, target: '_blank'
 			}, [
-				h('span.m-text', i18n.t('placeholder.secondary-feedback-name'))
+				$('span.m-text', i18n.t('placeholder.secondary-feedback-name'))
 			])
-			, h('span', i18n.t('placeholder.secondary-feedback-action'))
+			, $('span', i18n.t('placeholder.secondary-feedback-action'))
 		])
 	]);
 
