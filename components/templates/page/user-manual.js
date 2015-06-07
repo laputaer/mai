@@ -86,6 +86,15 @@ function template(data) {
 				, h('p.m-line', i18n.t('help.club-guideline-operation-answer-4'))
 				, h('p.m-line', i18n.t('help.club-guideline-operation-answer-5'))
 			])
+			, h('div.m-section.green#club-content-policy', [
+				h('h2.m-subtitle', i18n.t('help.club-guideline-content-question'))
+				, h('p.m-line', i18n.t('help.club-guideline-content-answer-1'))
+				, h('p.m-line', i18n.t('help.club-guideline-content-answer-2'))
+				, h('p.m-line', i18n.t('help.club-guideline-content-answer-3'))
+				, h('p.m-line', i18n.t('help.club-guideline-content-answer-4'))
+				, h('p.m-line', i18n.t('help.club-guideline-content-answer-5'))
+				, h('p.m-line', i18n.t('help.club-guideline-content-answer-6'))
+			])
 			, h('div.m-section.blue#game-rule', [
 				h('h2.m-subtitle', i18n.t('help.game-rule-question'))
 				, h('p.m-line', i18n.t('help.game-rule-answer-1'))
