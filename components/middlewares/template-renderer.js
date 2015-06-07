@@ -8,7 +8,7 @@
 var stringify = require('vdom-to-html');
 var beautify = require('js-beautify').html;
 var inline_elements = require('inline-elements');
-var unformatted = inline_elements.concat('style', 'script');
+var unformatted = inline_elements.concat('style');
 
 module.exports = factory;
 
