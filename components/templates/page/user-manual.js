@@ -6,6 +6,7 @@
  */
 
 var $ = require('../vdom');
+var i18n = require('../i18n')();
 
 module.exports = template;
 
@@ -16,7 +17,6 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var i18n = data.i18n;
 	var placeholder = $('div.m-rows', [
 		$('div.m-row-2.m-content', [
 			$('div.m-section.blue.lead', [

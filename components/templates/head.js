@@ -6,12 +6,12 @@
  */
 
 var $ = require('./vdom');
+var i18n = require('./i18n')();
 
 module.exports = template;
 
 function template(data) {
 	var base_url = data.base_url;
-	var i18n = data.i18n;
 
 	// TODO: refactor into a standalone template
 	var title = data.page_title ? data.page_title + ' - ' : '';

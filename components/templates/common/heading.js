@@ -6,6 +6,7 @@
  */
 
 var $ = require('../vdom');
+var i18n = require('../i18n')();
 
 module.exports = template;
 
@@ -16,7 +17,6 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var i18n = data.i18n;
 	var heading = $('div.page-heading', [
 		$('h1.page-heading-title.main', i18n.t('common.domain'))
 		, $('p.page-heading-title.tagline', i18n.t('common.tagline'))

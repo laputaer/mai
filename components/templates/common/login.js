@@ -6,6 +6,7 @@
  */
 
 var $ = require('../vdom');
+var i18n = require('../i18n')();
 
 module.exports = template;
 
@@ -16,7 +17,6 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var i18n = data.i18n;
 	var login = $('div.m-section', [
 		$('p.m-subtitle', i18n.t('placeholder.login'))
 		, $('p.m-line', i18n.t('error.login-required'))
