@@ -11,6 +11,7 @@ var embedDomain = require('../domains/embed');
 var formError = require('../helpers/create-form-message');
 var validate = require('../security/validation');
 var normalize = require('../security/normalization');
+var i18n = require('../templates/i18n')();
 
 module.exports = factory;
 
@@ -69,7 +70,7 @@ function *middleware(next) {
 
 	if (!result) {
 		this.flash = formError(
-			this.i18n.t('error.invalid-csrf-token')
+			i18n.t('error.invalid-csrf-token')
 			, body
 		);
 		this.redirect('/c/' + slug + '/edit');
@@ -81,7 +82,7 @@ function *middleware(next) {
 
 	if (!result.valid) {
 		this.flash = formError(
-			this.i18n.t('error.form-input-invalid')
+			i18n.t('error.form-input-invalid')
 			, body
 			, result.errors
 		);
@@ -106,7 +107,7 @@ function *middleware(next) {
 
 		if (!embed) {
 			this.flash = formError(
-				this.i18n.t('error.opengraph-error-response')
+				i18n.t('error.opengraph-error-response')
 				, body
 				, ['logo']
 			);
@@ -120,7 +121,7 @@ function *middleware(next) {
 
 		if (!result.valid) {
 			this.flash = formError(
-				this.i18n.t('error.opengraph-invalid-profile')
+				i18n.t('error.opengraph-invalid-profile')
 				, body
 				, ['logo']
 			);
@@ -140,7 +141,7 @@ function *middleware(next) {
 
 	if (exist) {
 		this.flash = formError(
-			this.i18n.t('error.club-already-exist')
+			i18n.t('error.club-already-exist')
 			, body
 			, ['slug']
 		);

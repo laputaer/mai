@@ -6,6 +6,7 @@
  */
 
 var templates = require('../templates/index');
+var i18n = require('../templates/i18n')();
 
 module.exports = partial;
 
@@ -17,20 +18,17 @@ module.exports = partial;
  */
 function partial(data) {
 	var flash = data.flash;
-	var i18n = data.i18n;
 
 	data.search_group = templates.common.formSearch({
 		id: 'club-search'
 		, name: 'q'
 		, value: flash && flash.body ? flash.body['q'] : data.search
 		, error: flash && flash.attrs && flash.attrs.indexOf('q') !== -1 ? '.error' : ''
-		, i18n: data.i18n
 	});
 
 	data.search_result = data.clubs.map(function(club) {
 		return templates.common.clubPreview({
 			club: club
-			, i18n: i18n
 		});
 	});
 

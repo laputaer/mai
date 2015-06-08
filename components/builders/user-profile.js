@@ -19,7 +19,6 @@ function renderer(data) {
 	data.post_list = data.posts.map(function(post) {
 		return templates.common.preview({
 			post: post
-			, i18n: data.i18n
 		});
 	});
 

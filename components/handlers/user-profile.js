@@ -16,6 +16,7 @@ var getAvatarVariant = require('../helpers/get-avatar-variant');
 var getUserOrigin = require('../helpers/get-user-origin');
 var createError = require('../helpers/create-error-message');
 var proxyUrl = require('../security/proxy');
+var i18n = require('../templates/i18n')();
 
 module.exports = factory;
 
@@ -51,7 +52,7 @@ function *middleware(next) {
 	if (!data.user) {
 		this.state.error_page = createError(
 			404
-			, data.i18n.t('error.not-found-user')
+			, i18n.t('error.not-found-user')
 		);
 		return;
 	}

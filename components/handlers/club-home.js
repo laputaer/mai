@@ -16,6 +16,7 @@ var createError = require('../helpers/create-error-message');
 var getCoolInitials = require('../helpers/get-cool-initials');
 var getClubLevel = require('../helpers/get-club-level');
 var proxyUrl = require('../security/proxy');
+var i18n = require('../templates/i18n')();
 
 module.exports = factory;
 
@@ -51,7 +52,7 @@ function *middleware(next) {
 	if (!data.club) {
 		this.state.error_page = createError(
 			404
-			, data.i18n.t('error.not-found-club')
+			, i18n.t('error.not-found-club')
 		);
 		return;
 	}

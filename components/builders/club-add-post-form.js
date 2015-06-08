@@ -6,6 +6,7 @@
  */
 
 var templates = require('../templates/index');
+var i18n = require('../templates/i18n')();
 
 module.exports = partial;
 
@@ -17,7 +18,6 @@ module.exports = partial;
  */
 function partial(data) {
 	var flash = data.flash;
-	var i18n = data.i18n;
 
 	data.url_group = templates.common.formGroup({
 		id: 'club-post-link'
@@ -29,11 +29,11 @@ function partial(data) {
 		, placeholder: i18n.t('club.post-link-placeholder')
 	});
 	data.form_submit = templates.common.formSubmit({
-		text: data.i18n.t('club.new-post-submit')
+		text: i18n.t('club.new-post-submit')
 	});
 	data.form_cancel = templates.common.button({
 		href: '/c/' + data.club.slug
-		, text: data.i18n.t('club.edit-form-cancel')
+		, text: i18n.t('club.edit-form-cancel')
 	});
 
 	data.form_title = i18n.t('club.new-post');

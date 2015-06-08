@@ -6,6 +6,7 @@
  */
 
 var templates = require('../templates/index');
+var i18n = require('../templates/i18n')();
 
 module.exports = partial;
 
@@ -16,19 +17,15 @@ module.exports = partial;
  * @return  Object
  */
 function partial(data) {
-	var i18n = data.i18n;
-
 	data.ranking_result = data.clubs.map(function(club) {
 		return templates.common.clubPreview({
 			club: club
-			, i18n: i18n
 		});
 	});
 
 	data.created_result = data.clubs_created.map(function(club) {
 		return templates.common.clubPreview({
 			club: club
-			, i18n: i18n
 		});
 	});
 

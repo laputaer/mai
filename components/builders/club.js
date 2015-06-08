@@ -6,6 +6,7 @@
  */
 
 var templates = require('../templates/index');
+var i18n = require('../templates/i18n')();
 
 module.exports = partial;
 
@@ -16,12 +17,10 @@ module.exports = partial;
  * @return  Object
  */
 function partial(data) {
-	var i18n = data.i18n;
-
 	data.club_create_button = templates.common.button({
 		href: '/c/club-add'
 		, icon: 'dialogue_add'
-		, text: data.i18n.t('club.create-button')
+		, text: i18n.t('club.create-button')
 		, type: ['highlight']
 		, version: data.version.asset
 		, base_url: data.base_url
@@ -30,14 +29,12 @@ function partial(data) {
 	data.my_club_buttons = data.clubs.map(function(club) {
 		return templates.common.clubPreview({
 			club: club
-			, i18n: i18n
 		});
 	});
 
 	data.my_joined_club_buttons = data.joined_clubs.map(function(club) {
 		return templates.common.clubPreview({
 			club: club
-			, i18n: i18n
 		});
 	});
 
@@ -46,7 +43,6 @@ function partial(data) {
 		, name: 'q'
 		, value: ''
 		, error: ''
-		, i18n: data.i18n
 	});
 
 	data.main = templates.club.userHome(data);

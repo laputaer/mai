@@ -1,11 +1,12 @@
 
 /**
- * club.js
+ * club-new.js
  *
- * Render club page body
+ * Render club creation form
  */
 
 var templates = require('../templates/index');
+var i18n = require('../templates/i18n')();
 
 module.exports = partial;
 
@@ -17,7 +18,6 @@ module.exports = partial;
  */
 function partial(data) {
 	var flash = data.flash;
-	var i18n = data.i18n;
 
 	data.title_group = templates.common.formGroup({
 		id: 'club-title'
@@ -38,7 +38,7 @@ function partial(data) {
 		, placeholder: i18n.t('club.edit-slug-placeholder')
 	});
 	data.form_submit = templates.common.formSubmit({
-		text: data.i18n.t('club.new-club-submit')
+		text: i18n.t('club.new-club-submit')
 	});
 
 	data.form_title = i18n.t('club.new-club');

@@ -10,6 +10,7 @@ var usersDomain = require('../domains/users');
 var sessionDomain = require('../domains/session');
 var mixpanelDomain = require('../domains/mixpanel');
 var formError = require('../helpers/create-form-message');
+var i18n = require('../templates/i18n')();
 
 module.exports = factory;
 
@@ -80,7 +81,7 @@ function *middleware(next) {
 
 	if (!result) {
 		this.flash = formError(
-			this.i18n.t('error.invalid-csrf-token')
+			i18n.t('error.invalid-csrf-token')
 		);
 		this.redirect('/c/' + slug);
 		return;
@@ -94,7 +95,7 @@ function *middleware(next) {
 
 	if (body.join === '1' && user.action_point < 2) {
 		this.flash = formError(
-			this.i18n.t('error.insufficient-action-point', {
+			i18n.t('error.insufficient-action-point', {
 				required: 2
 				, current: user.action_point
 			})

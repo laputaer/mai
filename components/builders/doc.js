@@ -6,6 +6,7 @@
  */
 
 var templates = require('../templates/index');
+var i18n = require('../templates/i18n')();
 
 module.exports = builder;
 
@@ -16,8 +17,6 @@ module.exports = builder;
  * @return  VNode
  */
 function builder(data) {
-	var i18n = data.i18n;
-
 	// heading
 	data.heading = templates.common.heading(data);
 

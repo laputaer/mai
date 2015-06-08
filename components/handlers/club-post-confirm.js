@@ -14,6 +14,7 @@ var sessionDomain = require('../domains/session');
 var createError = require('../helpers/create-error-message');
 var formError = require('../helpers/create-form-message');
 var proxyUrl = require('../security/proxy');
+var i18n = require('../templates/i18n')();
 
 module.exports = factory;
 
@@ -50,7 +51,7 @@ function *middleware(next) {
 	if (!data.club) {
 		this.state.error_page = createError(
 			404
-			, data.i18n.t('error.not-found-club')
+			, i18n.t('error.not-found-club')
 		);
 		return;
 	}
@@ -70,7 +71,7 @@ function *middleware(next) {
 
 	if (!membership) {
 		this.flash = formError(
-			this.i18n.t('error.membership-required-to-post')
+			i18n.t('error.membership-required-to-post')
 		);
 		this.redirect('/c/' + slug);
 		return;
@@ -84,7 +85,7 @@ function *middleware(next) {
 
 	if (!data.embed) {
 		this.flash = formError(
-			this.i18n.t('error.opengraph-invalid-profile')
+			i18n.t('error.opengraph-invalid-profile')
 		);
 		this.redirect('/c/' + slug);
 		return;
