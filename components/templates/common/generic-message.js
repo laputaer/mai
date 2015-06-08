@@ -16,7 +16,7 @@ module.exports = template;
  * @param   Object  data  From renderer
  * @return  VNode
  */
-function template(data) {
+function template() {
 	var welcome = $('div.m-section', [
 		$('p.m-subtitle', i18n.t('placeholder.apology'))
 		, $('p.m-line', i18n.t('placeholder.explanation'))

@@ -16,7 +16,7 @@ module.exports = template;
  * @param   Object  data  From renderer
  * @return  VNode
  */
-function template(data) {
+function template() {
 	var heading = $('div.page-heading', [
 		$('h1.page-heading-title.main', i18n.t('common.domain'))
 		, $('p.page-heading-title.tagline', i18n.t('common.tagline'))

@@ -16,7 +16,7 @@ module.exports = template;
  * @param   Object  data  From renderer
  * @return  VNode
  */
-function template(data) {
+function template() {
 	var placeholder = $('div.m-rows', [
 		$('div.m-row-2.m-content', [
 			$('div.m-section.blue.lead', [
