@@ -5,8 +5,6 @@
  * Koa route handler for post creation
  */
 
-var parser = require('url').parse;
-
 var usersDomain = require('../domains/users');
 var clubsDomain = require('../domains/clubs');
 var sessionDomain = require('../domains/session');
@@ -37,7 +35,6 @@ function *middleware(next) {
 	// STEP 1: prepare common data
 	var user = this.state.user;
 	var slug = this.params.slug;
-	var config = this.config;
 
 	// STEP 2: find existing club
 	var club = yield clubsDomain.matchClub({

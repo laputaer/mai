@@ -10,7 +10,7 @@
     "setup": "npm install && npm run build:css && npm run build:js && npm run build:svg && npm run build:img && npm run migration",
     "migration": "node migration/migration.js",
     "local": "sudo NODE_ENV=local nodemon --ext js --ignore components/client-js/ --watch components/ --watch index.js index.js",
-    "dev:be": "sudo NODE_ENV=development DEBUG=mai:* nodemon --ext js --ignore components/client-js/ --watch components/ --watch index.js index.js",
+    "dev:be": "sudo NODE_ENV=development DEBUG=mai:* nodemon --ext js --ignore components/client-js/ --watch components/ --watch index.js --exec babel-node -- index.js",
     "dev:fe": "npm run watch:reload & npm run watch:css & npm run watch:js & npm run watch:svg",
     "watch:reload": "DEBUG=wiper wiper -p 30001 -w public/assets/app.css,public/assets/app.js --cert=ssl.crt --key=ssl.key",
     "watch:css": "DEBUG=onchange onchange components/client-less/\\*\\*/\\*.less components/client-less/\\*.less -- npm run build:css",
@@ -23,7 +23,8 @@
     "cron:cache:all": "find ./cache/ -maxdepth 1 -type f -not -name .gitignore -exec rm -fv {} + | wc -w",
     "cron:cache:old": "find ./cache/ -maxdepth 1 -type f -mtime +7 -not -name .gitignore -exec rm -fv {} + | wc -w",
     "cron:ap:all": "node cron/action-point-recovery.js",
-    "review:build": "browserify components/client-js/main.js -s app --list"
+    "review:build": "browserify components/client-js/main.js -s app --list",
+    "review:code": "eslint components/"
   },
   "repository": {
     "type": "git",
@@ -48,6 +49,7 @@
     "chai": "2.3.0",
     "clean-css": "3.3.1",
     "co-mocha": "1.1.0",
+    "eslint": "0.22.1",
     "imagemin": "3.2.0",
     "less": "2.5.1",
     "mocha": "2.2.5",
@@ -72,7 +74,6 @@
     "deep-extend": "0.4.0",
     "deku": "^0.4.4",
     "dom-delegator": "13.1.0",
-    "dom-layer": "^0.2.0",
     "escape-string-regexp": "1.0.3",
     "grant-koa": "3.3.1",
     "he": "0.5.0",
@@ -121,5 +122,24 @@
   },
   "browserify-shim": {
     "./components/client-js/vendor/svg4everybody.js": ""
+  },
+  "eslintConfig": {
+    "rules": {
+      "quotes": [1, "single"],
+      "strict": 0,
+      "camelcase": 0,
+      "semi": 0,
+      "no-extra-semi": 0,
+      "no-use-before-define": [1, "nofunc"],
+      "no-shadow": 0,
+      "no-trailing-spaces": 0,
+      "eol-last": 0,
+      "dot-notation": 0,
+      "consistent-return": 0
+    },
+    "env": {
+      "node": true,
+      "es6": true
+    }
   }
 }

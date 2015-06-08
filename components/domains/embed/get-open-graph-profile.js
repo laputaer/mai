@@ -104,7 +104,7 @@ function getOpenGraphProfile(opts) {
 		}
 
 		// case 2: opengraph data found, run through meta and compose opengraph object
-		meta.each(function(index) {
+		meta.each(function() {
 			var key = $(this).attr('property');
 			var value = $(this).attr('content');
 			var known = attrs[key.replace('og:', '')];

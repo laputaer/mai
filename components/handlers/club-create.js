@@ -107,7 +107,7 @@ function *middleware(next) {
 	}
 
 	// STEP 7: create new club
-	club = yield clubsDomain.createClub({
+	var club = yield clubsDomain.createClub({
 		db: this.db
 		, user: user
 		, data: body

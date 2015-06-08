@@ -38,8 +38,6 @@ function *middleware(next) {
 	// render html
 	// virtual-dom
 	var html = '<!DOCTYPE html>' + stringify(this.state.vdoc);
-	// dom-layer
-	//var html = '<!DOCTYPE html>' + this.state.vdoc.toHtml();
 
 	// format output
 	if (this.config.output.format) {

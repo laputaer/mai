@@ -7,7 +7,6 @@
 
 var builder = require('../builders/index');
 var prepareData = require('../builders/prepare-data');
-var usersDomain = require('../domains/users');
 
 module.exports = factory;
 

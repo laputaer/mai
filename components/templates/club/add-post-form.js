@@ -16,7 +16,6 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var i18n = data.i18n;
 	var club = data.club || {};
 
 	var form = $('div.m-rows', [

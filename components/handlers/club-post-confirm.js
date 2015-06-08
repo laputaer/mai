@@ -9,7 +9,6 @@ var parser = require('url').parse;
 
 var builder = require('../builders/index');
 var prepareData = require('../builders/prepare-data');
-var usersDomain = require('../domains/users');
 var clubsDomain = require('../domains/clubs');
 var sessionDomain = require('../domains/session');
 var createError = require('../helpers/create-error-message');
@@ -104,7 +103,7 @@ function *middleware(next) {
 	}
 
 	if (data.embed.url) {
-		url = parser(data.embed.url);
+		var url = parser(data.embed.url);
 		data.embed.domain = url.hostname;
 	}
 
