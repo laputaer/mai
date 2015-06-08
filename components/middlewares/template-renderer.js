@@ -10,6 +10,9 @@ var beautify = require('js-beautify').html;
 var inline_elements = require('inline-elements');
 var unformatted = inline_elements.concat('style');
 
+var tree = require('deku').tree;
+var renderString = require('deku').renderString;
+
 module.exports = factory;
 
 /**
@@ -38,6 +41,7 @@ function *middleware(next) {
 	// render html
 	// virtual-dom
 	var html = '<!DOCTYPE html>' + stringify(this.state.vdoc);
+	//var html = '<!DOCTYPE html>' + renderString(tree(this.state.vdoc));
 
 	// format output
 	if (this.config.output.format) {
