@@ -8,6 +8,7 @@
 
 var builder = require('../builders/index-error');
 var prepareData = require('../builders/prepare-data');
+var i18n = require('../templates/i18n')();
 
 module.exports = factory;
 
@@ -52,7 +53,7 @@ function *middleware(next) {
 	if (this.status === 404 && !this.state.vdoc) {
 		errorPage(this, {
 			status: 404
-			, message: this.i18n.t('error.not-found-page')
+			, message: i18n.t('error.not-found-page')
 		});
 		return;
 	}
@@ -72,10 +73,10 @@ function errorPage(ctx, err) {
 	// default to generic error
 	err = err || {
 		status: 500
-		, message: data.i18n.t('error.internal-service-down')
+		, message: i18n.t('error.internal-service-down')
 	};
 
-	data.error_status = data.i18n.t('error.status-code', { code: err.status })
+	data.error_status = i18n.t('error.status-code', { code: err.status })
 	data.error_message = err.message;
 
 	// status code and page output

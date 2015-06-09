@@ -1,6 +1,6 @@
 
 /**
- * output-sanitization.js
+ * output-sanitization.js (deprecated)
  *
  * Global output filters
  */

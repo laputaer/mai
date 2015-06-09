@@ -5,8 +5,8 @@
  * Template for club preview
  */
 
-var h = require('virtual-dom/h');
-var svg = require('virtual-dom/virtual-hyperscript/svg');
+var $ = require('../vdom');
+var i18n = require('../i18n')();
 
 module.exports = template;
 
@@ -17,16 +17,14 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var i18n = data.i18n;
-
 	// TODO: should we make sure they both exist?
 	var club = data.club;
 	var embed = club.embed;
 
 	var image;
 	if (embed && embed.image) {
-		image = h('div.m-image', [
-			h('img.lazyload', {
+		image = $('div.m-image', [
+			$('img.lazyload', {
 				src: embed.image.url + '&size=100'
 				, alt: embed.title + i18n.t('placeholder.image-preview')
 				, attributes: {
@@ -41,33 +39,33 @@ function template(data) {
 			})
 		]);
 	} else {
-		image = h('div.m-image.initials', [
-			h('span.m-letter', club.initials)
+		image = $('div.m-image.initials', [
+			$('span.m-letter', club.initials)
 		]);
 	}
 
 	var title;
 	if (club.title) {
-		title = h('h2.m-title', [
-			h('a.m-link', {
+		title = $('h2.m-title', [
+			$('a.m-link', {
 				href: '/c/' + club.slug
 			}, [
-				h('span.m-text', club.title)
+				$('span.m-text', club.title)
 			])
 		]);
 	}
 
 	var stat;
 	if (club.points) {
-		stat = h('p.m-stat', [
-			h('span', i18n.t('club.total-point'))
-			, h('span.m-stat-value', club.points.toString())
+		stat = $('p.m-stat', [
+			$('span', i18n.t('club.total-point'))
+			, $('span.m-stat-value', club.points.toString())
 		]);
 	}
 
-	var item = h('div.m-club-preview', [
+	var item = $('div.m-club-preview', [
 		image
-		, h('div.m-meta', [
+		, $('div.m-meta', [
 			title
 			, stat
 		])

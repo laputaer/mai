@@ -1,6 +1,6 @@
 
 /**
- * i18n.js
+ * i18n.js (deprecated)
  *
  * Return polyglot object with translation loaded
  */

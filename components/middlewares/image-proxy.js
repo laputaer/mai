@@ -25,7 +25,7 @@ module.exports = factory;
  *
  * @return  MW
  */
-function factory(opts) {
+function factory() {
 	return middleware;
 };
 
@@ -104,15 +104,18 @@ function *middleware(next) {
 	var parsed_url = parser(url);
 	var host = parsed_url.hostname;
 
-	if (result = matchUrl(host, config.fake_ua)) {
+	result = matchUrl(host, config.fake_ua)
+	if (result) {
 		ua = result;
 	}
 
-	if (result = matchUrl(host, config.fake_url)) {
+	result = matchUrl(host, config.fake_url)
+	if (result) {
 		url = url.replace(result.target, result.replaced);
 	}
 
-	if (result = matchUrl(host, config.fake_referer)) {
+	result = matchUrl(host, config.fake_referer)
+	if (result) {
 		referer = result;
 	}
 

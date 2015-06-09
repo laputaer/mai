@@ -12,6 +12,7 @@ var mixpanelDomain = require('../domains/mixpanel');
 var validate = require('../security/validation');
 var normalize = require('../security/normalization');
 var createError = require('../helpers/create-error-message');
+var i18n = require('../templates/i18n')();
 
 module.exports = factory;
 
@@ -36,7 +37,6 @@ function *middleware(next) {
 	// STEP 1: prepare common data
 	var provider = this.params.provider;
 	var user = {};
-	var i18n = this.i18n;
 
 	if (!provider || !this.config.oauth[provider]) {
 		return;

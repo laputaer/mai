@@ -5,8 +5,7 @@
  * Template for default buttons
  */
 
-var h = require('virtual-dom/h');
-var svg = require('virtual-dom/virtual-hyperscript/svg');
+var $ = require('../vdom');
 
 module.exports = template;
 
@@ -28,19 +27,19 @@ function template(data) {
 	// icon should be optional too
 	var icon;
 	if (data.icon) {
-		icon = svg('svg.m-icon', [
-			svg('use', {
+		icon = $('svg.m-icon', [
+			$('use', {
 				'xlink:href': base_url + '/assets/icons.svg?' + data.version + '#' + data.icon
 			})
 		]);
 	}
 
-	var button = h('a.m-button.rounded' + button_type, {
+	var button = $('a.m-button.rounded' + button_type, {
 		href: data.href
 		, target: data.target || undefined
 	}, [
 		icon
-		, h('span.m-text', data.text)
+		, $('span.m-text', data.text)
 	]);
 
 	return button;

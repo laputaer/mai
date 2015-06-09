@@ -30,7 +30,9 @@ function *database(opts) {
 
 	// prevent redis error from crashing our app
 	client.on('error', function(err) {
-		// you can log driver connection attempts here
+		if (err) {
+			// you can log driver connection attempts here
+		}
 	});
 
 	// make sure we have active connection to redis

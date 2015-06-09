@@ -19,12 +19,8 @@ module.exports = prepareData;
 function prepareData(ctx) {
 	var data = {};
 
-	// translation
-	data.i18n = ctx.i18n;
 	// locale
 	data.locale = ctx.locale;
-	// xss filters
-	data.xss = ctx.xss;
 	// asset version
 	data.version = ctx.config.version;
 	// flash message

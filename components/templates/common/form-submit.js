@@ -5,8 +5,7 @@
  * Template for default form submit group
  */
 
-var h = require('virtual-dom/h');
-var svg = require('virtual-dom/virtual-hyperscript/svg');
+var $ = require('../vdom');
 
 module.exports = template;
 
@@ -17,8 +16,8 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var group = h('div.m-group.m-full-cell', [
-		h('button.m-submit', {
+	var group = $('div.m-group.m-full-cell', [
+		$('button.m-submit', {
 			type: 'submit'
 		}, data.text)
 	]);

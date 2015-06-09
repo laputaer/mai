@@ -9,6 +9,7 @@ var builder = require('../builders/index');
 var prepareData = require('../builders/prepare-data');
 var clubsDomain = require('../domains/clubs');
 var createError = require('../helpers/create-error-message');
+var i18n = require('../templates/i18n')();
 
 module.exports = factory;
 
@@ -43,7 +44,7 @@ function *middleware(next) {
 	if (!data.club) {
 		this.state.error_page = createError(
 			404
-			, data.i18n.t('error.not-found-club')
+			, i18n.t('error.not-found-club')
 		);
 		return;
 	}
@@ -58,7 +59,7 @@ function *middleware(next) {
 	if (data.club.owner !== data.current_user.uid) {
 		this.state.error_page = createError(
 			403
-			, data.i18n.t('error.access-control')
+			, i18n.t('error.access-control')
 		);
 		return;
 	}

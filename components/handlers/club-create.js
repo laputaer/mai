@@ -10,6 +10,7 @@ var clubsDomain = require('../domains/clubs');
 var sessionDomain = require('../domains/session');
 var mixpanelDomain = require('../domains/mixpanel');
 var validate = require('../security/validation');
+var i18n = require('../templates/i18n')();
 
 var formError = require('../helpers/create-form-message');
 
@@ -52,7 +53,7 @@ function *middleware(next) {
 
 	if (!result) {
 		this.flash = formError(
-			this.i18n.t('error.invalid-csrf-token')
+			i18n.t('error.invalid-csrf-token')
 			, body
 		);
 		this.redirect('/c/club-add');
@@ -64,7 +65,7 @@ function *middleware(next) {
 
 	if (!result.valid) {
 		this.flash = formError(
-			this.i18n.t('error.form-input-invalid')
+			i18n.t('error.form-input-invalid')
 			, body
 			, result.errors
 		);
@@ -80,7 +81,7 @@ function *middleware(next) {
 
 	if (user.action_point < 10) {
 		this.flash = formError(
-			this.i18n.t('error.insufficient-action-point', {
+			i18n.t('error.insufficient-action-point', {
 				required: 10
 				, current: user.action_point
 			})
@@ -98,7 +99,7 @@ function *middleware(next) {
 
 	if (exist) {
 		this.flash = formError(
-			this.i18n.t('error.club-already-exist')
+			i18n.t('error.club-already-exist')
 			, body
 			, ['slug']
 		);
@@ -107,7 +108,7 @@ function *middleware(next) {
 	}
 
 	// STEP 7: create new club
-	club = yield clubsDomain.createClub({
+	var club = yield clubsDomain.createClub({
 		db: this.db
 		, user: user
 		, data: body

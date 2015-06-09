@@ -5,8 +5,8 @@
  * Template for post content in general
  */
 
-var h = require('virtual-dom/h');
-var svg = require('virtual-dom/virtual-hyperscript/svg');
+var $ = require('../vdom');
+var i18n = require('../i18n')();
 
 module.exports = template;
 
@@ -17,8 +17,6 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var i18n = data.i18n;
-
 	// TODO: should we make sure they both exist?
 	var post = data.post;
 	var embed = post.embed;
@@ -34,8 +32,8 @@ function template(data) {
 
 	var image;
 	if (embed.image) {
-		image = h('div.m-image', [
-			h('img.lazyload', {
+		image = $('div.m-image', [
+			$('img.lazyload', {
 				src: embed.image.url + '&size=100'
 				, alt: embed.title + i18n.t('placeholder.image-preview')
 				, attributes: {
@@ -53,47 +51,47 @@ function template(data) {
 
 	var title;
 	if (post.title) {
-		title = h('h2.m-title', post.title);
+		title = $('h2.m-title', post.title);
 	}
 
 	var summary;
 	if (post.summary) {
-		summary = h('p.m-quote', post.summary);
+		summary = $('p.m-quote', post.summary);
 	}
 
 	var external;
 	if (embed.url) {
-		external = h('p.m-external', [
-			h('a.m-link.external', {
+		external = $('p.m-external', [
+			$('a.m-link.external', {
 				href: embed.url
 				, target: '_blank'
 				, title: embed.title
 			}, [
-				h('span.m-text', embed.domain)
+				$('span.m-text', embed.domain)
 			])
 		]);
 	}
 
 	var author;
 	if (post.user) {
-		author = h('p.m-author', [
-			h('a.m-link', {
+		author = $('p.m-author', [
+			$('a.m-link', {
 				href: '/u/' + post.user
 			}, [
-				h('span.m-text', post.user_name)
+				$('span.m-text', post.user_name)
 			])
-			, h('span', i18n.t('club.posted-on'))
-			, h('a.m-link', {
+			, $('span', i18n.t('club.posted-on'))
+			, $('a.m-link', {
 				href: '/c/' + post.club
 			}, [
-				h('span.m-text', post.club_name)
+				$('span.m-text', post.club_name)
 			])
 		]);
 	}
 
-	var item = h('div.m-preview' + type, [
+	var item = $('div.m-preview' + type, [
 		image
-		, h('div.m-meta', [
+		, $('div.m-meta', [
 			external
 			, title
 			, summary

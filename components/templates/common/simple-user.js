@@ -5,8 +5,7 @@
  * Template for simple user profile (in menu bar)
  */
 
-var h = require('virtual-dom/h');
-var svg = require('virtual-dom/virtual-hyperscript/svg');
+var $ = require('../vdom');
 
 module.exports = template;
 
@@ -19,15 +18,14 @@ module.exports = template;
 function template(data) {
 	var user = data.current_user;
 	var status = data.current_path === '/u/' + user.uid ? '.active' : '';
-	var xss = data.xss;
 
-	var button = h('a.m-button.rounded.navigation' + status, {
-		href: '/u/' + xss.path(user.uid)
+	var button = $('a.m-button.rounded.navigation' + status, {
+		href: '/u/' + user.uid
 	}, [
-		h('img.m-image', {
+		$('img.m-image', {
 			src: user.small_avatar
 		})
-		, h('span.m-text', xss.data(user.login))
+		, $('span.m-text', user.login)
 	]);
 
 	return button;

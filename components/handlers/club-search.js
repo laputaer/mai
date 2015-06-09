@@ -14,6 +14,7 @@ var validate = require('../security/validation');
 var formError = require('../helpers/create-form-message');
 var getCoolInitials = require('../helpers/get-cool-initials');
 var proxyUrl = require('../security/proxy');
+var i18n = require('../templates/i18n')();
 
 module.exports = factory;
 
@@ -46,7 +47,7 @@ function *middleware(next) {
 
 	if (!result.valid) {
 		this.flash = formError(
-			this.i18n.t('error.form-input-invalid')
+			i18n.t('error.form-input-invalid')
 			, query
 			, ['q']
 		);

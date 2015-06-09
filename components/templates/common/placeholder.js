@@ -5,8 +5,7 @@
  * Template for placeholder container
  */
 
-var h = require('virtual-dom/h');
-var svg = require('virtual-dom/virtual-hyperscript/svg');
+var $ = require('../vdom');
 
 module.exports = template;
 
@@ -17,8 +16,8 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var placeholder = h('div.m-rows', [
-		h('div.m-row-2.m-content.placeholder', data.content)
+	var placeholder = $('div.m-rows', [
+		$('div.m-row-2.m-content.placeholder', data.content)
 	]);
 
 	return placeholder;

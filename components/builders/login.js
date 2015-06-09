@@ -6,6 +6,7 @@
  */
 
 var templates = require('../templates/index');
+var i18n = require('../templates/i18n')();
 
 module.exports = renderer;
 
@@ -16,8 +17,6 @@ module.exports = renderer;
  * @return  Object
  */
 function renderer(data) {
-	var i18n = data.i18n;
-
 	data.login = [];
 	data.login.push(templates.common.button({
 		type: ['medium', 'twitter']

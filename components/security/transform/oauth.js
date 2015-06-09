@@ -5,8 +5,6 @@
  * OAuth object transform function
  */
 
-var parser = require('url').parse;
-
 module.exports = tranform;
 
 /**

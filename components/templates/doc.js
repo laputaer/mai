@@ -5,16 +5,16 @@
  * Render <html> document
  */
 
-var h = require('virtual-dom/h');
+var $ = require('./vdom');
 
 module.exports = template;
 
 function template(data) {
-	var head = h('head', data.head);
+	var head = $('head', data.head);
 
-	var body = h('body', data.body);
+	var body = $('body', data.body);
 
-	var html = h('html', {
+	var html = $('html', {
 		lang: data.locale
 	}, [head, body]);
 

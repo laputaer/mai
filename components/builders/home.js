@@ -16,15 +16,9 @@ module.exports = partial;
  * @return  Object
  */
 function partial(data) {
-	var flash = data.flash;
-	var i18n = data.i18n;
-	var xss = data.xss;
-
 	data.post_list = data.posts.map(function(post) {
 		return templates.common.preview({
 			post: post
-			, i18n: i18n
-			, xss: xss
 		});
 	});
 

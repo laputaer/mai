@@ -5,8 +5,8 @@
  * Template for default user club home
  */
 
-var h = require('virtual-dom/h');
-var svg = require('virtual-dom/virtual-hyperscript/svg');
+var $ = require('../vdom');
+var i18n = require('../i18n')();
 
 module.exports = template;
 
@@ -17,30 +17,29 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var i18n = data.i18n;
-	var search = h('div.m-rows', [
-		h('div.m-content.m-row-2', [
-			h('div.m-section.yellow.lead', [
-				h('h1.m-subtitle', i18n.t('club.create-club'))
-				, h('p.m-line', i18n.t('club.create-club-intro', data.user))
+	var search = $('div.m-rows', [
+		$('div.m-content.m-row-2', [
+			$('div.m-section.yellow.lead', [
+				$('h1.m-subtitle', i18n.t('club.create-club'))
+				, $('p.m-line', i18n.t('club.create-club-intro', data.user))
 				, data.club_create_button
 			])
-			, h('div.m-section.blue', [
-				h('h1.m-subtitle', i18n.t('club.search-club'))
-				, h('form.m-form', {
+			, $('div.m-section.blue', [
+				$('h1.m-subtitle', i18n.t('club.search-club'))
+				, $('form.m-form', {
 					action: '/c/club-search'
 					, method: 'GET'
 				}, [
 					data.search_group
 				])
 			])
-			, h('div.m-section.green', [
-				h('h1.m-subtitle', i18n.t('club.owned-club'))
-				, h('div.m-list', data.my_club_buttons)
+			, $('div.m-section.green', [
+				$('h1.m-subtitle', i18n.t('club.owned-club'))
+				, $('div.m-list', data.my_club_buttons)
 			])
-			, h('div.m-section.green', [
-				h('h1.m-subtitle', i18n.t('club.joined-club'))
-				, h('div.m-list', data.my_joined_club_buttons)
+			, $('div.m-section.green', [
+				$('h1.m-subtitle', i18n.t('club.joined-club'))
+				, $('div.m-list', data.my_joined_club_buttons)
 			])
 		])
 	]);

@@ -5,8 +5,7 @@
  * Template for default form input group
  */
 
-var h = require('virtual-dom/h');
-var svg = require('virtual-dom/virtual-hyperscript/svg');
+var $ = require('../vdom');
 
 module.exports = template;
 
@@ -17,19 +16,19 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var group = h('div.m-group.m-cell', [
-		h('label.m-label' + data.error, {
+	var group = $('div.m-group.m-cell', [
+		$('label.m-label' + data.error, {
 			attributes: {
 				'for': data.id
 			}
 		}, data.label)
-		, h('input.m-field' + data.error, {
+		, $('input.m-field' + data.error, {
 			placeholder: data.placeholder
 			, name: data.name
 			, id: data.id
 			, value: data.value
 		})
-		, h('span.m-note', data.note)
+		, $('span.m-note', data.note)
 	]);
 
 	return group;

@@ -53,7 +53,7 @@ function *middleware(next) {
 		}
 
 		if (post.embed.url) {
-			url = parser(post.embed.url);
+			var url = parser(post.embed.url);
 			post.embed.domain = url.hostname;
 		}
 

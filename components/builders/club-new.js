@@ -1,11 +1,12 @@
 
 /**
- * club.js
+ * club-new.js
  *
- * Render club page body
+ * Render club creation form
  */
 
 var templates = require('../templates/index');
+var i18n = require('../templates/i18n')();
 
 module.exports = partial;
 
@@ -17,13 +18,11 @@ module.exports = partial;
  */
 function partial(data) {
 	var flash = data.flash;
-	var xss = data.xss;
-	var i18n = data.i18n;
 
 	data.title_group = templates.common.formGroup({
 		id: 'club-title'
 		, name: 'title'
-		, value: flash && flash.body ? xss.attr(flash.body['title']) : ''
+		, value: flash && flash.body ? flash.body['title'] : ''
 		, error: flash && flash.attrs && flash.attrs.indexOf('title') !== -1 ? '.error' : ''
 		, label: i18n.t('club.edit-title')
 		, note: i18n.t('club.edit-title-note')
@@ -32,14 +31,14 @@ function partial(data) {
 	data.slug_group = templates.common.formGroup({
 		id: 'club-slug'
 		, name: 'slug'
-		, value: flash && flash.body ? xss.attr(flash.body['slug']) : ''
+		, value: flash && flash.body ? flash.body['slug'] : ''
 		, error: flash && flash.attrs && flash.attrs.indexOf('slug') !== -1 ? '.error' : ''
 		, label: i18n.t('club.edit-slug')
 		, note: i18n.t('club.edit-slug-note')
 		, placeholder: i18n.t('club.edit-slug-placeholder')
 	});
 	data.form_submit = templates.common.formSubmit({
-		text: data.i18n.t('club.new-club-submit')
+		text: i18n.t('club.new-club-submit')
 	});
 
 	data.form_title = i18n.t('club.new-club');

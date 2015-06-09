@@ -5,8 +5,8 @@
  * Template for post content preview
  */
 
-var h = require('virtual-dom/h');
-var svg = require('virtual-dom/virtual-hyperscript/svg');
+var $ = require('../vdom');
+var i18n = require('../i18n')();
 
 module.exports = template;
 
@@ -17,15 +17,13 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var i18n = data.i18n;
-
 	var embed = data.embed;
 	var user = data.current_user;
 
 	var images;
 	if (embed && embed.image) {
 		images = embed.image.map(function(url, index) {
-			return h('img.lazyload', {
+			return $('img.lazyload', {
 				src: url + '&size=100'
 				, alt: embed.title + i18n.t('placeholder.image-preview')
 					+ ' 0' + index.toString()
@@ -41,42 +39,42 @@ function template(data) {
 			});
 		});
 
-		images = h('div.m-images', images);
+		images = $('div.m-images', images);
 	}
 
-	var title = h('h2.m-title', i18n.t('club.post-title'));
+	var title = $('h2.m-title', i18n.t('club.post-title'));
 
-	var summary = h('p.m-quote', i18n.t('club.post-summary'));
+	var summary = $('p.m-quote', i18n.t('club.post-summary'));
 
 	var external;
 	if (embed.url) {
-		external = h('p.m-external', [
-			h('a.m-link.external', {
+		external = $('p.m-external', [
+			$('a.m-link.external', {
 				href: embed.url
 				, target: '_blank'
 				, title: embed.title
 			}, [
-				h('span.m-text', embed.domain)
+				$('span.m-text', embed.domain)
 			])
-			, h('span', embed.title)
+			, $('span', embed.title)
 		]);
 	}
 
 	var author;
 	if (user) {
-		author = h('p.m-author', [
-			h('span', i18n.t('club.posted-by'))
-			, h('a.m-link', {
+		author = $('p.m-author', [
+			$('span', i18n.t('club.posted-by'))
+			, $('a.m-link', {
 				href: '/u/' + user.uid
 			}, [
-				h('span.m-text', user.name)
+				$('span.m-text', user.name)
 			])
 		]);
 	}
 
-	var item = h('div.m-post.preview', [
+	var item = $('div.m-post.preview', [
 		images
-		, h('div.m-meta', [
+		, $('div.m-meta', [
 			external
 			, title
 			, summary

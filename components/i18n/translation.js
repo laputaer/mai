@@ -14,13 +14,15 @@ module.exports = Translation;
  * @param   Object  opts  Configuration
  * @return  Void
  */
-function Translation(i18n) {
+function Translation(i18n, opts) {
 	if (!i18n) {
 		throw new Error('translator missing');
 	}
 
+	opts = opts || {};
+
 	this.i18n = i18n;
-	this.prefix = 'zh-cn';
+	this.prefix = opts.locale || 'zh-cn';
 }
 
 /**
@@ -35,14 +37,6 @@ Translation.prototype.locale = function(name) {
 	}
 
 	this.prefix = name;
-
-	// decide pluralization strategy
-	if (this.prefix.indexOf('zh') === 0) {
-		this.i18n.locale('zh');
-	} else if (this.prefix.indexOf('en') === 0) {
-		this.i18n.locale('en');
-	}
-
 	return this.prefix;
 };
 

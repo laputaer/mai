@@ -5,14 +5,13 @@
  * Koa route handler for post creation
  */
 
-var parser = require('url').parse;
-
 var usersDomain = require('../domains/users');
 var clubsDomain = require('../domains/clubs');
 var sessionDomain = require('../domains/session');
 var mixpanelDomain = require('../domains/mixpanel');
 var validate = require('../security/validation');
 var formError = require('../helpers/create-form-message');
+var i18n = require('../templates/i18n')();
 
 module.exports = factory;
 
@@ -37,7 +36,6 @@ function *middleware(next) {
 	// STEP 1: prepare common data
 	var user = this.state.user;
 	var slug = this.params.slug;
-	var config = this.config;
 
 	// STEP 2: find existing club
 	var club = yield clubsDomain.matchClub({
@@ -65,7 +63,7 @@ function *middleware(next) {
 
 	if (!membership) {
 		this.flash = formError(
-			this.i18n.t('error.membership-required-to-post')
+			i18n.t('error.membership-required-to-post')
 		);
 		this.redirect('/c/' + slug);
 		return;
@@ -79,7 +77,7 @@ function *middleware(next) {
 
 	if (user.action_point < 1) {
 		this.flash = formError(
-			this.i18n.t('error.insufficient-action-point', {
+			i18n.t('error.insufficient-action-point', {
 				required: 1
 				, current: user.action_point
 			})
@@ -99,7 +97,7 @@ function *middleware(next) {
 
 	if (!result) {
 		this.flash = formError(
-			this.i18n.t('error.invalid-csrf-token')
+			i18n.t('error.invalid-csrf-token')
 			, body
 		);
 		this.redirect('/c/' + slug + '/p/post-add-2');
@@ -111,7 +109,7 @@ function *middleware(next) {
 
 	if (!result.valid) {
 		this.flash = formError(
-			this.i18n.t('error.form-input-invalid')
+			i18n.t('error.form-input-invalid')
 			, body
 			, result.errors
 		);
@@ -127,7 +125,7 @@ function *middleware(next) {
 
 	if (!embed) {
 		this.flash = formError(
-			this.i18n.t('error.opengraph-invalid-profile')
+			i18n.t('error.opengraph-invalid-profile')
 		);
 		this.redirect('/c/' + slug);
 		return;

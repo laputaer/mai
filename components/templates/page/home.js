@@ -5,8 +5,8 @@
  * Template for home page
  */
 
-var h = require('virtual-dom/h');
-var svg = require('virtual-dom/virtual-hyperscript/svg');
+var $ = require('../vdom');
+var i18n = require('../i18n')();
 
 module.exports = template;
 
@@ -17,13 +17,11 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var i18n = data.i18n;
-
-	var container = h('div.m-rows', [
-		h('div.m-content.m-row-2', [
-			h('div.m-section.green.lead', [
-				h('h2.m-subtitle', i18n.t('club.home-result'))
-				, h('div.m-list', data.post_list)
+	var container = $('div.m-rows', [
+		$('div.m-content.m-row-2', [
+			$('div.m-section.green.lead', [
+				$('h2.m-subtitle', i18n.t('club.home-result'))
+				, $('div.m-list', data.post_list)
 			])
 		])
 	]);

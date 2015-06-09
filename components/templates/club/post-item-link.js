@@ -5,8 +5,8 @@
  * Template for simple post content in home page
  */
 
-var h = require('virtual-dom/h');
-var svg = require('virtual-dom/virtual-hyperscript/svg');
+var $ = require('../vdom');
+var i18n = require('../i18n')();
 
 module.exports = template;
 
@@ -17,8 +17,6 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var i18n = data.i18n;
-	var xss = data.xss;
 	var post = data.post;
 
 	if (!post || !post.embed) {
@@ -27,32 +25,32 @@ function template(data) {
 
 	var embed = post.embed;
 
-	var item = h('div.m-post', [
-		h('p.m-meta', [
-			h('a.m-link', {
-				href: '/u/' + xss.path(post.user)
+	var item = $('div.m-post', [
+		$('p.m-meta', [
+			$('a.m-link', {
+				href: '/u/' + post.user
 			}, [
-				h('span', xss.data(post.user_name))
+				$('span', post.user_name)
 			])
-			, h('span', i18n.t('club.activity-item-1'))
-			, h('a.m-link', {
-				href: '/c/' + xss.path(post.club)
+			, $('span', i18n.t('club.activity-item-1'))
+			, $('a.m-link', {
+				href: '/c/' + post.club
 			}, [
-				h('span', xss.data(post.club_name))
+				$('span', post.club_name)
 			])
-			, h('span', i18n.t('club.activity-item-2'))
-			, h('a.m-link', {
-				href: xss.url(embed.site_url)
+			, $('span', i18n.t('club.activity-item-2'))
+			, $('a.m-link', {
+				href: embed.site_url
 				, target: '_blank'
 			}, [
-				h('span', xss.data(embed.site_name))
+				$('span', embed.site_name)
 			])
-			, h('span', i18n.t('club.activity-item-3'))
-			, h('a.m-link', {
-				href: xss.url(embed.url)
+			, $('span', i18n.t('club.activity-item-3'))
+			, $('a.m-link', {
+				href: embed.url
 				, target: '_blank'
 			}, [
-				h('span', xss.data(embed.title))
+				$('span', embed.title)
 			])
 		])
 	]);
