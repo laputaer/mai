@@ -24,7 +24,7 @@ function partial(data) {
 		, name: 'title'
 		, value: flash && flash.body ? flash.body['title'] : ''
 		, error: flash && flash.attrs && flash.attrs.indexOf('title') !== -1 ? '.error' : ''
-		, label: 'club.post-title'
+		, label: i18n.t('club.post-title')
 		, note: i18n.t('club.post-title-note')
 		, placeholder: i18n.t('club.post-title-placeholder')
 	});
