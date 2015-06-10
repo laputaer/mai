@@ -54,6 +54,9 @@ function myRouter(app) {
 	router.post('/c/:slug/p/post-add-2', handlers.clubPostCreate());
 	//router.post('/c/:slug/p/:pid', handlers.clubPostUpdate());
 
+	// client-side api
+	router.get('/api/', handlers.pageLanding());
+
 	// register router to koa app
 	app.use(router.routes());
 	app.use(router.allowedMethods());
