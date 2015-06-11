@@ -6,6 +6,7 @@
  */
 
 var templates = require('../templates/index');
+var immutable = require('../templates/immutable');
 
 module.exports = renderer;
 
@@ -17,9 +18,7 @@ module.exports = renderer;
  */
 function renderer(data) {
 	data.post_list = data.posts.map(function(post) {
-		return templates.common.preview({
-			post: post
-		});
+		return immutable(templates.common.preview, post);
 	});
 
 	data.main = templates.user.profile(data);
