@@ -2,12 +2,12 @@
 /**
  * main.js
  *
- * Client-side app
+ * Client-side app entry point
  */
 
 'use strict';
 
-// modules
+// third-party modules
 var respimgPolyfill = require('lazysizes/plugins/respimg/ls.respimg.js');
 var lazySizes = require('lazysizes');
 
@@ -16,15 +16,12 @@ require('./vendor/svg4everybody');
 require('whatwg-fetch');
 require('native-promise-only');
 
-// model
-var Model = require('./model');
-var mainModel = new Model();
+// app lifecycle
+var App = require('./app');
 
-//var Renderer = require('./renderer');
-//var bodyRenderer = new Renderer();
-
+// kick off
 window.addEventListener('DOMContentLoaded', init);
 
 function init() {
-	//mainModel.sync();
+	app();
 };

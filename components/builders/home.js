@@ -6,7 +6,7 @@
  */
 
 var templates = require('../templates/index');
-var immutable = require('../templates/immutable');
+var immutable = require('./immutable');
 
 module.exports = partial;
 

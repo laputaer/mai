@@ -2,7 +2,7 @@
 /**
  * renderer.js
  *
- * Take immuntable data model, build virtual dom, render html as model change
+ * Manage client-side view update
  */
 
 'use strict';
