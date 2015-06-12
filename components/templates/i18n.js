@@ -24,7 +24,7 @@ var i18n = {};
 i18n['zh-cn'] = new Translation(polyglot, {
 	locale: 'zh-cn'
 });
-i18n['en-us']= new Translation(polyglot, {
+i18n['en-us'] = new Translation(polyglot, {
 	locale: 'en-us'
 });
 
