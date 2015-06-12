@@ -45,6 +45,7 @@ function *middleware(next) {
 		this.body = html;
 	} else if (this.state.json) {
 		// format and output
+		this.type = 'json';
 		this.body = JSON.stringify(this.state.json, null, '\t');
 	}
 };

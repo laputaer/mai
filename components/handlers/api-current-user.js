@@ -29,6 +29,8 @@ function factory() {
 function *middleware(next) {
 	yield next;
 
+	console.log('test');
+
 	if (!this.session.uid) {
 		this.state.json = getStandardJson(null, 400, i18n.t('error.login-required'));
 		return;

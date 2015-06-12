@@ -54,9 +54,10 @@ function myRouter(app) {
 	router.post('/c/:slug/p/post-add-2', handlers.clubPostCreate());
 
 	// api routes
-	//apiRouter.get('/user', apiHandlers.getCurrentUser());
-	//router.get('/api/v1', apiRouter.routes());
-	router.get('/api/v1/user', apiHandlers.getCurrentUser());
+	apiRouter.get('/user', apiHandlers.getCurrentUser());
+
+	// mount api routes to main router
+	router.use('/api/v1', apiRouter.routes());
 
 	// register router to koa app
 	app.use(router.routes());
