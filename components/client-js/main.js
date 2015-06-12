@@ -23,5 +23,5 @@ var App = require('./app');
 window.addEventListener('DOMContentLoaded', init);
 
 function init() {
-	app();
+	//app();
 };

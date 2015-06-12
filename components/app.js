@@ -51,6 +51,6 @@ app.use(errorHandler()); // this.state.vdoc
 app.use(userSession()); // this.state.user
 
 app.use(mount(grant)); // this.session.grant
-router(app); // this.state.vdoc, this.state.error
+router(app); // this.state.vdoc, this.state.error, this.state.json
 
 startUp(app, config); // run server

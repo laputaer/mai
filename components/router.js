@@ -8,6 +8,9 @@
 var router = require('koa-router')();
 var handlers = require('./handlers/index');
 
+var apiRouter = require('koa-router')();
+var apiHandlers = require('./handlers/index-api');
+
 module.exports = myRouter;
 
 /**
@@ -45,17 +48,15 @@ function myRouter(app) {
 	router.post('/c/:slug/memberships', handlers.clubUserMembership());
 
 	// club post
-	//router.get('/c/:slug/p', handlers.clubPosts());
 	router.get('/c/:slug/p/post-add', handlers.clubPostAddForm());
 	router.get('/c/:slug/p/post-add-2', handlers.clubPostConfirmForm());
-	//router.get('/c/:slug/p/:pid', handlers.clubPost());
-	//router.get('/c/:slug/p/:pid/edit', handlers.clubPostEditForm());
 	router.post('/c/:slug/p/post-add', handlers.clubPostStart());
 	router.post('/c/:slug/p/post-add-2', handlers.clubPostCreate());
-	//router.post('/c/:slug/p/:pid', handlers.clubPostUpdate());
 
-	// client-side api
-	router.get('/api/', handlers.pageLanding());
+	// api routes
+	//apiRouter.get('/user', apiHandlers.getCurrentUser());
+	//router.get('/api/v1', apiRouter.routes());
+	router.get('/api/v1/user', apiHandlers.getCurrentUser());
 
 	// register router to koa app
 	app.use(router.routes());
