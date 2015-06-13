@@ -23,6 +23,8 @@ function App() {
 	if (!(this instanceof App)) {
 		return new App();
 	}
+
+	this.service = new Service();
 }
 
 /**
@@ -31,5 +33,7 @@ function App() {
  * @return  Void
  */
 App.prototype.init = function() {
-
+	this.service.init().then(function(data) {
+		console.log(data);
+	});
 };

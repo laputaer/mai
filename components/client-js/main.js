@@ -18,10 +18,12 @@ require('native-promise-only');
 
 // app lifecycle
 var App = require('./app');
+var app = new App();
 
 // kick off
 window.addEventListener('DOMContentLoaded', init);
 
 function init() {
-	//app();
+	console.log('loaded');
+	app.init();
 };
