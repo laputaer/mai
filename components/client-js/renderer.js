@@ -7,21 +7,20 @@
 
 'use strict';
 
+// client-side api
+var win = window;
+var doc = document;
+
 // templates
 var builder = require('../builders/index');
 
 // vdom to html
-var h = require('virtual-dom/h');
 var diff = require('virtual-dom/diff');
 var patch = require('virtual-dom/patch');
 var createElement = require('virtual-dom/create-element');
 
 // html to vdom
 var virtualize = require('vdom-virtualize');
-
-// events
-var Delegator = require('dom-delegator');
-var events = new Delegator();
 
 module.exports = Renderer;
 
@@ -47,6 +46,10 @@ function Renderer() {
  * @return  Void
  */
 Renderer.prototype.init = function(base) {
+	if (!base) {
+		base = doc.body;
+	}
+
 	if (this.vdomCache && this.nodeCache) {
 		return;
 	}

@@ -26,6 +26,7 @@ function App() {
 
 	this.service = new Service();
 	this.model = new Model();
+	this.renderer = new Renderer();
 }
 
 /**
@@ -36,8 +37,11 @@ function App() {
 App.prototype.init = function() {
 	var self = this;
 
+	this.renderer.init();
+
 	this.service.init().then(function(data) {
 		self.model.init(data);
-		console.log(self.model.get());
+
+		//self.renderer.update(self.model.get());
 	});
 };
