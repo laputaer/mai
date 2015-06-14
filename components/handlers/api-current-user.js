@@ -6,6 +6,7 @@
  */
 
 var usersDomain = require('../domains/users');
+var normalize = require('../security/normalization');
 var getStandardJson = require('../helpers/get-standard-json');
 var i18n = require('../templates/i18n')();
 
@@ -34,16 +35,8 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 1: get user profile
-	var user = yield usersDomain.matchUser({
-		db: this.db
-		, uid: this.session.uid
-	});
-
-	if (!user) {
-		this.state.json = getStandardJson(null, 404, i18n.t('error.not-found-user'));
-		return;
-	}
+	// STEP 1: get user
+	var user = normalize(this.state.user, 'outputUser');
 
 	// STEP 2: output json
 	this.state.json = getStandardJson(user);

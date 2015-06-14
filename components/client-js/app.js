@@ -41,6 +41,7 @@ App.prototype.init = function() {
 
 	this.service.init().then(function(data) {
 		self.model.init(data);
+		console.log(self.model.get());
 
 		//self.renderer.update(self.model.get());
 	});

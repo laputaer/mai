@@ -136,6 +136,10 @@ function template(data) {
 			, sizes: '32x32'
 			, href: '/favicon.png?' + data.version.asset
 		})
+		, $('meta', {
+			name: 'mai:token'
+			, content: data.current_user.csrf_token
+		})
 		, og_title
 		, og_url
 		, og_image

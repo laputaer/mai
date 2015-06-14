@@ -30,6 +30,8 @@ function *middleware(next) {
 	var config = {
 		version: this.config.version
 		, locale: this.locale
+		, production: this.state.production
+		, base_url: this.state.base_url
 	};
 
 	// STEP 1: output json
