@@ -42,7 +42,6 @@ App.prototype.init = function() {
 
 	return this.service.init().then(function(data) {
 		return self.model.init(data);
-		//self.renderer.update(self.model.get());
 	});
 };
 
@@ -61,7 +60,6 @@ App.prototype.update = function() {
 
 	return this.service.sync(name).then(function(data) {
 		self.model.sync(data);
-		console.log(self.model.get());
-		//self.renderer.update(name, self.model.get());
+		self.renderer.update(name, self.model.get());
 	});
 };

@@ -14,11 +14,15 @@ module.exports = builder;
  * Populates templates with data
  *
  * @param   Object  data  From data source
+ * @param   Object  opts  Output options
  * @return  VNode
  */
-function builder(data) {
+function builder(data, opts) {
+	opts = opts || {};
+
 	// heading
 	data.heading = templates.common.heading(data);
+	console.log(data.heading);
 
 	// menu partials
 	data.menu_hint = [
@@ -59,6 +63,11 @@ function builder(data) {
 	}
 
 	data.menu = templates.common.menu(data);
+
+	if (opts.bodyOnly) {
+		return templates.body(data);
+	}
+
 	data.head = templates.head(data);
 	data.body = templates.body(data);
 

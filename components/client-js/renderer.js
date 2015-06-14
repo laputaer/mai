@@ -11,16 +11,15 @@
 var win = window;
 var doc = document;
 
-// template bundle
-var templates = require('../templates/index');
-
 // builder files
 var builders = {
-	home: require('../builders/home')
+	doc: require('../builders/doc')
+	, home: require('../builders/home')
 };
 
 // immutable object
 var I = require('icepick');
+var extend = require('xtend');
 
 // vdom to html
 var diff = require('virtual-dom/diff');
@@ -62,6 +61,10 @@ Renderer.prototype.init = function(container) {
 		container = doc.body;
 	}
 
+	//while (container.firstChild) {
+	//	container.removeChild(container.firstChild);
+	//}
+
 	this.vdomCache = virtualize(container);
 	this.nodeCache = container;
 };
@@ -79,9 +82,13 @@ Renderer.prototype.update = function(name, model) {
 	}
 	this.modelCache = model;
 
-	var data = builders[name](model);
-	data = I.assign(model, data);
-	var vdom = templates.body(data);
+	// shallow copy into mutable model
+	var data = extend({}, model);
+	data = builders[name](data);
+
+	var vdom = builders.doc(data, {
+		bodyOnly: true
+	});
 
 	if (!vdom) {
 		return;

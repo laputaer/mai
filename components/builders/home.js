@@ -17,13 +17,11 @@ module.exports = partial;
  * @return  Object
  */
 function partial(data) {
-	var output = {};
-
-	output.post_list = data.posts.map(function(post) {
+	data.post_list = data.posts.map(function(post) {
 		return immutable(templates.common.preview, post);
 	});
 
-	output.main = templates.page.home(output);
+	data.main = templates.page.home(data);
 
-	return output;
+	return data;
 };
