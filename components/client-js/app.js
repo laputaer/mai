@@ -25,6 +25,7 @@ function App() {
 	}
 
 	this.service = new Service();
+	this.model = new Model();
 }
 
 /**
@@ -33,7 +34,10 @@ function App() {
  * @return  Void
  */
 App.prototype.init = function() {
+	var self = this;
+
 	this.service.init().then(function(data) {
-		console.log(data);
+		self.model.init(data);
+		console.log(self.model.get());
 	});
 };

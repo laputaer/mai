@@ -12,6 +12,7 @@ var prefix = '/api/v1';
 var api = {
 	init: {
 		user: '/user'
+		, global: '/global'
 	}
 };
 
@@ -62,22 +63,38 @@ Service.prototype.fetch = function(name) {
 			continue;
 		}
 
-		// TODO: better error handling
-		fetches.push(fetch(prefix + endpoint[prop]).then(function(res) {
-			if (!res.ok) {
-				results[prop] = null;
-				return;
-			}
-			return res.json();
-		}).then(function(json) {
-			if (!json) {
-				return;
-			}
-			results[prop] = json;
-		}));
+		deferFetch(fetches, fetch(prefix + endpoint[prop]), results, prop);
 	}
 
 	return Promise.all(fetches).then(function() {
 		return results;
 	});
 };
+
+/**
+ * Defer fetch and allow us to collect data as object
+ *
+ * @param   Array    ps       List of promises
+ * @param   Promise  p        Fetch promise
+ * @param   Object   results  Object output
+ * @param   String   name     Object attribute name
+ * @return  Void
+ */
+function deferFetch(ps, p, results, name) {
+	results[name] = null;
+
+	// TODO: better error handling
+	ps.push(p.then(function(res) {
+		if (!res.ok) {
+			results[name] = null;
+			return;
+		}
+		return res.json();
+	}).then(function(json) {
+		if (!json) {
+			results[name] = null;
+			return;
+		}
+		results[name] = json;
+	}));
+}
