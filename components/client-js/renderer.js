@@ -80,7 +80,8 @@ Renderer.prototype.update = function(name, model) {
 	this.modelCache = model;
 
 	var data = builders[name](model);
-	var vdom = templates.body(I.assign(model, data));
+	data = I.assign(model, data);
+	var vdom = templates.body(data);
 
 	if (!vdom) {
 		return;

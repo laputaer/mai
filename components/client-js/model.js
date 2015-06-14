@@ -47,7 +47,10 @@ Model.prototype.init = function(data) {
 	this.set('current_user', data.user.data);
 	this.set('current_path', removeTrailingSlash(win.location.pathname));
 	this.set('current_url', win.location.href);
-	this.set(['current_user', 'csrf_token'], doc.head.querySelector('meta[name="mai:token"]').content);
+	var crsf_meta = doc.head.querySelector('meta[name="mai:token"]');
+	if (crsf_meta) {
+		this.set(['current_user', 'csrf_token'], crsf_meta.content);
+	}
 };
 
 /**
