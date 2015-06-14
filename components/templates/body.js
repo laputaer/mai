@@ -24,5 +24,7 @@ function template(data) {
 		, data.mobile_menu
 	]);
 
-	return main;
+	var body = $('body', main);
+
+	return body;
 };

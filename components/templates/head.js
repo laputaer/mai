@@ -20,6 +20,7 @@ function template(data) {
 	var og_title, og_url, og_image, og_type, og_site_name, og_description;
 	var t_card, t_site, t_title, t_description, t_image;
 	var vendor, prefetch_cdn, prefetch_gs, prefetch_gs_1, prefetch_gs_2;
+	var csrf_token;
 
 	var main_css_file = data.production ? '/assets/app.css' : '/assets/app.dev.css';
 	var main_js_file = data.production ? '/assets/app.js' : '/assets/app.dev.js';
@@ -98,7 +99,14 @@ function template(data) {
 		});
 	}
 
-	var head = [
+	if (data.current_user) {
+		csrf_token = $('meta', {
+			name: 'mai:token'
+			, content: data.current_user.csrf_token
+		});
+	}
+
+	var headers = [
 		$('meta', {
 			charset: 'UTF-8'
 		})
@@ -136,10 +144,7 @@ function template(data) {
 			, sizes: '32x32'
 			, href: '/favicon.png?' + data.version.asset
 		})
-		, $('meta', {
-			name: 'mai:token'
-			, content: data.current_user.csrf_token
-		})
+		, csrf_token
 		, og_title
 		, og_url
 		, og_image
@@ -173,6 +178,8 @@ function template(data) {
 		})
 		, vendor
 	];
+
+	var head = $('head', headers);
 
 	return head;
 };

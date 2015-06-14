@@ -11,8 +11,16 @@
 var win = window;
 var doc = document;
 
-// templates
-var builder = require('./builder');
+// template bundle
+var templates = require('../templates/index');
+
+// builder files
+var builders = {
+	home: require('../builders/home')
+};
+
+// immutable object
+var I = require('icepick');
 
 // vdom to html
 var diff = require('virtual-dom/diff');
@@ -42,36 +50,38 @@ function Renderer() {
 /**
  * Initialize server-rendered dom into vdom
  *
- * @param   DOM   base  Initial dom
+ * @param   Object  container  DOM container
  * @return  Void
  */
-Renderer.prototype.init = function(base) {
-	if (!base) {
-		base = doc.body;
-	}
-
+Renderer.prototype.init = function(container) {
 	if (this.vdomCache && this.nodeCache) {
 		return;
 	}
 
-	this.vdomCache = virtualize(base);
-	this.nodeCache = base;
+	if (!container) {
+		container = doc.body;
+	}
+
+	this.vdomCache = virtualize(container);
+	this.nodeCache = container;
 };
 
 /**
  * Update dom using vdom diffing 
  *
+ * @param   String  name   Builder name
  * @param   Object  model  Immutable data model
  * @return  Void
  */
-Renderer.prototype.update = function(model) {
+Renderer.prototype.update = function(name, model) {
 	if (this.modelCache === model) {
 		return;
 	}
 	this.modelCache = model;
-	console.log(model);
 
-	var vdom = builder(model);
+	var data = builders[name](model);
+	var vdom = templates.body(I.assign(model, data));
+
 	if (!vdom) {
 		return;
 	}

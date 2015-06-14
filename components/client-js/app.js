@@ -61,6 +61,7 @@ App.prototype.update = function() {
 
 	return this.service.sync(name).then(function(data) {
 		self.model.sync(data);
-		self.renderer.update(self.model.get());
+		console.log(self.model.get());
+		//self.renderer.update(name, self.model.get());
 	});
 };
