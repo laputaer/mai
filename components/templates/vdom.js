@@ -7,7 +7,7 @@
 
 var h = require('virtual-dom/h');
 var svg = require('virtual-dom/virtual-hyperscript/svg');
-var svg_tags = ['use'];
+var svg_tags = ['svg', 'use'];
 
 module.exports = vdom;
 
