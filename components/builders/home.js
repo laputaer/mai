@@ -18,7 +18,7 @@ module.exports = partial;
  */
 function partial(data) {
 	data.post_list = data.posts.map(function(post) {
-		return immutable(templates.common.preview, post);
+		return templates.common.preview(post);
 	});
 
 	data.main = templates.page.home(data);
