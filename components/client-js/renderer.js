@@ -12,7 +12,7 @@ var win = window;
 var doc = document;
 
 // templates
-var builder = require('../builders/index');
+var builder = require('./builder');
 
 // vdom to html
 var diff = require('virtual-dom/diff');
@@ -69,6 +69,7 @@ Renderer.prototype.update = function(model) {
 		return;
 	}
 	this.modelCache = model;
+	console.log(model);
 
 	var vdom = builder(model);
 	if (!vdom) {

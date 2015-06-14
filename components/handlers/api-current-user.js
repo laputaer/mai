@@ -5,7 +5,6 @@
  * API for getting current user profile
  */
 
-var usersDomain = require('../domains/users');
 var normalize = require('../security/normalization');
 var getStandardJson = require('../helpers/get-standard-json');
 var i18n = require('../templates/i18n')();

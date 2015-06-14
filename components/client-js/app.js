@@ -11,6 +11,7 @@ var Service = require('./service');
 var Model = require('./model');
 var Renderer = require('./renderer');
 var Event = require('./event');
+var router = require('./router');
 
 module.exports = App;
 
@@ -32,17 +33,34 @@ function App() {
 /**
  * Initialize app state
  *
- * @return  Void
+ * @return  Promise
  */
 App.prototype.init = function() {
 	var self = this;
 
 	this.renderer.init();
 
-	this.service.init().then(function(data) {
-		self.model.init(data);
-		console.log(self.model.get());
-
+	return this.service.init().then(function(data) {
+		return self.model.init(data);
 		//self.renderer.update(self.model.get());
+	});
+};
+
+/**
+ * Update app state
+ *
+ * @return  Promise
+ */
+App.prototype.update = function() {
+	var self = this;
+	var name = router(this.model.get());
+
+	if (!name) {
+		return;
+	}
+
+	return this.service.sync(name).then(function(data) {
+		self.model.sync(data);
+		self.renderer.update(self.model.get());
 	});
 };

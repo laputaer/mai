@@ -7,12 +7,17 @@
 
 'use strict';
 
+// API prefix
 var prefix = '/api/v1';
 
+// API group
 var api = {
 	init: {
 		user: '/user'
 		, global: '/global'
+	}
+	, home: {
+		posts: '/posts'
 	}
 };
 
@@ -41,10 +46,11 @@ Service.prototype.init = function() {
 /**
  * Sync data on update
  *
+ * @param   String   name  API group name
  * @return  Promise
  */
-Service.prototype.sync = function() {
-
+Service.prototype.sync = function(name) {
+	return this.fetch(name);
 };
 
 /**

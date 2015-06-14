@@ -35,7 +35,7 @@ function Model() {
 /**
  * Initialize store
  *
- * @param   Object  data  Global data
+ * @param   Object  data  JSON data
  * @return  Void
  */
 Model.prototype.init = function(data) {
@@ -47,6 +47,26 @@ Model.prototype.init = function(data) {
 	this.set('current_path', removeTrailingSlash(win.location.pathname));
 	this.set('current_url', win.location.href);
 	this.set(['current_user', 'csrf_token'], doc.head.querySelector('meta[name="mai:token"]').content);
+};
+
+/**
+ * Initialize store
+ *
+ * @param   Object  data  JSON data
+ * @return  Void
+ */
+Model.prototype.sync = function(data) {
+	for (var prop in data) {
+		if (!data.hasOwnProperty(prop)) {
+			continue;
+		}
+
+		if (data[prop].code !== 200) {
+			continue;
+		}
+
+		this.set(prop, data[prop].data);
+	}
 };
 
 /**
