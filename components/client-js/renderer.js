@@ -11,11 +11,8 @@
 var win = window;
 var doc = document;
 
-// builder files
-var builders = {
-	doc: require('../builders/doc')
-	, home: require('../builders/home')
-};
+// builder bundle
+var builders = require('../builders/builders');
 
 // immutable object
 var I = require('icepick');
@@ -53,18 +50,17 @@ function Renderer() {
  * @return  Void
  */
 Renderer.prototype.init = function(container) {
+	// only allow init once
 	if (this.vdomCache && this.nodeCache) {
 		return;
 	}
 
+	// use body as container by default
 	if (!container) {
 		container = doc.body;
 	}
 
-	//while (container.firstChild) {
-	//	container.removeChild(container.firstChild);
-	//}
-
+	// parse dom into vdom, and remember container
 	this.vdomCache = virtualize(container);
 	this.nodeCache = container;
 };
@@ -77,24 +73,33 @@ Renderer.prototype.init = function(container) {
  * @return  Void
  */
 Renderer.prototype.update = function(name, model) {
+	// model not changed, skip
 	if (this.modelCache === model) {
 		return;
 	}
+
+	// cache new model
 	this.modelCache = model;
 
 	// shallow copy into mutable model
 	var data = extend({}, model);
+
+	// so builder can assult mutable data
+	// but also allow template to do immutable check
 	data = builders[name](data);
 
-	var vdom = builders.doc(data, {
-		bodyOnly: true
-	});
+	// data.client flag decides whether body or doc is returned
+	var vdom = builders.doc(data);
 
+	// new vdom empty, skip
 	if (!vdom) {
 		return;
 	}
 
+	// generate patches and apply them
 	var patches = diff(this.vdomCache, vdom);
 	patch(this.nodeCache, patches);
+
+	// cache new vdom for next diff
 	this.vdomCache = vdom;
 };

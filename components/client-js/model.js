@@ -16,6 +16,7 @@ var I = require('icepick');
 
 // helpers
 var removeTrailingSlash = require('../helpers/remove-trailing-slash');
+var getVarType = require('../helpers/get-variable-type');
 
 module.exports = Model;
 
@@ -39,6 +40,7 @@ function Model() {
  * @return  Void
  */
 Model.prototype.init = function(data) {
+	// this is similar to builders/prepare-data but for client-side
 	this.set('client', true);
 	this.set('locale', data.global.data.locale);
 	this.set('version', data.global.data.version);
@@ -47,6 +49,8 @@ Model.prototype.init = function(data) {
 	this.set('current_user', data.user.data);
 	this.set('current_path', removeTrailingSlash(win.location.pathname));
 	this.set('current_url', win.location.href);
+
+	// expose crsf token via meta
 	var crsf_meta = doc.head.querySelector('meta[name="mai:token"]');
 	if (crsf_meta) {
 		this.set(['current_user', 'csrf_token'], crsf_meta.content);
@@ -60,6 +64,7 @@ Model.prototype.init = function(data) {
  * @return  Void
  */
 Model.prototype.sync = function(data) {
+	// copy json response data onto store
 	for (var prop in data) {
 		if (!data.hasOwnProperty(prop)) {
 			continue;
@@ -81,15 +86,16 @@ Model.prototype.sync = function(data) {
  * @return  Object        Immutable object
  */
 Model.prototype.set = function(path, data) {
-	if (typeof path === 'string') {
+	// see icepick doc for details
+	if (getVarType(path) === 'String') {
 		this.store = I.assoc(this.store, path, data);
 		return this.store;
-	} else if (typeof path === 'object') {
+	} else if (getVarType(path) === 'Array') {
 		this.store = I.assocIn(this.store, path, data);
 		return this.store;
 	}
 
-	throw new Error('invalid path');
+	throw new Error('set: invalid path');
 };
 
 /**
@@ -99,13 +105,14 @@ Model.prototype.set = function(path, data) {
  * @return  Object        Immutable object
  */
 Model.prototype.get = function(path) {
+	// see icepick doc for details
 	if (!path) {
 		return this.store;
-	} else if (typeof path === 'string') {
+	} else if (getVarType(path) === 'String') {
 		return this.store[path];
-	} else if (typeof path === 'object') {
+	} else if (getVarType(path) === 'Array') {
 		return I.getIn(this.store, path);
 	}
 
-	throw new Error('invalid path');
+	throw new Error('get: invalid path');
 };

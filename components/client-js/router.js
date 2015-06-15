@@ -22,6 +22,7 @@ module.exports = router;
  * @return  String        Route name
  */
 function router(data) {
+	// similar to builders/index but only retrieve named routes
 	var path = data.current_path;
 	var name;
 

@@ -38,9 +38,9 @@ function App() {
 App.prototype.init = function() {
 	var self = this;
 
-	this.renderer.init();
+	self.renderer.init();
 
-	return this.service.init().then(function(data) {
+	return self.service.init().then(function(data) {
 		return self.model.init(data);
 	});
 };
@@ -52,13 +52,14 @@ App.prototype.init = function() {
  */
 App.prototype.update = function() {
 	var self = this;
-	var name = router(this.model.get());
+	var name = router(self.model.get());
 
+	// unknown route, skip
 	if (!name) {
 		return;
 	}
 
-	return this.service.sync(name).then(function(data) {
+	return self.service.fetch(name).then(function(data) {
 		self.model.sync(data);
 		self.renderer.update(name, self.model.get());
 	});

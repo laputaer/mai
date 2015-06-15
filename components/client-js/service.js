@@ -44,16 +44,6 @@ Service.prototype.init = function() {
 };
 
 /**
- * Sync data on update
- *
- * @param   String   name  API group name
- * @return  Promise
- */
-Service.prototype.sync = function(name) {
-	return this.fetch(name);
-};
-
-/**
  * Fetch backend in parallel
  *
  * @param   String   name  API name
@@ -69,6 +59,7 @@ Service.prototype.fetch = function(name) {
 			continue;
 		}
 
+		// allow us to resolve fetch into an object
 		deferFetch(fetches, fetch(prefix + endpoint[prop]), results, prop);
 	}
 
@@ -91,16 +82,18 @@ function deferFetch(ps, p, results, name) {
 
 	// TODO: better error handling
 	ps.push(p.then(function(res) {
+		// non-2xx response
 		if (!res.ok) {
 			results[name] = null;
 			return;
 		}
 		return res.json();
 	}).then(function(json) {
+		// invalid json
 		if (!json) {
 			results[name] = null;
 			return;
 		}
 		results[name] = json;
 	}));
-}
+};
