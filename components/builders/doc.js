@@ -5,6 +5,7 @@
  * Render document
  */
 
+var immutable = require('./immutable');
 var templates = require('../templates/index');
 var i18n = require('../templates/i18n')();
 

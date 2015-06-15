@@ -15,11 +15,13 @@ module.exports = immutable;
  * @param   Boolean   client  Server-side or client-side
  * @return  Object            VNode or Thunk
  */
-function immutable(fn, data, client) {
-	if (client) {
+function immutable(fn, data) {
+	// render without thunk on server-side
+	if (typeof data !== 'object' || !data.client) {
 		return fn(data);
 	}
 
+	// on client-side use thunk and key when possible
 	var key;
 	if (typeof data === 'object' && data.hasOwnProperty('key')) {
 		key = data.key;
@@ -65,8 +67,10 @@ function ImmutableThunk(fn, data, key) {
 // see spec: https://github.com/Matt-Esch/virtual-dom/blob/master/docs/thunk.md
 ImmutableThunk.prototype.type = 'Thunk';
 ImmutableThunk.prototype.render = function(previous) {
+	// new node or data chnaged, re-render
 	if (!previous || !eq(this.data, previous.data)) {
 		return this.fn.call(null, this.data);
+	// otherwise return cached vdom
 	} else {
 		return previous.vnode;
 	}
