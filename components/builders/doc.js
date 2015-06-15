@@ -5,25 +5,32 @@
  * Render document
  */
 
+// immutable object
 var I = require('icepick');
 
 var immutable = require('./immutable');
+var cache = require('./cache');
+
 var templates = require('../templates/index');
 var i18n = require('../templates/i18n')();
 
-var menu_hint = [
+// provide basic button data, freeze them for performance
+var menu_hint = I.freeze([
 	{ href: '/', icon: 'squares', text: i18n.t('menu.nav.toggle'), type: ['navigation'] }
-];
-var menu_nav = [
+]);
+var menu_nav = I.freeze([
 	{ href: '/', icon: 'home', text: i18n.t('menu.nav.home'), type: ['navigation'] }
 	, { href: '/c/club-home', icon: 'heart', text: i18n.t('menu.nav.club'), type: ['navigation'] }
 	, { href: '/c/club-ranking', icon: 'graph_rising', text: i18n.t('menu.nav.ranking'), type: ['navigation'] }
 	, { href: '/help', icon: 'compass', text: i18n.t('menu.nav.help'), type: ['navigation'] }
-];
-var menu_user = [
+]);
+var menu_user = I.freeze([
 	{ href: '/connect/twitter', icon: 'twitter', text: i18n.t('menu.login.twitter'), type: ['navigation'] }
 	, { href: '/connect/github', icon: 'github', text: i18n.t('menu.login.github'), type: ['navigation'] }
-];
+]);
+
+// cache the result
+var cached_menu_hint, cached_menu_nav, cached_menu_user;
 
 module.exports = builder;
 
@@ -35,38 +42,69 @@ module.exports = builder;
  */
 function builder(data) {
 	// heading
-	data.heading = templates.common.heading(data);
-
-	// menu partials
-	data.menu_hint = menu_hint.map(function(button) {
-		if (data.current_path === button.href) {
-			button.type.push('active');
-		}
-		button.version = data.version.asset;
-		button.base_url = data.base_url;
-		return button;
+	data.heading = cache(templates.common.heading, {
+		client: data.client
 	});
-	data.menu_hint = data.menu_hint.map(templates.common.button);
 
-	// menu partials
-	data.menu_nav = menu_nav.map(function(button) {
-		if (data.current_path === button.href) {
-			button.type.push('active');
+	// menu data
+	// TODO: reuse these code
+	if (!cached_menu_hint) {
+		cached_menu_hint = I.map(function (button) {
+			return I.assign(button, {
+				client: !!data.client
+				, version: data.version.asset
+				, base_url: data.base_url
+			});
+		}, menu_hint);
+	}
+
+	if (!cached_menu_nav) {
+		cached_menu_nav = I.map(function(button) {
+			return I.assign(button, {
+				client: !!data.client
+				, version: data.version.asset
+				, base_url: data.base_url
+			});
+		}, menu_nav);
+	}
+
+	if (!cached_menu_user) {
+		cached_menu_user = I.map(function(button) {
+			return I.assign(button, {
+				client: !!data.client
+				, version: data.version.asset
+				, base_url: data.base_url
+			});
+		}, menu_user);
+	}
+
+	// menu items
+	// TODO: reuse these code
+	data.menu_hint = cached_menu_hint.map(function(button) {
+		if (data.current_path !== button.href) {
+			return immutable(templates.common.button, button);
 		}
-		button.version = data.version.asset;
-		button.base_url = data.base_url;
-		return button;
-	});
-	data.menu_nav = data.menu_nav.map(templates.common.button);
 
-	// menu partials
-	if (!data.current_user) {
-		data.menu_user = menu_user.map(function(button) {
-			button.version = data.version.asset;
-			button.base_url = data.base_url;
-			return button;
+		var b = I.assign(button, {
+			type: I.push(button.type, 'active')
 		});
-		data.menu_user = data.menu_user.map(templates.common.button);
+		return immutable(templates.common.button, b);
+	});
+	data.menu_nav = cached_menu_nav.map(function(button) {
+		if (data.current_path !== button.href) {
+			return immutable(templates.common.button, button);
+		}
+
+		var b = I.assign(button, {
+			type: I.push(button.type, 'active')
+		});
+		return immutable(templates.common.button, b);
+	});
+
+	if (!data.current_user) {
+		data.menu_user = cached_menu_user.map(function(button) {
+			return immutable(templates.common.button, button);
+		});
 	} else {
 		data.menu_user = [ templates.common.simpleUser(data) ];
 	}

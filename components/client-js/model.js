@@ -46,11 +46,15 @@ Model.prototype.init = function(data) {
 	this.set('version', data.global.data.version);
 	this.set('base_url', data.global.data.base_url);
 	this.set('production', data.global.data.production);
-	this.set('current_user', data.user.data);
 	this.set('current_path', removeTrailingSlash(win.location.pathname));
 	this.set('current_url', win.location.href);
 
-	// expose crsf token via meta
+	// handle guest user
+	if (data.user.ok) {
+		this.set('current_user', data.user.data);
+	}
+
+	// retrieve crsf token from meta
 	var crsf_meta = doc.head.querySelector('meta[name="mai:token"]');
 	if (crsf_meta) {
 		this.set(['current_user', 'csrf_token'], crsf_meta.content);
@@ -70,7 +74,7 @@ Model.prototype.sync = function(data) {
 			continue;
 		}
 
-		if (data[prop].code !== 200) {
+		if (!data[prop].ok) {
 			continue;
 		}
 

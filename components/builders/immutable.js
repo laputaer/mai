@@ -10,10 +10,9 @@ module.exports = immutable;
 /**
  * Create an immutable thunk
  *
- * @param   Function  fn      Template function
- * @param   Object    data    Input data
- * @param   Boolean   client  Server-side or client-side
- * @return  Object            VNode or Thunk
+ * @param   Function  fn    Template function
+ * @param   Object    data  Input data
+ * @return  Object          VNode or Thunk
  */
 function immutable(fn, data) {
 	// render without thunk on server-side
