@@ -8,8 +8,8 @@
 'use strict';
 
 // third-party modules
-var respimgPolyfill = require('lazysizes/plugins/respimg/ls.respimg.js');
-var lazySizes = require('lazysizes');
+require('lazysizes/plugins/respimg/ls.respimg.js');
+require('lazysizes');
 
 // polyfills
 require('./vendor/svg4everybody');

@@ -7,9 +7,6 @@
 
 // test tools
 var chai = require('chai');
-var sinon = require('sinon');
-var sinonChai = require('sinon-chai');
-chai.use(sinonChai);
 var expect = chai.expect;
 
 // test environment polyfills
@@ -20,7 +17,7 @@ require('babel/polyfill');
 var validate = require('../security/validation');
 var normalize = require('../security/normalization');
 
-var input, target, result, local, base;
+var input, result;
 
 describe('security', function() {
 	describe('validation', function() {

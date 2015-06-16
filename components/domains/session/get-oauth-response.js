@@ -17,7 +17,7 @@ function *getOauthResponse(opts) {
 	var session = opts.session;
 
 	if (!session.grant || !session.grant.response) {
-		return;
+		return null;
 	}
 
 	return session.grant.response;

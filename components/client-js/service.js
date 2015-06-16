@@ -85,14 +85,14 @@ function deferFetch(ps, p, results, name) {
 		// non-2xx response
 		if (!res.ok) {
 			results[name] = null;
-			return;
+			return null;
 		}
 		return res.json();
 	}).then(function(json) {
 		// invalid json
 		if (!json) {
 			results[name] = null;
-			return;
+			return null;
 		}
 		results[name] = json;
 	}));

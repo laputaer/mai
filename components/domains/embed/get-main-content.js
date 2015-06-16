@@ -62,13 +62,18 @@ function getMainContent($) {
 		score += countText(textNode(target)) / 10;
 
 		// compute direct child node score, build descendant list
-		var direct = target.children().filter(function(i, el) {
-			el = $(el);
-			score += countScore(el);
+		var direct = target.children().filter(function(_i, _el) {
+			_el = $(_el);
+			score += countScore(_el);
 
 			// node with further descendants
-			if (el.is('div') || el.is('article') || el.is('section') 
-				|| el.is('ul') || el.is('ol') || el.is('p') || el.is('blockquote')) 
+			if (_el.is('div')
+				|| _el.is('article')
+				|| _el.is('section') 
+				|| _el.is('ul')
+				|| _el.is('ol')
+				|| _el.is('p')
+				|| _el.is('blockquote')) 
 			{
 				return true;
 			}
@@ -77,14 +82,14 @@ function getMainContent($) {
 		});
 
 		// compute descendant score
-		direct.each(function(i, el) {
-			el = $(el);
-			var descendant = el.children();
+		direct.each(function(_i, _el) {
+			_el = $(_el);
+			var descendant = _el.children();
 			var temp = 0;
 
-			descendant.each(function(i, el) {
-				el = $(el);
-				temp += countScore(el, 0.75);
+			descendant.each(function(__i, __el) {
+				__el = $(__el);
+				temp += countScore(__el, 0.75);
 			});
 
 			// ignore minor descendant
@@ -161,8 +166,8 @@ function textNode(el) {
 	}
 
 	// count only text node
-	return el.contents().filter(function(i, el) {
-		return el.nodeType === 3;
+	return el.contents().filter(function(i, _el) {
+		return _el.nodeType === 3;
 	}).text();
 };
 

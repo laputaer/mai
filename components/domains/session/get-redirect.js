@@ -22,7 +22,7 @@ function *getRedirect(opts) {
 
 	// session too old, ignore
 	if (parseInt(session.last_seen, 10) < Date.now() - 1000 * 60 * 5) {
-		return;
+		return null;
 	}
 
 	return path;

@@ -22,7 +22,7 @@ function partial(data) {
 	data.title_group = templates.common.formGroup({
 		id: 'club-post-title'
 		, name: 'title'
-		, value: flash && flash.body ? flash.body['title'] : ''
+		, value: flash && flash.body ? flash.body.title : ''
 		, error: flash && flash.attrs && flash.attrs.indexOf('title') !== -1 ? '.error' : ''
 		, label: i18n.t('club.post-title')
 		, note: i18n.t('club.post-title-note')
@@ -32,7 +32,7 @@ function partial(data) {
 	data.summary_group = templates.common.formTextArea({
 		id: 'club-post-summary'
 		, name: 'summary'
-		, value: flash && flash.body ? flash.body['summary'] : ''
+		, value: flash && flash.body ? flash.body.summary : ''
 		, error: flash && flash.attrs && flash.attrs.indexOf('summary') !== -1 ? '.error' : ''
 		, label: i18n.t('club.post-summary')
 		, note: i18n.t('club.post-summary-note')

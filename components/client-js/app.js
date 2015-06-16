@@ -10,7 +10,7 @@
 var Service = require('./service');
 var Model = require('./model');
 var Renderer = require('./renderer');
-var Event = require('./event');
+//var Event = require('./event');
 var router = require('./router');
 
 module.exports = App;
@@ -56,7 +56,7 @@ App.prototype.update = function() {
 
 	// unknown route, skip
 	if (!name) {
-		return;
+		return Promise.resolve();
 	}
 
 	return self.service.fetch(name).then(function(data) {

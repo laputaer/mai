@@ -8,20 +8,17 @@
 'use strict';
 
 // client-side api
-var win = window;
 var doc = document;
 
 // builder bundle
 var builders = require('../builders/builders');
 
 // immutable object
-var I = require('icepick');
 var extend = require('xtend');
 
 // vdom to html
 var diff = require('virtual-dom/diff');
 var patch = require('virtual-dom/patch');
-var createElement = require('virtual-dom/create-element');
 
 // html to vdom
 var virtualize = require('vdom-virtualize');

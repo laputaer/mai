@@ -28,10 +28,9 @@ function cache(fn, data) {
  *
  * @param   Function  fn    Template function
  * @param   Object    data  Input data
- * @param   Object    data  Input data  
  * @return  Thunk
  */
-function CacheThunk(fn, data, key) {
+function CacheThunk(fn, data) {
 	this.fn = fn;
 	this.data = data;
 }
