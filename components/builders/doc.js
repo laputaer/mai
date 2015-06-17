@@ -110,13 +110,13 @@ function builder(data) {
 	}
 
 	data.menu = templates.common.menu(data);
-
-	if (data.client) {
-		return templates.body(data);
-	}
-
+	data.page = templates.main(data);
 	data.head = templates.head(data);
 	data.body = templates.body(data);
+
+	if (data.client) {
+		return data.page;
+	}
 
 	return templates.doc(data);
 };

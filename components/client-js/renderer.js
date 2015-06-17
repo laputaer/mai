@@ -43,18 +43,24 @@ function Renderer() {
 /**
  * Initialize server-rendered dom into vdom
  *
- * @param   Object  container  DOM container
+ * @param   Object  opts  Custom init options
  * @return  Void
  */
-Renderer.prototype.init = function(container) {
+Renderer.prototype.init = function(opts) {
 	// only allow init once
 	if (this.vdomCache && this.nodeCache) {
 		return;
 	}
 
-	// use body as container by default
-	if (!container) {
-		container = doc.body;
+	opts = opts || {};
+	var container = opts.container || doc.body;
+	var purgeDom = !!opts.purgeDom;
+
+	// remove dom instead of diffing
+	if (purgeDom) {
+		while (container.firstChild) {
+			container.removeChild(container.firstChild);
+		}
 	}
 
 	// parse dom into vdom, and remember container
@@ -85,7 +91,7 @@ Renderer.prototype.update = function(name, model) {
 	// but also allow template to do immutable check
 	data = builders[name](data);
 
-	// data.client flag decides whether body or doc is returned
+	// data.client flag decides whether main wrapper or full document is returned
 	var vdom = builders.doc(data);
 
 	// new vdom empty, skip
@@ -95,6 +101,7 @@ Renderer.prototype.update = function(name, model) {
 
 	// generate patches and apply them
 	var patches = diff(this.vdomCache, vdom);
+	console.log(patches);
 	patch(this.nodeCache, patches);
 
 	// cache new vdom for next diff
