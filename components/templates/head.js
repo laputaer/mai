@@ -20,6 +20,10 @@ function template(data) {
 	var og_title, og_url, og_image, og_type, og_site_name, og_description;
 	var t_card, t_site, t_title, t_description, t_image;
 	var vendor, prefetch_cdn, prefetch_gs, prefetch_gs_1, prefetch_gs_2;
+	var csrf_token;
+
+	var main_css_file = data.production ? '/assets/app.css' : '/assets/app.dev.css';
+	var main_js_file = data.production ? '/assets/app.js' : '/assets/app.dev.js';
 
 	if (data.page_opengraph) {
 		og_title = $('meta', {
@@ -95,7 +99,14 @@ function template(data) {
 		});
 	}
 
-	var head = [
+	if (data.current_user) {
+		csrf_token = $('meta', {
+			name: 'mai:token'
+			, content: data.current_user.csrf_token
+		});
+	}
+
+	var headers = [
 		$('meta', {
 			charset: 'UTF-8'
 		})
@@ -133,6 +144,7 @@ function template(data) {
 			, sizes: '32x32'
 			, href: '/favicon.png?' + data.version.asset
 		})
+		, csrf_token
 		, og_title
 		, og_url
 		, og_image
@@ -152,20 +164,22 @@ function template(data) {
 			innerHTML: data.inline_css
 		})
 		, $('script', {
-			innerHTML: data.inline_js + ';loadCSS("' + base_url + '/assets/app.css?' + data.version.css + '");'
+			innerHTML: data.inline_js + ';loadCSS("' + base_url + main_css_file + '?' + data.version.css + '");'
 		})
 		, $('noscript', [
 			$('link', {
 				rel: 'stylesheet'
-				, href: base_url + '/assets/app.css?' + data.version.css
+				, href: base_url + main_css_file + '?' + data.version.css
 			})
 		])
 		, $('script', {
-			src: base_url + '/assets/app.js?' + data.version.js
+			src: base_url + main_js_file + '?' + data.version.js
 			, async: 'async'
 		})
 		, vendor
 	];
+
+	var head = $('head', headers);
 
 	return head;
 };

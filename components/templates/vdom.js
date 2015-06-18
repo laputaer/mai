@@ -7,7 +7,7 @@
 
 var h = require('virtual-dom/h');
 var svg = require('virtual-dom/virtual-hyperscript/svg');
-var svg_tags = JSON.stringify(require('svg-tags'));
+var svg_tags = ['svg', 'use'];
 
 module.exports = vdom;
 
@@ -22,6 +22,7 @@ module.exports = vdom;
 function vdom(el, props, children) {
 	var vnode;
 	var hint = el.split(/(\.|#)+/);
+
 	if (svg_tags.indexOf(hint[0]) !== -1) {
 		vnode = svg;
 	} else {

@@ -50,7 +50,7 @@ function *middleware(next) {
 	}
 
 	// STEP 4: custom 404 page for unmatched route
-	if (this.status === 404 && !this.state.vdoc) {
+	if (this.status === 404 && !this.state.vdoc && !this.state.json) {
 		errorPage(this, {
 			status: 404
 			, message: i18n.t('error.not-found-page')

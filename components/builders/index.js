@@ -5,6 +5,8 @@
  * Centralized template builder
  */
 
+var extend = require('xtend');
+
 var builders = require('./builders');
 var createRoute = require('../helpers/create-named-route');
 
@@ -33,6 +35,7 @@ module.exports = builder;
  */
 function builder(data) {
 	var path = data.current_path;
+	var partials;
 
 	for (var route in routes) {
 		if (!routes.hasOwnProperty(route)) {
@@ -43,9 +46,10 @@ function builder(data) {
 			continue;
 		}
 
-		data = builders[route](data);
+		partials = builders[route](data);
 		break;
 	}
 
-	return builders.doc(data);
+	var main = extend(data, partials);
+	return builders.doc(main);
 };

@@ -2,23 +2,31 @@
 /**
  * main.js
  *
- * Client-side app
+ * Client-side app entry point
  */
 
 'use strict';
 
-// browserify
-var respimgPolyfill = require('lazysizes/plugins/respimg/ls.respimg.js');
-var lazySizes = require('lazysizes');
+// third-party modules
+require('lazysizes/plugins/respimg/ls.respimg.js');
+require('lazysizes');
 
-//var Renderer = require('./renderer');
-//var bodyRenderer = new Renderer();
+// polyfills
+require('./vendor/svg4everybody');
+require('whatwg-fetch');
+require('native-promise-only');
 
-//window.addEventListener('DOMContentLoaded', init);
+// app lifecycle
+var App = require('./app');
+var app = new App();
 
-//function init() {
-	// TODO
-//}
+// kick off
+window.addEventListener('DOMContentLoaded', init);
 
-// polyfill for svg, need browserify-shim
-//require('./vendor/svg4everybody');
+function init() {
+	app.init().then(function() {
+		return app.update();
+	}).then(function() {
+
+	});
+};

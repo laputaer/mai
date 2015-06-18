@@ -22,7 +22,7 @@ function *getCsrfToken(opts) {
 
 	// guest session, ignore
 	if (!session.uid) {
-		return;
+		return null;
 	}
 
 	// find existing secret or generate new one

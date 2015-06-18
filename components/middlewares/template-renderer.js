@@ -1,8 +1,8 @@
 
 /**
- * template-renderer.js
+ * output-renderer.js
  *
- * Handle vnode to html output conversion
+ * Handle vdom and json output conversion
  */
 
 var stringify = require('vdom-to-html');
@@ -30,21 +30,22 @@ function factory() {
 function *middleware(next) {
 	yield next;
 
-	// upstream didn't set vnode to render
-	if (!this.state.vdoc) {
-		return;
+	if (this.state.vdoc) {
+		// render html
+		var html = '<!DOCTYPE html>' + stringify(this.state.vdoc);
+
+		// format output
+		if (this.config.output.format) {
+			html = beautify(html, {
+				preserve_newlines: false
+				, unformatted: unformatted
+			});
+		}
+
+		this.body = html;
+	} else if (this.state.json) {
+		// format and output
+		this.type = 'json';
+		this.body = JSON.stringify(this.state.json, null, '\t');
 	}
-
-	// render html
-	var html = '<!DOCTYPE html>' + stringify(this.state.vdoc);
-
-	// format output
-	if (this.config.output.format) {
-		html = beautify(html, {
-			preserve_newlines: false
-			, unformatted: unformatted
-		});
-	}
-
-	this.body = html;
 };

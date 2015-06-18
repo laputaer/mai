@@ -27,7 +27,9 @@ function template(data) {
 	// icon should be optional too
 	var icon;
 	if (data.icon) {
-		icon = $('svg.m-icon', [
+		icon = $('svg', {
+			'class': 'm-icon'
+		}, [
 			$('use', {
 				'xlink:href': base_url + '/assets/icons.svg?' + data.version + '#' + data.icon
 			})

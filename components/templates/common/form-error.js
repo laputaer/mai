@@ -16,11 +16,7 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var flash = data.flash;
-
-	if (!flash) {
-		return;
-	}
+	var flash = data.flash || {};
 
 	var error = $('div.m-section.error', [
 		$('p.m-line', flash.message)

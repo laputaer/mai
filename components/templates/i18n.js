@@ -14,11 +14,19 @@ polyglot.extend(require('../i18n/en-US'), 'en-us');
 polyglot.extend(require('../i18n/zh-CN'), 'zh-cn');
 
 // default locale, disable pluralization support
-polyglot.locale('zh-cn');
+polyglot.locale('zh');
 
 // i18n abstraction
 var Translation = require('../i18n/translation');
-var i18n = new Translation(polyglot);
+
+// instance for each translation
+var i18n = {};
+i18n['zh-cn'] = new Translation(polyglot, {
+	locale: 'zh-cn'
+});
+i18n['en-us'] = new Translation(polyglot, {
+	locale: 'en-us'
+});
 
 // export i18n factory
 module.exports = factory;
@@ -31,10 +39,8 @@ module.exports = factory;
  */
 function factory(locale) {
 	if (!locale) {
-		return i18n;
+		return i18n['zh-cn'];
 	}
 
-	return new Translation(polyglot, {
-		locale: locale
-	});
+	return i18n[locale];
 };

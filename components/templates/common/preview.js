@@ -17,14 +17,12 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	// TODO: should we make sure they both exist?
-	var post = data.post;
-	var embed = post.embed;
+	var embed = data.embed;
 
 	var type;
-	if (post.title && post.summary) {
+	if (data.title && data.summary) {
 		type = '.large';
-	} else if (!post.title && !post.summary) {
+	} else if (!data.title && !data.summary) {
 		type = '.small';
 	} else {
 		type = '';
@@ -50,13 +48,13 @@ function template(data) {
 	}
 
 	var title;
-	if (post.title) {
-		title = $('h2.m-title', post.title);
+	if (data.title) {
+		title = $('h2.m-title', data.title);
 	}
 
 	var summary;
-	if (post.summary) {
-		summary = $('p.m-quote', post.summary);
+	if (data.summary) {
+		summary = $('p.m-quote', data.summary);
 	}
 
 	var external;
@@ -73,18 +71,18 @@ function template(data) {
 	}
 
 	var author;
-	if (post.user) {
+	if (data.user) {
 		author = $('p.m-author', [
 			$('a.m-link', {
-				href: '/u/' + post.user
+				href: '/u/' + data.user
 			}, [
-				$('span.m-text', post.user_name)
+				$('span.m-text', data.user_name)
 			])
 			, $('span', i18n.t('club.posted-on'))
 			, $('a.m-link', {
-				href: '/c/' + post.club
+				href: '/c/' + data.club
 			}, [
-				$('span.m-text', post.club_name)
+				$('span.m-text', data.club_name)
 			])
 		]);
 	}

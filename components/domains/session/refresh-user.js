@@ -21,7 +21,7 @@ function *refreshUser(opts) {
 
 	// guest session, ignore
 	if (!session.uid) {
-		return;
+		return null;
 	}
 
 	// cookie session

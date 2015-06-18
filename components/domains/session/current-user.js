@@ -19,7 +19,7 @@ function *currentUser(opts) {
 
 	// guest session, ignore
 	if (!session.uid) {
-		return;
+		return null;
 	}
 
 	// get cache, may throw error

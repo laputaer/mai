@@ -5,6 +5,7 @@
  * Render generic home page
  */
 
+var immutable = require('./immutable');
 var templates = require('../templates/index');
 
 module.exports = partial;
@@ -17,9 +18,7 @@ module.exports = partial;
  */
 function partial(data) {
 	data.post_list = data.posts.map(function(post) {
-		return templates.common.preview({
-			post: post
-		});
+		return immutable(templates.common.preview, post);
 	});
 
 	data.main = templates.page.home(data);

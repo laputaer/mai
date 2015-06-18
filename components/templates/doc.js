@@ -10,13 +10,12 @@ var $ = require('./vdom');
 module.exports = template;
 
 function template(data) {
-	var head = $('head', data.head);
-
-	var body = $('body', data.body);
-
 	var html = $('html', {
 		lang: data.locale
-	}, [head, body]);
+	}, [
+		data.head
+		, data.body
+	]);
 
 	return html;
 };

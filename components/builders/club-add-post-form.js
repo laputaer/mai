@@ -22,7 +22,7 @@ function partial(data) {
 	data.url_group = templates.common.formGroup({
 		id: 'club-post-link'
 		, name: 'link'
-		, value: flash && flash.body ? flash.body['link'] : ''
+		, value: flash && flash.body ? flash.body.link : ''
 		, error: flash && flash.attrs && flash.attrs.indexOf('link') !== -1 ? '.error' : ''
 		, label: i18n.t('club.post-link')
 		, note: i18n.t('club.post-link-note')

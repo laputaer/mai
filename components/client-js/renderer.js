@@ -2,26 +2,27 @@
 /**
  * renderer.js
  *
- * Take immuntable data model, build virtual dom, render html as model change
+ * Manage client-side view update
  */
 
 'use strict';
 
-// templates
-var builder = require('../builders/index');
+// client-side api
+var doc = document;
+
+// builder bundle
+var builders = require('../builders/builders');
+var bench = require('./benchmark')(true);
+
+// immutable object
+var extend = require('xtend');
 
 // vdom to html
-var h = require('virtual-dom/h');
 var diff = require('virtual-dom/diff');
 var patch = require('virtual-dom/patch');
-var createElement = require('virtual-dom/create-element');
 
 // html to vdom
-var virtualize = require('vdom-virtualize');
-
-// events
-var Delegator = require('dom-delegator');
-var events = new Delegator();
+var parser = require('vdom-parser');
 
 module.exports = Renderer;
 
@@ -43,36 +44,67 @@ function Renderer() {
 /**
  * Initialize server-rendered dom into vdom
  *
- * @param   DOM   base  Initial dom
+ * @param   Object  opts  Custom init options
  * @return  Void
  */
-Renderer.prototype.init = function(base) {
+Renderer.prototype.init = function(opts) {
+	// only allow init once
 	if (this.vdomCache && this.nodeCache) {
 		return;
 	}
 
-	this.vdomCache = virtualize(base);
-	this.nodeCache = base;
+	opts = opts || {};
+	var container = opts.container || doc.body;
+
+	// parse dom into vdom, and remember container
+	bench.start();
+	this.vdomCache = parser(container);
+	bench.incr('parser done');
+
+	this.nodeCache = container;
 };
 
 /**
  * Update dom using vdom diffing 
  *
+ * @param   String  name   Builder name
  * @param   Object  model  Immutable data model
  * @return  Void
  */
-Renderer.prototype.update = function(model) {
+Renderer.prototype.update = function(name, model) {
+	// model not changed, skip
 	if (this.modelCache === model) {
 		return;
 	}
+
+	// cache new model
 	this.modelCache = model;
 
-	var vdom = builder(model);
+	// shallow copy into mutable model
+	bench.start();
+	var data = extend({}, model);
+
+	// so builder can assult mutable data
+	// but also allow template to do immutable check
+	bench.incr('copy done');
+	data = builders[name](data);
+
+	// data.client flag decides whether main wrapper or full document is returned
+	var vdom = builders.doc(data);
+
+	// new vdom empty, skip
 	if (!vdom) {
 		return;
 	}
 
+	// generate patches and apply them
+	bench.incr('vdom done');
 	var patches = diff(this.vdomCache, vdom);
+
+	bench.incr('diff done');
 	patch(this.nodeCache, patches);
+
+	// cache new vdom for next diff
+	bench.incr('patch done');
 	this.vdomCache = vdom;
 };

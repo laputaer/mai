@@ -22,7 +22,7 @@ function partial(data) {
 	data.search_group = templates.common.formSearch({
 		id: 'club-search'
 		, name: 'q'
-		, value: flash && flash.body ? flash.body['q'] : data.search
+		, value: flash && flash.body ? flash.body.q : data.search
 		, error: flash && flash.attrs && flash.attrs.indexOf('q') !== -1 ? '.error' : ''
 	});
 

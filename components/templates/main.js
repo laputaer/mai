@@ -1,6 +1,6 @@
 
 /**
- * body.js
+ * main.js
  *
  * Template for default page body
  */
@@ -16,7 +16,13 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var body = $('body', data.page);
+	var main = $('div.page', [
+		data.heading
+		, data.menu
+		, data.main
+		, data.placeholder
+		, data.mobile_menu
+	]);
 
-	return body;
+	return main;
 };
