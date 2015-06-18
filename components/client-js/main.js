@@ -27,8 +27,6 @@ function init() {
 	app.init().then(function() {
 		return app.update();
 	}).then(function() {
-		setTimeout(function() {
-			app.update();
-		}, 2000);
+
 	});
 };

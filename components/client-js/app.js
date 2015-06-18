@@ -38,7 +38,7 @@ function App() {
 App.prototype.init = function() {
 	var self = this;
 
-	self.renderer.init({ purgeDom: false, container: document.querySelector('.page') });
+	self.renderer.init({ container: document.querySelector('.page') });
 
 	return self.service.init().then(function(data) {
 		return self.model.init(data);

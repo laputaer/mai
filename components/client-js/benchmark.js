@@ -8,38 +8,63 @@
 'use strict';
 
 var win = window;
+var noop = function() {};
 
 module.exports = Benchmark;
 
 /**
  * Benchmark class
  *
+ * @param   Boolean  active  Whether to run benchmark
  * @return  Void
  */
-function Benchmark() {
+function Benchmark(active) {
 	if (!(this instanceof Benchmark)) {
-		return new Benchmark();
+		return new Benchmark(active);
 	}
 
-	this.first = win.performance.now();
+	if (!active) {
+		this.start = noop;
+		this.incr = noop;
+		return this;
+	}
+
+	this.active = active || false;
+
+	this.start = function() {
+		if (!this.active) {
+			return;
+		}
+
+		this.first = this.now();
+		this.last = this.first;
+		this.debug('bench start: 0ms');
+	};
+
+	this.incr = function(name) {
+		if (!this.active) {
+			return;
+		}
+
+		name = name || 'unknown';
+		var current = this.now();
+		this.debug(name + ': ' + Math.round(current - this.last) + 'ms');
+		this.last = current;
+	};
+
+	this.debug = function(input) {
+		console.debug(input);
+	};
+
+	this.now = function() {
+		if (win.performance) {
+			return win.performance.now();
+		} else {
+			return win.Date.now();
+		}
+	};
+
+	this.first = this.now();
 	this.last = this.first;
+	return this;
 }
-
-Benchmark.prototype.start = function() {
-	this.first = win.performance.now();
-	this.last = this.first;
-	console.log('bench start: 0ms');
-};
-
-Benchmark.prototype.stop = function(name) {
-	name = name || 'unknown';
-	this.last = win.performance.now();
-	console.log(name + ': ' + Math.round(this.last - this.first) + 'ms');
-};
-
-Benchmark.prototype.incr = function(name) {
-	name = name || 'unknown';
-	var current = win.performance.now();
-	console.log(name + ': ' + Math.round(current - this.last) + 'ms');
-	this.last = current;
-};

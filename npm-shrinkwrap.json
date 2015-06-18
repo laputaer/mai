@@ -3042,7 +3042,7 @@
     },
     "chai": {
       "version": "3.0.0",
-      "from": "chai@3.0.0",
+      "from": "https://registry.npmjs.org/chai/-/chai-3.0.0.tgz",
       "resolved": "https://registry.npmjs.org/chai/-/chai-3.0.0.tgz",
       "dependencies": {
         "assertion-error": {
@@ -5590,7 +5590,7 @@
     },
     "mocha": {
       "version": "2.2.5",
-      "from": "mocha@2.2.5",
+      "from": "https://registry.npmjs.org/mocha/-/mocha-2.2.5.tgz",
       "resolved": "https://registry.npmjs.org/mocha/-/mocha-2.2.5.tgz",
       "dependencies": {
         "commander": {
@@ -7808,6 +7808,10 @@
       "from": "validator@3.40.1",
       "resolved": "https://registry.npmjs.org/validator/-/validator-3.40.1.tgz"
     },
+    "vdom-parser": {
+      "version": "1.0.0",
+      "from": "vdom-parser@*"
+    },
     "vdom-to-html": {
       "version": "2.1.1",
       "from": "vdom-to-html@2.1.1",
@@ -7843,11 +7847,6 @@
           "resolved": "https://registry.npmjs.org/xtend/-/xtend-4.0.0.tgz"
         }
       }
-    },
-    "vdom-virtualize": {
-      "version": "0.0.10",
-      "from": "bitinn/vdom-virtualize#local",
-      "resolved": "git://github.com/bitinn/vdom-virtualize.git#122ba65ae3486b493530a27e61ef5b794b95989d"
     },
     "virtual-dom": {
       "version": "2.0.1",

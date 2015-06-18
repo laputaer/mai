@@ -12,6 +12,7 @@ var doc = document;
 
 // builder bundle
 var builders = require('../builders/builders');
+var bench = require('./benchmark')(true);
 
 // immutable object
 var extend = require('xtend');
@@ -21,7 +22,7 @@ var diff = require('virtual-dom/diff');
 var patch = require('virtual-dom/patch');
 
 // html to vdom
-var virtualize = require('vdom-virtualize');
+var parser = require('vdom-parser');
 
 module.exports = Renderer;
 
@@ -54,17 +55,12 @@ Renderer.prototype.init = function(opts) {
 
 	opts = opts || {};
 	var container = opts.container || doc.body;
-	var purgeDom = !!opts.purgeDom;
-
-	// remove dom instead of diffing
-	if (purgeDom) {
-		while (container.firstChild) {
-			container.removeChild(container.firstChild);
-		}
-	}
 
 	// parse dom into vdom, and remember container
-	this.vdomCache = virtualize(container);
+	bench.start();
+	this.vdomCache = parser(container);
+	bench.incr('parser done');
+
 	this.nodeCache = container;
 };
 
@@ -85,10 +81,12 @@ Renderer.prototype.update = function(name, model) {
 	this.modelCache = model;
 
 	// shallow copy into mutable model
+	bench.start();
 	var data = extend({}, model);
 
 	// so builder can assult mutable data
 	// but also allow template to do immutable check
+	bench.incr('copy done');
 	data = builders[name](data);
 
 	// data.client flag decides whether main wrapper or full document is returned
@@ -100,10 +98,13 @@ Renderer.prototype.update = function(name, model) {
 	}
 
 	// generate patches and apply them
+	bench.incr('vdom done');
 	var patches = diff(this.vdomCache, vdom);
-	console.log(patches);
+
+	bench.incr('diff done');
 	patch(this.nodeCache, patches);
 
 	// cache new vdom for next diff
+	bench.incr('patch done');
 	this.vdomCache = vdom;
 };
