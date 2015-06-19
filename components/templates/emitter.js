@@ -10,6 +10,7 @@
 var Emitter = require('tiny-emitter');
 var emitter = new Emitter();
 
+// create an event handler that emit a custon event when fired
 emitter.fire = function(name, data) {
 	var self = this;
 	return function() {

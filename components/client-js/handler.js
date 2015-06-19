@@ -5,11 +5,14 @@
  * Manage user input event
  */
 
-var Delegator = require('dom-delegator');
-var del = Delegator();
+// global event delegator
+var delegator = require('dom-delegator');
+delegator();
 
+// global emitter
 var emitter = require('../templates/emitter');
 
+// event handlers
 emitter.on('test-event', function(data) {
 	console.log(data);
 });
