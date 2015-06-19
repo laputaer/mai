@@ -10,8 +10,8 @@
 var Service = require('./service');
 var Model = require('./model');
 var Renderer = require('./renderer');
-//var Event = require('./event');
 var router = require('./router');
+var handler = require('./handler');
 
 module.exports = App;
 
@@ -28,6 +28,7 @@ function App() {
 	this.service = new Service();
 	this.model = new Model();
 	this.renderer = new Renderer();
+	this.handler = handler;
 }
 
 /**
