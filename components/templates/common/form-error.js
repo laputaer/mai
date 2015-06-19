@@ -17,10 +17,13 @@ module.exports = template;
  */
 function template(data) {
 	var flash = data.flash || {};
+	var error;
 
-	var error = $('div.m-section.error', [
-		$('p.m-line', flash.message)
-	]);
+	if (flash.message) {
+		error = $('div.m-section.error', [
+			$('p.m-line', flash.message)
+		]);
+	}
 
 	return error;
 };
