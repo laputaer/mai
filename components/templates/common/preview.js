@@ -56,7 +56,7 @@ function template(data) {
 	var summary;
 	if (data.summary) {
 		summary = $('p.m-quote', {
-			'ev-click': emitter.emit('test-event', data.pid)
+			'ev-click': emitter.fire('test-event', data.pid)
 		}, data.summary);
 	}
 
