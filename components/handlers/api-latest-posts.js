@@ -39,6 +39,8 @@ function *middleware(next) {
 	// STEP 2: get latest posts
 	var posts = yield clubsDomain.getPosts({
 		db: this.db
+		, skip: 0
+		, limit: 50
 	});
 
 	posts = posts.map(function(post) {
