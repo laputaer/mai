@@ -28,57 +28,61 @@ function factory() {
  * @return  Void
  */
 function *middleware(next) {
-	// STEP 1: load from cache
-	var user, now, last_seen;
+	var user;
+
+	// STEP 1: load user from cache
 	try {
 		user = yield sessionDomain.currentUser({
 			session: this.session
 			, cache: this.cache
 		});
-
-		// create a new csrf token on each request, do not expose secret by default
-		if (user) {
-			user.csrf_token = yield sessionDomain.getCsrfToken({
-				session: this.session
-				, cache: this.cache
-			});
-			delete user.csrf_secret;
-		}
-
-		// make sure we are dealing with login user
-		now = Date.now();
-		last_seen = user ? parseInt(user.last_seen, 10) : false;
-
-		// refresh session/cache at most every 5 minutes
-		if (last_seen && last_seen < now - 1000 * 60 * 5) {
-			user = yield sessionDomain.refreshUser({
-				session: this.session
-				, cache: this.cache
-				, config: this.config
-			});
-		}
-
-		// report user visit if last visit is more than 24 hours ago
-		if (last_seen && last_seen < now - 1000 * 60 * 60 * 24) {
-			mixpanelDomain.userVisit({
-				mixpanel: this.mixpanel
-				, user: user
-				, request: this.request
-			});
-		}
 	} catch(err) {
 		this.app.emit('error', err, this);
 	}
 
-	if (user) {
-		user.small_avatar = proxyUrl({
-			url: getAvatarVariant(user, 400)
-			, key: this.config.proxy.key
-			, size: 100
-			, base: this.state.image_base_url
-		});
-		this.state.user = user;
+	// STEP 2: guest user
+	if (!user) {
+		yield next;
+		return;
 	}
+
+	// STEP 3: create csrf token for this request
+	user.csrf_token = yield sessionDomain.getCsrfToken({
+		session: this.session
+		, cache: this.cache
+	});
+
+	// STEP 4: refresh user session
+	var now = Date.now();
+	var last_seen = parseInt(user.last_seen, 10);
+
+	// limit refresh rate to at most every 5 minutes
+	if (!isNaN(last_seen) && last_seen < now - 1000 * 60 * 5) {
+		user = yield sessionDomain.refreshUser({
+			session: this.session
+			, cache: this.cache
+			, config: this.config
+		});
+	}
+
+	// limit log rate to at most every hour
+	if (!isNaN(last_seen) && last_seen < now - 1000 * 60 * 60) {
+		mixpanelDomain.userVisit({
+			mixpanel: this.mixpanel
+			, user: user
+			, request: this.request
+		});
+	}
+
+	// STEP 5: prepare user data
+	user.small_avatar = proxyUrl({
+		url: getAvatarVariant(user, 400)
+		, key: this.config.proxy.key
+		, size: 100
+		, base: this.state.image_base_url
+	});
+
+	this.state.user = user;
 
 	yield next;
 };

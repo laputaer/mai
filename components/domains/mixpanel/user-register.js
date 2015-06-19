@@ -30,7 +30,6 @@ function userRegister(opts) {
 		, '$created': user.created.toISOString()
 		, updated: user.updated.toISOString()
 		, provider: user.provider
-		, action_point: user.action_point
 		, action_base: user.action_base
 		, ip: request.ip
 	});
