@@ -29,7 +29,7 @@ function template() {
 						href: 'https://twitter.com/bitinn'
 						, target: '_blank'
 					}, [
-						$('span.m-text.m-latin', '@bitinn')
+						$('span.m-text', '@bitinn')
 					])
 					, $('span', i18n.t('placeholder.secondary-feedback'))
 					, $('a.m-link', {
