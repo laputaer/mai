@@ -1,6 +1,6 @@
 {
   "name": "mai",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "dependencies": {
     "autoprefixer": {
       "version": "5.2.0",
