@@ -36,13 +36,13 @@ module.exports = {
 	}
 	, cookies: {}
 	, request: {
-		user_agent: 'Mai/1.0 (+http://mai3.me/)'
+		user_agent: 'Rubu/2.0 (+http://rubu.me/)'
 		, follow: 5
 		, timeout: 1000 * 10
 		, size: 1000 * 1000 * 10
 	}
 	, session: {
-		key: 'mai:session'
+		key: 'rubu:session'
 		, signed: true
 		, maxAge: 1000 * 60 * 60 * 24 * 30
 	}
