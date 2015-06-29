@@ -19,7 +19,7 @@
     "build:css": "lessc components/client-less/main.less | autoprefixer > public/assets/app.dev.css && cleancss public/assets/app.dev.css -o public/assets/app.css && lessc components/client-less/inline.less | autoprefixer | cleancss -o public/assets/inline.css",
     "build:js": "browserify components/client-js/main.js -s mai > public/assets/app.dev.js && uglifyjs public/assets/app.dev.js > public/assets/app.js && uglifyjs components/client-js/vendor/analytics.js > public/assets/vendor.js && uglifyjs components/client-js/vendor/inline.js > public/assets/inline.js",
     "build:svg": "svgo --enable=removeDesc --multipass -f components/client-svg/ && svgshelf components/client-svg/\\*.svg public/assets/icons.svg",
-    "build:img": "trash --force public/assets/*.jpg && imagemin -p components/client-image/* public/assets/",
+    "build:img": "find ./public/images/ -maxdepth 1 -type f -not -name .gitignore -exec rm -fv {} + && imagemin -p components/client-image/* public/images/",
     "cron:cache:all": "find ./cache/ -maxdepth 1 -type f -not -name .gitignore -exec rm -fv {} + | wc -w",
     "cron:cache:old": "find ./cache/ -maxdepth 1 -type f -mtime +7 -not -name .gitignore -exec rm -fv {} + | wc -w",
     "cron:ap:all": "node cron/action-point-recovery.js",
@@ -60,7 +60,6 @@
     "sinon-chai": "2.8.0",
     "svgo": "0.5.2",
     "svgshelf": "1.0.3",
-    "trash": "1.4.1",
     "uglify-js": "2.4.23",
     "wiper": "1.2.0"
   },
