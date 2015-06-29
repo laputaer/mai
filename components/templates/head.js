@@ -22,8 +22,8 @@ function template(data) {
 	var vendor, prefetch_cdn, prefetch_gs, prefetch_gs_1, prefetch_gs_2;
 	var csrf_token;
 
-	var main_css_file = data.production ? '/assets/app.css' : '/assets/app.dev.css';
-	var main_js_file = data.production ? '/assets/app.js' : '/assets/app.dev.js';
+	var main_css_file = data.production ? '/assets/app.css' : '/dev/app.css';
+	var main_js_file = data.production ? '/assets/app.js' : '/dev/app.js';
 
 	if (data.page_opengraph) {
 		og_title = $('meta', {
@@ -80,7 +80,7 @@ function template(data) {
 
 		prefetch_cdn = $('link', {
 			rel: 'dns-prefetch'
-			, href: '//mai-maihq.netdna-ssl.com'
+			, href: '//rubu-maihq.netdna-ssl.com'
 		});
 
 		prefetch_gs = $('link', {
