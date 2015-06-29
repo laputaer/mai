@@ -80,7 +80,7 @@ function template(data) {
 
 		prefetch_cdn = $('link', {
 			rel: 'dns-prefetch'
-			, href: '//mai-maihq.netdna-ssl.com'
+			, href: '//rubu-maihq.netdna-ssl.com'
 		});
 
 		prefetch_gs = $('link', {
