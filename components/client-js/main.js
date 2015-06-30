@@ -25,9 +25,11 @@ var app = new App();
 window.addEventListener('DOMContentLoaded', init);
 
 function init() {
+	/*
 	app.init().then(function() {
 		return app.update();
 	}).then(function() {
 
 	});
+	*/
 };
