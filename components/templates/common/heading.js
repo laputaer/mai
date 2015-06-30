@@ -22,7 +22,7 @@ function template(data) {
 	var x3 = data.base_url + '/images/header-960.jpg';
 	var x4 = data.base_url + '/images/header-1280.jpg';
 
-	var heading = $('div.page-heading', {
+	var heading = $('div.page-heading.lazyload', {
 		attributes: {
 			'data-bgset': x1 + ' 320w, '
 				+ x2 + ' 640w, '
