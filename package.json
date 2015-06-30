@@ -17,7 +17,7 @@
     "watch:js": "DEBUG=onchange onchange components/client-js/\\*\\*/\\*.js components/client-js/\\*.js components/builders/\\*.js components/templates/\\*\\*/\\*.js components/templates/\\*.js components/i18n/\\*.js -- npm run build:js:dev",
     "watch:svg": "DEBUG=onchange onchange components/client-svg/\\*\\*/\\*.svg -- npm run build:svg",
     "build:css": "lessc components/client-less/main.less | autoprefixer | cleancss -o public/assets/app.css && lessc components/client-less/inline.less | autoprefixer | cleancss -o public/assets/inline.css",
-    "build:css:dev": "lessc components/client-less/main.less | autoprefixer > public/dev/app.css",
+    "build:css:dev": "lessc components/client-less/main.less | autoprefixer > public/dev/app.css && lessc components/client-less/inline.less | autoprefixer | cleancss -o public/assets/inline.css",
     "build:js": "browserify components/client-js/main.js -s mai | uglifyjs > public/assets/app.js && uglifyjs components/client-js/vendor/analytics.js > public/assets/vendor.js && uglifyjs components/client-js/vendor/inline.js > public/assets/inline.js",
     "build:js:dev": "browserify components/client-js/main.js -s mai -o public/dev/app.js",
     "build:svg": "svgo --enable=removeDesc --multipass -f components/client-svg/ && svgshelf components/client-svg/\\*.svg public/assets/icons.svg",
