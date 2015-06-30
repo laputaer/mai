@@ -8,6 +8,8 @@
 var $ = require('../vdom');
 var i18n = require('../i18n')();
 
+var buttonTemplate = require('./button');
+
 module.exports = template;
 
 /**
@@ -21,6 +23,13 @@ function template(data) {
 	var x2 = data.base_url + '/images/header-640.jpg';
 	var x3 = data.base_url + '/images/header-960.jpg';
 	var x4 = data.base_url + '/images/header-1280.jpg';
+
+	var discoverButton = buttonTemplate({
+		href: '/'
+		, icon: 'compass'
+		, text: i18n.t('menu.nav.toggle')
+		, type: ['navigation']
+	});
 
 	var heading = $('div.page-heading.lazyload', {
 		attributes: {
@@ -36,6 +45,7 @@ function template(data) {
 	}, [
 		$('h1.page-heading-title.main', i18n.t('common.domain'))
 		, $('p.page-heading-title.tagline', i18n.t('common.tagline'))
+		, discoverButton
 	]);
 
 	return heading;

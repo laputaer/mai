@@ -18,7 +18,7 @@ module.exports = template;
 function template(data) {
 	// optional data.type to pass button variant names
 	var button_type = '';
-	if (data.type && data.type.length > 0) {
+	if (data.type && Array.isArray(data.type)) {
 		button_type = '.' + data.type.join('.');
 	}
 
