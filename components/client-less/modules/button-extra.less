@@ -2,23 +2,40 @@
 // buttons-extra.less
 
 .m-button {
-	&.navigation {
-		&:hover, &:focus {
-			background-color: @color-blue-light;
-			color: @white;
-			border-color: @color-blue-light;
+	&.heading {
+		color: @color-white;
+		font-weight: 300;
+
+		&:hover, &:focus, &.active {
+			background-color: fadeout(@color-black, 75%);
+			border-color: transparent;
 		}
 
 		&:active {
-			background-color: darken(@color-blue-light, 10%);
-			color: @white;
-			border-color: darken(@color-blue-light, 10%);
+			background-color: fadeout(@color-black, 50%);
+			border-color: transparent;
+		}
+	}
+
+	&.navigation {
+		padding: 4px;
+	}
+
+	&.login {
+		padding: 4px 4px 4px 8px;
+	}
+
+	&.cancel {
+		&:hover, &:focus {
+			background-color: @color-gray-dark;
+			color: @color-white;
+			border-color: @color-gray-dark;
 		}
 
-		&.active {
-			background-color: lighten(@color-blue, 20%);
-			color: @white;
-			border-color: lighten(@color-blue, 20%);
+		&:active {
+			background-color: darken(@color-gray-dark, 10%);
+			color: @color-white;
+			border-color: darken(@color-gray-dark, 10%);
 		}
 	}
 
@@ -27,13 +44,13 @@
 
 		&:hover, &:focus {
 			background-color: @color-green;
-			color: @white;
+			color: @color-white;
 			border-color: @color-green;
 		}
 
 		&:active {
 			background-color: darken(@color-green, 10%);
-			color: @white;
+			color: @color-white;
 			border-color: darken(@color-green, 10%);
 		}
 	}
@@ -43,13 +60,13 @@
 
 		&:hover, &:focus {
 			background-color: @color-yellow-dark;
-			color: @white;
+			color: @color-white;
 			border-color: @color-yellow-dark;
 		}
 
 		&:active {
 			background-color: darken(@color-yellow-dark, 10%);
-			color: @white;
+			color: @color-white;
 			border-color: darken(@color-yellow-dark, 10%);
 		}
 	}
@@ -59,13 +76,13 @@
 
 		&:hover, &:focus {
 			background-color: @color-green;
-			color: @white;
+			color: @color-white;
 			border-color: @color-green;
 		}
 
 		&:active {
 			background-color: darken(@color-green, 10%);
-			color: @white;
+			color: @color-white;
 			border-color: darken(@color-green, 10%);
 		}
 	}
@@ -75,13 +92,13 @@
 
 		&:hover, &:focus {
 			background-color: @color-black-light;
-			color: @white;
+			color: @color-white;
 			border-color: @color-black-light;
 		}
 
 		&:active {
 			background-color: darken(@color-black-light, 10%);
-			color: @white;
+			color: @color-white;
 			border-color: darken(@color-black-light, 10%);
 		}
 	}
@@ -91,13 +108,13 @@
 
 		&:hover, &:focus {
 			background-color: @color-blue;
-			color: @white;
+			color: @color-white;
 			border-color: @color-blue;
 		}
 
 		&:active {
 			background-color: darken(@color-blue, 10%);
-			color: @white;
+			color: @color-white;
 			border-color: darken(@color-blue, 10%);
 		}
 	}

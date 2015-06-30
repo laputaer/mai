@@ -42,9 +42,7 @@ module.exports = builder;
  */
 function builder(data) {
 	// heading
-	data.heading = cache(templates.common.heading, {
-		client: data.client
-	});
+	data.heading = templates.common.heading(data);
 
 	// menu data
 	// TODO: reuse these code

@@ -9,6 +9,7 @@
 
 // third-party modules
 require('lazysizes/plugins/respimg/ls.respimg.js');
+require('lazysizes/plugins/bgset/ls.bgset.js');
 require('lazysizes');
 
 // polyfills
@@ -24,9 +25,11 @@ var app = new App();
 window.addEventListener('DOMContentLoaded', init);
 
 function init() {
+	/*
 	app.init().then(function() {
 		return app.update();
 	}).then(function() {
 
 	});
+	*/
 };
