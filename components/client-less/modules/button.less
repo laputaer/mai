@@ -7,22 +7,36 @@
 // eg. <button class="m-button">...</button>
 
 .m-button {
-	display: inline-block;
 	color: @color-gray-dark;
-	padding: 0.25em 0.5em;
+
+	display: inline-block;
+	padding: 5px;
 	border: 1px solid;
 	border-radius: 0.5em;
-	text-decoration: none;
+	box-sizing: border-box;
+
 	line-height: 20px;
 	.size(16);
 
+	text-decoration: none;
 	background-color: transparent;
 	-webkit-appearance: none;
 
-	.m-icon, .m-image {
+	&:focus {
+		outline: 0;
+	}
+
+	&.rounded {
+		border-radius: 200px;
+	}
+
+	.m-icon, .m-image, .m-text {
 		display: inline-block;
 		vertical-align: top;
-		margin-right: 0.25em;
+	}
+
+	.m-icon, .m-image {
+		margin-right: 4px;
 		width: 20px;
 		height: 20px;
 	}
@@ -34,12 +48,6 @@
 	.m-image {
 		border-radius: 50%;
 		background-color: @color-gray;
-		.background-cover();
-	}
-
-	.m-text {
-		display: inline-block;
-		vertical-align: top;
 	}
 
 	@media @mobile-medium {
@@ -50,91 +58,5 @@
 			width: 22px;
 			height: 22px;
 		}
-	}
-
-	&.rounded {
-		border-radius: 500px;
-	}
-
-	&.small {
-		line-height: 16px;
-		.size(14);
-
-		.m-icon, .m-image {
-			width: 16px;
-			height: 16px;
-		}
-
-		@media @mobile-medium {
-			line-height: 18px;
-			.size(16);
-
-			.m-icon, .m-image {
-				width: 18px;
-				height: 18px;
-			}
-		}
-	}
-
-	&.medium {
-		line-height: 24px;
-		.size(20);
-
-		.m-icon, .m-image {
-			width: 24px;
-			height: 24px;
-		}
-
-		@media @mobile-medium {
-			line-height: 26px;
-			.size(22);
-
-			.m-icon, .m-image {
-				width: 26px;
-				height: 26px;
-			}
-		}
-	}
-
-	&.large {
-		line-height: 30px;
-		.size(24);
-
-		.m-icon, .m-image {
-			width: 30px;
-			height: 30px;
-		}
-
-		@media @mobile-medium {
-			line-height: 32px;
-			.size(26);
-
-			.m-icon, .m-image {
-				width: 32px;
-				height: 32px;
-			}
-		}
-	}
-
-	&:hover, &:focus {
-		background-color: @color-gray-dark;
-		color: @white;
-		border-color: @color-gray-dark;
-	}
-
-	&:focus {
-		outline: 0;
-	}
-
-	&:active {
-		background-color: darken(@color-gray-dark, 20%);
-		color: @white;
-		border-color: darken(@color-gray-dark, 20%);
-	}
-
-	&.active {
-		background-color: transparent;
-		color: darken(@color-gray-dark, 20%);
-		border-color: darken(@color-gray-dark, 20%);
 	}
 }

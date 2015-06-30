@@ -3,6 +3,8 @@
 
 .m-button {
 	&.navigation {
+		color: @white;
+
 		&:hover, &:focus {
 			background-color: @color-blue-light;
 			color: @white;
@@ -19,6 +21,20 @@
 			background-color: lighten(@color-blue, 20%);
 			color: @white;
 			border-color: lighten(@color-blue, 20%);
+		}
+	}
+
+	&.cancel {
+		&:hover, &:focus {
+			background-color: @color-gray-dark;
+			color: @white;
+			border-color: @color-gray-dark;
+		}
+
+		&:active {
+			background-color: darken(@color-gray-dark, 10%);
+			color: @white;
+			border-color: darken(@color-gray-dark, 10%);
 		}
 	}
 
