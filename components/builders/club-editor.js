@@ -61,6 +61,7 @@ function partial(data) {
 	data.form_cancel = templates.common.button({
 		href: '/c/' + data.club.slug
 		, text: i18n.t('club.edit-form-cancel')
+		, type: ['cancel']
 	});
 
 	data.form_title = i18n.t('club.edit-club');
