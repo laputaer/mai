@@ -21,7 +21,7 @@
     "build:js": "browserify components/client-js/main.js -s mai | uglifyjs > public/assets/app.js && uglifyjs components/client-js/vendor/analytics.js > public/assets/vendor.js && uglifyjs components/client-js/vendor/inline.js > public/assets/inline.js",
     "build:js:dev": "browserify components/client-js/main.js -s mai -o public/dev/app.js",
     "build:svg": "svgo --enable=removeDesc --multipass -f components/client-svg/ && svgshelf components/client-svg/\\*.svg public/assets/icons.svg",
-    "build:img": "find ./public/images/ -maxdepth 1 -type f -not -name .gitignore -exec rm -fv {} + && imagemin -p components/client-image/* public/images/",
+    "build:img": "find ./public/images -maxdepth 1 -type f -not -name .gitignore -exec rm -fv {} + && imagemin -p components/client-image/* public/images/",
     "cron:cache:all": "find ./cache/ -maxdepth 1 -type f -not -name .gitignore -exec rm -fv {} + | wc -w",
     "cron:cache:old": "find ./cache/ -maxdepth 1 -type f -mtime +7 -not -name .gitignore -exec rm -fv {} + | wc -w",
     "cron:ap:all": "node cron/action-point-recovery.js",
