@@ -10,8 +10,8 @@ module.exports = {
 		'title': '买么（买买买）'
 		, 'description': '「买么」是全球首家关注「产品信仰」的社区。欢迎你与我们一道，分享独特的「消费文化」。'
 		, 'app-title': '买么'
-		, 'domain': 'mai3.me'
-		, 'tagline': '传播产品信仰 分享消费文化'
+		, 'domain': 'Rubu.me'
+		, 'tagline': '「与世界一同入迷」'
 	}
 	, 'menu': {
 		'nav': {
@@ -20,6 +20,7 @@ module.exports = {
 			, 'ranking': '排行榜'
 			, 'help': '使用指南'
 			, 'toggle': '导航'
+			, 'login': '登录'
 		}
 		, 'login': {
 			'twitter': '登录'

@@ -10,11 +10,12 @@
 	color: @color-gray-dark;
 
 	display: inline-block;
-	padding: 5px;
+	padding: 4px 8px;
 	border: 1px solid;
 	border-radius: 0.5em;
 	box-sizing: border-box;
 
+	font-weight: 400;
 	line-height: 20px;
 	.size(16);
 
@@ -48,15 +49,5 @@
 	.m-image {
 		border-radius: 50%;
 		background-color: @color-gray;
-	}
-
-	@media @mobile-medium {
-		line-height: 22px;
-		.size(18);
-
-		.m-icon, .m-image {
-			width: 22px;
-			height: 22px;
-		}
 	}
 }

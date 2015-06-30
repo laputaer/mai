@@ -28,7 +28,14 @@ function template(data) {
 		href: '/'
 		, icon: 'compass'
 		, text: i18n.t('menu.nav.toggle')
-		, type: ['navigation']
+		, type: ['heading', 'navigation', 'page-heading-navigation']
+	});
+
+	var loginButton = buttonTemplate({
+		href: '/'
+		, icon: 'upload'
+		, text: i18n.t('menu.nav.login')
+		, type: ['heading', 'login', 'page-heading-login']
 	});
 
 	var heading = $('div.page-heading.lazyload', {
@@ -43,9 +50,10 @@ function template(data) {
 			'background-image': 'url(' + x1 + ')'
 		}
 	}, [
-		$('h1.page-heading-title.main', i18n.t('common.domain'))
-		, $('p.page-heading-title.tagline', i18n.t('common.tagline'))
+		$('h1.title', i18n.t('common.domain'))
+		, $('p.tagline', i18n.t('common.tagline'))
 		, discoverButton
+		, loginButton
 	]);
 
 	return heading;

@@ -12,7 +12,7 @@
     "local": "sudo NODE_ENV=local nodemon --ext js --ignore components/client-js/ --watch components/ --watch index.js index.js",
     "dev:be": "sudo NODE_ENV=development DEBUG=mai:* nodemon --ext js --ignore components/client-js/ --watch components/ --watch index.js index.js",
     "dev:fe": "npm run watch:reload & npm run watch:css & npm run watch:js & npm run watch:svg",
-    "watch:reload": "DEBUG=wiper wiper -p 30001 -w public/dev/app.css,public/dev/app.js --cert=ssl.crt --key=ssl.key",
+    "watch:reload": "DEBUG=wiper wiper -p 30001 -t 5000 -w public/dev/app.css,public/dev/app.js --cert=ssl.crt --key=ssl.key",
     "watch:css": "DEBUG=onchange onchange components/client-less/\\*\\*/\\*.less components/client-less/\\*.less -- npm run build:css:dev",
     "watch:js": "DEBUG=onchange onchange components/client-js/\\*\\*/\\*.js components/client-js/\\*.js components/builders/\\*.js components/templates/\\*\\*/\\*.js components/templates/\\*.js components/i18n/\\*.js -- npm run build:js:dev",
     "watch:svg": "DEBUG=onchange onchange components/client-svg/\\*\\*/\\*.svg -- npm run build:svg",
@@ -63,7 +63,7 @@
     "svgo": "0.5.2",
     "svgshelf": "1.0.3",
     "uglify-js": "2.4.23",
-    "wiper": "1.2.0"
+    "wiper": "1.3.0"
   },
   "dependencies": {
     "cheerio": "0.19.0",
