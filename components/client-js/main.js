@@ -9,6 +9,7 @@
 
 // third-party modules
 require('lazysizes/plugins/respimg/ls.respimg.js');
+require('lazysizes/plugins/bgset/ls.bgset.js');
 require('lazysizes');
 
 // polyfills
