@@ -8,21 +8,21 @@
 @mobile-medium: ~'screen and (min-width: 350px)';
 @mobile-large: ~'screen and (min-width: 400px)';
 
-@tablet-small: ~'screen and (min-width: 600px)';
+@tablet-small: ~'screen and (min-width: 500px)';
 @tablet-medium: ~'screen and (min-width: 700px)';
-@tablet-large: ~'screen and (min-width: 800px)';
+@tablet-large: ~'screen and (min-width: 900px)';
 
-@monitor-small: ~'screen and (min-width: 1000px)';
-@monitor-medium: ~'screen and (min-width: 1200px)';
-@monitor-large: ~'screen and (min-width: 1400px)';
+@monitor-small: ~'screen and (min-width: 1200px)';
+@monitor-medium: ~'screen and (min-width: 1400px)';
+@monitor-large: ~'screen and (min-width: 1600px)';
 
 // shorthands
 @mobile: @mobile-small;
-@tablet: @tablet-medium;
-@monitor: @monitor-large;
+@tablet: @tablet-small;
+@monitor: @monitor-small;
 
-// media query support
+// mq support
 @supported: ~'screen and (min-width: 1px)';
 
-// css hacks, target IE 8~10
+// mq hacks, target IE 8~10
 @ie-hack: ~'screen\0';
