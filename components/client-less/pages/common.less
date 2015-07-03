@@ -8,7 +8,7 @@
 .page-heading {
 	position: relative;
 	overflow: hidden;
-	background-color: @color-blue;
+	background-color: @color-blue-dark;
 	.background-cover();
 
 	width: 100%;
@@ -45,6 +45,18 @@
 
 	.tagline {
 		.size(20);
+	}
+
+	@media @tablet {
+		height: 150px;
+
+		.title {
+			.size(52);
+		}
+
+		.tagline {
+			.size(22);
+		}
 	}
 }
 
