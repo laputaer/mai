@@ -3,17 +3,17 @@
 
 .m-button {
 	&.heading {
-		color: @color-white;
 		font-weight: 300;
+		color: @color-white;
+		border-color: transparent;
+		background-color: fadeout(@color-black, 80%);
 
-		&:hover, &:focus, &.active {
-			background-color: fadeout(@color-black, 75%);
-			border-color: transparent;
+		&:hover, &:focus {
+			background-color: fadeout(@color-black, 60%);
 		}
 
-		&:active {
-			background-color: fadeout(@color-black, 50%);
-			border-color: transparent;
+		&:active, &.active {
+			color: @color-yellow-light;
 		}
 	}
 

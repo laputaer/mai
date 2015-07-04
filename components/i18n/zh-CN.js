@@ -10,7 +10,7 @@ module.exports = {
 		'title': '买么（买买买）'
 		, 'description': '「买么」是全球首家关注「产品信仰」的社区。欢迎你与我们一道，分享独特的「消费文化」。'
 		, 'app-title': '买么'
-		, 'domain': 'Rubu.me'
+		, 'domain': 'rubu.me'
 		, 'tagline': '「与世界一同入迷」'
 	}
 	, 'menu': {
