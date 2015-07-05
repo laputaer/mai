@@ -6,17 +6,25 @@
 }
 
 .page-heading {
-	position: relative;
-	overflow: hidden;
 	background-color: @color-blue-dark;
 	.background-cover();
 
 	width: 100%;
 	height: 130px;
 
+	.wrapper {
+		max-width: 1200px;
+		margin: 0 auto;
+		position: relative;
+		overflow: hidden;
+	}
+
 	.navigation, .login {
 		position: absolute;
 		top: 10px;
+		font-weight: 300;
+		.size(16);
+		.reset-list();
 	}
 
 	.navigation {
@@ -50,6 +58,10 @@
 	@media @tablet {
 		height: 150px;
 
+		.navigation, .login {
+			.size(18);
+		}
+
 		.title {
 			.size(52);
 		}
@@ -76,17 +88,30 @@
 		height: 240px;
 
 		.title {
-			margin-top: 70px;
+			margin-top: 80px;
 			.size(64);
 		}
 
 		.tagline {
 			.size(28);
 		}
+
+		.navigation, .login {
+			top: 20px;
+			.size(20);
+		}
+
+		.navigation {
+			left: 20px;
+		}
+
+		.login {
+			right: 20px;
+		}
 	}
 
 	@media @monitor {
-		background-position: 50% 40%;
+		background-position: 50% 30%;
 	}
 
 	@media @monitor-large {
