@@ -42,12 +42,8 @@ function template(data) {
 		attributes: {
 			'data-bgset': x1 + ' 320w, '
 				+ x2 + ' 640w, '
-				+ x3 + ' 960w, '
-				+ x4 + ' 1280w'
+				+ x3 + ' 960w'
 			, 'data-sizes': 'auto'
-		}
-		, style: {
-			'background-image': 'url(' + x1 + ')'
 		}
 	}, [
 		$('h1.title', i18n.t('common.domain'))
