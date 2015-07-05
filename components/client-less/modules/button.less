@@ -17,11 +17,11 @@
 
 	font-weight: 400;
 	line-height: 20px;
-	.size(16);
 
 	text-decoration: none;
 	background-color: transparent;
 	-webkit-appearance: none;
+	-webkit-tap-highlight-color: fadeout(@color-white, 100%);
 
 	&:focus {
 		outline: 0;
@@ -49,5 +49,115 @@
 	.m-image {
 		border-radius: 50%;
 		background-color: @color-gray;
+	}
+
+	// extra styling
+
+	&.heading {
+		color: @color-white;
+		border-color: transparent;
+		background-color: fadeout(@color-black, 80%);
+
+		&:hover, &:focus {
+			background-color: fadeout(@color-black, 60%);
+		}
+
+		&:active, &.active {
+			color: @color-yellow-light;
+		}
+	}
+
+	&.cancel {
+		&:hover, &:focus {
+			background-color: @color-gray-dark;
+			color: @color-white;
+			border-color: @color-gray-dark;
+		}
+
+		&:active {
+			background-color: darken(@color-gray-dark, 10%);
+			color: @color-white;
+			border-color: darken(@color-gray-dark, 10%);
+		}
+	}
+
+	&.accept {
+		color: @color-green;
+
+		&:hover, &:focus {
+			background-color: @color-green;
+			color: @color-white;
+			border-color: @color-green;
+		}
+
+		&:active {
+			background-color: darken(@color-green, 10%);
+			color: @color-white;
+			border-color: darken(@color-green, 10%);
+		}
+	}
+
+	&.highlight {
+		color: @color-yellow-dark;
+
+		&:hover, &:focus {
+			background-color: @color-yellow-dark;
+			color: @color-white;
+			border-color: @color-yellow-dark;
+		}
+
+		&:active {
+			background-color: darken(@color-yellow-dark, 10%);
+			color: @color-white;
+			border-color: darken(@color-yellow-dark, 10%);
+		}
+	}
+
+	&.post {
+		color: @color-green;
+
+		&:hover, &:focus {
+			background-color: @color-green;
+			color: @color-white;
+			border-color: @color-green;
+		}
+
+		&:active {
+			background-color: darken(@color-green, 10%);
+			color: @color-white;
+			border-color: darken(@color-green, 10%);
+		}
+	}
+
+	&.github {
+		color: @color-black-light;
+
+		&:hover, &:focus {
+			background-color: @color-black-light;
+			color: @color-white;
+			border-color: @color-black-light;
+		}
+
+		&:active {
+			background-color: darken(@color-black-light, 10%);
+			color: @color-white;
+			border-color: darken(@color-black-light, 10%);
+		}
+	}
+
+	&.twitter {
+		color: @color-blue;
+
+		&:hover, &:focus {
+			background-color: @color-blue;
+			color: @color-white;
+			border-color: @color-blue;
+		}
+
+		&:active {
+			background-color: darken(@color-blue, 10%);
+			color: @color-white;
+			border-color: darken(@color-blue, 10%);
+		}
 	}
 }

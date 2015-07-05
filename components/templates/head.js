@@ -20,7 +20,7 @@ function template(data) {
 	var og_title, og_url, og_image, og_type, og_site_name, og_description;
 	var t_card, t_site, t_title, t_description, t_image;
 	var vendor, prefetch_cdn, prefetch_gs, prefetch_gs_1, prefetch_gs_2;
-	var csrf_token;
+	var csrf_token, inline_css, dev_css;
 
 	var main_css_file = data.production ? '/assets/app.css' : '/dev/app.css';
 	var main_js_file = data.production ? '/assets/app.js' : '/dev/app.js';
@@ -97,6 +97,15 @@ function template(data) {
 			rel: 'dns-prefetch'
 			, href: '//data2.gosquared.com'
 		});
+
+		inline_css = $('style', {
+			innerHTML: data.inline_css
+		});
+	} else {
+		dev_css = $('link', {
+			rel: 'stylesheet'
+			, href: base_url + '/dev/inline.css?' + data.version.js
+		});
 	}
 
 	if (data.current_user) {
@@ -144,6 +153,7 @@ function template(data) {
 			, sizes: '32x32'
 			, href: '/favicon.png?' + data.version.asset
 		})
+		, dev_css
 		, csrf_token
 		, og_title
 		, og_url
@@ -160,11 +170,10 @@ function template(data) {
 		, prefetch_gs
 		, prefetch_gs_1
 		, prefetch_gs_2
-		, $('style', {
-			innerHTML: data.inline_css
-		})
-		, $('script', {
-			innerHTML: data.inline_js + ';loadCSS("' + base_url + main_css_file + '?' + data.version.css + '");'
+		, inline_css
+		, $('script#css-loader', {
+			innerHTML: data.inline_js
+				+ ';loadCSS("' + base_url + main_css_file + '?' + data.version.css + '", document.getElementById("css-loader"));'
 		})
 		, $('noscript', [
 			$('link', {

@@ -28,14 +28,14 @@ function template(data) {
 		href: '/'
 		, icon: 'compass'
 		, text: i18n.t('menu.nav.toggle')
-		, type: ['heading', 'navigation', 'page-heading-navigation']
+		, type: ['heading', 'page-heading-navigation']
 	});
 
 	var loginButton = buttonTemplate({
 		href: '/'
 		, icon: 'upload'
 		, text: i18n.t('menu.nav.login')
-		, type: ['heading', 'login', 'page-heading-login']
+		, type: ['heading', 'page-heading-login']
 	});
 
 	var heading = $('div.page-heading.lazyload', {
@@ -50,10 +50,16 @@ function template(data) {
 			'background-image': 'url(' + x1 + ')'
 		}
 	}, [
-		$('h1.title', i18n.t('common.domain'))
-		, $('p.tagline', i18n.t('common.tagline'))
-		, discoverButton
-		, loginButton
+		$('div.wrapper', [
+			$('h1.title', i18n.t('common.domain'))
+			, $('p.tagline', i18n.t('common.tagline'))
+			, $('ul.navigation', [
+				$('li.item', discoverButton)
+			])
+			, $('ul.login', [
+				$('li.item', loginButton)
+			])
+		])
 	]);
 
 	return heading;
