@@ -40,9 +40,10 @@ function template(data) {
 
 	var heading = $('div.page-heading.lazyload', {
 		attributes: {
-			'data-bgset': x1 + ' 320w, '
-				+ x2 + ' 640w, '
-				+ x3 + ' 960w'
+			'data-bgset': x1 + ' [(max-width: 321px)] | '
+				+ x2 + ' [(max-width: 641px)] | '
+				+ x3 + ' [(max-width: 961px)] | '
+				+ x4
 			, 'data-sizes': 'auto'
 		}
 	}, [
