@@ -32,29 +32,41 @@ function template(data) {
 		, version: data.version.asset
 	});
 
-	var clubButton = buttonTemplate({
+	var clubOpt = {
 		href: '/c/club-home'
 		, icon: 'share'
 		, text: i18n.t('menu.nav.club')
 		, type: ['heading', 'tablet']
 		, version: data.version.asset
-	});
+	};
+	if (data.current_path === clubOpt.href) {
+		clubOpt.type.push('active');
+	}
+	var clubButton = buttonTemplate(clubOpt);
 
-	var rankingButton = buttonTemplate({
+	var rankingOpt = {
 		href: '/c/club-ranking'
 		, icon: 'graph_rising'
 		, text: i18n.t('menu.nav.ranking')
 		, type: ['heading', 'tablet']
 		, version: data.version.asset
-	});
+	};
+	if (data.current_path === rankingOpt.href) {
+		rankingOpt.type.push('active');
+	}
+	var rankingButton = buttonTemplate(rankingOpt);
 
-	var helpButton = buttonTemplate({
+	var helpOpt = {
 		href: '/help'
 		, icon: 'life_buoy'
 		, text: i18n.t('menu.nav.help')
 		, type: ['heading', 'tablet']
 		, version: data.version.asset
-	});
+	};
+	if (data.current_path === helpOpt.href) {
+		helpOpt.type.push('active');
+	}
+	var helpButton = buttonTemplate(helpOpt);
 
 	var loginButton = buttonTemplate({
 		href: '/'
@@ -74,8 +86,8 @@ function template(data) {
 		}
 	}, [
 		$('div.wrapper', [
-			$('h1.title', i18n.t('common.domain'))
-			, $('p.tagline', i18n.t('common.tagline'))
+			$('h1.title', $('a', { href: '/' }, i18n.t('common.domain')))
+			, $('p.tagline', $('a', { href: '/' }, i18n.t('common.tagline')))
 			, $('ul.navigation', [
 				$('li.item', discoverButton)
 				, $('li.item', clubButton)

@@ -62,7 +62,11 @@
 			background-color: fadeout(@color-black, 60%);
 		}
 
-		&:active, &.active {
+		&:active {
+			background-color: fadeout(@color-black, 40%);
+		}
+
+		&.active {
 			color: @color-yellow-light;
 		}
 	}
