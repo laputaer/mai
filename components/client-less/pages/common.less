@@ -41,17 +41,19 @@
 		text-align: center;
 
 		color: @color-white;
-		font-weight: 300;
+		font-weight: 400;
 		.long-text();
 	}
 
 	.title {
 		margin-top: 40px;
 		font-family: @sans-logo;
-		.size(48);
+		text-transform: uppercase;
+		.size(36);
 	}
 
 	.tagline {
+		margin-top: 4px;
 		.size(20);
 	}
 
@@ -63,7 +65,7 @@
 		}
 
 		.title {
-			.size(52);
+			.size(48);
 		}
 
 		.tagline {
@@ -74,9 +76,21 @@
 	@media @tablet-medium {
 		height: 180px;
 
+		.navigation, .login {
+			top: 15px;
+		}
+
+		.navigation {
+			left: 15px;
+		}
+
+		.login {
+			right: 15px;
+		}
+
 		.title {
 			margin-top: 50px;
-			.size(56);
+			.size(54);
 		}
 
 		.tagline {
@@ -101,7 +115,7 @@
 		}
 
 		.title {
-			margin-top: 80px;
+			margin-top: 70px;
 			.size(64);
 		}
 
