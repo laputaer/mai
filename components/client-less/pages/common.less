@@ -6,7 +6,8 @@
 }
 
 .page-heading {
-	background-color: @color-blue-dark;
+	background-color: #355C7E;
+	background-image: url(/images/header-320.jpg);
 	.background-cover();
 
 	width: 100%;
@@ -38,6 +39,10 @@
 	.item {
 		float: left;
 		margin-right: 10px;
+
+		&:last-child {
+			margin-right: 0;
+		}
 	}
 
 	.title, .tagline {
@@ -64,13 +69,14 @@
 
 	.tablet {
 		display: none;
-	}
+	} 
 
 	@media @mobile-large {
 		background-position: 50% 40%;
 	}
 
 	@media @tablet {
+		background-image: url(/images/header-640.jpg);
 		height: 150px;
 
 		.navigation, .login {
@@ -116,8 +122,9 @@
 	}
 
 	@media @tablet-large {
-		height: 240px;
 		background-position: 50% 30%;
+		background-image: url(/images/header-960.jpg);
+		height: 240px;
 
 		.navigation, .login {
 			top: 20px;
@@ -143,6 +150,7 @@
 	}
 
 	@media @monitor {
+		background-image: url(/images/header-1280.jpg);
 		background-position: 50% 25%;
 	}
 

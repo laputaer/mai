@@ -29,6 +29,7 @@ function template(data) {
 		, icon: 'compass'
 		, text: i18n.t('menu.nav.toggle')
 		, type: ['heading']
+		, version: data.version.asset
 	});
 
 	var clubButton = buttonTemplate({
@@ -36,6 +37,7 @@ function template(data) {
 		, icon: 'share'
 		, text: i18n.t('menu.nav.club')
 		, type: ['heading', 'tablet']
+		, version: data.version.asset
 	});
 
 	var rankingButton = buttonTemplate({
@@ -43,6 +45,7 @@ function template(data) {
 		, icon: 'graph_rising'
 		, text: i18n.t('menu.nav.ranking')
 		, type: ['heading', 'tablet']
+		, version: data.version.asset
 	});
 
 	var helpButton = buttonTemplate({
@@ -50,6 +53,7 @@ function template(data) {
 		, icon: 'life_buoy'
 		, text: i18n.t('menu.nav.help')
 		, type: ['heading', 'tablet']
+		, version: data.version.asset
 	});
 
 	var loginButton = buttonTemplate({
@@ -57,6 +61,7 @@ function template(data) {
 		, icon: 'upload'
 		, text: i18n.t('menu.nav.login')
 		, type: ['heading']
+		, version: data.version.asset
 	});
 
 	var heading = $('div.page-heading.lazyload', {
@@ -66,9 +71,6 @@ function template(data) {
 				+ x3 + ' 960w, '
 				+ x4 + ' 1280w'
 			, 'data-sizes': 'auto'
-		}
-		, style: {
-			'background-image': 'url(' + x1 + ')'
 		}
 	}, [
 		$('div.wrapper', [
