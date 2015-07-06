@@ -107,7 +107,7 @@ function builder(data) {
 		data.menu_user = [ templates.common.simpleUser(data) ];
 	}
 
-	data.menu = templates.common.menu(data);
+	//data.menu = templates.common.menu(data);
 	data.page = templates.main(data);
 	data.head = templates.head(data);
 	data.body = templates.body(data);
