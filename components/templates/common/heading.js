@@ -28,14 +28,35 @@ function template(data) {
 		href: '/'
 		, icon: 'compass'
 		, text: i18n.t('menu.nav.toggle')
-		, type: ['heading', 'page-heading-navigation']
+		, type: ['heading']
+	});
+
+	var clubButton = buttonTemplate({
+		href: '/c/club-home'
+		, icon: 'share'
+		, text: i18n.t('menu.nav.club')
+		, type: ['heading', 'tablet']
+	});
+
+	var rankingButton = buttonTemplate({
+		href: '/c/club-ranking'
+		, icon: 'graph_rising'
+		, text: i18n.t('menu.nav.ranking')
+		, type: ['heading', 'tablet']
+	});
+
+	var helpButton = buttonTemplate({
+		href: '/help'
+		, icon: 'life_buoy'
+		, text: i18n.t('menu.nav.help')
+		, type: ['heading', 'tablet']
 	});
 
 	var loginButton = buttonTemplate({
 		href: '/'
 		, icon: 'upload'
 		, text: i18n.t('menu.nav.login')
-		, type: ['heading', 'page-heading-login']
+		, type: ['heading']
 	});
 
 	var heading = $('div.page-heading.lazyload', {
@@ -55,6 +76,9 @@ function template(data) {
 			, $('p.tagline', i18n.t('common.tagline'))
 			, $('ul.navigation', [
 				$('li.item', discoverButton)
+				, $('li.item', clubButton)
+				, $('li.item', rankingButton)
+				, $('li.item', helpButton)
 			])
 			, $('ul.login', [
 				$('li.item', loginButton)
