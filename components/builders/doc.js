@@ -6,13 +6,13 @@
  */
 
 // immutable object
-var I = require('icepick');
+//var I = require('icepick');
 
-var immutable = require('./immutable');
-var cache = require('./cache');
+//var immutable = require('./immutable');
+//var cache = require('./cache');
 
 var templates = require('../templates/index');
-var i18n = require('../templates/i18n')();
+//var i18n = require('../templates/i18n')();
 
 // provide basic button data, freeze them for performance
 /*
