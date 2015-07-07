@@ -99,6 +99,7 @@
 	}
 
 	@media @tablet-medium {
+		background-position: 50% 32%;
 		height: 180px;
 
 		.navigation, .login {
@@ -114,7 +115,7 @@
 		}
 
 		.title {
-			margin-top: 50px;
+			margin-top: 60px;
 			.size(54);
 		}
 
@@ -128,7 +129,6 @@
 	}
 
 	@media @tablet-large {
-		background-position: 50% 32%;
 		background-image: url(/images/header-960.jpg);
 		height: 240px;
 
@@ -157,67 +157,9 @@
 
 	@media @monitor {
 		background-image: url(/images/header-1280.jpg);
-		background-position: 50% 25%;
 	}
 
 	@media @monitor-large {
 		background-position: 50% 0%;
 	}
-}
-
-.page-menu {
-	padding: 1em;
-	overflow: hidden;
-	border-bottom: 1px solid @color-gray-pastel;
-	max-width: 1200px;
-	margin: 0 auto;
-
-	@media @tablet {
-		border-color: transparent;
-	}
-}
-
-.page-menu-group {
-	.reset-list();
-	overflow: hidden;
-
-	&.hint {
-		float: left;
-		display: none;
-
-		@media @supported {
-			display: block;
-		}
-
-		@media @tablet {
-			display: none;
-		}
-	}
-
-	&.nav {
-		float: left;
-		display: block;
-
-		@media @supported {
-			display: none;
-		}
-
-		@media @tablet {
-			display: block;
-		}
-	}
-
-	&.user {
-		float: right;
-		display: block;
-	}
-}
-
-.page-menu-item {
-	display: block;
-	float: left;
-}
-
-.page-menu-item + .page-menu-item {
-	margin: 0 0 0 0.5em;
 }
