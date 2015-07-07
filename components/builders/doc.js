@@ -6,15 +6,16 @@
  */
 
 // immutable object
-var I = require('icepick');
+//var I = require('icepick');
 
-var immutable = require('./immutable');
-var cache = require('./cache');
+//var immutable = require('./immutable');
+//var cache = require('./cache');
 
 var templates = require('../templates/index');
-var i18n = require('../templates/i18n')();
+//var i18n = require('../templates/i18n')();
 
 // provide basic button data, freeze them for performance
+/*
 var menu_hint = I.freeze([
 	{ href: '/', icon: 'squares', text: i18n.t('menu.nav.toggle'), type: ['navigation'] }
 ]);
@@ -28,9 +29,10 @@ var menu_user = I.freeze([
 	{ href: '/connect/twitter', icon: 'twitter', text: i18n.t('menu.login.twitter'), type: ['navigation'] }
 	, { href: '/connect/github', icon: 'github', text: i18n.t('menu.login.github'), type: ['navigation'] }
 ]);
+*/
 
 // cache the result
-var cached_menu_hint, cached_menu_nav, cached_menu_user;
+//var cached_menu_hint, cached_menu_nav, cached_menu_user;
 
 module.exports = builder;
 
@@ -46,6 +48,7 @@ function builder(data) {
 
 	// menu data
 	// TODO: reuse these code
+	/*
 	if (!cached_menu_hint) {
 		cached_menu_hint = I.map(function (button) {
 			return I.assign(button, {
@@ -106,6 +109,7 @@ function builder(data) {
 	} else {
 		data.menu_user = [ templates.common.simpleUser(data) ];
 	}
+	*/
 
 	//data.menu = templates.common.menu(data);
 	data.page = templates.main(data);
