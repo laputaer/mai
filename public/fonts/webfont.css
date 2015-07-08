@@ -1,11 +1,9 @@
 
 @font-face {
 	font-family: 'Bebas';
-	src: url('/fonts/BEBAS-webfont.eot');
-	src: url('/fonts/BEBAS-webfont.eot?#iefix') format('embedded-opentype'),
-		 url('/fonts/BEBAS-webfont.woff') format('woff'),
-		 url('/fonts/BEBAS-webfont.ttf') format('truetype'),
-		 url('/fonts/BEBAS-webfont.svg#bebasregular') format('svg');
+	src: url('/fonts/bebas-webfont.woff2') format('woff2'),
+		 url('/fonts/bebas-webfont.woff') format('woff'),
+		 url('/fonts/bebas-webfont.ttf') format('truetype');
 	font-weight: normal;
 	font-style: normal;
 }
