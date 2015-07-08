@@ -11,7 +11,7 @@
     "report": "babel-istanbul cover _mocha -- -R spec components/tests/",
     "build": "npm run build:css && npm run build:js && npm run build:svg && npm run build:img",
     "local": "sudo NODE_ENV=local nodemon --ext js --ignore components/client-js/ --watch components/ --watch index.js index.js",
-    "dev:be": "sudo NODE_ENV=development DEBUG=mai:* nodemon --ext js --ignore components/client-js/ --watch components/ --watch index.js index.js",
+    "dev:be": "sudo NODE_ENV=dev DEBUG=mai:* nodemon --ext js --ignore components/client-js/ --watch components/ --watch index.js index.js",
     "dev:fe": "npm run watch:reload & npm run watch:css & npm run watch:js & npm run watch:svg",
     "watch:reload": "DEBUG=wiper wiper -p 30001 -t 2000 -w public/dev/app.css,public/dev/app.js --cert=ssl.crt --key=ssl.key",
     "watch:css": "DEBUG=onchange onchange components/client-less/\\*\\*/\\*.less -- npm run build:css:dev",

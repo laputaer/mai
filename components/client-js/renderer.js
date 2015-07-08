@@ -12,7 +12,8 @@ var doc = document;
 
 // builder bundle
 var builders = require('../builders/builders');
-var bench = require('./benchmark')(true);
+// to debug, set it to true
+var bench = require('./benchmark')(false);
 
 // immutable object
 var extend = require('xtend');
