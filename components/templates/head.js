@@ -173,7 +173,9 @@ function template(data) {
 		, inline_css
 		, $('script#css-loader', {
 			innerHTML: data.inline_js
-				+ ';loadCSS("' + base_url + main_css_file + '?' + data.version.css + '", document.getElementById("css-loader"));'
+				+ ';var l=document.getElementById("css-loader");'
+				+ 'loadCSS("' + base_url + main_css_file + '?' + data.version.css + '", l);'
+				+ 'loadCSS("' + base_url + '/fonts/webfont.css?' + data.version.css + '", l);'
 		})
 		, $('noscript', [
 			$('link', {
