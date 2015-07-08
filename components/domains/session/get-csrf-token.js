@@ -27,11 +27,14 @@ function *getCsrfToken(opts) {
 
 	// find existing secret or generate new one
 	var secret = yield cache.hget('users:' + session.uid, 'csrf_secret');
+	console.log('s=', secret);
 	if (!secret) {
 		secret = yield csrf.secret();
 		yield cache.hset('users:' + session.uid, 'csrf_secret', secret);
 	}
 
 	// generate new token
-	return csrf.create(secret);
+	var token = csrf.create(secret);
+	console.log('t=', token);
+	return token;
 };
