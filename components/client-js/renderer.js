@@ -82,6 +82,7 @@ Renderer.prototype.update = function(name, model) {
 	this.modelCache = model;
 
 	// shallow copy into mutable model
+	// TODO: eventually we want to avoid doing this
 	bench.start();
 	var data = extend({}, model);
 

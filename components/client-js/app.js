@@ -55,11 +55,12 @@ App.prototype.update = function() {
 	var self = this;
 	var name = router(self.model.get());
 
-	// unknown route, skip
+	// undefined route, skip
 	if (!name) {
-		return Promise.resolve();
+		return Promise.resolve(false);
 	}
 
+	// otherwise extend page
 	return self.service.fetch(name).then(function(data) {
 		self.model.sync(data);
 		self.renderer.update(name, self.model.get());
