@@ -11,6 +11,7 @@ var createRoute = require('../helpers/create-named-route');
 // route matching
 var routes = {
 	home: createRoute('^/$')
+	, help: createRoute('^/help$')
 };
 
 module.exports = router;

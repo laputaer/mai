@@ -19,6 +19,7 @@ var api = {
 	, home: {
 		posts: '/posts'
 	}
+	, help: {}
 };
 
 module.exports = Service;

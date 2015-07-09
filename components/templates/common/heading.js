@@ -20,11 +20,6 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var x1 = data.base_url + '/images/header-320.jpg';
-	var x2 = data.base_url + '/images/header-640.jpg';
-	var x3 = data.base_url + '/images/header-960.jpg';
-	var x4 = data.base_url + '/images/header-1280.jpg';
-
 	var discoverButton = buttonTemplate({
 		href: '/'
 		, className: 'rounded heading'
@@ -32,6 +27,8 @@ function template(data) {
 		, icon: 'compass'
 		, version: data.version.asset
 		, base_url: data.base_url
+		, eventName: 'ev-click'
+		, eventHandler: emitter.capture('page:nav')
 	});
 
 	var clubOpt = {
@@ -84,10 +81,10 @@ function template(data) {
 
 	var heading = $('div.page-heading.lazyload', {
 		attributes: {
-			'data-bgset': x1 + ' 320w, '
-				+ x2 + ' 640w, '
-				+ x3 + ' 960w, '
-				+ x4 + ' 1280w'
+			'data-bgset': data.base_url + '/images/header-320.jpg 320w, '
+				+ data.base_url + '/images/header-640.jpg 640w, '
+				+ data.base_url + '/images/header-960.jpg 960w, '
+				+ data.base_url + '/images/header-1280.jpg 1280w'
 			, 'data-sizes': 'auto'
 		}
 	}, [

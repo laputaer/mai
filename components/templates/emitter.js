@@ -18,4 +18,13 @@ emitter.fire = function(name, data) {
 	};
 };
 
+// similar to fire, but actually prevent default action
+emitter.capture = function(name, data) {
+	var self = this;
+	return function(ev) {
+		ev.preventDefault();
+		self.emit(name, data);
+	};
+};
+
 module.exports = emitter;

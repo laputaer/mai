@@ -13,8 +13,8 @@ delegator();
 var emitter = require('../templates/emitter');
 
 // event handlers
-emitter.on('page:nav', function(data) {
-	console.log(data);
+emitter.on('page:nav', function() {
+	// update model
 });
 
 module.exports = emitter;
