@@ -13,7 +13,7 @@ delegator();
 var emitter = require('../templates/emitter');
 
 // event handlers
-emitter.on('test-event', function(data) {
+emitter.on('page:nav', function(data) {
 	console.log(data);
 });
 

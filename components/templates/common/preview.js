@@ -7,7 +7,6 @@
 
 var $ = require('../vdom');
 var i18n = require('../i18n')();
-var emitter = require('../emitter');
 
 module.exports = template;
 
@@ -55,9 +54,7 @@ function template(data) {
 
 	var summary;
 	if (data.summary) {
-		summary = $('p.m-quote', {
-			'ev-click': emitter.fire('test-event', data.pid)
-		}, data.summary);
+		summary = $('p.m-quote', data.summary);
 	}
 
 	var external;

@@ -7,6 +7,7 @@
 
 var $ = require('../vdom');
 var i18n = require('../i18n')();
+var emitter = require('../emitter');
 
 var buttonTemplate = require('./button');
 
@@ -26,54 +27,59 @@ function template(data) {
 
 	var discoverButton = buttonTemplate({
 		href: '/'
+		, className: 'rounded heading'
+		, text: 'menu.nav.toggle'
 		, icon: 'compass'
-		, text: i18n.t('menu.nav.toggle')
-		, type: ['heading']
 		, version: data.version.asset
+		, base_url: data.base_url
 	});
 
 	var clubOpt = {
 		href: '/c/club-home'
+		, className: 'rounded heading tablet'
+		, text: 'menu.nav.club'
 		, icon: 'share'
-		, text: i18n.t('menu.nav.club')
-		, type: ['heading', 'tablet']
 		, version: data.version.asset
+		, base_url: data.base_url
 	};
 	if (data.current_path === clubOpt.href) {
-		clubOpt.type.push('active');
+		clubOpt.className += ' active';
 	}
 	var clubButton = buttonTemplate(clubOpt);
 
 	var rankingOpt = {
 		href: '/c/club-ranking'
+		, className: 'rounded heading tablet'
+		, text: 'menu.nav.ranking'
 		, icon: 'graph_rising'
-		, text: i18n.t('menu.nav.ranking')
-		, type: ['heading', 'tablet']
 		, version: data.version.asset
+		, base_url: data.base_url
 	};
 	if (data.current_path === rankingOpt.href) {
-		rankingOpt.type.push('active');
+		rankingOpt.className += ' active';
 	}
 	var rankingButton = buttonTemplate(rankingOpt);
 
 	var helpOpt = {
 		href: '/help'
+		, className: 'rounded heading tablet'
+		, text: 'menu.nav.help'
 		, icon: 'life_buoy'
-		, text: i18n.t('menu.nav.help')
-		, type: ['heading', 'tablet']
 		, version: data.version.asset
+		, base_url: data.base_url
 	};
 	if (data.current_path === helpOpt.href) {
-		helpOpt.type.push('active');
+		helpOpt.className += ' active';
 	}
 	var helpButton = buttonTemplate(helpOpt);
 
 	var loginButton = buttonTemplate({
 		href: '/'
+		, className: 'rounded heading'
+		, text: 'menu.nav.login'
 		, icon: 'upload'
-		, text: i18n.t('menu.nav.login')
-		, type: ['heading']
 		, version: data.version.asset
+		, base_url: data.base_url
 	});
 
 	var heading = $('div.page-heading.lazyload', {
