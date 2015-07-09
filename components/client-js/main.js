@@ -21,15 +21,28 @@ require('native-promise-only');
 var App = require('./app');
 var app = new App();
 
+// event delegator (capture user input)
+var delegator = require('dom-delegator')();
+// event emitter (handle user input)
+var emitter = require('../templates/emitter');
+
 // kick off
 window.addEventListener('DOMContentLoaded', init);
 
 function init() {
-	/*
-	app.init().then(function() {
+	app.init().then(function(data) {
 		return app.update();
 	}).then(function() {
-
+		app.active = true;
 	});
-	*/
 };
+
+// event handlers
+emitter.on('page:nav', function() {
+	if (!app.active) {
+		return;
+	}
+
+	app.model.set(['ui', 'nav'], true);
+	app.refresh();
+});

@@ -20,14 +20,14 @@ module.exports = factory;
  */
 function factory(app) {
 	// livereload server
-	if (app.env === 'development') {
+	if (app.env === 'dev') {
 		app.use(livereload({
 			src: 'https://mai.dev:30001/livereload.js?snipver=1'
 		}));
 	}
 
 	// static asset
-	if (app.env === 'development' || app.env === 'local') {
+	if (app.env === 'dev' || app.env === 'local') {
 		app.use(asset('public', {
 			maxage: 1000 * 60 * 60 * 24
 		}));
@@ -41,11 +41,8 @@ function factory(app) {
 		} else if (this.app.env === 'local') {
 			this.state.base_url = this.config.server.base_url;
 			this.state.production = true;
-		} else if (this.app.env === 'development') {
+		} else if (this.app.env === 'dev') {
 			this.state.base_url = this.config.server.base_url;
-			this.state.production = false;
-		} else {
-			this.state.base_url = '';
 			this.state.production = false;
 		}
 

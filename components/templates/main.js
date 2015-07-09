@@ -22,6 +22,7 @@ function template(data) {
 		, data.main
 		, data.placeholder
 		, data.mobile_menu
+		, data.discover
 	]);
 
 	return main;

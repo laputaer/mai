@@ -19,6 +19,7 @@ var api = {
 	, home: {
 		posts: '/posts'
 	}
+	, help: {}
 };
 
 module.exports = Service;
@@ -59,8 +60,14 @@ Service.prototype.fetch = function(name) {
 			continue;
 		}
 
+		// send cookie
+		// TODO: investigate auth token
+		var f = fetch(prefix + endpoint[prop], {
+			credentials: 'same-origin'
+		});
+
 		// allow us to resolve fetch into an object
-		deferFetch(fetches, fetch(prefix + endpoint[prop]), results, prop);
+		deferFetch(fetches, f, results, prop);
 	}
 
 	return Promise.all(fetches).then(function() {

@@ -163,3 +163,15 @@
 		background-position: 50% 0%;
 	}
 }
+
+.page-discover {
+	.overlay();
+	z-index: 100;
+	background-color: fadeout(@color-black-light, 2%);
+
+	display: none;
+
+	&.active {
+		display: block;
+	}
+}

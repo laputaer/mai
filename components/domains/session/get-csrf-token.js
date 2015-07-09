@@ -33,5 +33,6 @@ function *getCsrfToken(opts) {
 	}
 
 	// generate new token
-	return csrf.create(secret);
+	var token = csrf.create(secret);
+	return token;
 };

@@ -45,6 +45,7 @@ module.exports = builder;
 function builder(data) {
 	// heading
 	data.heading = templates.common.heading(data);
+	data.discover = templates.common.discover(data);
 
 	// menu data
 	// TODO: reuse these code

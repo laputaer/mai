@@ -10,6 +10,7 @@ module.exports = {
 	, clubPreview: require('./club-preview')
 	, csrfField: require('./csrf-field')
 	, customError: require('./custom-error')
+	, discover: require('./discover')
 	, formButton: require('./form-button')
 	, formError: require('./form-error')
 	, formGroup: require('./form-group')

@@ -6,6 +6,7 @@
  */
 
 var $ = require('../vdom');
+var i18n = require('../i18n')();
 
 module.exports = template;
 
@@ -16,33 +17,36 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	// optional data.type to pass button variant names
-	var button_type = '';
-	if (data.type && Array.isArray(data.type)) {
-		button_type = '.' + data.type.join('.');
+	var icon, text, buttonOpt;
+
+	// button options
+	buttonOpt = {
+		href: data.href || '#'
+		, target: data.target || undefined
+		, className: data.className || ''
+	};
+
+	// button events
+	if (data.eventName && data.eventHandler) {
+		buttonOpt[data.eventName] = data.eventHandler;
 	}
 
-	var base_url = '';
-
-	// icon should be optional too
-	var icon;
-	if (data.icon) {
+	// button icon
+	if (data.icon && data.base_url && data.version) {
 		icon = $('svg', {
 			'class': 'm-icon'
 		}, [
 			$('use', {
-				'xlink:href': base_url + '/assets/icons.svg?' + data.version + '#' + data.icon
+				'xlink:href': data.base_url + '/assets/icons.svg?' + data.version + '#' + data.icon
 			})
 		]);
 	}
 
-	var button = $('a.m-button.rounded' + button_type, {
-		href: data.href
-		, target: data.target || undefined
-	}, [
-		icon
-		, $('span.m-text', data.text)
-	]);
+	// button text
+	if (data.text) {
+		text = $('span.m-text', i18n.t(data.text));
+	}
 
+	var button = $('a.m-button', buttonOpt, [ icon, text ]);
 	return button;
 };

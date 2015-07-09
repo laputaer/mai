@@ -7,6 +7,7 @@
 
 var $ = require('../vdom');
 var i18n = require('../i18n')();
+var emitter = require('../emitter');
 
 var buttonTemplate = require('./button');
 
@@ -19,69 +20,71 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var x1 = data.base_url + '/images/header-320.jpg';
-	var x2 = data.base_url + '/images/header-640.jpg';
-	var x3 = data.base_url + '/images/header-960.jpg';
-	var x4 = data.base_url + '/images/header-1280.jpg';
-
 	var discoverButton = buttonTemplate({
 		href: '/'
+		, className: 'rounded heading'
+		, text: 'menu.nav.toggle'
 		, icon: 'compass'
-		, text: i18n.t('menu.nav.toggle')
-		, type: ['heading']
 		, version: data.version.asset
+		, base_url: data.base_url
+		, eventName: 'ev-click'
+		, eventHandler: emitter.capture('page:nav')
 	});
 
 	var clubOpt = {
 		href: '/c/club-home'
+		, className: 'rounded heading tablet'
+		, text: 'menu.nav.club'
 		, icon: 'share'
-		, text: i18n.t('menu.nav.club')
-		, type: ['heading', 'tablet']
 		, version: data.version.asset
+		, base_url: data.base_url
 	};
 	if (data.current_path === clubOpt.href) {
-		clubOpt.type.push('active');
+		clubOpt.className += ' active';
 	}
 	var clubButton = buttonTemplate(clubOpt);
 
 	var rankingOpt = {
 		href: '/c/club-ranking'
+		, className: 'rounded heading tablet'
+		, text: 'menu.nav.ranking'
 		, icon: 'graph_rising'
-		, text: i18n.t('menu.nav.ranking')
-		, type: ['heading', 'tablet']
 		, version: data.version.asset
+		, base_url: data.base_url
 	};
 	if (data.current_path === rankingOpt.href) {
-		rankingOpt.type.push('active');
+		rankingOpt.className += ' active';
 	}
 	var rankingButton = buttonTemplate(rankingOpt);
 
 	var helpOpt = {
 		href: '/help'
+		, className: 'rounded heading tablet'
+		, text: 'menu.nav.help'
 		, icon: 'life_buoy'
-		, text: i18n.t('menu.nav.help')
-		, type: ['heading', 'tablet']
 		, version: data.version.asset
+		, base_url: data.base_url
 	};
 	if (data.current_path === helpOpt.href) {
-		helpOpt.type.push('active');
+		helpOpt.className += ' active';
 	}
 	var helpButton = buttonTemplate(helpOpt);
 
 	var loginButton = buttonTemplate({
 		href: '/'
+		, className: 'rounded heading'
+		, text: 'menu.nav.login'
 		, icon: 'upload'
-		, text: i18n.t('menu.nav.login')
-		, type: ['heading']
 		, version: data.version.asset
+		, base_url: data.base_url
 	});
 
 	var heading = $('div.page-heading.lazyload', {
 		attributes: {
-			'data-bgset': x1 + ' 320w, '
-				+ x2 + ' 640w, '
-				+ x3 + ' 960w, '
-				+ x4 + ' 1280w'
+			'data-bgset': data.base_url + '/images/header-320.jpg 320w, '
+				+ data.base_url + '/images/header-640.jpg 640w, '
+				+ data.base_url + '/images/header-960.jpg 960w, '
+				+ data.base_url + '/images/header-1280.jpg 1280w'
 			, 'data-sizes': 'auto'
 		}
 	}, [

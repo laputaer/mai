@@ -46,13 +46,7 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 3: create csrf token for this request
-	user.csrf_token = yield sessionDomain.getCsrfToken({
-		session: this.session
-		, cache: this.cache
-	});
-
-	// STEP 4: refresh user session
+	// STEP 3: refresh user session
 	var now = Date.now();
 	var last_seen = parseInt(user.last_seen, 10);
 
@@ -74,7 +68,13 @@ function *middleware(next) {
 		});
 	}
 
-	// STEP 5: prepare user data
+	// STEP 4: create csrf token for this request
+	user.csrf_token = yield sessionDomain.getCsrfToken({
+		session: this.session
+		, cache: this.cache
+	});
+
+	// STEP 5: prepare user data for rendering
 	user.small_avatar = proxyUrl({
 		url: getAvatarVariant(user, 400)
 		, key: this.config.proxy.key

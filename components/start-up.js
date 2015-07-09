@@ -38,7 +38,7 @@ function startUp(app, config) {
 	};
 
 	// run http and https servers, require root permission on OSX
-	if (app.env === 'development' || app.env === 'local') {
+	if (app.env === 'dev' || app.env === 'local') {
 		http.createServer(app.callback()).listen(config.server.port);
 		https.createServer(options, app.callback()).listen(443);
 		return;

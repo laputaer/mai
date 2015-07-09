@@ -12,7 +12,8 @@ var doc = document;
 
 // builder bundle
 var builders = require('../builders/builders');
-var bench = require('./benchmark')(true);
+// to debug, set it to true
+var bench = require('./benchmark')(false);
 
 // immutable object
 var extend = require('xtend');
@@ -81,6 +82,7 @@ Renderer.prototype.update = function(name, model) {
 	this.modelCache = model;
 
 	// shallow copy into mutable model
+	// TODO: eventually we want to avoid doing this
 	bench.start();
 	var data = extend({}, model);
 
@@ -102,7 +104,7 @@ Renderer.prototype.update = function(name, model) {
 	var patches = diff(this.vdomCache, vdom);
 
 	bench.incr('diff done');
-	patch(this.nodeCache, patches);
+	this.nodeCache = patch(this.nodeCache, patches);
 
 	// cache new vdom for next diff
 	bench.incr('patch done');
