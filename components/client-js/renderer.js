@@ -13,7 +13,7 @@ var doc = document;
 // builder bundle
 var builders = require('../builders/builders');
 // to debug, set it to true
-var bench = require('./benchmark')(true);
+var bench = require('./benchmark')(false);
 
 // immutable object
 var extend = require('xtend');
@@ -104,7 +104,7 @@ Renderer.prototype.update = function(name, model) {
 	var patches = diff(this.vdomCache, vdom);
 
 	bench.incr('diff done');
-	patch(this.nodeCache, patches);
+	this.nodeCache = patch(this.nodeCache, patches);
 
 	// cache new vdom for next diff
 	bench.incr('patch done');
