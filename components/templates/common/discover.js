@@ -16,7 +16,11 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var discover = $('div.page-discover');
+	var active = (data.ui && data.ui.nav) ? ' active' : '';
+
+	var discover = $('div', {
+		className: 'page-discover' + active
+	});
 
 	return discover;
 };

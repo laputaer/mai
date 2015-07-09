@@ -48,6 +48,7 @@ Model.prototype.init = function(data) {
 	this.set('production', data.global.data.production);
 	this.set('current_path', removeTrailingSlash(win.location.pathname));
 	this.set('current_url', win.location.href);
+	this.set('ui', {});
 
 	// handle guest user
 	if (!data.user.ok) {

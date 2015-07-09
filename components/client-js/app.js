@@ -11,7 +11,6 @@ var Service = require('./service');
 var Model = require('./model');
 var Renderer = require('./renderer');
 var router = require('./router');
-var handler = require('./handler');
 
 module.exports = App;
 
@@ -28,7 +27,6 @@ function App() {
 	this.service = new Service();
 	this.model = new Model();
 	this.renderer = new Renderer();
-	this.handler = handler;
 }
 
 /**
@@ -65,4 +63,21 @@ App.prototype.update = function() {
 		self.model.sync(data);
 		self.renderer.update(name, self.model.get());
 	});
+};
+
+/**
+ * Refresh app view
+ *
+ * @return  Promise
+ */
+App.prototype.refresh = function() {
+	var self = this;
+	var name = router(self.model.get());
+
+	// undefined route, skip
+	if (!name) {
+		return Promise.resolve(false);
+	}
+
+	self.renderer.update(name, self.model.get());
 };
