@@ -67,8 +67,6 @@ function *middleware(next) {
 		, slugs: ['frontend-talk', 'marisa', 'eventer']
 	});
 
-	console.log(data);
-
 	// STEP 3: render page
 	//this.state.vdoc = builder(data);
 };
