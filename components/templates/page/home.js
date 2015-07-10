@@ -8,6 +8,10 @@
 var $ = require('../vdom');
 var i18n = require('../i18n')();
 
+var clubTemplate = require('../common/featured-club');
+var postTemplate = require('../common/featured-post');
+var sectionTitleTemplate = require('../common/section-title');
+
 module.exports = template;
 
 /**
@@ -17,14 +21,30 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var container = $('div.m-rows', [
-		$('div.m-content.m-row-2', [
-			$('div.m-section.green.lead', [
-				$('h2.m-subtitle', i18n.t('club.home-result'))
-				, $('div.m-list', data.post_list)
-			])
-		])
+	var section_title_1 = sectionTitleTemplate({
+		title: 'section.titles.featured-clubs'
+	});
+
+	var section_title_2 = sectionTitleTemplate({
+		title: 'section.titles.featured-posts'
+	});
+
+	var featured_clubs = data.featured_clubs.map(function(club, i) {
+		club.num = i;
+		return clubTemplate(club);
+	});
+
+	var featured_posts = data.featured_posts.map(function(post, i) {
+		post.num = i;
+		return postTemplate(post);
+	});
+
+	var home = $('div.page-content', [
+		section_title_1
+		, featured_clubs
+		, section_title_2
+		, featured_posts
 	]);
 
-	return container;
+	return home;
 };

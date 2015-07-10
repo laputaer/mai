@@ -79,7 +79,9 @@ function template(data) {
 		]);
 	}
 
-	var item = $('div.m-post', [
+	var id = '#' + post.pid;
+
+	var item = $('div.m-post' + id, [
 		images
 		, $('div.m-meta', [
 			external

@@ -17,6 +17,8 @@ require('./vendor/svg4everybody');
 require('whatwg-fetch');
 require('native-promise-only');
 
+var domready = require('domready');
+
 // app lifecycle
 var App = require('./app');
 var app = new App();
@@ -27,7 +29,7 @@ var delegator = require('dom-delegator')();
 var emitter = require('../templates/emitter');
 
 // kick off
-window.addEventListener('DOMContentLoaded', init);
+//domready(init);
 
 function init() {
 	app.init().then(function(data) {

@@ -31,29 +31,37 @@ function Benchmark(active) {
 
 	this.active = active || false;
 
-	this.start = function() {
+	this.start = function(name, data) {
 		if (!this.active) {
 			return;
 		}
 
 		this.first = this.now();
 		this.last = this.first;
-		this.debug('bench start: 0ms');
+		this.debug(name + ': 0ms', data);
 	};
 
-	this.incr = function(name) {
+	this.incr = function(name, data) {
 		if (!this.active) {
 			return;
 		}
 
 		name = name || 'unknown';
 		var current = this.now();
-		this.debug(name + ': ' + Math.round(current - this.last) + 'ms');
+		this.debug(name + ': +' + Math.round(current - this.last) + 'ms, ' + Math.round(current - this.first) + 'ms', data);
 		this.last = current;
 	};
 
-	this.debug = function(input) {
-		console.debug(input);
+	this.debug = function() {
+		var args = [];
+		for (var i = 0; i < arguments.length; i++) {
+			if (!arguments[i]) {
+				continue;
+			}
+			args.push(arguments[i]);
+		};
+
+		console.debug.apply(console, args);
 	};
 
 	this.now = function() {

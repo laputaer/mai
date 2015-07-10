@@ -2,7 +2,7 @@
 // common.less - shared component across pages
 
 .page {
-
+	
 }
 
 .page-heading {
@@ -62,7 +62,7 @@
 	}
 
 	.title {
-		margin-top: 40px;
+		margin-top: 45px;
 		font-family: @sans-logo;
 		text-transform: uppercase;
 		.size(36);
@@ -75,9 +75,9 @@
 
 	.tablet {
 		display: none;
-	} 
+	}
 
-	@media @mobile-large {
+	@media @mobile {
 		background-position: 50% 40%;
 	}
 
@@ -175,3 +175,114 @@
 		display: block;
 	}
 }
+
+.page-content {
+
+}
+
+.page-section-title {
+	width: 100%;
+	height: 50px;
+	background-color: @color-white;
+
+	.wrapper {
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+		display: flex;
+		align-items: center;
+	}
+
+	.title {
+		color: @color-gray-dark;
+		margin: 0 15px;
+		font-weight: 400;
+		line-height: 1em;
+		.size(18);
+	}
+}
+
+.featured-club {
+	width: 100%;
+	height: 80px;
+	background-color: @color-gray-dark;
+	.background-cover();
+
+	.wrapper {
+		color: @color-white;
+		width: 100%;
+		height: 100%;
+		position: relative;
+		overflow: hidden;
+		box-sizing: border-box;
+		background-color: fadeout(@color-black, 80%);
+	}
+
+	.title {
+		position: absolute;
+		left: 0;
+		bottom: -4px;
+		margin: 0;
+		line-height: 1em;
+		font-weight: 700;
+		.long-text();
+		.size(36);
+
+		a {
+			color: inherit;
+			text-decoration: none;
+		}
+	}
+}
+
+.section-inset {
+	box-shadow: inset 0 1px 0 0 fadeout(@color-black, 80%);
+}
+
+.featured-post {
+	width: 100%;
+	height: 120px;
+
+	.wrapper {
+		padding: 15px;
+		overflow: hidden;
+		display: flex;
+	}
+
+	.image-column {
+		width: 80px;
+	}
+
+	.text-column {
+		flex: 1;
+		padding-left: 10px;
+	}
+
+	.thumbnail {
+		width: 80px;
+		height: 80px;
+		border-radius: 10px;
+		display: block;
+		background-color: @color-gray;
+		.background-cover();
+	}
+
+	.link {
+		color: @color-blue;
+		font-weight: 700;
+		margin: 0;
+		.size(14);
+
+		a {
+			color: inherit;
+			text-decoration: none;
+		}
+	}
+
+	.title {
+		font-weight: 300;
+		margin: 0;
+		.size(20);
+	}
+}
+

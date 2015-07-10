@@ -58,7 +58,7 @@ Renderer.prototype.init = function(opts) {
 	var container = opts.container || doc.body;
 
 	// parse dom into vdom, and remember container
-	bench.start();
+	bench.start('init');
 	this.vdomCache = parser(container);
 	bench.incr('parser done');
 
@@ -83,7 +83,7 @@ Renderer.prototype.update = function(name, model) {
 
 	// shallow copy into mutable model
 	// TODO: eventually we want to avoid doing this
-	bench.start();
+	bench.start('update');
 	var data = extend({}, model);
 
 	// so builder can assult mutable data
