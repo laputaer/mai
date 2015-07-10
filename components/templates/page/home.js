@@ -9,6 +9,7 @@ var $ = require('../vdom');
 var i18n = require('../i18n')();
 
 var clubTemplate = require('../common/featured-club');
+var sectionTitleTemplate = require('../common/section-title');
 
 module.exports = template;
 
@@ -19,12 +20,18 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var featured_clubs = data.featured_clubs.map(function(club) {
+	var section_title_1 = sectionTitleTemplate({
+		title: 'section.titles.featured-clubs'
+	});
+
+	var featured_clubs = data.featured_clubs.map(function(club, i) {
+		club.num = i;
 		return clubTemplate(club);
 	});
 
 	var home = $('div.page-content', [
-		featured_clubs
+		section_title_1
+		, featured_clubs
 	]);
 
 	return home;

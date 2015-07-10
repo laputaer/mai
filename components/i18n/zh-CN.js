@@ -27,6 +27,11 @@ module.exports = {
 			, 'github': '登录'
 		}
 	}
+	, 'section': {
+		'titles': {
+			'featured-clubs': '推荐社团'
+		}
+	}
 	, 'placeholder': {
 		'apology': '抱歉'
 		, 'explanation': '让你看到了我们还没准备好的页面'

@@ -17,14 +17,23 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var club = $('div.featured-club.lazyload', {
-		attributes: {
+	var clubOpt = {};
+	var wrapperOpt = {};
+
+	if (data.num === 0) {
+		wrapperOpt.className = 'lead';
+	}
+
+	if (data.image) {
+		clubOpt.attributes = {
 			'data-bgset': data.image + '&size=100 100w, '
 				+ data.image + '&size=200 200w, '
 				+ data.image + '&size=400 400w'
 			, 'data-sizes': 'auto'
-		}
-	}, $('div.wrapper', [
+		};
+	}
+
+	var club = $('div.featured-club.lazyload', clubOpt, $('div.wrapper', wrapperOpt, [
 		$('h1.title', $('a', { href: '/c/' + data.slug }, data.title))
 	]));
 

@@ -24,5 +24,6 @@ module.exports = {
 	, menu: require('./menu')
 	, placeholder: require('./placeholder')
 	, preview: require('./preview')
+	, sectionTitle: require('./section-title')
 	, simpleUser: require('./simple-user')
 };
