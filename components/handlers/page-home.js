@@ -57,7 +57,34 @@ function *middleware(next) {
 	});
 
 	// STEP 3: get featured posts
+	data.featured_posts = yield clubsDomain.getFeaturedPosts({
+		db: this.db
+		, pids: [
+			'cibqol3sd000ttwdr0yal9nqm'
+			, 'cibhdxsjb0001twdravxvlhl1'
+			, 'cibq3sry6000ptwdrrqjxqans'
+			, 'cia12sy2u000luhdrhjcxhrbl'
+			, 'ciaqb36wg0002rbdrpm0e8w0m'
+		]
+	});
 
+	data.featured_posts = data.featured_posts.map(function (post) {
+		if (post.embed && Array.isArray(post.embed.image) && post.embed.image.length > 0) {
+			var image = post.embed.image[0];
+			post.image = proxyUrl({
+				url: image.secure_url || image.url
+				, key: config.proxy.key
+				, base: state.image_base_url
+			});
+		}
+
+		if (post.embed && post.embed.url) {
+			var url = parser(post.embed.url);
+			post.domain = url.hostname;
+		}
+
+		return post;
+	});
 
 	// STEP 4: render page
 	this.state.vdoc = builder(data);
