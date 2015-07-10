@@ -56,6 +56,9 @@ function *middleware(next) {
 		return club;
 	});
 
-	// STEP 3: render page
+	// STEP 3: get featured posts
+
+
+	// STEP 4: render page
 	this.state.vdoc = builder(data);
 };

@@ -5,15 +5,15 @@
  * Get clubs given slugs, return result using order specified
  */
 
-module.exports = getRankedClubs;
+module.exports = getFeaturedClubs;
 
 /**
- * Sort club by member count
+ * Get clubs given slugs
  *
- * @param   Object  opts  Options { db }
+ * @param   Object  opts  Options { db, slugs }
  * @return  Array         A list of clubs
  */
-function *getRankedClubs(opts) {
+function *getFeaturedClubs(opts) {
 	var db = opts.db;
 	var slugs = opts.slugs;
 	var Club = db.col('clubs');
