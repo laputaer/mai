@@ -38,6 +38,7 @@ function *middleware(next) {
 	var state = this.state;
 
 	// STEP 2: get latest posts
+	/*
 	data.posts = yield clubsDomain.getPosts({
 		db: this.db
 	});
@@ -59,7 +60,15 @@ function *middleware(next) {
 
 		return post;
 	});
+	*/
+
+	data.featured_clubs = yield clubsDomain.getFeaturedClubs({
+		db: this.db
+		, slugs: ['frontend-talk', 'marisa', 'eventer']
+	});
+
+	console.log(data);
 
 	// STEP 3: render page
-	this.state.vdoc = builder(data);
+	//this.state.vdoc = builder(data);
 };

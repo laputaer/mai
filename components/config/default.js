@@ -76,4 +76,5 @@ module.exports = {
 	, fake_fetch_ua: {
 		'www.toranoana.jp': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
 	}
+	, showcase: {}
 };
