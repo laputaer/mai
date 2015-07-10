@@ -21,7 +21,7 @@ function template(data) {
 	var wrapperOpt = {};
 
 	if (data.num === 0) {
-		wrapperOpt.className = 'lead';
+		wrapperOpt.className = 'section-inset';
 	}
 
 	if (data.image) {

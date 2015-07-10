@@ -2,7 +2,7 @@
 // common.less - shared component across pages
 
 .page {
-
+	
 }
 
 .page-heading {
@@ -218,10 +218,6 @@
 		background-color: fadeout(@color-black, 80%);
 	}
 
-	.lead {
-		border-top: 1px solid fadeout(@color-black, 80%);
-	}
-
 	.title {
 		position: absolute;
 		left: 0;
@@ -237,4 +233,8 @@
 			text-decoration: none;
 		}
 	}
+}
+
+.section-inset {
+	box-shadow: inset 0 1px 0 0 fadeout(@color-black, 80%);
 }

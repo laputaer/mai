@@ -30,6 +30,7 @@ module.exports = {
 	, 'section': {
 		'titles': {
 			'featured-clubs': '推荐社团'
+			, 'featured-posts': '社区精选'
 		}
 	}
 	, 'placeholder': {

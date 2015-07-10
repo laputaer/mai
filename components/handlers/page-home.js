@@ -40,7 +40,7 @@ function *middleware(next) {
 	// STEP 2: get featured clubs
 	data.featured_clubs = yield clubsDomain.getFeaturedClubs({
 		db: this.db
-		, slugs: ['frontend-talk', 'marisa', 'eventer']
+		, slugs: config.showcase.clubs
 	});
 
 	data.featured_clubs = data.featured_clubs.map(function (club) {

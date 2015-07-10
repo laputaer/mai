@@ -24,6 +24,10 @@ function template(data) {
 		title: 'section.titles.featured-clubs'
 	});
 
+	var section_title_2 = sectionTitleTemplate({
+		title: 'section.titles.featured-posts'
+	});
+
 	var featured_clubs = data.featured_clubs.map(function(club, i) {
 		club.num = i;
 		return clubTemplate(club);
@@ -32,6 +36,7 @@ function template(data) {
 	var home = $('div.page-content', [
 		section_title_1
 		, featured_clubs
+		, section_title_2
 	]);
 
 	return home;
