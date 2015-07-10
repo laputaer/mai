@@ -25,5 +25,5 @@ module.exports = {
 	, placeholder: require('./placeholder')
 	, preview: require('./preview')
 	, sectionTitle: require('./section-title')
-	, simpleUser: require('./simple-user')
+	, userButton: require('./user-button')
 };

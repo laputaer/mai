@@ -10,6 +10,7 @@ var i18n = require('../i18n')();
 var emitter = require('../emitter');
 
 var buttonTemplate = require('./button');
+var userButtonTemplate = require('./user-button');
 
 module.exports = template;
 
@@ -70,14 +71,24 @@ function template(data) {
 	}
 	var helpButton = buttonTemplate(helpOpt);
 
-	var loginButton = buttonTemplate({
-		href: '/'
-		, className: 'rounded heading'
-		, text: 'menu.nav.login'
-		, icon: 'upload'
-		, version: data.version.asset
-		, base_url: data.base_url
-	});
+	var userButton;
+	if (data.current_user) {
+		userButton = userButtonTemplate({
+			href: '/u/' + data.current_user.uid
+			, className: 'rounded heading'
+			, text: data.current_user.login
+			, icon: data.current_user.small_avatar
+		});
+	} else {
+		userButton = buttonTemplate({
+			href: '/'
+			, className: 'rounded heading'
+			, text: 'menu.nav.login'
+			, icon: 'upload'
+			, version: data.version.asset
+			, base_url: data.base_url
+		});
+	}
 
 	var heading = $('div.page-heading.lazyload', {
 		attributes: {
@@ -98,7 +109,7 @@ function template(data) {
 				, $('li.item', helpButton)
 			])
 			, $('ul.login', [
-				$('li.item', loginButton)
+				$('li.item', userButton)
 			])
 		])
 	]);
