@@ -8,6 +8,8 @@
 var $ = require('../vdom');
 var i18n = require('../i18n')();
 
+var clubTemplate = require('../common/featured-club');
+
 module.exports = template;
 
 /**
@@ -17,14 +19,13 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var container = $('div.m-rows', [
-		$('div.m-content.m-row-2', [
-			$('div.m-section.green.lead', [
-				$('h2.m-subtitle', i18n.t('club.home-result'))
-				, $('div.m-list', data.post_list)
-			])
-		])
+	var featured_clubs = data.featured_clubs.map(function(club) {
+		return clubTemplate(club);
+	});
+
+	var home = $('div.page-content', [
+		featured_clubs
 	]);
 
-	return container;
+	return home;
 };

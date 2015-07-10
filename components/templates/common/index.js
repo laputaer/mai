@@ -11,6 +11,7 @@ module.exports = {
 	, csrfField: require('./csrf-field')
 	, customError: require('./custom-error')
 	, discover: require('./discover')
+	, featuredClub: require('./featured-club')
 	, formButton: require('./form-button')
 	, formError: require('./form-error')
 	, formGroup: require('./form-group')

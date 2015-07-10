@@ -175,3 +175,39 @@
 		display: block;
 	}
 }
+
+.page-content {
+
+}
+
+.featured-club {
+	width: 100%;
+	height: 80px;
+	.background-cover();
+
+	.wrapper {
+		color: @color-white;
+		width: 100%;
+		height: 100%;
+		position: relative;
+		overflow: hidden;
+		box-sizing: border-box;
+		background-color: fadeout(@color-black, 80%);
+	}
+
+	.title {
+		position: absolute;
+		left: 0;
+		bottom: -4px;
+		margin: 0;
+		line-height: 1em;
+		font-weight: 700;
+		.long-text();
+		.size(36);
+
+		a {
+			color: inherit;
+			text-decoration: none;
+		}
+	}
+}

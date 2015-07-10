@@ -29,7 +29,7 @@ var delegator = require('dom-delegator')();
 var emitter = require('../templates/emitter');
 
 // kick off
-domready(init);
+//domready(init);
 
 function init() {
 	app.init().then(function(data) {

@@ -37,36 +37,25 @@ function *middleware(next) {
 	var config = this.config;
 	var state = this.state;
 
-	// STEP 2: get latest posts
-	/*
-	data.posts = yield clubsDomain.getPosts({
-		db: this.db
-	});
-
-	data.posts = data.posts.map(function(post) {
-		if (post.embed.image && post.embed.image.length > 0) {
-			post.embed.image = post.embed.image[0];
-			post.embed.image.url = proxyUrl({
-				url: post.embed.image.secure_url || post.embed.image.url
-				, key: config.proxy.key
-				, base: state.image_base_url
-			});
-		}
-
-		if (post.embed.url) {
-			var url = parser(post.embed.url);
-			post.embed.domain = url.hostname;
-		}
-
-		return post;
-	});
-	*/
-
+	// STEP 2: get featured clubs
 	data.featured_clubs = yield clubsDomain.getFeaturedClubs({
 		db: this.db
 		, slugs: ['frontend-talk', 'marisa', 'eventer']
 	});
 
+	data.featured_clubs = data.featured_clubs.map(function (club) {
+		if (club.embed && Array.isArray(club.embed.image) && club.embed.image.length > 0) {
+			var image = club.embed.image[0];
+			club.image = proxyUrl({
+				url: image.secure_url || image.url
+				, key: config.proxy.key
+				, base: state.image_base_url
+			});
+		}
+
+		return club;
+	});
+
 	// STEP 3: render page
-	//this.state.vdoc = builder(data);
+	this.state.vdoc = builder(data);
 };
