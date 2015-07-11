@@ -32,7 +32,7 @@ var emitter = require('../templates/emitter');
 domready(init);
 
 function init() {
-	app.init().then(function(data) {
+	app.init().then(function() {
 		return app.update();
 	}).then(function() {
 		app.active = true;

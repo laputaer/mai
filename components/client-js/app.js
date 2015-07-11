@@ -41,7 +41,6 @@ App.prototype.init = function() {
 
 	return self.service.init().then(function(data) {
 		self.model.init(data);
-		self.renderer.modelCache = self.model.get();
 	});
 };
 
