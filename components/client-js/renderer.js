@@ -59,8 +59,8 @@ Renderer.prototype.init = function(opts) {
 
 	// parse dom into vdom, and remember container
 	bench.start('init');
-	this.vdomCache = parser(container);
-	bench.incr('parser done');
+	this.vdomCache = parser(container, 'id');
+	bench.incr('parser done', this.vdomCache);
 
 	this.nodeCache = container;
 };
@@ -107,6 +107,6 @@ Renderer.prototype.update = function(name, model) {
 	this.nodeCache = patch(this.nodeCache, patches);
 
 	// cache new vdom for next diff
-	bench.incr('patch done');
+	bench.incr('patch done', vdom);
 	this.vdomCache = vdom;
 };

@@ -101,8 +101,9 @@ function template(data) {
 		};
 	}
 
-	var heading = $('div.page-heading.lazyload', {
+	var heading = $('div.page-heading.lazyload#heading', {
 		attributes: attrs
+		, key: 'heading'
 	}, [
 		$('div.wrapper', [
 			$('h1.title', $('a', { href: '/' }, i18n.t('common.domain')))

@@ -17,7 +17,7 @@ module.exports = template;
  * @return  VNode
  */
 function template() {
-	var placeholder = $('div.m-rows', [
+	var placeholder = $('div.m-rows#help', { key: 'help' }, [
 		$('div.m-row-2.m-content', [
 			$('div.m-section.blue.lead', [
 				$('h1.m-subtitle', i18n.t('help.main-title'))
