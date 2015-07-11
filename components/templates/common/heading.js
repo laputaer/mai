@@ -90,16 +90,13 @@ function template(data) {
 		});
 	}
 
-	var attrs;
-	if (data.client) {
-		attrs = {
-			'data-bgset': data.base_url + '/images/header-320.jpg 320w, '
-				+ data.base_url + '/images/header-640.jpg 640w, '
-				+ data.base_url + '/images/header-960.jpg 960w, '
-				+ data.base_url + '/images/header-1280.jpg 1280w'
-			, 'data-sizes': 'auto'
-		};
-	}
+	var attrs = {
+		'data-bgset': data.base_url + '/images/header-320.jpg 320w, '
+			+ data.base_url + '/images/header-640.jpg 640w, '
+			+ data.base_url + '/images/header-960.jpg 960w, '
+			+ data.base_url + '/images/header-1280.jpg 1280w'
+		, 'data-sizes': 'auto'
+	};
 
 	var heading = $('div.page-heading.lazyload#heading', {
 		attributes: attrs
