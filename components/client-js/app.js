@@ -40,7 +40,8 @@ App.prototype.init = function() {
 	self.renderer.init({ container: document.querySelector('.page') });
 
 	return self.service.init().then(function(data) {
-		return self.model.init(data);
+		self.model.init(data);
+		self.renderer.modelCache = self.model.get();
 	});
 };
 

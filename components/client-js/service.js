@@ -16,9 +16,7 @@ var api = {
 		user: '/user'
 		, global: '/global'
 	}
-	, home: {
-		posts: '/posts'
-	}
+	, home: {}
 	, help: {}
 };
 
