@@ -7935,9 +7935,9 @@
       "resolved": "https://registry.npmjs.org/validator/-/validator-3.41.1.tgz"
     },
     "vdom-parser": {
-      "version": "1.0.2",
-      "from": "vdom-parser@1.0.2",
-      "resolved": "https://registry.npmjs.org/vdom-parser/-/vdom-parser-1.0.2.tgz"
+      "version": "1.0.3",
+      "from": "vdom-parser@1.0.3",
+      "resolved": "https://registry.npmjs.org/vdom-parser/-/vdom-parser-1.0.3.tgz"
     },
     "vdom-to-html": {
       "version": "2.1.1",
