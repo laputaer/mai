@@ -19,6 +19,7 @@ var bench = require('./benchmark')(true);
 var extend = require('xtend');
 
 // vdom to html
+var h = require('virtual-dom/h');
 var diff = require('virtual-dom/diff');
 var patch = require('virtual-dom/patch');
 
@@ -61,6 +62,15 @@ Renderer.prototype.init = function(opts) {
 	bench.start('init');
 	this.vdomCache = parser(container, 'id');
 	bench.incr('parser done');
+
+	/*
+	bench.start('init');
+	while (container.firstChild) {
+		container.removeChild(container.firstChild);
+	}
+	this.vdomCache = parser(container, 'id');
+	bench.incr('parser done');
+	*/
 
 	this.nodeCache = container;
 };
@@ -107,7 +117,7 @@ Renderer.prototype.update = function(name, model) {
 	bench.incr('vdom done');
 	var patches = diff(this.vdomCache, vdom);
 
-	bench.incr('diff done', bench.patchFilter(patches, 2));
+	bench.incr('diff done', patches);
 	this.nodeCache = patch(this.nodeCache, patches);
 
 	// cache new vdom for next diff
