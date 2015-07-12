@@ -22,7 +22,7 @@ module.exports = template;
  */
 function template(data) {
 	var discoverButton = buttonTemplate({
-		href: '/'
+		href: '#'
 		, className: 'rounded heading'
 		, text: 'menu.nav.toggle'
 		, icon: 'compass'
@@ -81,7 +81,7 @@ function template(data) {
 		});
 	} else {
 		userButton = buttonTemplate({
-			href: '/'
+			href: '#'
 			, className: 'rounded heading'
 			, text: 'menu.nav.login'
 			, icon: 'upload'

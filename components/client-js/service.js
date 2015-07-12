@@ -34,12 +34,22 @@ function Service() {
 }
 
 /**
- * Initialize global data
+ * Initialize global data with backend
  *
  * @return  Promise
  */
 Service.prototype.init = function() {
 	return this.fetch('init');
+};
+
+/**
+ * Sync page-specific data with backend
+ *
+ * @param   String   name  API name
+ * @return  Promise
+ */
+Service.prototype.sync = function(name) {
+	return this.fetch(name);
 };
 
 /**

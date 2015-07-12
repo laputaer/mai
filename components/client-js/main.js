@@ -35,16 +35,16 @@ function init() {
 	app.init().then(function() {
 		return app.update();
 	}).then(function() {
-		app.active = true;
+		app.ready(true);
 	});
 };
 
 // event handlers
 emitter.on('page:nav', function() {
-	if (!app.active) {
+	if (!app.isReady()) {
 		return;
 	}
 
-	app.model.set(['ui', 'nav'], true);
+	app.modify(['ui', 'nav'], true);
 	app.refresh();
 });

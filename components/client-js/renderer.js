@@ -82,17 +82,21 @@ Renderer.prototype.update = function(name, model) {
 	this.modelCache = model;
 
 	// shallow copy into mutable model
+	// so builder can assume mutable data
+	// but also allow template to do immutable check on data.x
 	// TODO: eventually we want to avoid doing this
 	bench.start('update');
 	var data = extend({}, model);
 
-	// so builder can assult mutable data
-	// but also allow template to do immutable check
-	bench.incr('copy done');
-	data = builders[name](data);
-
-	// data.client flag decides whether main wrapper or full document is returned
-	var vdom = builders.doc(data);
+	// handle potential error from vdom builder
+	var vdom;
+	try {
+		bench.incr('copy done');
+		data = builders[name](data);
+		vdom = builders.doc(data);
+	} catch(err) {
+		bench.incr('vdom error', err);
+	}
 
 	// new vdom empty, skip
 	if (!vdom) {
