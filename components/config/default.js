@@ -52,7 +52,7 @@ module.exports = {
 		, asset: 'v1.0.18'
 	}
 	, output: {
-		format: true
+		format: false
 	}
 	, flash: {
 		key: 'flash-message'
