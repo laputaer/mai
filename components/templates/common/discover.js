@@ -20,6 +20,8 @@ function template(data) {
 
 	var discover = $('div', {
 		className: 'page-discover' + active
+		, id: 'discover'
+		, key: 'discover'
 	});
 
 	return discover;
