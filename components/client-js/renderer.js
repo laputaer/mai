@@ -117,7 +117,7 @@ Renderer.prototype.update = function(name, model) {
 	bench.incr('vdom done');
 	var patches = diff(this.vdomCache, vdom);
 
-	bench.incr('diff done', patches);
+	bench.incr('diff done');
 	this.nodeCache = patch(this.nodeCache, patches);
 
 	// cache new vdom for next diff
