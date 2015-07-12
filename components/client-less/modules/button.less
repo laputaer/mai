@@ -31,24 +31,21 @@
 		border-radius: 200px;
 	}
 
-	.m-icon, .m-image, .m-text {
+	.m-icon, .m-text {
 		display: inline-block;
 		vertical-align: top;
 	}
 
-	.m-icon, .m-image {
+	.m-icon {
 		margin-right: 4px;
 		width: 20px;
 		height: 20px;
-	}
-
-	.m-icon {
 		fill: currentColor;
-	}
 
-	.m-image {
-		border-radius: 50%;
-		background-color: @color-gray;
+		&.m-avatar {
+			border-radius: 50%;
+			background-color: @color-gray;
+		}
 	}
 
 	// extra styling
