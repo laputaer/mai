@@ -256,6 +256,21 @@
 	.text-column {
 		flex: 1;
 		padding-left: 10px;
+		max-height: 80px;
+		overflow: hidden;
+		position: relative;
+
+		&:after {
+			content: "";
+			position: absolute;
+			z-index: 1;
+			right: 0;
+			bottom: 0;
+			height: 30px;
+			width: 30px;
+			display: block;
+			background-image: linear-gradient(to right, transparent, @color-gray-pastel);
+		}
 	}
 
 	.thumbnail {
@@ -282,7 +297,7 @@
 	.title {
 		font-weight: 300;
 		margin: 0;
+		line-height: 1.4;
 		.size(20);
 	}
 }
-
