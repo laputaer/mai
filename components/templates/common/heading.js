@@ -22,7 +22,7 @@ module.exports = template;
  */
 function template(data) {
 	var discoverButton = buttonTemplate({
-		href: '/'
+		href: '#'
 		, className: 'rounded heading'
 		, text: 'menu.nav.toggle'
 		, icon: 'compass'
@@ -81,7 +81,7 @@ function template(data) {
 		});
 	} else {
 		userButton = buttonTemplate({
-			href: '/'
+			href: '#'
 			, className: 'rounded heading'
 			, text: 'menu.nav.login'
 			, icon: 'upload'
@@ -90,14 +90,17 @@ function template(data) {
 		});
 	}
 
-	var heading = $('div.page-heading.lazyload', {
-		attributes: {
-			'data-bgset': data.base_url + '/images/header-320.jpg 320w, '
-				+ data.base_url + '/images/header-640.jpg 640w, '
-				+ data.base_url + '/images/header-960.jpg 960w, '
-				+ data.base_url + '/images/header-1280.jpg 1280w'
-			, 'data-sizes': 'auto'
-		}
+	var attrs = {
+		'data-bgset': data.base_url + '/images/header-320.jpg 320w, '
+			+ data.base_url + '/images/header-640.jpg 640w, '
+			+ data.base_url + '/images/header-960.jpg 960w, '
+			+ data.base_url + '/images/header-1280.jpg 1280w'
+		, 'data-sizes': 'auto'
+	};
+
+	var heading = $('div.page-heading.lazyload#heading', {
+		attributes: attrs
+		, key: 'heading'
 	}, [
 		$('div.wrapper', [
 			$('h1.title', $('a', { href: '/' }, i18n.t('common.domain')))

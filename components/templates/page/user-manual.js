@@ -19,7 +19,7 @@ module.exports = template;
 function template() {
 	var placeholder = $('div.m-rows', [
 		$('div.m-row-2.m-content', [
-			$('div.m-section.blue.lead', [
+			$('div.m-section.blue.lead#intro', { key: 'intro' }, [
 				$('h1.m-subtitle', i18n.t('help.main-title'))
 				, $('p.m-line', i18n.t('help.main-title-note'))
 				, $('p.m-line', i18n.t('help.main-title-suggestion'))
@@ -41,31 +41,31 @@ function template() {
 					, $('span', i18n.t('placeholder.secondary-feedback-action'))
 				])
 			])
-			, $('div.m-section.green#about-us', [
+			, $('div.m-section.green#about-us', { key: 'about-us' }, [
 				$('h2.m-subtitle', i18n.t('help.about-us-question'))
 				, $('p.m-line', i18n.t('help.about-us-answer-1'))
 			])
-			, $('div.m-section.green#why-us', [
+			, $('div.m-section.green#why-us', { key: 'why-us' }, [
 				$('h2.m-subtitle', i18n.t('help.why-us-question'))
 				, $('p.m-line', i18n.t('help.why-us-answer-1'))
 				, $('p.m-line', i18n.t('help.why-us-answer-2'))
 				, $('p.m-line', i18n.t('help.why-us-answer-3'))
 			])
-			, $('div.m-section.green#about-club', [
+			, $('div.m-section.green#about-club', { key: 'about-club' }, [
 				$('h2.m-subtitle', i18n.t('help.about-club-question'))
 				, $('p.m-line', i18n.t('help.about-club-answer-1'))
 				, $('p.m-line', i18n.t('help.about-club-answer-2'))
 			])
-			, $('div.m-section.green#about-tagline', [
+			, $('div.m-section.green#about-tagline', { key: 'about-tagline' }, [
 				$('h2.m-subtitle', i18n.t('help.about-tagline-question'))
 				, $('p.m-line', i18n.t('help.about-tagline-answer-1'))
 				, $('p.m-line', i18n.t('help.about-tagline-answer-2'))
 			])
-			, $('div.m-section.blue#club-guideline', [
+			, $('div.m-section.blue#club-guideline', { key: 'club-guideline' }, [
 				$('h2.m-subtitle', i18n.t('help.club-guideline-question'))
 				, $('p.m-line', i18n.t('help.club-guideline-answer-1'))
 			])
-			, $('div.m-section.green#club-naming', [
+			, $('div.m-section.green#club-naming', { key: 'club-naming' }, [
 				$('h2.m-subtitle', i18n.t('help.club-guideline-naming-question'))
 				, $('p.m-line', i18n.t('help.club-guideline-naming-answer-1'))
 				, $('p.m-line', i18n.t('help.club-guideline-naming-answer-2'))
@@ -77,7 +77,7 @@ function template() {
 				, $('p.m-line', i18n.t('help.club-guideline-naming-answer-8'))
 				, $('p.m-line', i18n.t('help.club-guideline-naming-answer-9'))
 			])
-			, $('div.m-section.green#club-operation', [
+			, $('div.m-section.green#club-operation', { key: 'club-operation' }, [
 				$('h2.m-subtitle', i18n.t('help.club-guideline-operation-question'))
 				, $('p.m-line', i18n.t('help.club-guideline-operation-answer-1'))
 				, $('p.m-line', i18n.t('help.club-guideline-operation-answer-2'))
@@ -85,7 +85,7 @@ function template() {
 				, $('p.m-line', i18n.t('help.club-guideline-operation-answer-4'))
 				, $('p.m-line', i18n.t('help.club-guideline-operation-answer-5'))
 			])
-			, $('div.m-section.green#club-content-policy', [
+			, $('div.m-section.green#club-content-policy', { key: 'club-content-policy' }, [
 				$('h2.m-subtitle', i18n.t('help.club-guideline-content-question'))
 				, $('p.m-line', i18n.t('help.club-guideline-content-answer-1'))
 				, $('p.m-line', i18n.t('help.club-guideline-content-answer-2'))
@@ -94,12 +94,12 @@ function template() {
 				, $('p.m-line', i18n.t('help.club-guideline-content-answer-5'))
 				, $('p.m-line', i18n.t('help.club-guideline-content-answer-6'))
 			])
-			, $('div.m-section.blue#game-rule', [
+			, $('div.m-section.blue#game-rule', { key: 'game-rule' }, [
 				$('h2.m-subtitle', i18n.t('help.game-rule-question'))
 				, $('p.m-line', i18n.t('help.game-rule-answer-1'))
 				, $('p.m-line', i18n.t('help.game-rule-answer-2'))
 			])
-			, $('div.m-section.green#user-rule', [
+			, $('div.m-section.green#user-rule', { key: 'user-rule' }, [
 				$('h2.m-subtitle', i18n.t('help.game-rule-user-question'))
 				, $('p.m-line', i18n.t('help.game-rule-user-answer-1'))
 				, $('p.m-line', i18n.t('help.game-rule-user-answer-2'))
@@ -111,7 +111,7 @@ function template() {
 				, $('p.m-line', i18n.t('help.game-rule-user-answer-8'))
 				, $('p.m-line', i18n.t('help.game-rule-user-answer-9'))
 			])
-			, $('div.m-section.green#club-rule', [
+			, $('div.m-section.green#club-rule', { key: 'club-rule' }, [
 				$('h2.m-subtitle', i18n.t('help.game-rule-club-question'))
 				, $('p.m-line', i18n.t('help.game-rule-club-answer-1'))
 				, $('p.m-line', i18n.t('help.game-rule-club-answer-2'))

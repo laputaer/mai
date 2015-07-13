@@ -13,12 +13,13 @@ var doc = document;
 // builder bundle
 var builders = require('../builders/builders');
 // to debug, set it to true
-var bench = require('./benchmark')(false);
+var bench = require('./benchmark')(true);
 
 // immutable object
 var extend = require('xtend');
 
 // vdom to html
+var h = require('virtual-dom/h');
 var diff = require('virtual-dom/diff');
 var patch = require('virtual-dom/patch');
 
@@ -59,8 +60,17 @@ Renderer.prototype.init = function(opts) {
 
 	// parse dom into vdom, and remember container
 	bench.start('init');
-	this.vdomCache = parser(container);
+	this.vdomCache = parser(container, 'id');
 	bench.incr('parser done');
+
+	/*
+	bench.start('init');
+	while (container.firstChild) {
+		container.removeChild(container.firstChild);
+	}
+	this.vdomCache = parser(container, 'id');
+	bench.incr('parser done');
+	*/
 
 	this.nodeCache = container;
 };
@@ -82,17 +92,21 @@ Renderer.prototype.update = function(name, model) {
 	this.modelCache = model;
 
 	// shallow copy into mutable model
+	// so builder can assume mutable data
+	// but also allow template to do immutable check on data.x
 	// TODO: eventually we want to avoid doing this
 	bench.start('update');
 	var data = extend({}, model);
 
-	// so builder can assult mutable data
-	// but also allow template to do immutable check
-	bench.incr('copy done');
-	data = builders[name](data);
-
-	// data.client flag decides whether main wrapper or full document is returned
-	var vdom = builders.doc(data);
+	// handle potential error from vdom builder
+	var vdom;
+	try {
+		bench.incr('copy done');
+		data = builders[name](data);
+		vdom = builders.doc(data);
+	} catch(err) {
+		bench.incr('vdom error', err);
+	}
 
 	// new vdom empty, skip
 	if (!vdom) {

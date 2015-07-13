@@ -66,12 +66,12 @@ Model.prototype.init = function(data) {
 };
 
 /**
- * Initialize store
+ * Update store
  *
  * @param   Object  data  JSON data
  * @return  Void
  */
-Model.prototype.sync = function(data) {
+Model.prototype.update = function(data) {
 	// copy json response data onto store
 	for (var prop in data) {
 		if (!data.hasOwnProperty(prop)) {

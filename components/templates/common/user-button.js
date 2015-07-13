@@ -30,7 +30,7 @@ function template(data) {
 	}
 
 	// button icon
-	avatar = $('img.m-image', {
+	avatar = $('img.m-icon.m-avatar', {
 		src: data.icon
 	});
 
