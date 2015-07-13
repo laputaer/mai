@@ -56,8 +56,7 @@
 		.long-text();
 
 		a {
-			color: inherit;
-			text-decoration: none;
+			.link-alt(@color-yellow-light);
 		}
 	}
 
@@ -228,8 +227,7 @@
 		.size(36);
 
 		a {
-			color: inherit;
-			text-decoration: none;
+			.link-alt(@color-yellow-light);
 		}
 	}
 }
@@ -270,7 +268,7 @@
 			height: 30px;
 			width: 40px;
 			display: block;
-			background-image: linear-gradient(to right, transparent, @color-gray-pastel);
+			background-image: linear-gradient(to right, fadeout(@color-gray-pastel, 100%), fadeout(@color-gray-pastel, 0%));
 		}
 	}
 
@@ -288,7 +286,7 @@
 			height: 100%;
 			width: 20px;
 			display: block;
-			background-image: linear-gradient(to right, transparent, @color-gray-pastel);
+			background-image: linear-gradient(to right, fadeout(@color-gray-pastel, 100%), fadeout(@color-gray-pastel, 0%));
 		}
 	}
 

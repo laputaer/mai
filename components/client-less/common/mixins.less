@@ -12,6 +12,17 @@
 	}
 }
 
+// alternative highlight link
+.link-alt(@color) {
+	color: inherit;
+	text-decoration: none;
+	outline: 0;
+
+	&:hover, &:focus, &:active {
+		color: @color;
+	}
+}
+
 // remove .link() underline
 .unlink() {
 	background-image: none;
