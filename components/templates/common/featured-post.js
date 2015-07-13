@@ -8,6 +8,8 @@
 var $ = require('../vdom');
 var i18n = require('../i18n')();
 
+var postButtonTemplate = require('./post-button');
+
 module.exports = template;
 
 /**
@@ -23,7 +25,7 @@ function template(data) {
 		}
 	};
 
-	var image, link, title;
+	var image, link, title, user, club;
 
 	if (data.num === 0) {
 		postOpt.className = 'section-inset';
@@ -40,8 +42,26 @@ function template(data) {
 				, 'data-sizes': 'auto'
 			}
 			, style: {
-				'background-image': 'url(' + data.image + '&size=100' + ')'
+				'background-image': 'url(' + data.image + '&size=100)'
 			}
+		});
+	}
+
+	if (data.user) {
+		user = postButtonTemplate({
+			href: '/u/' + data.user
+			, className: 'rounded internal'
+			, text: data.user_login
+			, icon: data.user_avatar
+		});
+	}
+
+	if (data.club) {
+		club = postButtonTemplate({
+			href: '/c/' + data.club
+			, className: 'rounded internal'
+			, text: data.club_name
+			, icon: data.club_image
 		});
 	}
 
@@ -55,11 +75,15 @@ function template(data) {
 
 	var post = $('div.featured-post', postOpt, [
 		$('div.wrapper', [
-			, $('div.image-column', image)
+			$('div.image-column', image)
 			, $('div.text-column', [
 				link
 				, title
 			])
+		])
+		, $('div.action-block', [
+			user
+			, club
 		])
 	]);
 

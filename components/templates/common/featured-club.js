@@ -32,7 +32,7 @@ function template(data) {
 		};
 
 		clubOpt.style = {
-			'background-image': 'url(' + data.image + '&size=100' + ')'
+			'background-image': 'url(' + data.image + '&size=100)'
 		};
 	}
 

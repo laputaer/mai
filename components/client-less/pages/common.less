@@ -2,7 +2,7 @@
 // common.less - shared component across pages
 
 .page {
-	
+
 }
 
 .page-heading {
@@ -259,6 +259,7 @@
 		max-height: 80px;
 		overflow: hidden;
 		position: relative;
+		word-wrap: break-word;
 
 		&:after {
 			content: "";
@@ -268,6 +269,24 @@
 			bottom: 0;
 			height: 30px;
 			width: 40px;
+			display: block;
+			background-image: linear-gradient(to right, transparent, @color-gray-pastel);
+		}
+	}
+
+	.action-block {
+		position: relative;
+		.long-text();
+		.size(14);
+
+		&:after {
+			content: "";
+			position: absolute;
+			z-index: 1;
+			right: 0;
+			bottom: 0;
+			height: 100%;
+			width: 20px;
 			display: block;
 			background-image: linear-gradient(to right, transparent, @color-gray-pastel);
 		}
@@ -283,14 +302,13 @@
 	}
 
 	.link {
-		color: @color-blue;
 		font-weight: 700;
 		margin: 0;
 		.size(14);
+		.long-text();
 
 		a {
-			color: inherit;
-			text-decoration: none;
+			.link(@color-blue);
 		}
 	}
 

@@ -23,6 +23,7 @@ module.exports = {
 	, login: require('./login')
 	, menu: require('./menu')
 	, placeholder: require('./placeholder')
+	, postButton: require('./post-button')
 	, preview: require('./preview')
 	, sectionTitle: require('./section-title')
 	, userButton: require('./user-button')
