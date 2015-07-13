@@ -22,11 +22,11 @@ function template(data) {
 			'data-id': data.pid
 		}
 	};
-	var wrapperOpt = {};
+
 	var image, link, title;
 
 	if (data.num === 0) {
-		wrapperOpt.className = 'section-inset';
+		postOpt.className = 'section-inset';
 	}
 
 	if (data.image) {
@@ -39,6 +39,9 @@ function template(data) {
 					+ data.image + '&size=400 400w'
 				, 'data-sizes': 'auto'
 			}
+			, style: {
+				'background-image': 'url(' + data.image + '&size=100' + ')'
+			}
 		});
 	}
 
@@ -50,13 +53,15 @@ function template(data) {
 
 	title = $('p.title', data.title);
 
-	var post = $('div.featured-post', postOpt, $('div.wrapper', wrapperOpt, [
-		, $('div.image-column', image)
-		, $('div.text-column', [
-			link
-			, title
+	var post = $('div.featured-post', postOpt, [
+		$('div.wrapper', [
+			, $('div.image-column', image)
+			, $('div.text-column', [
+				link
+				, title
+			])
 		])
-	]));
+	]);
 
 	return post;
 };
