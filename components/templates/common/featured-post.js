@@ -7,7 +7,9 @@
 
 var $ = require('../vdom');
 var i18n = require('../i18n')();
+var emitter = require('../emitter');
 
+var buttonTemplate = require('./button');
 var postButtonTemplate = require('./post-button');
 
 module.exports = template;
@@ -25,7 +27,7 @@ function template(data) {
 		}
 	};
 
-	var image, link, title, user, club;
+	var image, link, title, user, club, heart;
 
 	if (data.num === 0) {
 		postOpt.className = 'section-inset';
@@ -65,6 +67,17 @@ function template(data) {
 		});
 	}
 
+	heart = buttonTemplate({
+		href: '#'
+		, className: 'rounded action'
+		, value: data.heart || '0'
+		, icon: 'heart'
+		, version: data.version
+		, base_url: data.base_url
+		, eventName: 'ev-click'
+		, eventHandler: emitter.capture('page:heart', data.pid)
+	});
+
 	link = $('p.link', $('a', {
 		href: data.embed.url
 		, target: '_blank'
@@ -84,6 +97,7 @@ function template(data) {
 		, $('div.action-block', [
 			user
 			, club
+			, heart
 		])
 	]);
 

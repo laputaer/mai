@@ -280,13 +280,24 @@
 		&:after {
 			content: "";
 			position: absolute;
-			z-index: 1;
 			right: 0;
-			bottom: 0;
+			top: 0;
+			z-index: 1;
 			height: 100%;
-			width: 20px;
+			width: 80px;
 			display: block;
-			background-image: linear-gradient(to right, fadeout(@color-gray-pastel, 100%), fadeout(@color-gray-pastel, 0%));
+			background-image: linear-gradient(to right, fadeout(@color-gray-pastel, 100%), fadeout(@color-gray-pastel, 0%) 20%);
+		}
+
+		.internal {
+			margin: 10px 10px 10px 0;
+		}
+
+		.action {
+			margin: 10px 0;
+			position: absolute;
+			right: 0;
+			z-index: 2;
 		}
 	}
 

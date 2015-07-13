@@ -47,6 +47,11 @@ function template(data) {
 		text = $('span.m-text', i18n.t(data.text));
 	}
 
+	// button value
+	if (data.value) {
+		text = $('span.m-text', data.value);
+	}
+
 	var button = $('a.m-button', buttonOpt, [ icon, text ]);
 	return button;
 };

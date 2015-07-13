@@ -36,6 +36,8 @@ function template(data) {
 
 	var featured_posts = data.featured_posts.map(function(post, i) {
 		post.num = i;
+		post.version = data.version.asset;
+		post.base_url = data.base_url;
 		return postTemplate(post);
 	});
 

@@ -73,7 +73,6 @@
 		border-color: transparent;
 		border-radius: 0;
 		padding: 0;
-		margin: 10px 10px 10px 0;
 
 		&:hover, &:focus, &:active {
 			.m-text {
@@ -82,97 +81,13 @@
 		}
 	}
 
-	&.cancel {
-		&:hover, &:focus {
-			background-color: @color-gray-dark;
-			color: @color-white;
-			border-color: @color-gray-dark;
-		}
+	&.action {
+		border-color: transparent;
+		border-radius: 0;
+		padding: 0;
 
-		&:active {
-			background-color: darken(@color-gray-dark, 10%);
-			color: @color-white;
-			border-color: darken(@color-gray-dark, 10%);
-		}
-	}
-
-	&.accept {
-		color: @color-green;
-
-		&:hover, &:focus {
-			background-color: @color-green;
-			color: @color-white;
-			border-color: @color-green;
-		}
-
-		&:active {
-			background-color: darken(@color-green, 10%);
-			color: @color-white;
-			border-color: darken(@color-green, 10%);
-		}
-	}
-
-	&.highlight {
-		color: @color-yellow-dark;
-
-		&:hover, &:focus {
-			background-color: @color-yellow-dark;
-			color: @color-white;
-			border-color: @color-yellow-dark;
-		}
-
-		&:active {
-			background-color: darken(@color-yellow-dark, 10%);
-			color: @color-white;
-			border-color: darken(@color-yellow-dark, 10%);
-		}
-	}
-
-	&.post {
-		color: @color-green;
-
-		&:hover, &:focus {
-			background-color: @color-green;
-			color: @color-white;
-			border-color: @color-green;
-		}
-
-		&:active {
-			background-color: darken(@color-green, 10%);
-			color: @color-white;
-			border-color: darken(@color-green, 10%);
-		}
-	}
-
-	&.github {
-		color: @color-black-light;
-
-		&:hover, &:focus {
-			background-color: @color-black-light;
-			color: @color-white;
-			border-color: @color-black-light;
-		}
-
-		&:active {
-			background-color: darken(@color-black-light, 10%);
-			color: @color-white;
-			border-color: darken(@color-black-light, 10%);
-		}
-	}
-
-	&.twitter {
-		color: @color-blue;
-
-		&:hover, &:focus {
-			background-color: @color-blue;
-			color: @color-white;
-			border-color: @color-blue;
-		}
-
-		&:active {
-			background-color: darken(@color-blue, 10%);
-			color: @color-white;
-			border-color: darken(@color-blue, 10%);
+		&.active {
+			color: @color-red;
 		}
 	}
 }
