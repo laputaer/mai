@@ -1,8 +1,8 @@
 
 /**
- * heading.js
+ * header.js
  *
- * Template for default heading
+ * Template for default header
  */
 
 var $ = require('../vdom');
@@ -23,7 +23,7 @@ module.exports = template;
 function template(data) {
 	var discoverButton = buttonTemplate({
 		href: '#'
-		, className: 'rounded heading'
+		, className: 'rounded header'
 		, text: 'menu.nav.toggle'
 		, icon: 'compass'
 		, version: data.version.asset
@@ -34,7 +34,7 @@ function template(data) {
 
 	var clubOpt = {
 		href: '/c/club-home'
-		, className: 'rounded heading tablet'
+		, className: 'rounded header tablet'
 		, text: 'menu.nav.club'
 		, icon: 'share'
 		, version: data.version.asset
@@ -47,7 +47,7 @@ function template(data) {
 
 	var rankingOpt = {
 		href: '/c/club-ranking'
-		, className: 'rounded heading tablet'
+		, className: 'rounded header tablet'
 		, text: 'menu.nav.ranking'
 		, icon: 'graph_rising'
 		, version: data.version.asset
@@ -60,7 +60,7 @@ function template(data) {
 
 	var helpOpt = {
 		href: '/help'
-		, className: 'rounded heading tablet'
+		, className: 'rounded header tablet'
 		, text: 'menu.nav.help'
 		, icon: 'life_buoy'
 		, version: data.version.asset
@@ -75,14 +75,14 @@ function template(data) {
 	if (data.current_user) {
 		userButton = userButtonTemplate({
 			href: '/u/' + data.current_user.uid
-			, className: 'rounded heading'
+			, className: 'rounded header'
 			, text: data.current_user.login
 			, icon: data.current_user.small_avatar
 		});
 	} else {
 		userButton = buttonTemplate({
 			href: '#'
-			, className: 'rounded heading'
+			, className: 'rounded header'
 			, text: 'menu.nav.login'
 			, icon: 'upload'
 			, version: data.version.asset
@@ -98,9 +98,9 @@ function template(data) {
 		, 'data-sizes': 'auto'
 	};
 
-	var heading = $('div.page-heading.lazyload#heading', {
+	var header = $('div.page-header.lazyload#header', {
 		attributes: attrs
-		, key: 'heading'
+		, key: 'header'
 	}, [
 		$('div.wrapper', [
 			$('h1.title', $('a', { href: '/' }, i18n.t('common.domain')))
@@ -117,5 +117,5 @@ function template(data) {
 		])
 	]);
 
-	return heading;
+	return header;
 };

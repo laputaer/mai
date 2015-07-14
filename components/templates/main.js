@@ -17,7 +17,7 @@ module.exports = template;
  */
 function template(data) {
 	var main = $('div.page', [
-		data.heading
+		data.header
 		, data.menu
 		, data.main
 		, data.placeholder
