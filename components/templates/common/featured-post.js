@@ -7,6 +7,10 @@
 
 var $ = require('../vdom');
 var i18n = require('../i18n')();
+var emitter = require('../emitter');
+
+var buttonTemplate = require('./button');
+var postButtonTemplate = require('./post-button');
 
 module.exports = template;
 
@@ -22,11 +26,11 @@ function template(data) {
 			'data-id': data.pid
 		}
 	};
-	var wrapperOpt = {};
-	var image, link, title;
+
+	var image, link, title, user, club, heart;
 
 	if (data.num === 0) {
-		wrapperOpt.className = 'section-inset';
+		postOpt.className = 'section-inset';
 	}
 
 	if (data.image) {
@@ -39,8 +43,40 @@ function template(data) {
 					+ data.image + '&size=400 400w'
 				, 'data-sizes': 'auto'
 			}
+			, style: {
+				'background-image': 'url(' + data.image + '&size=100)'
+			}
 		});
 	}
+
+	if (data.user) {
+		user = postButtonTemplate({
+			href: '/u/' + data.user
+			, className: 'rounded internal'
+			, text: data.user_login
+			, icon: data.user_avatar
+		});
+	}
+
+	if (data.club) {
+		club = postButtonTemplate({
+			href: '/c/' + data.club
+			, className: 'rounded internal'
+			, text: data.club_name
+			, icon: data.club_image
+		});
+	}
+
+	heart = buttonTemplate({
+		href: '#'
+		, className: 'rounded action'
+		, value: data.heart || '0'
+		, icon: 'heart'
+		, version: data.version
+		, base_url: data.base_url
+		, eventName: 'ev-click'
+		, eventHandler: emitter.capture('page:heart', data.pid)
+	});
 
 	link = $('p.link', $('a', {
 		href: data.embed.url
@@ -50,13 +86,20 @@ function template(data) {
 
 	title = $('p.title', data.title);
 
-	var post = $('div.featured-post', postOpt, $('div.wrapper', wrapperOpt, [
-		, $('div.image-column', image)
-		, $('div.text-column', [
-			link
-			, title
+	var post = $('div.featured-post', postOpt, [
+		$('div.wrapper', [
+			$('div.image-column', image)
+			, $('div.text-column', [
+				link
+				, title
+			])
 		])
-	]));
+		, $('div.action-block', [
+			user
+			, club
+			, heart
+		])
+	]);
 
 	return post;
 };

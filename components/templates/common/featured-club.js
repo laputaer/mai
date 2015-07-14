@@ -18,10 +18,9 @@ module.exports = template;
  */
 function template(data) {
 	var clubOpt = {};
-	var wrapperOpt = {};
 
 	if (data.num === 0) {
-		wrapperOpt.className = 'section-inset';
+		clubOpt.className = 'section-inset';
 	}
 
 	if (data.image) {
@@ -31,9 +30,13 @@ function template(data) {
 				+ data.image + '&size=400 400w'
 			, 'data-sizes': 'auto'
 		};
+
+		clubOpt.style = {
+			'background-image': 'url(' + data.image + '&size=100)'
+		};
 	}
 
-	var club = $('div.featured-club.lazyload', clubOpt, $('div.wrapper', wrapperOpt, [
+	var club = $('div.featured-club.lazyload', clubOpt, $('div.wrapper', [
 		$('h1.title', $('a', { href: '/c/' + data.slug }, data.title))
 	]));
 

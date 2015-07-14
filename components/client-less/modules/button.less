@@ -45,12 +45,13 @@
 		&.m-avatar {
 			border-radius: 50%;
 			background-color: @color-gray;
+			.background-cover();
 		}
 	}
 
 	// extra styling
 
-	&.heading {
+	&.header {
 		color: @color-white;
 		border-color: transparent;
 		background-color: fadeout(@color-black, 80%);
@@ -68,97 +69,49 @@
 		}
 	}
 
-	&.cancel {
-		&:hover, &:focus {
-			background-color: @color-gray-dark;
-			color: @color-white;
-			border-color: @color-gray-dark;
-		}
+	&.internal {
+		border-color: transparent;
+		border-radius: 0;
+		padding: 0;
 
-		&:active {
-			background-color: darken(@color-gray-dark, 10%);
-			color: @color-white;
-			border-color: darken(@color-gray-dark, 10%);
-		}
-	}
+		&:hover, &:focus, &:active {
+			color: @color-black-light;
 
-	&.accept {
-		color: @color-green;
-
-		&:hover, &:focus {
-			background-color: @color-green;
-			color: @color-white;
-			border-color: @color-green;
-		}
-
-		&:active {
-			background-color: darken(@color-green, 10%);
-			color: @color-white;
-			border-color: darken(@color-green, 10%);
+			.m-text {
+				box-shadow: inset 0 -2px 0 0 fadeout(@color-black-light, 70%);
+			}
 		}
 	}
 
-	&.highlight {
-		color: @color-yellow-dark;
+	&.action {
+		border-color: transparent;
+		border-radius: 0;
+		padding: 0;
 
-		&:hover, &:focus {
-			background-color: @color-yellow-dark;
-			color: @color-white;
-			border-color: @color-yellow-dark;
+		&:hover, &:focus, &:active {
+			color: @color-black-light;
 		}
 
-		&:active {
-			background-color: darken(@color-yellow-dark, 10%);
-			color: @color-white;
-			border-color: darken(@color-yellow-dark, 10%);
+		&.active {
+			color: @color-red;
 		}
 	}
 
-	&.post {
-		color: @color-green;
+	&.footer {
+		color: @color-white;
+		border-color: transparent;
+		background-color: fadeout(@color-black, 80%);
 
 		&:hover, &:focus {
-			background-color: @color-green;
-			color: @color-white;
-			border-color: @color-green;
+			background-color: fadeout(@color-black, 60%);
 		}
 
 		&:active {
-			background-color: darken(@color-green, 10%);
-			color: @color-white;
-			border-color: darken(@color-green, 10%);
-		}
-	}
-
-	&.github {
-		color: @color-black-light;
-
-		&:hover, &:focus {
-			background-color: @color-black-light;
-			color: @color-white;
-			border-color: @color-black-light;
+			background-color: fadeout(@color-black, 40%);
 		}
 
-		&:active {
-			background-color: darken(@color-black-light, 10%);
-			color: @color-white;
-			border-color: darken(@color-black-light, 10%);
-		}
-	}
-
-	&.twitter {
-		color: @color-blue;
-
-		&:hover, &:focus {
-			background-color: @color-blue;
-			color: @color-white;
-			border-color: @color-blue;
-		}
-
-		&:active {
-			background-color: darken(@color-blue, 10%);
-			color: @color-white;
-			border-color: darken(@color-blue, 10%);
+		&.active {
+			color: @color-yellow-light;
 		}
 	}
 }

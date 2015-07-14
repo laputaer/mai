@@ -43,8 +43,8 @@ module.exports = builder;
  * @return  VNode
  */
 function builder(data) {
-	// heading
-	data.heading = templates.common.heading(data);
+	data.header = templates.common.header(data);
+	data.footer = templates.common.footer(data);
 	data.discover = templates.common.discover(data);
 
 	// menu data

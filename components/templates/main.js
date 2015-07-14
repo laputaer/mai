@@ -17,11 +17,10 @@ module.exports = template;
  */
 function template(data) {
 	var main = $('div.page', [
-		data.heading
-		, data.menu
+		data.header
 		, data.main
 		, data.placeholder
-		, data.mobile_menu
+		, data.footer
 		, data.discover
 	]);
 
