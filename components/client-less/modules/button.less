@@ -90,4 +90,22 @@
 			color: @color-red;
 		}
 	}
+
+	&.footer {
+		color: @color-white;
+		border-color: transparent;
+		background-color: fadeout(@color-black, 80%);
+
+		&:hover, &:focus {
+			background-color: fadeout(@color-black, 60%);
+		}
+
+		&:active {
+			background-color: fadeout(@color-black, 40%);
+		}
+
+		&.active {
+			color: @color-yellow-light;
+		}
+	}
 }

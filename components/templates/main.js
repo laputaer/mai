@@ -18,10 +18,9 @@ module.exports = template;
 function template(data) {
 	var main = $('div.page', [
 		data.header
-		, data.menu
 		, data.main
 		, data.placeholder
-		, data.mobile_menu
+		, data.footer
 		, data.discover
 	]);
 

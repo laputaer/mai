@@ -7,11 +7,12 @@
 
 module.exports = {
 	'common': {
-		'title': '买么（买买买）'
-		, 'description': '「买么」是全球首家关注「产品信仰」的社区。欢迎你与我们一道，分享独特的「消费文化」。'
-		, 'app-title': '买么'
+		'title': '入部么'
+		, 'app-title': '入部么'
+		, 'description': '「入部么」是全球首家关注与支持「小众文化」的社区。欢迎你与我们一道，分享独特的「消费主义」与「文化信仰」。'
 		, 'domain': 'rubu.me'
 		, 'tagline': '「与世界一同入迷」'
+		, 'tagline-alt': '「与朋友一起探索」'
 	}
 	, 'menu': {
 		'nav': {
@@ -21,10 +22,18 @@ module.exports = {
 			, 'help': '使用指南'
 			, 'toggle': '导航'
 			, 'login': '登录'
+			, 'login-alt': '加入我们'
 		}
 		, 'login': {
-			'twitter': '登录'
-			, 'github': '登录'
+			'twitter': 'Twitter账号登录'
+			, 'github': 'Github账号登录'
+			, 'weibo': '微博账号登录'
+		}
+		, 'footer': {
+			'copyright': '© MaiHQ'
+			, 'contact': '联系我们'
+			, 'privacy': '隐私政策'
+			, 'terms': '服务条款'
 		}
 	}
 	, 'section': {
@@ -159,9 +168,9 @@ module.exports = {
 	}
 	, 'help': {
 		'main-title': '使用帮助'
-		, 'main-title-note': '在这里你可以找到有关「买么」的功能介绍与常见问题回答。'
+		, 'main-title-note': '在这里你可以找到有关「入部么」的功能介绍与常见问题回答。'
 		, 'main-title-suggestion': '未能找到你关心的解答？'
-		, 'about-us-question': '「买么」是什么？'
+		, 'about-us-question': '「入部么」是什么？'
 		, 'about-us-answer-1': '我们是一个连接创作者与消费者的社区。'
 		, 'why-us-question': '为什么创建这个社区？'
 		, 'why-us-answer-1': '我们希望给创作者与消费者一片天地，交换有趣的创意，建立友好的关系。'
