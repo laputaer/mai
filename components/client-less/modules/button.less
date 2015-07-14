@@ -75,8 +75,10 @@
 		padding: 0;
 
 		&:hover, &:focus, &:active {
+			color: @color-black-light;
+
 			.m-text {
-				box-shadow: inset 0 -2px 0 0 fadeout(@color-gray-dark, 70%);
+				box-shadow: inset 0 -2px 0 0 fadeout(@color-black-light, 70%);
 			}
 		}
 	}
@@ -85,6 +87,10 @@
 		border-color: transparent;
 		border-radius: 0;
 		padding: 0;
+
+		&:hover, &:focus, &:active {
+			color: @color-black-light;
+		}
 
 		&.active {
 			color: @color-red;
