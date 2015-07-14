@@ -329,3 +329,37 @@
 		.size(20);
 	}
 }
+
+.page-load-button {
+	width: 100%;
+	padding: 15px;
+	box-sizing: border-box;
+	overflow: hidden;
+
+	.wrapper {
+		color: @color-white;
+		width: 100%;
+		padding: 15px 0;
+		box-sizing: border-box;
+		border: 1px solid @color-black;
+		border-radius: 10px;
+		background-color: @color-black;
+		background-image: url(/images/load-bg-400.png);
+		background-position: 50% 50%;
+
+		text-align: center;
+		line-height: 1em;
+		font-weight: 400;
+		.size(20);
+
+		a {
+			.link-alt(@color-yellow-light);
+		}
+	}
+
+	@media @x2 {
+		.wrapper {
+			background-size: 200px;
+		}
+	}
+}

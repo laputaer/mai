@@ -32,6 +32,9 @@ module.exports = {
 			'featured-clubs': '推荐社团'
 			, 'featured-posts': '社区精选'
 		}
+		, 'load': {
+			'featured-post': '载入更多精彩内容'
+		}
 	}
 	, 'placeholder': {
 		'apology': '抱歉'

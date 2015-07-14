@@ -20,6 +20,7 @@ module.exports = {
 	, formTextArea: require('./form-textarea')
 	, genericMessage: require('./generic-message')
 	, heading: require('./heading')
+	, loadButton: require('./load-button')
 	, login: require('./login')
 	, menu: require('./menu')
 	, placeholder: require('./placeholder')
