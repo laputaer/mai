@@ -207,10 +207,9 @@ function *middleware(next) {
 	try {
 		var s1 = new pipeStream();
 		var s2 = new pipeStream();
-		result.body.pipe(s1);
-		result.body.pipe(s2);
 
 		// create new image, serve new image
+		result.body.pipe(s1);
 		yield createImage({
 			file: s1
 			, name: input.size
@@ -221,6 +220,7 @@ function *middleware(next) {
 		yield sendfile.call(this, path + '-' + input.size + '.' + ext);
 
 		// save raw image and metadata for subsequent load
+		result.body.pipe(s2);
 		var raw = writeStream(path + '.' + ext);
 		raw.on('error', function(err) {
 			debug(err);
