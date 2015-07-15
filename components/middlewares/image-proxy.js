@@ -11,6 +11,7 @@ var sharp = require('sharp');
 var sendfile = require('koa-sendfile');
 var mime = require('mime-types');
 var parser = require('url').parse;
+var pipeStream = require('stream').PassThrough;
 var readStream = require('fs').createReadStream;
 var writeStream = require('fs').createWriteStream;
 var debug = require('debug')('mai:proxy');
@@ -29,9 +30,9 @@ var sizes = {
 	, 'th-medium': 400
 	, 'th-large': 800
 	, 'th-grand': 1600
-	, 'club-list-small': [320, 80]
-	, 'club-list-medium': [640, 160]
-	, 'club-list-large': [960, 240]
+	, 'ls-small': [320, 200]
+	, 'ls-medium': [640, 400]
+	, 'ls-large': [960, 600]
 };
 var headers = {
 	'Cache-Control': ['public', 'max-age=604800']
@@ -121,7 +122,7 @@ function *middleware(next) {
 	if (ext) {
 		var file = readStream(path + '.' + ext);
 		try {
-			createImage({
+			yield createImage({
 				file: file
 				, name: input.size
 				, path: path
@@ -202,25 +203,32 @@ function *middleware(next) {
 		ext = 'jpeg';
 	}
 
-	// STEP 9: save raw image
-	var raw = writeStream(path + '.' + ext);
-	raw.on('error', function(err) {
-		debug(err);
-	});
-	result.body.pipe(raw);
-
-	// STEP 10: create new image, serve new image
+	// STEP 9: image processing
 	try {
-		createImage({
-			file: result.body
+		var s1 = new pipeStream();
+		var s2 = new pipeStream();
+		result.body.pipe(s1);
+		result.body.pipe(s2);
+
+		// create new image, serve new image
+		yield createImage({
+			file: s1
 			, name: input.size
 			, path: path
 			, ext: ext
 			, limit: config.size
 		});
 		yield sendfile.call(this, path + '-' + input.size + '.' + ext);
+
+		// save raw image and metadata for subsequent load
+		var raw = writeStream(path + '.' + ext);
+		raw.on('error', function(err) {
+			debug(err);
+		});
+		s2.pipe(raw);
+		yield fs.writeFile(path + '.metadata', ext);
 	} catch(err) {
-		// process error
+		// processing error
 		debug(err);
 	}
 
@@ -229,7 +237,7 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 11: catch-all
+	// STEP 10: catch-all
 	this.status = 500;
 	this.body = 'proxy not available';
 };
@@ -237,8 +245,8 @@ function *middleware(next) {
 /**
  * Read image stream, create a new image, save to file
  *
- * @param   Object  input  { file, name, path, ext, limit }
- * @return  Void
+ * @param   Object   input  { file, name, path, ext, limit }
+ * @return  Promise
  */
 function createImage(input) {
 	var s1 = sharp();
@@ -256,14 +264,14 @@ function createImage(input) {
 
 	// crop to square image
 	if (input.name.substr(0, 2) === 'sq') {
-		yield s1.limitInputPixels(input.limit)
+		return s1.limitInputPixels(input.limit)
 			.resize(size, size)
 			.quality(95)
 			.toFormat(input.ext)
 			.toFile(input.path + '-' + input.name + '.' + input.ext);
 	// resize to thumbnail image
 	} else if (input.name.substr(0, 2) === 'th') {
-		yield s1.limitInputPixels(input.limit)
+		return s1.limitInputPixels(input.limit)
 			.resize(size, size)
 			.max()
 			.quality(95)
@@ -271,7 +279,7 @@ function createImage(input) {
 			.toFile(input.path + '-' + input.name + '.' + input.ext);
 	// crop to exact rectangle image
 	} else {
-		yield s1.limitInputPixels(input.limit)
+		return s1.limitInputPixels(input.limit)
 			.resize(size[0], size[1])
 			.quality(95)
 			.toFormat(input.ext)
