@@ -38,13 +38,13 @@ function template(data) {
 			//src: data.image + '&size=100'
 			//, alt: data.title + i18n.t('placeholder.image-preview')
 			attributes: {
-				'data-bgset': data.image + '&size=100 100w, '
-					+ data.image + '&size=200 200w, '
-					+ data.image + '&size=400 400w'
+				'data-bgset': data.image + '&size=sq-small 80w, '
+					+ data.image + '&size=sq-medium 100w, '
+					+ data.image + '&size=sq-large 200w'
 				, 'data-sizes': 'auto'
 			}
 			, style: {
-				'background-image': 'url(' + data.image + '&size=100)'
+				'background-image': 'url(' + data.image + '&size=sq-small)'
 			}
 		});
 	}

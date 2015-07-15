@@ -25,14 +25,14 @@ function template(data) {
 
 	if (data.image) {
 		clubOpt.attributes = {
-			'data-bgset': data.image + '&size=100 100w, '
-				+ data.image + '&size=200 200w, '
-				+ data.image + '&size=400 400w'
+			'data-bgset': data.image + '&size=ls-small 320w, '
+				+ data.image + '&size=ls-medium 640w, '
+				+ data.image + '&size=ls-large 960w'
 			, 'data-sizes': 'auto'
 		};
 
 		clubOpt.style = {
-			'background-image': 'url(' + data.image + '&size=100)'
+			'background-image': 'url(' + data.image + '&size=ls-small)'
 		};
 	}
 
