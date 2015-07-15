@@ -11,11 +11,34 @@ var sharp = require('sharp');
 var sendfile = require('koa-sendfile');
 var mime = require('mime-types');
 var parser = require('url').parse;
+var readStream = require('fs').createReadStream;
+var writeStream = require('fs').createWriteStream;
 var debug = require('debug')('mai:proxy');
 
 var matchUrl = require('../helpers/match-url-pattern');
 var validate = require('../security/validation');
 
+var sizes = {
+	'sq-tiny': 40
+	, 'sq-small': 80
+	, 'sq-medium': 100
+	, 'sq-large': 200
+	, 'sq-grand': 400
+	, 'th-tiny': 100
+	, 'th-small': 200
+	, 'th-medium': 400
+	, 'th-large': 800
+	, 'th-grand': 1600
+	, 'club-list-small': [320, 80]
+	, 'club-list-medium': [640, 160]
+	, 'club-list-large': [960, 240]
+};
+var headers = {
+	'Cache-Control': ['public', 'max-age=604800']
+	, 'X-Mai-Cache': 'hit'
+	, 'X-Frame-Options': 'deny'
+	, 'X-Content-Type-Options': 'nosniff'
+};
 var extensions = ['jpeg', 'png', 'webp', 'gif'];
 
 module.exports = factory;
@@ -49,18 +72,18 @@ function *middleware(next) {
 
 	if (seg.length !== 2) {
 		this.status = 403;
-		this.body = 'invalid hash';
+		this.body = 'invalid input';
 		return;
 	}
 
 	// STEP 3: validate input
-	var config = this.config;
+	var config = this.config.proxy;
 	var input = {
 		hash: seg[1] || ''
-		, url: this.request.query.url || ''
-		, size: this.request.query.size || ''
-		, sizes: config.proxy.sizes
-		, key: config.proxy.key
+		, url: this.request.query.url
+		, size: this.request.query.size
+		, sizes: sizes
+		, key: config.key
 	};
 
 	var result = yield validate(input, 'proxy');
@@ -70,67 +93,86 @@ function *middleware(next) {
 		if (result.errors.size.length > 0) {
 			this.body = 'invalid size';
 		} else if (result.errors.url.length > 0) {
-			this.body = 'invalid url';
+			this.body = 'invalid url or hash';
 		} else {
 			this.body = 'unknown error';
 		}
 		return;
 	}
 
-	// STEP 4: read cache first
-	var path = process.cwd() + '/cache/' + input.hash + '-' + input.size;
+	// STEP 4: read cache (existing size) and return
+	var path = process.cwd() + '/cache/' + input.hash;
 	var ext;
 	try {
 		// load extension name and serve the actual image
-		ext = yield fs.readFile(path);
-		yield sendfile.call(this, path + '.' + ext);
+		ext = yield fs.readFile(path + '.metadata');
+		yield sendfile.call(this, path + '-' + input.size + '.' + ext);
 	} catch(err) {
 		// cache miss
 		debug(err);
 	}
 
 	if (this.status === 200 || this.status === 304) {
-		this.set('Cache-Control', ['public', 'max-age=604800']);
-		this.set('X-Mai-Cache', 'hit');
-		this.set('X-Frame-Options', 'deny');
-		this.set('X-Content-Type-Options', 'nosniff');
+		this.set(headers);
 		return;
 	}
 
-	// STEP 5: generate user_agent, url, referer for specific domain
-	var ua = config.request.user_agent;
-	var url = input.url;
-	var referer;
-	var parsed_url = parser(url);
-	var host = parsed_url.hostname;
+	// STEP 5: read cache (new size) and create image
+	if (ext) {
+		var file = readStream(path + '.' + ext);
+		try {
+			createImage({
+				file: file
+				, name: input.size
+				, path: path
+				, ext: ext
+				, limit: config.size
+			});
+			yield sendfile.call(this, path + '-' + input.size + '.' + ext);
+		} catch(err) {
+			// raw cache miss
+			debug(err);
+		}
+	}
 
-	result = matchUrl(host, config.fake_ua)
+	if (this.status === 200 || this.status === 304) {
+		this.set(headers);
+		return;
+	}
+
+	// STEP 6: no cache found, prepare request
+	var ua = config.user_agent;
+	var url = input.url;
+	var parsed_url = parser(url);
+	var referer;
+
+	result = matchUrl(parsed_url.hostname, config.replace.ua)
 	if (result) {
 		ua = result;
 	}
 
-	result = matchUrl(host, config.fake_url)
+	result = matchUrl(parsed_url.hostname, config.replace.url)
 	if (result) {
 		url = url.replace(result.target, result.replaced);
 	}
 
-	result = matchUrl(host, config.fake_referer)
+	result = matchUrl(parsed_url.hostname, config.replace.referer)
 	if (result) {
-		referer = result;
+		referer = input.url;
 	}
 
 	debug('request started');
 
-	// STEP 6: start loading remote image
+	// STEP 7: start loading remote image
 	try {
 		result = yield fetch(url, {
 			headers: {
 				'User-Agent': ua
 				, 'Referer': referer
 			}
-			, follow: config.request.follow
-			, timeout: config.request.timeout
-			, size: config.request.size
+			, follow: config.follow
+			, timeout: config.timeout
+			, size: config.size
 		});
 	} catch(err) {
 		// fetch error
@@ -145,7 +187,7 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 7: limit image type to common format
+	// STEP 8: limit image type to common format
 	var ctype = result.headers.get('content-type');
 	ext = mime.extension(ctype);
 
@@ -160,42 +202,79 @@ function *middleware(next) {
 		ext = 'jpeg';
 	}
 
-	// STEP 8: resize image and write to cache
-	var size = parseInt(input.size, 10);
-	var s1 = sharp();
-	try {
-		s1.on('error', function(err) {
-			debug(err);
-		});
-		result.body.pipe(s1);
-		yield s1.limitInputPixels(config.request.size)
-			.resize(size, size)
-			.quality(95)
-			.toFormat(ext)
-			.toFile(path + '.' + ext);
-		yield fs.writeFile(path, ext);
-	} catch(err) {
-		// cache error
+	// STEP 9: save raw image
+	var raw = writeStream(path + '.' + ext);
+	raw.on('error', function(err) {
 		debug(err);
-	}
+	});
+	result.body.pipe(raw);
 
-	// STEP 9: read cache again
+	// STEP 10: create new image, serve new image
 	try {
-		yield sendfile.call(this, path + '.' + ext);
+		createImage({
+			file: result.body
+			, name: input.size
+			, path: path
+			, ext: ext
+			, limit: config.size
+		});
+		yield sendfile.call(this, path + '-' + input.size + '.' + ext);
 	} catch(err) {
-		// cache miss
+		// process error
 		debug(err);
 	}
 
 	if (this.status === 200 || this.status === 304) {
-		this.set('Cache-Control', ['public', 'max-age=604800']);
-		this.set('X-Mai-Cache', 'miss');
-		this.set('X-Frame-Options', 'deny');
-		this.set('X-Content-Type-Options', 'nosniff');
+		this.set(headers);
 		return;
 	}
 
-	// STEP 10: catch-all
+	// STEP 11: catch-all
 	this.status = 500;
 	this.body = 'proxy not available';
+};
+
+/**
+ * Read image stream, create a new image, save to file
+ *
+ * @param   Object  input  { file, name, path, ext, limit }
+ * @return  Void
+ */
+function createImage(input) {
+	var s1 = sharp();
+
+	// handle unexpected errors
+	s1.on('error', function(err) {
+		debug(err);
+	});
+
+	// pipe stream to sharp
+	input.file.pipe(s1);
+
+	// now process image
+	var size = sizes[input.name];
+
+	// crop to square image
+	if (input.name.substr(0, 2) === 'sq') {
+		yield s1.limitInputPixels(input.limit)
+			.resize(size, size)
+			.quality(95)
+			.toFormat(input.ext)
+			.toFile(input.path + '-' + input.name + '.' + input.ext);
+	// resize to thumbnail image
+	} else if (input.name.substr(0, 2) === 'th') {
+		yield s1.limitInputPixels(input.limit)
+			.resize(size, size)
+			.max()
+			.quality(95)
+			.toFormat(input.ext)
+			.toFile(input.path + '-' + input.name + '.' + input.ext);
+	// crop to exact rectangle image
+	} else {
+		yield s1.limitInputPixels(input.limit)
+			.resize(size[0], size[1])
+			.quality(95)
+			.toFormat(input.ext)
+			.toFile(input.path + '-' + input.name + '.' + input.ext);
+	}
 };

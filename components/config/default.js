@@ -34,7 +34,6 @@ module.exports = {
 			, state: true
 		}
 	}
-	, cookies: {}
 	, request: {
 		user_agent: 'Rubu/2.0 (+http://rubu.me/)'
 		, follow: 5
@@ -58,23 +57,29 @@ module.exports = {
 		key: 'flash-message'
 	}
 	, proxy: {
-		sizes: ['20', '40', '60', '80', '100', '200', '400', '600', '800']
-	}
-	, analytics: {}
-	, fake_ua: {
-		'pixiv.net': 'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)'
-	}
-	, fake_url: {
-		'pixiv.net': {
-			target: '150x150'
-			, replaced: '600x600'
+		user_agent: 'Rubu/2.0 (+http://rubu.me/)'
+		, follow: 2
+		, timeout: 1000 * 30
+		, size: 1000 * 1000 * 10
+		, replace: {
+			ua: {
+				'pixiv.net': 'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)'
+			}
+			, url: {
+				'pixiv.net': {
+					target: '150x150'
+					, replaced: '600x600'
+				}
+			}
+			, referer: {
+				'anim-babblers.com': true
+			}
 		}
-	}
-	, fake_referer: {
-		'anim-babblers.com': 'http://anim-babblers.com/'
 	}
 	, fake_fetch_ua: {
 		'www.toranoana.jp': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
 	}
+	, cookies: {}
+	, analytics: {}
 	, showcase: {}
 };

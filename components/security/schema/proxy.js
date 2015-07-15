@@ -19,7 +19,7 @@ function factory() {
 					return false
 				}
 
-				if (url.length > 1024) {
+				if (url.length > 1024 || hash.length > 1024) {
 					return false
 				}
 
@@ -27,7 +27,7 @@ function factory() {
 			}, 'url invalid')
 		.validates('size')
 			.using('size', 'sizes', function(size, sizes) {
-				return sizes.indexOf(size) !== -1
+				return sizes.hasOwnProperty(size)
 			}, 'size invalid')
 		.build();
 };
