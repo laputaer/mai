@@ -37,7 +37,7 @@ function template(data) {
 			'class': 'm-icon'
 		}, [
 			$('use', {
-				'xlink:href': data.base_url + '/assets/icons.svg?' + data.version + '#' + data.icon
+				'xlink:href': '/assets/icons.svg?' + data.version + '#' + data.icon
 			})
 		]);
 	}
