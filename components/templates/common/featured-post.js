@@ -84,7 +84,7 @@ function template(data) {
 		, title: data.embed.title
 	}, data.domain));
 
-	title = $('p.title', data.title);
+	title = $('p.title', data.title || data.embed.title);
 
 	var post = $('div.featured-post', postOpt, [
 		$('div.wrapper', [
