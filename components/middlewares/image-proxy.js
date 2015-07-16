@@ -213,6 +213,7 @@ function *middleware(next) {
 			file: result.body
 			, path: path
 			, ext: ext
+			, limit: config.size
 		});
 		yield fs.writeFile(path + '.metadata', ext);
 
@@ -307,15 +308,36 @@ function createImage(input) {
 /**
  * Read image stream, save to file
  *
- * @param   Object   input  { file, path, ext }
+ * @param   Object   input  { file, path, ext, limit }
  * @return  Promise
  */
 function saveImage(input) {
 	return new Promise(function (resolve, reject) {
 		var s1 = writeStream(input.path + '.' + input.ext);
 
+		// limit response size
+		var bytes = 0;
+		var abort = false;
+
 		// pipe raw image to file
-		var p = input.file.pipe(s1);
+		var p = input.file.on('data', function (chunk) {
+			if (chunk === null) {
+				return;
+			}
+
+			if (bytes > input.limit) {
+				if (!abort) {
+					abort = true;
+					// clear up pipe and cache
+					input.file.unpipe(s1);
+					fs.unlink(input.path + '.' + input.ext);
+					reject('image size over limit: ' + input.limit + ' bytes');
+				}
+				return;
+			}
+
+			bytes += chunk.length;
+		}).pipe(s1);
 
 		p.on('error', function (err) {
 			reject(err);
