@@ -139,6 +139,7 @@
         1,
         "nofunc"
       ],
+      "space-before-function-paren": 0,
       "camelcase": 0,
       "semi": 0,
       "no-extra-semi": 0,

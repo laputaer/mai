@@ -67,7 +67,7 @@ function *middleware(next) {
 	}
 
 	// STEP 2: prepare common data
-	var seg = this.path.split('/').filter(function(item) {
+	var seg = this.path.split('/').filter(function (item) {
 		return item !== '';
 	});
 
@@ -107,6 +107,7 @@ function *middleware(next) {
 	try {
 		// load extension name and serve the actual image
 		ext = yield fs.readFile(path + '.metadata');
+		ext = ext.toString();
 		yield sendfile.call(this, path + '-' + input.size + '.' + ext);
 	} catch(err) {
 		// cache miss
@@ -114,16 +115,17 @@ function *middleware(next) {
 	}
 
 	if (this.status === 200 || this.status === 304) {
+		debug('cache found');
 		this.set(headers);
 		return;
 	}
 
 	// STEP 5: read cache (new size) and create image
 	if (ext) {
-		var file = readStream(path + '.' + ext);
+		var raw = readStream(path + '.' + ext);
 		try {
 			yield createImage({
-				file: file
+				file: raw
 				, name: input.size
 				, path: path
 				, ext: ext
@@ -137,6 +139,7 @@ function *middleware(next) {
 	}
 
 	if (this.status === 200 || this.status === 304) {
+		debug('raw cache found');
 		this.set(headers);
 		return;
 	}
@@ -203,36 +206,35 @@ function *middleware(next) {
 		ext = 'jpeg';
 	}
 
+	debug('process started');
+
 	// STEP 9: image processing
 	try {
-		var s1 = new pipeStream();
-		var s2 = new pipeStream();
+		// raw image
+		yield saveImage({
+			file: result.body
+			, path: path
+			, ext: ext
+		});
+		yield fs.writeFile(path + '.metadata', ext);
 
-		// create new image, serve new image
-		result.body.pipe(s1);
+		// process raw image
+		var raw = readStream(path + '.' + ext);
 		yield createImage({
-			file: s1
+			file: raw
 			, name: input.size
 			, path: path
 			, ext: ext
 			, limit: config.size
 		});
 		yield sendfile.call(this, path + '-' + input.size + '.' + ext);
-
-		// save raw image and metadata for subsequent load
-		result.body.pipe(s2);
-		var raw = writeStream(path + '.' + ext);
-		raw.on('error', function(err) {
-			debug(err);
-		});
-		s2.pipe(raw);
-		yield fs.writeFile(path + '.metadata', ext);
 	} catch(err) {
 		// processing error
 		debug(err);
 	}
 
 	if (this.status === 200 || this.status === 304) {
+		debug('image served');
 		this.set(headers);
 		return;
 	}
@@ -249,40 +251,76 @@ function *middleware(next) {
  * @return  Promise
  */
 function createImage(input) {
-	var s1 = sharp();
+	return new Promise(function (resolve, reject) {
+		var s1 = sharp();
 
-	// handle unexpected errors
-	s1.on('error', function(err) {
-		debug(err);
+		// now process image
+		var size = sizes[input.name];
+
+		// crop to square image
+		if (input.name.substr(0, 2) === 'sq') {
+			s1 = s1.limitInputPixels(input.limit)
+				.resize(size, size)
+				.quality(95)
+				.progressive()
+				.toFormat(input.ext);
+		// resize to thumbnail image
+		} else if (input.name.substr(0, 2) === 'th') {
+			s1 = s1.limitInputPixels(input.limit)
+				.resize(size, size)
+				.max()
+				.quality(95)
+				.progressive()
+				.toFormat(input.ext);
+		// crop to exact rectangle image
+		} else {
+			s1 = s1.limitInputPixels(input.limit)
+				.resize(size[0], size[1])
+				.quality(95)
+				.progressive()
+				.toFormat(input.ext);
+		}
+
+		// handle sharp error
+		s1.on('error', function (err) {
+			reject(err);
+		});
+
+		// save processed image
+		var s2 = writeStream(input.path + '-' + input.name + '.' + input.ext);
+
+		// pipe raw image to sharp, pipe sharp output to file
+		var p = input.file.pipe(s1).pipe(s2); 
+
+		p.on('error', function (err) {
+			reject(err);
+		});
+
+		p.on('finish', function () {
+			resolve(1);
+		});
 	});
+};
 
-	// pipe stream to sharp
-	input.file.pipe(s1);
+/**
+ * Read image stream, save to file
+ *
+ * @param   Object   input  { file, path, ext }
+ * @return  Promise
+ */
+function saveImage(input) {
+	return new Promise(function (resolve, reject) {
+		var s1 = writeStream(input.path + '.' + input.ext);
 
-	// now process image
-	var size = sizes[input.name];
+		// pipe raw image to file
+		var p = input.file.pipe(s1);
 
-	// crop to square image
-	if (input.name.substr(0, 2) === 'sq') {
-		return s1.limitInputPixels(input.limit)
-			.resize(size, size)
-			.quality(95)
-			.toFormat(input.ext)
-			.toFile(input.path + '-' + input.name + '.' + input.ext);
-	// resize to thumbnail image
-	} else if (input.name.substr(0, 2) === 'th') {
-		return s1.limitInputPixels(input.limit)
-			.resize(size, size)
-			.max()
-			.quality(95)
-			.toFormat(input.ext)
-			.toFile(input.path + '-' + input.name + '.' + input.ext);
-	// crop to exact rectangle image
-	} else {
-		return s1.limitInputPixels(input.limit)
-			.resize(size[0], size[1])
-			.quality(95)
-			.toFormat(input.ext)
-			.toFile(input.path + '-' + input.name + '.' + input.ext);
-	}
+		p.on('error', function (err) {
+			reject(err);
+		});
+
+		p.on('finish', function () {
+			resolve(1);
+		});
+	});
 };
