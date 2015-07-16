@@ -122,11 +122,9 @@ function *middleware(next) {
 
 	// STEP 5: read cache (new size) and create image
 	if (ext) {
-		var raw = readStream(path + '.' + ext);
 		try {
 			yield createImage({
-				file: raw
-				, name: input.size
+				name: input.size
 				, path: path
 				, ext: ext
 				, limit: config.size
@@ -219,10 +217,8 @@ function *middleware(next) {
 		yield fs.writeFile(path + '.metadata', ext);
 
 		// process raw image
-		var raw = readStream(path + '.' + ext);
 		yield createImage({
-			file: raw
-			, name: input.size
+			name: input.size
 			, path: path
 			, ext: ext
 			, limit: config.size
@@ -247,11 +243,17 @@ function *middleware(next) {
 /**
  * Read image stream, create a new image, save to file
  *
- * @param   Object   input  { file, name, path, ext, limit }
+ * @param   Object   input  { name, path, ext, limit }
  * @return  Promise
  */
 function createImage(input) {
 	return new Promise(function (resolve, reject) {
+		var raw = readStream(input.path + '.' + input.ext);
+
+		raw.on('error', function (err) {
+			reject(err);
+		});
+
 		var s1 = sharp();
 
 		// now process image
@@ -290,7 +292,7 @@ function createImage(input) {
 		var s2 = writeStream(input.path + '-' + input.name + '.' + input.ext);
 
 		// pipe raw image to sharp, pipe sharp output to file
-		var p = input.file.pipe(s1).pipe(s2); 
+		var p = raw.pipe(s1).pipe(s2);
 
 		p.on('error', function (err) {
 			reject(err);
