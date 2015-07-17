@@ -24,10 +24,12 @@ module.exports = template;
 function template(data) {
 	var section_title_1 = sectionTitleTemplate({
 		title: 'section.titles.featured-clubs'
+		, key: 'featured-clubs'
 	});
 
 	var section_title_2 = sectionTitleTemplate({
 		title: 'section.titles.featured-posts'
+		, key: 'featured-posts'
 	});
 
 	// TODO: avoid opts workaround
@@ -46,6 +48,7 @@ function template(data) {
 
 	var load_more = loadButtonTemplate({
 		title: 'section.load.featured-post'
+		, key: 'load-button'
 	});
 
 	var home = $('div.page-content', [

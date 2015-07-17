@@ -18,7 +18,10 @@ module.exports = template;
  * @return  VNode
  */
 function template(data, opts) {
-	var clubOpt = {};
+	var clubOpt = {
+		id: data.slug
+		, key: data.slug
+	};
 
 	if (opts.num === 0) {
 		clubOpt.className = 'section-inset';

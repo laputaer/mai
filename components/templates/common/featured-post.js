@@ -23,9 +23,8 @@ module.exports = template;
  */
 function template(data, opts) {
 	var postOpt = {
-		attributes: {
-			'data-id': data.pid
-		}
+		id: data.pid
+		, key: data.pid
 	};
 
 	var image, link, title, user, club, heart;

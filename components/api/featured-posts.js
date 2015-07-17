@@ -47,10 +47,16 @@ function *middleware(next) {
 	var config = this.config;
 	var state = this.state;
 
+	var post_pids = config.showcase.posts;
+
+	if (!next) {
+		post_pids = post_pids.slice(0, 3);
+	}
+
 	// STEP 2: get featured posts
 	var featured_posts = yield clubsDomain.getFeaturedPosts({
 		db: this.db
-		, pids: config.showcase.posts
+		, pids: post_pids
 	});
 
 	// STEP 3: get complementary user and club info

@@ -41,10 +41,16 @@ function *middleware(next) {
 	var config = this.config;
 	var state = this.state;
 
+	var club_slugs = config.showcase.clubs;
+
+	if (!next) {
+		club_slugs = club_slugs.slice(0, 3);
+	}
+
 	// STEP 2: get featured clubs
 	var featured_clubs = yield clubsDomain.getFeaturedClubs({
 		db: this.db
-		, slugs: config.showcase.clubs
+		, slugs: club_slugs
 	});
 
 	// STEP 3: filter output
