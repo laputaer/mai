@@ -18,7 +18,7 @@ var api = {
 	}
 	, home: {
 		featured_clubs: '/featured/clubs'
-		, featured_clubs: '/featured/posts'
+		, featured_posts: '/featured/posts'
 	}
 	, help: {}
 };
