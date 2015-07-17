@@ -30,16 +30,18 @@ function template(data) {
 		title: 'section.titles.featured-posts'
 	});
 
+	// TODO: avoid opts workaround
 	var featured_clubs = data.featured_clubs.map(function(club, i) {
-		club.num = i;
-		return clubTemplate(club);
+		var opts = {};
+		opts.num = i;
+		return clubTemplate(club, opts);
 	});
 
 	var featured_posts = data.featured_posts.map(function(post, i) {
-		post.num = i;
-		post.version = data.version.asset;
-		post.base_url = data.base_url;
-		return postTemplate(post);
+		var opts = {};
+		opts.num = i;
+		opts.version = data.version.asset;
+		return postTemplate(post, opts);
 	});
 
 	var load_more = loadButtonTemplate({

@@ -32,7 +32,7 @@ function template(data) {
 	}
 
 	// button icon
-	if (data.icon && data.base_url && data.version) {
+	if (data.icon && data.version) {
 		icon = $('svg', {
 			'class': 'm-icon'
 		}, [
@@ -43,12 +43,12 @@ function template(data) {
 	}
 
 	// button text
-	if (data.text) {
+	if (data.text !== undefined) {
 		text = $('span.m-text', i18n.t(data.text));
 	}
 
 	// button value
-	if (data.value) {
+	if (data.value !== undefined) {
 		text = $('span.m-text', data.value);
 	}
 
