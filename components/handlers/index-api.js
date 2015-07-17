@@ -8,5 +8,6 @@
 module.exports = {
 	getCurrentUser: require('./api-current-user')
 	, getGlobalConfig: require('./api-global-config')
-	, getLatestPosts: require('./api-latest-posts')
+	, getFeaturedClubs: require('./api-featured-clubs')
+	, getFeaturedPosts: require('./api-featured-posts')
 };

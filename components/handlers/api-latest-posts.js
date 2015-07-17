@@ -1,6 +1,6 @@
 
 /**
- * api-latest-posts.js
+ * api-latest-posts.js (deprecated)
  *
  * Koa route handler for index page
  */

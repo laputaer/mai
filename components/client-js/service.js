@@ -16,7 +16,10 @@ var api = {
 		user: '/user'
 		, global: '/global'
 	}
-	, home: {}
+	, home: {
+		featured_clubs: '/featured/clubs'
+		, featured_clubs: '/featured/posts'
+	}
 	, help: {}
 };
 
