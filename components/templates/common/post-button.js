@@ -22,6 +22,7 @@ function template(data) {
 	buttonOpt = {
 		href: data.href || '#'
 		, className: data.className || ''
+		, title: data.title || undefined
 	};
 
 	// button events

@@ -5,11 +5,15 @@
  * API for getting featured clubs
  */
 
-var normalize = require('../security/normalization');
 var getStandardJson = require('../helpers/get-standard-json');
+var filterAttributes = require('../helpers/filter-attributes');
 var i18n = require('../templates/i18n')();
 var clubsDomain = require('../domains/clubs');
 var proxyUrl = require('../security/proxy');
+
+var filter_output = [
+	'slug', 'title', 'image', 'intro'
+];
 
 module.exports = factory;
 
@@ -29,7 +33,9 @@ function factory() {
  * @return  Void
  */
 function *middleware(next) {
-	yield next;
+	if (next) {
+		yield next;
+	}
 
 	// STEP 1: prepare common data
 	var config = this.config;
@@ -41,21 +47,26 @@ function *middleware(next) {
 		, slugs: config.showcase.clubs
 	});
 
+	// STEP 3: filter output
 	featured_clubs = featured_clubs.map(function (club) {
-		if (club.embed && Array.isArray(club.embed.image) && club.embed.image.length > 0) {
-			var image = club.embed.image[0];
-			club.image = proxyUrl({
-				url: image.secure_url || image.url
-				, key: config.proxy.key
-				, base: state.image_base_url
-			});
+		if (club.embed) {
+			// thumbnail
+			if (Array.isArray(club.embed.image) && club.embed.image.length > 0) {
+				var image = club.embed.image[0];
+				club.image = proxyUrl({
+					url: image.secure_url || image.url
+					, key: config.proxy.key
+					, base: state.image_base_url
+				});
+			}
 		}
 
-		return club;
+		return filterAttributes(club, filter_output);
 	});
 
-	// STEP 3: filter data
-	//var user = normalize(this.state.user, 'outputUser');
+	if (!next) {
+		return featured_clubs;
+	}
 
 	// STEP 4: output json
 	this.state.json = getStandardJson(featured_clubs);

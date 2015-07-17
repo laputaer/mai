@@ -55,6 +55,7 @@ function template(data) {
 			, className: 'rounded internal'
 			, text: data.user_login
 			, icon: data.user_avatar
+			, title: data.user_name
 		});
 	}
 
@@ -64,6 +65,7 @@ function template(data) {
 			, className: 'rounded internal'
 			, text: data.club_name
 			, icon: data.club_image
+			, title: data.club_intro
 		});
 	}
 
@@ -79,12 +81,12 @@ function template(data) {
 	});
 
 	link = $('p.link', $('a', {
-		href: data.embed.url
+		href: data.url
 		, target: '_blank'
-		, title: data.embed.title
+		, title: data.doc_title
 	}, data.domain));
 
-	title = $('p.title', data.title || data.embed.title);
+	title = $('p.title', data.title || data.doc_title);
 
 	var post = $('div.featured-post', postOpt, [
 		$('div.wrapper', [

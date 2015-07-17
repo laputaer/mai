@@ -17,7 +17,7 @@ var proxyUrl = require('../security/proxy');
 var filter_output = [
 	'pid', 'title', 'summary'
 	, 'user', 'user_name', 'user_login', 'user_avatar'
-	, 'club', 'club_name', 'club_image'
+	, 'club', 'club_name', 'club_image', 'club_intro'
 	, 'domain', 'url', 'image', 'doc_title'
 ];
 
@@ -113,6 +113,7 @@ function *middleware(next) {
 
 		// club info
 		post.club_name = temp_clubs[slug].title;
+		post.club_intro = temp_clubs[slug].intro;
 		if (temp_clubs[slug].embed
 			&& Array.isArray(temp_clubs[slug].embed.image)
 			&& temp_clubs[slug].embed.image.length > 0
