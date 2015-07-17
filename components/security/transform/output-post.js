@@ -1,6 +1,6 @@
 
 /**
- * output-post.js
+ * output-post.js (deprecated)
  *
  * Post output object transform function
  */

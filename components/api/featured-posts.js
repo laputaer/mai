@@ -39,7 +39,9 @@ function factory() {
  * @return  Void
  */
 function *middleware(next) {
-	yield next;
+	if (next) {
+		yield next;
+	}
 
 	// STEP 1: prepare common data
 	var config = this.config;
@@ -126,6 +128,10 @@ function *middleware(next) {
 		// filter output
 		return filterAttributes(post, filter_output);
 	});
+
+	if (!next) {
+		return featured_posts;
+	}
 
 	// STEP 5: output json
 	this.state.json = getStandardJson(featured_posts);

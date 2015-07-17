@@ -9,7 +9,7 @@ var router = require('koa-router')();
 var handlers = require('./handlers/index');
 
 var apiRouter = require('koa-router')();
-var apiHandlers = require('./handlers/index-api');
+var apiHandlers = require('./api/index');
 
 module.exports = myRouter;
 
