@@ -21,6 +21,9 @@ var api = {
 		, featured_posts: '/featured/posts'
 	}
 	, help: {}
+	, 'featured_posts': {
+		endpoint: '/featured/posts'
+	}
 };
 
 module.exports = Service;

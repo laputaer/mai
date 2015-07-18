@@ -131,3 +131,29 @@ App.prototype.ready = function(state) {
 App.prototype.isReady = function() {
 	return this.ready_flag;
 };
+
+/**
+ * Load data from backend and push onto app store and update view
+ *
+ * @param   String   name  Backend service
+ * @return  Promise
+ */
+App.prototype.load = function(name) {
+	var self = this;
+
+	// match current route
+	var route = router(self.model.get());
+	if (!route) {
+		return Promise.resolve(null);
+	}
+
+	// contact backend service
+	return self.service.fetch(name).then(function(data) {
+		if (data.endpoint.ok) {
+			// update data store
+			self.model.push(name, data.endpoint.data);
+			// update view using current model
+			self.renderer.update(route, self.model.get());
+		}
+	});
+};

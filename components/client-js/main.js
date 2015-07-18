@@ -65,5 +65,6 @@ emitter.on('page:load:post', function() {
 
 	var count = app.read(['ui', 'load_post']) || 0;
 	app.modify(['ui', 'load_post'], count + 10);
-	app.refresh();
+
+	app.load('featured_posts');
 });

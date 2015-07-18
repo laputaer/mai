@@ -123,3 +123,27 @@ Model.prototype.get = function(path) {
 
 	throw new Error('get: invalid path');
 };
+
+/**
+ * Push data onto an array in store
+ *
+ * @param   Mixed   path  Store key path
+ * @param   Mixed   data  New data
+ * @return  Object        Immutable object
+ */
+Model.prototype.push = function(path, data) {
+	var arr;
+	if (getVarType(path) === 'String') {
+		arr = this.store[path];
+	} else if (getVarType(path) === 'Array') {
+		arr = I.getIn(this.store, path);
+	} else {
+		throw new Error('push: invalid path');
+	}
+
+	if (!Array.isArray(arr)) {
+		throw new Error('push: data on path is not an array');
+	}
+
+	this.set(path, I.push(arr, data));
+};
