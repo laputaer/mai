@@ -24,6 +24,7 @@ module.exports = {
 	, loadButton: require('./load-button')
 	, login: require('./login')
 	, menu: require('./menu')
+	, navigationButton: require('./navigation-button')
 	, placeholder: require('./placeholder')
 	, postButton: require('./post-button')
 	, preview: require('./preview')

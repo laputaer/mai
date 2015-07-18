@@ -9,7 +9,7 @@ var router = require('koa-router')();
 var handlers = require('./handlers/index');
 
 var apiRouter = require('koa-router')();
-var apiHandlers = require('./handlers/index-api');
+var apiHandlers = require('./api/index');
 
 module.exports = myRouter;
 
@@ -56,7 +56,8 @@ function myRouter(app) {
 	// api routes
 	apiRouter.get('/user', apiHandlers.getCurrentUser());
 	apiRouter.get('/global', apiHandlers.getGlobalConfig());
-	apiRouter.get('/posts', apiHandlers.getLatestPosts());
+	apiRouter.get('/featured/clubs', apiHandlers.getFeaturedClubs());
+	apiRouter.get('/featured/posts', apiHandlers.getFeaturedPosts());
 
 	// mount api routes to main router
 	router.use('/api/v1', apiRouter.routes());

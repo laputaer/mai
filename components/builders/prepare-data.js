@@ -39,6 +39,8 @@ function prepareData(ctx) {
 	data.inline_js = ctx.state.inline_js;
 	// environment
 	data.production = ctx.state.production;
+	// client-side ui state
+	data.ui = {};
 	// doc.head content
 	data.head = [];
 	// doc.body content

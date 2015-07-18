@@ -22,9 +22,8 @@ module.exports = template;
  */
 function template(data) {
 	var postOpt = {
-		attributes: {
-			'data-id': data.pid
-		}
+		id: data.pid
+		, key: data.pid
 	};
 
 	var image, link, title, user, club, heart;
@@ -55,6 +54,7 @@ function template(data) {
 			, className: 'rounded internal'
 			, text: data.user_login
 			, icon: data.user_avatar
+			, title: data.user_name
 		});
 	}
 
@@ -64,6 +64,7 @@ function template(data) {
 			, className: 'rounded internal'
 			, text: data.club_name
 			, icon: data.club_image
+			, title: data.club_intro
 		});
 	}
 
@@ -73,18 +74,17 @@ function template(data) {
 		, value: data.heart || '0'
 		, icon: 'heart'
 		, version: data.version
-		, base_url: data.base_url
 		, eventName: 'ev-click'
 		, eventHandler: emitter.capture('page:heart', data.pid)
 	});
 
 	link = $('p.link', $('a', {
-		href: data.embed.url
+		href: data.url
 		, target: '_blank'
-		, title: data.embed.title
+		, title: data.doc_title
 	}, data.domain));
 
-	title = $('p.title', data.title || data.embed.title);
+	title = $('p.title', data.title || data.doc_title);
 
 	var post = $('div.featured-post', postOpt, [
 		$('div.wrapper', [

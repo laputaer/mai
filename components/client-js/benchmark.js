@@ -52,14 +52,14 @@ function Benchmark(active) {
 		this.last = current;
 	};
 
-	this.patchFilter = function(data, type) {
+	this.patchFilter = function(data) {
 		if (!this.active) {
 			return;
 		}
 
 		var output = {};
 		for (var p in data) {
-			if (data.hasOwnProperty(p) && data[p] && data[p].type === type) {
+			if (data.hasOwnProperty(p) && data[p] && data[p].type !== 4) {
 				output[p] = data[p];
 			}
 		};

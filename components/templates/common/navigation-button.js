@@ -1,11 +1,12 @@
 
 /**
- * post-button.js
+ * navigation-button.js
  *
- * Template for default post buttons
+ * Template for default navigation button
  */
 
 var $ = require('../vdom');
+var i18n = require('../i18n')();
 
 module.exports = template;
 
@@ -16,13 +17,12 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var avatar, text, buttonOpt;
+	var icon, text, buttonOpt;
 
 	// button options
 	buttonOpt = {
 		href: data.href || '#'
 		, className: data.className || ''
-		, title: data.title || undefined
 	};
 
 	// button events
@@ -31,15 +31,21 @@ function template(data) {
 	}
 
 	// button icon
-	avatar = $('div.m-icon.m-avatar', {
-		style: {
-			'background-image': 'url(' + data.icon + '&size=sq-tiny)'
-		}
-	});
+	if (data.icon && data.version) {
+		icon = $('svg', {
+			'class': 'm-icon'
+		}, [
+			$('use', {
+				'xlink:href': '/assets/icons.svg?' + data.version + '#' + data.icon
+			})
+		]);
+	}
 
 	// button text
-	text = $('span.m-text', data.text);
+	if (data.text !== undefined) {
+		text = $('span.m-text', i18n.t(data.text));
+	}
 
-	var button = $('a.m-button', buttonOpt, [ avatar, text ]);
+	var button = $('a.m-button', buttonOpt, [ icon, text ]);
 	return button;
 };

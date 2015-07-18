@@ -17,7 +17,14 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var title = $('div.page-section-title', $('div.wrapper', [
+	var sectionOpts = {};
+
+	if (data.key) {
+		sectionOpts.id = data.key;
+		sectionOpts.key = data.key;
+	}
+
+	var title = $('div.page-section-title', sectionOpts, $('div.wrapper', [
 		$('h2.title', i18n.t(data.title))
 	]));
 

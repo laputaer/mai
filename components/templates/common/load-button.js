@@ -17,11 +17,23 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var load = $('div.page-load-button', $('div.wrapper', [
-		$('a', {
-			href: '#'
-		}, i18n.t(data.title))
-	]));
+	var buttonOpts = {};
+
+	if (data.key) {
+		buttonOpts.id = data.key;
+		buttonOpts.key = data.key;
+	}
+
+	var linkOpts = {
+		href: '#'
+	};
+
+	// button events
+	if (data.eventName && data.eventHandler) {
+		linkOpts[data.eventName] = data.eventHandler;
+	}
+
+	var load = $('div.page-load-button', buttonOpts, $('a.wrapper', linkOpts, i18n.t(data.title)));
 
 	return load;
 };

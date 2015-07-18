@@ -16,8 +16,14 @@ var api = {
 		user: '/user'
 		, global: '/global'
 	}
-	, home: {}
+	, home: {
+		featured_clubs: '/featured/clubs'
+		, featured_posts: '/featured/posts'
+	}
 	, help: {}
+	, 'featured_posts': {
+		endpoint: '/featured/posts'
+	}
 };
 
 module.exports = Service;
@@ -56,13 +62,31 @@ Service.prototype.sync = function(name) {
  * Fetch backend in parallel
  *
  * @param   String   name  API name
+ * @param   Object   opts  Optional parameters
  * @return  Promise
  */
-Service.prototype.fetch = function(name) {
+Service.prototype.fetch = function(name, opts) {
+	opts = opts || {};
+
 	var endpoint = api[name];
 	var results = {};
 	var fetches = [];
+	var queries = '';
 
+	// build query string
+	for (var query in opts) {
+		if (!opts.hasOwnProperty(query)) {
+			continue;
+		}
+
+		if (!queries) {
+			queries += '?' + query + '=' + opts[query];
+		} else {
+			queries += '&' + query + '=' + opts[query];
+		}
+	}
+
+	// make request
 	for (var prop in endpoint) {
 		if (!endpoint.hasOwnProperty(prop)) {
 			continue;
@@ -70,7 +94,7 @@ Service.prototype.fetch = function(name) {
 
 		// send cookie
 		// TODO: investigate auth token
-		var f = fetch(prefix + endpoint[prop], {
+		var f = fetch(prefix + endpoint[prop] + queries, {
 			credentials: 'same-origin'
 		});
 

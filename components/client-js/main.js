@@ -40,11 +40,37 @@ function init() {
 };
 
 // event handlers
-emitter.on('page:nav', function() {
+emitter.on('page:nav:open', function() {
 	if (!app.isReady()) {
 		return;
 	}
 
 	app.modify(['ui', 'nav'], true);
 	app.refresh();
+});
+
+emitter.on('page:nav:close', function() {
+	if (!app.isReady()) {
+		return;
+	}
+
+	app.modify(['ui', 'nav'], false);
+	app.refresh();
+});
+
+emitter.on('page:load:post', function() {
+	if (!app.isReady()) {
+		return;
+	}
+
+	var count = app.read(['ui', 'load_post']) || 0;
+	count += 10;
+	app.modify(['ui', 'load_post'], count);
+
+	app.load('featured_posts', {
+		query: {
+			skip: count
+		}
+		, key: 'pid'
+	});
 });

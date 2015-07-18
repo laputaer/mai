@@ -17,7 +17,10 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var clubOpt = {};
+	var clubOpt = {
+		id: data.slug
+		, key: data.slug
+	};
 
 	if (data.num === 0) {
 		clubOpt.className = 'section-inset';
@@ -37,7 +40,10 @@ function template(data) {
 	}
 
 	var club = $('div.featured-club.lazyload', clubOpt, $('div.wrapper', [
-		$('h1.title', $('a', { href: '/c/' + data.slug }, data.title))
+		$('h1.title', $('a', {
+			href: '/c/' + data.slug
+			, title: data.intro
+		}, data.title))
 	]));
 
 	return club;
