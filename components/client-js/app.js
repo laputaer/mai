@@ -136,9 +136,10 @@ App.prototype.isReady = function() {
  * Load data from backend and push onto app store and update view
  *
  * @param   String   name  Backend service
+ * @param   Object   opts  Optional parameters
  * @return  Promise
  */
-App.prototype.load = function(name) {
+App.prototype.load = function(name, opts) {
 	var self = this;
 
 	// match current route
@@ -148,10 +149,10 @@ App.prototype.load = function(name) {
 	}
 
 	// contact backend service
-	return self.service.fetch(name).then(function(data) {
+	return self.service.fetch(name, opts.query).then(function(data) {
 		if (data.endpoint.ok) {
 			// update data store
-			self.model.push(name, data.endpoint.data);
+			self.model.append(name, data.endpoint.data, opts.key);
 			// update view using current model
 			self.renderer.update(route, self.model.get());
 		}

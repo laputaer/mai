@@ -125,25 +125,48 @@ Model.prototype.get = function(path) {
 };
 
 /**
- * Push data onto an array in store
+ * Append data onto an array in store, prevent duplicate
  *
  * @param   Mixed   path  Store key path
  * @param   Mixed   data  New data
+ * @param   String  key   Key name for duplicate detection
  * @return  Object        Immutable object
  */
-Model.prototype.push = function(path, data) {
+Model.prototype.append = function(path, data, key) {
+	// make existing data array
 	var arr;
 	if (getVarType(path) === 'String') {
 		arr = this.store[path];
 	} else if (getVarType(path) === 'Array') {
 		arr = I.getIn(this.store, path);
 	} else {
-		throw new Error('push: invalid path');
+		throw new Error('append: invalid path');
 	}
 
 	if (!Array.isArray(arr)) {
-		throw new Error('push: data on path is not an array');
+		throw new Error('append: data on path is not an array');
 	}
 
-	this.set(path, I.push(arr, data));
+	// find duplicate
+	var pos;
+	if (key) {
+		arr.some(function (item, i) {
+			if (item.hasOwnProperty(key)
+				&& data.hasOwnProperty(key)
+				&& item[key] === data[key])
+			{
+				pos = i;
+				return true;
+			}
+			return false;
+		});
+	}
+
+	// append value or update existing value
+	if (pos !== undefined) {
+		this.set(path, I.push(arr, data));
+	} else {
+		var new_path = typeof path === 'string' ? [path, pos] : path.concat(pos);
+		this.set(new_path, data);
+	}
 };
