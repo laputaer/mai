@@ -100,6 +100,7 @@
 	&.footer {
 		color: @color-white;
 		border-color: transparent;
+		border-radius: 0;
 		background-color: fadeout(@color-black, 80%);
 
 		&:hover, &:focus {
@@ -112,6 +113,60 @@
 
 		&.active {
 			color: @color-yellow-light;
+		}
+	}
+
+	&.secondary {
+		border-color: transparent;
+		border-radius: 0;
+		padding: 0;
+		.size(20);
+	}
+
+	&.discover {
+		color: @color-white;
+		border-color: transparent;
+		border-radius: 0;
+		padding: 0;
+
+		font-weight: 700;
+		line-height: 32px;
+		.size(36);
+
+		.m-icon {
+			width: 32px;
+			height: 32px;
+			margin-right: 8px;
+		}
+
+		&.home {
+			.m-icon {
+				fill: @color-blue-light;
+			}
+		}
+
+		&.club {
+			.m-icon {
+				fill: @color-yellow-light;
+			}
+		}
+
+		&.login {
+			.m-icon {
+				fill: @color-red-light;
+			}
+		}
+
+		&.ranking {
+			.m-icon {
+				fill: @color-green-light;
+			}
+		}
+
+		&.help{
+			.m-icon {
+				fill: @color-gray-dark;
+			}
 		}
 	}
 }

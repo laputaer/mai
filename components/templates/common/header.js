@@ -24,12 +24,11 @@ function template(data) {
 	var discoverButton = buttonTemplate({
 		href: '#'
 		, className: 'rounded header'
-		, text: 'menu.nav.toggle'
+		, text: 'menu.nav.discover'
 		, icon: 'compass'
 		, version: data.version.asset
-		, base_url: data.base_url
 		, eventName: 'ev-click'
-		, eventHandler: emitter.capture('page:nav')
+		, eventHandler: emitter.capture('page:nav:open')
 	});
 
 	var clubOpt = {
@@ -38,7 +37,6 @@ function template(data) {
 		, text: 'menu.nav.club'
 		, icon: 'share'
 		, version: data.version.asset
-		, base_url: data.base_url
 	};
 	if (data.current_path === clubOpt.href) {
 		clubOpt.className += ' active';
@@ -51,7 +49,6 @@ function template(data) {
 		, text: 'menu.nav.ranking'
 		, icon: 'graph_rising'
 		, version: data.version.asset
-		, base_url: data.base_url
 	};
 	if (data.current_path === rankingOpt.href) {
 		rankingOpt.className += ' active';
@@ -64,7 +61,6 @@ function template(data) {
 		, text: 'menu.nav.help'
 		, icon: 'life_buoy'
 		, version: data.version.asset
-		, base_url: data.base_url
 	};
 	if (data.current_path === helpOpt.href) {
 		helpOpt.className += ' active';
@@ -86,7 +82,6 @@ function template(data) {
 			, text: 'menu.nav.login'
 			, icon: 'upload'
 			, version: data.version.asset
-			, base_url: data.base_url
 		});
 	}
 

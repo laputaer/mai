@@ -20,7 +20,7 @@ module.exports = {
 			, 'club': '我的社团'
 			, 'ranking': '排行榜'
 			, 'help': '使用指南'
-			, 'toggle': '导航'
+			, 'discover': '导航'
 			, 'login': '登录'
 			, 'login-alt': '加入我们'
 		}
