@@ -89,16 +89,28 @@ App.prototype.refresh = function() {
 };
 
 /**
+ * Read app state
+ *
+ * @param   Mixed   path  Store key path
+ * @return  Object
+ */
+App.prototype.read = function(path) {
+	var self = this;
+
+	return self.model.get(path);
+};
+
+/**
  * Modify app state
  *
- * @param   Mixed  path  Store key path
- * @param   Mixed  data  New data
- * @return  Void
+ * @param   Mixed   path  Store key path
+ * @param   Mixed   data  New data
+ * @return  Object
  */
 App.prototype.modify = function(path, data) {
 	var self = this;
 
-	self.model.set(path, data);
+	return self.model.set(path, data);
 };
 
 /**

@@ -24,11 +24,16 @@ function template(data) {
 		buttonOpts.key = data.key;
 	}
 
-	var load = $('div.page-load-button', buttonOpts, $('div.wrapper', [
-		$('a', {
-			href: '#'
-		}, i18n.t(data.title))
-	]));
+	var linkOpts = {
+		href: '#'
+	};
+
+	// button events
+	if (data.eventName && data.eventHandler) {
+		linkOpts[data.eventName] = data.eventHandler;
+	}
+
+	var load = $('div.page-load-button', buttonOpts, $('a.wrapper', linkOpts, i18n.t(data.title)));
 
 	return load;
 };

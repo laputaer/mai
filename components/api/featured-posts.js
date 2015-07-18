@@ -50,7 +50,7 @@ function *middleware(next) {
 	var post_pids = config.showcase.posts;
 
 	if (!next) {
-		post_pids = post_pids.slice(0, 3);
+		post_pids = post_pids.slice(0, 5);
 	}
 
 	// STEP 2: get featured posts

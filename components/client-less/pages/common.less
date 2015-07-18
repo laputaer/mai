@@ -360,11 +360,12 @@
 .page-load-button {
 	width: 100%;
 	padding: 15px;
+	color: @color-white;
 	box-sizing: border-box;
 	overflow: hidden;
 
 	.wrapper {
-		color: @color-white;
+		display: block;
 		width: 100%;
 		padding: 15px 0;
 		box-sizing: border-box;
@@ -378,10 +379,7 @@
 		line-height: 1em;
 		font-weight: 400;
 		.size(20);
-
-		a {
-			.link-alt(@color-yellow-light);
-		}
+		.link-alt(@color-yellow-light);
 	}
 
 	@media @x2 {

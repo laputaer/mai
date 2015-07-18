@@ -14,16 +14,15 @@ module.exports = template;
  * Template defines html structure
  *
  * @param   Object  data  From renderer
- * @param   Object  opts  Global data for rendering
  * @return  VNode
  */
-function template(data, opts) {
+function template(data) {
 	var clubOpt = {
 		id: data.slug
 		, key: data.slug
 	};
 
-	if (opts.num === 0) {
+	if (data.num === 0) {
 		clubOpt.className = 'section-inset';
 	}
 

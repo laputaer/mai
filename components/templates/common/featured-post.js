@@ -18,10 +18,9 @@ module.exports = template;
  * Template defines html structure
  *
  * @param   Object  data  From renderer
- * @param   Object  opts  Global data for rendering
  * @return  VNode
  */
-function template(data, opts) {
+function template(data) {
 	var postOpt = {
 		id: data.pid
 		, key: data.pid
@@ -29,7 +28,7 @@ function template(data, opts) {
 
 	var image, link, title, user, club, heart;
 
-	if (opts.num === 0) {
+	if (data.num === 0) {
 		postOpt.className = 'section-inset';
 	}
 
@@ -74,7 +73,7 @@ function template(data, opts) {
 		, className: 'rounded action'
 		, value: data.heart || '0'
 		, icon: 'heart'
-		, version: opts.version
+		, version: data.version
 		, eventName: 'ev-click'
 		, eventHandler: emitter.capture('page:heart', data.pid)
 	});
