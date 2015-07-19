@@ -23,22 +23,18 @@ function template(data) {
 		id: 'footer'
 		, key: 'footer'
 		, className: 'page-footer'
-	}
-
-	var imageOpts = {
-		src: data.base_url + '/images/footer-320.jpg'
-		, alt: ''
 		, attributes: {
-			'data-srcset': data.base_url + '/images/footer-320.jpg 320w, '
+			'data-bgset': data.base_url + '/images/footer-320.jpg 320w, '
 				+ data.base_url + '/images/footer-640.jpg 640w, '
 				+ data.base_url + '/images/footer-960.jpg 960w, '
 				+ data.base_url + '/images/footer-1280.jpg 1280w'
 			, 'data-sizes': 'auto'
-			, role: 'presentation'
 		}
-	};
+		, style: {
+			'background-image': 'url(' + data.base_url + '/images/footer-320.jpg)'
+		}
+	}
 
-	var heroImage = $('img.lazyload', imageOpts);
 	var tagline = $('p.tagline', i18n.t('common.tagline-alt'));
 
 	var loginButton = buttonTemplate({
@@ -67,9 +63,7 @@ function template(data) {
 		href: '/terms'
 	}, i18n.t('menu.footer.terms'));
 
-	var footer = $('div', footerOpts, [
-		$('div.image', heroImage)
-		, $('div.wrapper', [
+	var footer = $('div', footerOpts, $('div.wrapper', [
 			tagline
 			, loginButton
 			, $('ul.navigation', [
@@ -78,8 +72,7 @@ function template(data) {
 				, $('li.item', privacyLink)
 				, $('li.item', termsLink)
 			])
-		])
-	]);
+	]));
 
 	return footer;
 };
