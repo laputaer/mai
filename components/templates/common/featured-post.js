@@ -21,32 +21,38 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var postOpt = {
+	var postOpts = {
 		id: data.pid
 		, key: data.pid
+		, className: 'featured-post'
 	};
 
-	var image, link, title, user, club, heart;
-
 	if (data.num === 0) {
-		postOpt.className = 'section-inset';
+		postOpts.className += ' section-inset';
 	}
 
+	var image, user, club;
+
 	if (data.image) {
-		image = $('div.thumbnail.lazyload', {
-			//src: data.image + '&size=100'
-			//, alt: data.title + i18n.t('placeholder.image-preview')
-			attributes: {
-				'data-bgset': data.image + '&size=sq-small 80w, '
+		image = $('img.thumbnail.lazyload', {
+			src: data.image + '&size=sq-small'
+			, alt: data.title + i18n.t('placeholder.image-preview')
+			, attributes: {
+				'data-srcset': data.image + '&size=sq-small 80w, '
 					+ data.image + '&size=sq-medium 100w, '
 					+ data.image + '&size=sq-large 200w'
 				, 'data-sizes': 'auto'
 			}
-			, style: {
-				'background-image': 'url(' + data.image + '&size=sq-small)'
-			}
 		});
 	}
+
+	var link = $('p.link', $('a', {
+		href: data.url
+		, target: '_blank'
+		, title: data.doc_title
+	}, data.domain));
+
+	var title = $('p.title', data.title || data.doc_title);
 
 	if (data.user) {
 		user = postButtonTemplate({
@@ -68,7 +74,7 @@ function template(data) {
 		});
 	}
 
-	heart = buttonTemplate({
+	var heart = buttonTemplate({
 		href: '#'
 		, className: 'rounded action'
 		, value: data.heart || '0'
@@ -78,15 +84,7 @@ function template(data) {
 		, eventHandler: emitter.capture('page:heart', data.pid)
 	});
 
-	link = $('p.link', $('a', {
-		href: data.url
-		, target: '_blank'
-		, title: data.doc_title
-	}, data.domain));
-
-	title = $('p.title', data.title || data.doc_title);
-
-	var post = $('div.featured-post', postOpt, [
+	var post = $('div', postOpts, [
 		$('div.wrapper', [
 			$('div.image-column', image)
 			, $('div.text-column', [

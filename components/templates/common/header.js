@@ -73,7 +73,7 @@ function template(data) {
 			href: '/u/' + data.current_user.uid
 			, className: 'rounded header'
 			, text: data.current_user.login
-			, icon: data.current_user.small_avatar
+			, icon: data.current_user.avatar
 		});
 	} else {
 		userButton = buttonTemplate({

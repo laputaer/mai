@@ -75,11 +75,10 @@ function *middleware(next) {
 	});
 
 	// STEP 5: prepare user data for rendering
-	user.small_avatar = proxyUrl({
+	user.avatar = proxyUrl({
 		url: getAvatarVariant(user, 400)
 		, key: this.config.proxy.key
 		, base: this.state.image_base_url
-		, size: 'sq-tiny'
 	});
 
 	this.state.user = user;

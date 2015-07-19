@@ -20,7 +20,7 @@ function tranform(input) {
 		, provider: input.provider
 		, login: input.login
 		, name: input.name
-		, small_avatar: input.small_avatar
+		, avatar: input.avatar
 	};
 
 	return output;
