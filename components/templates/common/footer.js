@@ -19,6 +19,12 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
+	var footerOpts = {
+		id: 'footer'
+		, key: 'footer'
+		, className: 'page-footer'
+	}
+
 	var imageOpts = {
 		src: data.base_url + '/images/footer-320.jpg'
 		, alt: ''
@@ -61,7 +67,7 @@ function template(data) {
 		href: '/terms'
 	}, i18n.t('menu.footer.terms'));
 
-	var footer = $('div.page-footer', [
+	var footer = $('div', footerOpts, [
 		$('div.image', heroImage)
 		, $('div.wrapper', [
 			tagline

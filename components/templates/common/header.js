@@ -86,7 +86,7 @@ function template(data) {
 	}
 
 	var headerOpts = {
-		id: header
+		id: 'header'
 		, key: 'header'
 		, className: 'page-header'
 	};
