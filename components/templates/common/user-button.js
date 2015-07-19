@@ -30,8 +30,10 @@ function template(data) {
 	}
 
 	// button icon
-	avatar = $('img.m-icon.m-avatar', {
-		src: data.icon
+	avatar = $('div.m-icon.m-avatar', {
+		style: {
+			'background-image': 'url(' + data.icon + '&size=sq-tiny)'
+		}
 	});
 
 	// button text

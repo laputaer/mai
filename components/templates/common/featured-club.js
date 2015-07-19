@@ -20,31 +20,41 @@ function template(data) {
 	var clubOpt = {
 		id: data.slug
 		, key: data.slug
+		, className: 'featured-club'
 	};
 
-	if (data.num === 0) {
-		clubOpt.className = 'section-inset';
-	}
-
-	if (data.image) {
-		clubOpt.attributes = {
-			'data-bgset': data.image + '&size=ls-small 320w, '
+	var imageOpts = {
+		src: data.image + '&size=ls-small'
+		, alt: data.title + i18n.t('placeholder.image-preview')
+		, attributes: {
+			'data-srcset': data.image + '&size=ls-small 320w, '
 				+ data.image + '&size=ls-medium 640w, '
 				+ data.image + '&size=ls-large 960w'
 			, 'data-sizes': 'auto'
-		};
+		}
+	};
 
-		clubOpt.style = {
-			'background-image': 'url(' + data.image + '&size=ls-small)'
-		};
+	var clubImage = $('img.lazyload', imageOpts);
+
+	var wrapperOpts = {
+		className: 'wrapper'
 	}
 
-	var club = $('div.featured-club.lazyload', clubOpt, $('div.wrapper', [
-		$('h1.title', $('a', {
-			href: '/c/' + data.slug
-			, title: data.intro
-		}, data.title))
-	]));
+	if (data.num === 0) {
+		wrapperOpts.className += ' section-inset';
+	}
+
+	var titleLink = $('a', {
+		href: '/c/' + data.slug
+		, title: data.intro
+	}, data.title);
+
+	var club = $('div', clubOpt, [
+		$('div.image', clubImage)
+		, $('div', wrapperOpts, [
+			$('h1.title', titleLink)
+		])
+	]);
 
 	return club;
 };

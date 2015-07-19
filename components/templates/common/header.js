@@ -73,7 +73,7 @@ function template(data) {
 			href: '/u/' + data.current_user.uid
 			, className: 'rounded header'
 			, text: data.current_user.login
-			, icon: data.current_user.small_avatar
+			, icon: data.current_user.avatar
 		});
 	} else {
 		userButton = buttonTemplate({
@@ -85,21 +85,34 @@ function template(data) {
 		});
 	}
 
-	var attrs = {
-		'data-bgset': data.base_url + '/images/header-320.jpg 320w, '
-			+ data.base_url + '/images/header-640.jpg 640w, '
-			+ data.base_url + '/images/header-960.jpg 960w, '
-			+ data.base_url + '/images/header-1280.jpg 1280w'
-		, 'data-sizes': 'auto'
+	var headerOpts = {
+		id: 'header'
+		, key: 'header'
+		, className: 'page-header'
 	};
 
-	var header = $('div.page-header.lazyload#header', {
-		attributes: attrs
-		, key: 'header'
-	}, [
-		$('div.wrapper', [
-			$('h1.title', $('a', { href: '/' }, i18n.t('common.domain')))
-			, $('p.tagline', $('a', { href: '/' }, i18n.t('common.tagline')))
+	var imageOpts = {
+		src: data.base_url + '/images/header-320.jpg'
+		, alt: ''
+		, attributes: {
+			'data-srcset': data.base_url + '/images/header-320.jpg 320w, '
+				+ data.base_url + '/images/header-640.jpg 640w, '
+				+ data.base_url + '/images/header-960.jpg 960w, '
+				+ data.base_url + '/images/header-1280.jpg 1280w'
+			, 'data-sizes': 'auto'
+			, role: 'presentation'
+		}
+	};
+
+	var heroImage = $('img.lazyload', imageOpts);
+	var titleLink = $('a', { href: '/' }, i18n.t('common.domain'));
+	var taglineLink = $('a', { href: '/' }, i18n.t('common.tagline'));
+
+	var header = $('div', headerOpts, [
+		$('div.image', heroImage)
+		, $('div.wrapper', [
+			$('h1.title', titleLink)
+			, $('p.tagline', taglineLink)
 			, $('ul.navigation', [
 				$('li.item', discoverButton)
 				, $('li.item', clubButton)
