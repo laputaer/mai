@@ -23,18 +23,22 @@ function template(data) {
 		, className: 'featured-club'
 	};
 
-	var imageOpts = {
-		src: data.image + '&size=ls-small'
-		, alt: data.title + i18n.t('placeholder.image-preview')
-		, attributes: {
-			'data-srcset': data.image + '&size=ls-small 320w, '
-				+ data.image + '&size=ls-medium 640w, '
-				+ data.image + '&size=ls-large 960w'
-			, 'data-sizes': 'auto'
-		}
-	};
+	var imageOpts, clubImage;
 
-	var clubImage = $('img.lazyload', imageOpts);
+	if (data.image) {
+		imageOpts = {
+			src: data.image + '&size=ls-small'
+			, alt: data.title + i18n.t('placeholder.image-preview')
+			, attributes: {
+				'data-srcset': data.image + '&size=ls-small 320w, '
+					+ data.image + '&size=ls-medium 640w, '
+					+ data.image + '&size=ls-large 960w'
+				, 'data-sizes': 'auto'
+			}
+		};
+
+		clubImage = $('img.lazyload', imageOpts);
+	}
 
 	var wrapperOpts = {
 		className: 'wrapper'
