@@ -26,37 +26,26 @@ function Benchmark(active) {
 	if (!active) {
 		this.start = noop;
 		this.incr = noop;
+		this.patchFilter = noop;
 		return this;
 	}
 
 	this.active = active || false;
 
 	this.start = function(name, data) {
-		if (!this.active) {
-			return;
-		}
-
-		this.first = this.now();
+		this.first = this._now();
 		this.last = this.first;
-		this.debug(name + ': 0ms', data);
+		this._debug(name + ': 0ms', data);
 	};
 
 	this.incr = function(name, data) {
-		if (!this.active) {
-			return;
-		}
-
 		name = name || 'unknown';
-		var current = this.now();
-		this.debug(name + ': +' + Math.round(current - this.last) + 'ms, ' + Math.round(current - this.first) + 'ms', data);
+		var current = this._now();
+		this._debug(name + ': +' + Math.round(current - this.last) + 'ms, ' + Math.round(current - this.first) + 'ms', data);
 		this.last = current;
 	};
 
 	this.patchFilter = function(data) {
-		if (!this.active) {
-			return;
-		}
-
 		var output = {};
 		for (var p in data) {
 			if (data.hasOwnProperty(p) && data[p] && data[p].type !== 4) {
@@ -67,7 +56,7 @@ function Benchmark(active) {
 		return output;
 	};
 
-	this.debug = function() {
+	this._debug = function() {
 		var args = [];
 		for (var i = 0; i < arguments.length; i++) {
 			if (!arguments[i]) {
@@ -79,7 +68,7 @@ function Benchmark(active) {
 		console.debug.apply(console, args);
 	};
 
-	this.now = function() {
+	this._now = function() {
 		if (win.performance) {
 			return win.performance.now();
 		} else {
@@ -87,7 +76,7 @@ function Benchmark(active) {
 		}
 	};
 
-	this.first = this.now();
+	this.first = this._now();
 	this.last = this.first;
 	return this;
 }
