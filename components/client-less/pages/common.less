@@ -6,18 +6,69 @@
 }
 
 .page-header {
-	background-color: #355C7E;
-	background-image: url(/images/header-320.jpg);
-	.background-cover();
-
 	width: 100%;
 	height: 130px;
 	overflow: hidden;
+	position: relative;
+	background-color: #355C7E;
+
+	.image {
+		.overlay();
+
+		img {
+			position: relative;
+			display: block;
+		}
+
+		@media @supported {
+			img {
+				height: 100%;
+			}
+		}
+
+		@media screen and (min-width: 320px) {
+			img {
+				width: 100%;
+				height: auto;
+			}
+		}
+
+		@media @tablet {
+			img {
+				top: -20px;
+			}
+		}
+
+		@media @tablet-medium {
+			img {
+				top: -40px;
+			}
+		}
+
+		@media @monitor-small {
+			img {
+				top: -80px;
+			}
+		}
+
+		@media @monitor-medium {
+			img {
+				top: -120px;
+			}
+		}
+
+		@media @monitor-large {
+			img {
+				top: 0;
+			}
+		}
+	}
 
 	.wrapper {
 		max-width: 1200px;
 		margin: 0 auto;
 		position: relative;
+		z-index: 1;
 		overflow: hidden;
 	}
 
@@ -76,12 +127,7 @@
 		display: none;
 	}
 
-	@media @mobile {
-		background-position: 50% 40%;
-	}
-
 	@media @tablet {
-		background-image: url(/images/header-640.jpg);
 		height: 150px;
 
 		.navigation, .login {
@@ -98,7 +144,6 @@
 	}
 
 	@media @tablet-medium {
-		background-position: 50% 32%;
 		height: 180px;
 
 		.navigation, .login {
@@ -128,7 +173,6 @@
 	}
 
 	@media @tablet-large {
-		background-image: url(/images/header-960.jpg);
 		height: 240px;
 
 		.navigation, .login {
@@ -152,14 +196,6 @@
 		.tagline {
 			.size(28);
 		}
-	}
-
-	@media @monitor {
-		background-image: url(/images/header-1280.jpg);
-	}
-
-	@media @monitor-large {
-		background-position: 50% 0%;
 	}
 }
 
