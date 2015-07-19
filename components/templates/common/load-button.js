@@ -17,12 +17,11 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var buttonOpts = {};
-
-	if (data.key) {
-		buttonOpts.id = data.key;
-		buttonOpts.key = data.key;
-	}
+	var buttonOpts = {
+		id: data.key
+		, key: data.key
+		, className: 'page-load-button'
+	};
 
 	var linkOpts = {
 		href: '#'
@@ -33,7 +32,14 @@ function template(data) {
 		linkOpts[data.eventName] = data.eventHandler;
 	}
 
-	var load = $('div.page-load-button', buttonOpts, $('a.wrapper', linkOpts, i18n.t(data.title)));
+	// button background
+	if (data.base_url && data.image) {
+		linkOpts.style = {
+			'background-image': 'url(' + data.base_url + data.image + ')'
+		};
+	}
+
+	var load = $('div', buttonOpts, $('a.wrapper', linkOpts, i18n.t(data.title)));
 
 	return load;
 };
