@@ -39,7 +39,6 @@ function template(data) {
 	var featured_posts = data.featured_posts;
 
 	if (!data.ui.load_post) {
-		featured_clubs = featured_clubs.slice(0, 3);
 		featured_posts = featured_posts.slice(0, 3);
 	}
 
