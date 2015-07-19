@@ -182,6 +182,10 @@ function template(data) {
 				rel: 'stylesheet'
 				, href: base_url + main_css_file + '?' + data.version.css
 			})
+			, $('link', {
+				rel: 'stylesheet'
+				, href: base_url + '/fonts/webfont.css?' + data.version.css
+			})
 		])
 		, $('script', {
 			src: base_url + main_js_file + '?' + data.version.js
