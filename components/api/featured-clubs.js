@@ -44,7 +44,7 @@ function *middleware(next) {
 	var club_slugs = config.showcase.clubs;
 
 	if (!next) {
-		club_slugs = club_slugs.slice(0, 3);
+		club_slugs = club_slugs.slice(0, 5);
 	}
 
 	// STEP 2: get featured clubs

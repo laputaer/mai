@@ -44,6 +44,8 @@ function template(data) {
 				, 'data-sizes': 'auto'
 			}
 		});
+
+		image = $('div.image-column', image);
 	}
 
 	var link = $('p.link', $('a', {
@@ -86,7 +88,7 @@ function template(data) {
 
 	var post = $('div', postOpts, [
 		$('div.wrapper', [
-			$('div.image-column', image)
+			image
 			, $('div.text-column', [
 				link
 				, title
