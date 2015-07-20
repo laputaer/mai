@@ -7,6 +7,8 @@
 
 'use strict';
 
+// ref: http://stackoverflow.com/questions/4770025/how-to-disable-scrolling-temporarily
+
 // left: 37, up: 38, right: 39, down: 40,
 // spacebar: 32, pageup: 33, pagedown: 34, end: 35, home: 36
 var keys = [37, 38, 39, 40, 32, 33, 34, 35, 36];
