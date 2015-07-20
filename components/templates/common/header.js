@@ -82,6 +82,8 @@ function template(data) {
 			, text: 'menu.nav.login'
 			, icon: 'upload'
 			, version: data.version.asset
+			, eventName: 'ev-click'
+			, eventHandler: emitter.capture('page:login:open')
 		});
 	}
 

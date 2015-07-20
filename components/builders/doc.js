@@ -19,6 +19,7 @@ function builder(data) {
 	data.header = templates.common.header(data);
 	data.footer = templates.common.footer(data);
 	data.discover = templates.common.discover(data);
+	data.login = templates.common.loginScreen(data);
 
 	data.page = templates.main(data);
 

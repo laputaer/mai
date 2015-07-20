@@ -288,6 +288,18 @@
 	}
 }
 
+.page-login {
+	.overlay();
+	position: fixed;
+	z-index: 100;
+	background-color: fadeout(@color-black-light, 2%);
+	display: none;
+
+	&.active {
+		display: block;
+	}
+}
+
 .page-content {
 
 }

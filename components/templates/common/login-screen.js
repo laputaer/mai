@@ -20,7 +20,17 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var login;
+	var loginOpts = {
+		id: 'login-screen'
+		, key: 'login-screen'
+		, className: 'page-login'
+	};
+
+	if (data.ui.modal === 'login') {
+		loginOpts.className += ' active';
+	}
+
+	var login = $('div', loginOpts);
 
 	return login;
 };

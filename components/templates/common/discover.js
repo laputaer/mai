@@ -92,7 +92,7 @@ function template(data) {
 		, className: 'page-discover'
 	};
 
-	if (data.ui.nav) {
+	if (data.ui.modal === 'nav') {
 		discoverOpts.className += ' active';
 	}
 

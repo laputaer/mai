@@ -45,13 +45,25 @@ function init() {
 // event handlers
 emitter.on('page:nav:open', function() {
 	toggleScroll(false);
-	app.modify(['ui', 'nav'], true);
+	app.modify(['ui', 'modal'], 'nav');
 	app.refresh();
 });
 
 emitter.on('page:nav:close', function() {
 	toggleScroll(true);
-	app.modify(['ui', 'nav'], false);
+	app.modify(['ui', 'modal'], false);
+	app.refresh();
+});
+
+emitter.on('page:login:open', function() {
+	toggleScroll(false);
+	app.modify(['ui', 'modal'], 'login');
+	app.refresh();
+});
+
+emitter.on('page:login:close', function() {
+	toggleScroll(true);
+	app.modify(['ui', 'modal'], false);
 	app.refresh();
 });
 
