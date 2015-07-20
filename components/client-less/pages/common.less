@@ -213,18 +213,35 @@
 
 	.wrapper {
 		display: flex;
+		flex-direction: column;
+		justify-content: center;
 		width: 100%;
 		height: 100%;
-		align-items: center;
 		position: relative;
 	}
 
 	.navigation {
+		display: block;
+		overflow: hidden;
 		.reset-list();
+
+		margin-top: 20px;
 	}
 
 	.item {
-		margin: 20px;
+		margin: 15px 20px;
+
+		.m-text {
+			font-weight: 700;
+			line-height: 20px;
+			.size(24);
+		}
+
+		.m-icon {
+			width: 20px;
+			height: 20px;
+			margin-right: 8px;
+		}
 	}
 
 	.title {
@@ -237,6 +254,36 @@
 		position: absolute;
 		top: 15px;
 		right: 15px;
+	}
+
+	@media screen and (min-height: 300px) {
+		.item {
+			margin: 20px;
+
+			.m-text {
+				line-height: 24px;
+				.size(28);
+			}
+
+			.m-icon {
+				width: 24px;
+				height: 24px;
+			}
+		}
+	}
+
+	@media screen and (min-height: 400px) {
+		.item {
+			.m-text {
+				line-height: 32px;
+				.size(36);
+			}
+
+			.m-icon {
+				width: 32px;
+				height: 32px;
+			}
+		}
 	}
 }
 

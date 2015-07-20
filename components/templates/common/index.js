@@ -22,6 +22,7 @@ module.exports = {
 	, genericMessage: require('./generic-message')
 	, header: require('./header')
 	, loadButton: require('./load-button')
+	, loginScreen: require('./login-screen')
 	, login: require('./login')
 	, menu: require('./menu')
 	, navigationButton: require('./navigation-button')
