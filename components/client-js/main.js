@@ -36,39 +36,39 @@ var emitter = require('../templates/emitter');
 domready(init);
 
 function init() {
-	app.init().then(function() {
+	app.init().then(function () {
 		return app.update();
-	}).then(function() {
+	}).then(function () {
 		app.ready(true);
 	});
 };
 
 // event handlers
-emitter.on('page:nav:open', function() {
+emitter.on('page:nav:open', function () {
 	toggleScroll(false);
 	app.modify(['ui', 'modal'], 'nav');
 	app.refresh();
 });
 
-emitter.on('page:nav:close', function() {
+emitter.on('page:nav:close', function () {
 	toggleScroll(true);
 	app.modify(['ui', 'modal'], false);
 	app.refresh();
 });
 
-emitter.on('page:login:open', function() {
+emitter.on('page:login:open', function () {
 	toggleScroll(false);
 	app.modify(['ui', 'modal'], 'login');
 	app.refresh();
 });
 
-emitter.on('page:login:close', function() {
+emitter.on('page:login:close', function () {
 	toggleScroll(true);
 	app.modify(['ui', 'modal'], false);
 	app.refresh();
 });
 
-emitter.on('page:load:post', function() {
+emitter.on('page:load:post', function () {
 	var count = app.read(['ui', 'load_post']) || 0;
 	count += 10;
 	app.modify(['ui', 'load_post'], count);
@@ -79,4 +79,12 @@ emitter.on('page:load:post', function() {
 		}
 		, key: 'pid'
 	});
+});
+
+emitter.on('page:favorite:create', function (pid) {
+	// TODO
+});
+
+emitter.on('page:favorite:remove', function (pid) {
+	// TODO
 });

@@ -19,6 +19,7 @@ var filter_output = [
 	, 'user', 'user_name', 'user_login', 'user_avatar'
 	, 'club', 'club_name', 'club_image', 'club_intro'
 	, 'domain', 'url', 'image', 'doc_title'
+	, 'fav_point'
 ];
 
 module.exports = factory;
