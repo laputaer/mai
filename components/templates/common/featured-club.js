@@ -35,9 +35,10 @@ function template(data) {
 			}
 			, src: data.image + '&size=ls-small'
 			, alt: data.title + i18n.t('placeholder.image-preview')
+			, className: 'lazyload'
 		};
 
-		clubImage = $('img.lazyload', imageOpts);
+		clubImage = $('img', imageOpts);
 	}
 
 	var wrapperOpts = {
