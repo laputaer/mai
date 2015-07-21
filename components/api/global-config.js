@@ -27,12 +27,17 @@ function factory() {
 function *middleware(next) {
 	yield next;
 
-	var config = {
+	// STEP 1: prepare common data
+	var data = {
 		version: this.config.version
 		, locale: this.locale
 		, base_url: this.state.base_url
 	};
 
-	// STEP 1: output json
-	this.state.json = getStandardJson(config);
+	if (this.session.uid) {
+		data.current_user = normalize(this.state.user, 'outputUser');
+	}
+
+	// STEP 2: output json
+	this.state.json = getStandardJson(data);
 };

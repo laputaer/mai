@@ -50,12 +50,12 @@ Model.prototype.init = function(data) {
 	this.set('ui', {});
 
 	// handle guest user
-	if (!data.user.ok) {
+	if (!data.global.data.current_user) {
 		return;
 	}
 
 	// login user
-	this.set('current_user', data.user.data);
+	this.set('current_user', data.global.data.current_user);
 
 	// retrieve crsf token from meta
 	var crsf_meta = doc.head.querySelector('meta[name="mai:token"]');

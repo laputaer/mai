@@ -54,7 +54,6 @@ function myRouter(app) {
 	router.post('/c/:slug/p/post-add-2', handlers.clubPostCreate());
 
 	// api routes
-	apiRouter.get('/user', apiHandlers.getCurrentUser());
 	apiRouter.get('/global', apiHandlers.getGlobalConfig());
 	apiRouter.get('/featured/clubs', apiHandlers.getFeaturedClubs());
 	apiRouter.get('/featured/posts', apiHandlers.getFeaturedPosts());

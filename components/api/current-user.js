@@ -1,6 +1,6 @@
 
 /**
- * api-current-user.js
+ * api-current-user.js (deprecated)
  *
  * API for getting current user profile
  */
