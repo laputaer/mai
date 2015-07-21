@@ -24,6 +24,7 @@ var getRecentlyCreatedClubs = require('./clubs/get-recently-created-clubs');
 var getFeaturedClubs = require('./clubs/get-featured-clubs');
 var getFeaturedPosts = require('./clubs/get-featured-posts');
 var getClubsByIds = require('./clubs/get-clubs-by-ids');
+var matchPost = require('./clubs/match-post');
 
 module.exports = {
 	getUserOwnedClubs: getUserOwnedClubs
@@ -45,4 +46,5 @@ module.exports = {
 	, getFeaturedClubs: getFeaturedClubs
 	, getFeaturedPosts: getFeaturedPosts
 	, getClubsByIds: getClubsByIds
+	, matchPost: matchPost
 };

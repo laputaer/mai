@@ -13,6 +13,8 @@ var clubJoin = require('./mixpanel/club-join');
 var clubLeave = require('./mixpanel/club-leave');
 var postPreview = require('./mixpanel/post-preview');
 var postCreate = require('./mixpanel/post-create');
+var postFavorite = require('./mixpanel/post-favorite');
+var postUnfavorite = require('./mixpanel/post-unfavorite');
 
 module.exports = {
 	userLogin: userLogin
@@ -23,4 +25,6 @@ module.exports = {
 	, clubLeave: clubLeave
 	, postPreview: postPreview
 	, postCreate: postCreate
+	, postFavorite: postFavorite
+	, postUnfavorite: postUnfavorite
 };
