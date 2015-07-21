@@ -35,14 +35,14 @@ function template(data) {
 
 	if (data.image) {
 		image = $('img.thumbnail.lazyload', {
-			src: data.image + '&size=sq-small'
-			, alt: data.title + i18n.t('placeholder.image-preview')
-			, attributes: {
+			attributes: {
 				'data-srcset': data.image + '&size=sq-small 80w, '
 					+ data.image + '&size=sq-medium 100w, '
 					+ data.image + '&size=sq-large 200w'
 				, 'data-sizes': 'auto'
 			}
+			, src: data.image + '&size=sq-small'
+			, alt: data.title + i18n.t('placeholder.image-preview')
 		});
 
 		image = $('div.image-column', image);
@@ -59,7 +59,7 @@ function template(data) {
 	if (data.user) {
 		user = postButtonTemplate({
 			href: '/u/' + data.user
-			, className: 'rounded internal'
+			, className: 'plain internal'
 			, text: data.user_login
 			, icon: data.user_avatar
 			, title: data.user_name
@@ -69,7 +69,7 @@ function template(data) {
 	if (data.club) {
 		club = postButtonTemplate({
 			href: '/c/' + data.club
-			, className: 'rounded internal'
+			, className: 'plain internal'
 			, text: data.club_name
 			, icon: data.club_image
 			, title: data.club_intro
@@ -78,7 +78,7 @@ function template(data) {
 
 	var heart = buttonTemplate({
 		href: '#'
-		, className: 'rounded action'
+		, className: 'plain action'
 		, value: data.heart || '0'
 		, icon: 'heart'
 		, version: data.version

@@ -31,6 +31,12 @@
 		border-radius: 200px;
 	}
 
+	&.plain {
+		border-color: transparent;
+		border-radius: 0;
+		padding: 0;
+	}
+
 	.m-icon, .m-text {
 		display: inline-block;
 		vertical-align: top;
@@ -50,8 +56,7 @@
 	}
 
 	// extra styling
-
-	&.header {
+	&.nav {
 		color: @color-white;
 		border-color: transparent;
 		background-color: fadeout(@color-black, 80%);
@@ -70,10 +75,6 @@
 	}
 
 	&.internal {
-		border-color: transparent;
-		border-radius: 0;
-		padding: 0;
-
 		&:hover, &:focus, &:active {
 			color: @color-black-light;
 
@@ -84,10 +85,6 @@
 	}
 
 	&.action {
-		border-color: transparent;
-		border-radius: 0;
-		padding: 0;
-
 		&:hover, &:focus, &:active {
 			color: @color-black-light;
 		}
@@ -97,47 +94,28 @@
 		}
 	}
 
-	&.footer {
-		color: @color-white;
-		border-color: transparent;
-		background-color: fadeout(@color-black, 80%);
-
-		&:hover, &:focus {
-			background-color: fadeout(@color-black, 60%);
+	&.login {
+		&.twitter {
+			.m-icon {
+				fill: @color-twitter;
+			}
 		}
 
-		&:active {
-			background-color: fadeout(@color-black, 40%);
+		&.github {
+			.m-icon {
+				fill: @color-github;
+			}
 		}
 
-		&.active {
-			color: @color-yellow-light;
+		&.weibo {
+			.m-avatar {
+				background-color: transparent;
+				border-radius: 0;
+			}
 		}
-	}
-
-	&.secondary {
-		border-color: transparent;
-		border-radius: 0;
-		padding: 0;
-		.size(20);
 	}
 
 	&.discover {
-		color: @color-white;
-		border-color: transparent;
-		border-radius: 0;
-		padding: 0;
-
-		font-weight: 700;
-		line-height: 32px;
-		.size(36);
-
-		.m-icon {
-			width: 32px;
-			height: 32px;
-			margin-right: 8px;
-		}
-
 		&.home {
 			.m-icon {
 				fill: @color-blue-light;

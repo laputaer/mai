@@ -17,6 +17,9 @@ require('./vendor/svg4everybody');
 require('whatwg-fetch');
 require('native-promise-only');
 
+// helpers
+var toggleScroll = require('./helpers/toggle-body-scroll');
+
 var domready = require('domready');
 
 // app lifecycle
@@ -41,28 +44,30 @@ function init() {
 
 // event handlers
 emitter.on('page:nav:open', function() {
-	if (!app.isReady()) {
-		return;
-	}
-
-	app.modify(['ui', 'nav'], true);
+	toggleScroll(false);
+	app.modify(['ui', 'modal'], 'nav');
 	app.refresh();
 });
 
 emitter.on('page:nav:close', function() {
-	if (!app.isReady()) {
-		return;
-	}
+	toggleScroll(true);
+	app.modify(['ui', 'modal'], false);
+	app.refresh();
+});
 
-	app.modify(['ui', 'nav'], false);
+emitter.on('page:login:open', function() {
+	toggleScroll(false);
+	app.modify(['ui', 'modal'], 'login');
+	app.refresh();
+});
+
+emitter.on('page:login:close', function() {
+	toggleScroll(true);
+	app.modify(['ui', 'modal'], false);
 	app.refresh();
 });
 
 emitter.on('page:load:post', function() {
-	if (!app.isReady()) {
-		return;
-	}
-
 	var count = app.read(['ui', 'load_post']) || 0;
 	count += 10;
 	app.modify(['ui', 'load_post'], count);

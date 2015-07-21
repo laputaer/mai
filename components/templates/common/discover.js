@@ -20,54 +20,19 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var homeOpts = {
-		href: '/'
-		, className: 'discover home'
-		, text: 'menu.nav.home'
-		, icon: 'squares'
-		, version: data.version.asset
+	var discoverOpts = {
+		key: 'discover'
+		, id: 'discover'
+		, className: 'page-menu'
 	};
-	var homeButton = navButtonTemplate(homeOpts);
 
-	var clubOpts = {
-		href: '/c/club-home'
-		, className: 'discover club'
-		, text: 'menu.nav.club'
-		, icon: 'share'
-		, version: data.version.asset
-	};
-	var clubButton = navButtonTemplate(clubOpts);
-
-	var profileOpts = {
-		href: '#'
-		, className: 'discover login'
-		, text: 'menu.nav.login'
-		, icon: 'upload'
-		, version: data.version.asset
-	};
-	var profileButton = navButtonTemplate(profileOpts);
-
-	var rankingOpts = {
-		href: '/c/club-ranking'
-		, className: 'discover ranking'
-		, text: 'menu.nav.ranking'
-		, icon: 'graph_rising'
-		, version: data.version.asset
-	};
-	var rankingButton = navButtonTemplate(rankingOpts);
-
-	var helpOpts = {
-		href: '/help'
-		, className: 'discover help'
-		, text: 'menu.nav.help'
-		, icon: 'life_buoy'
-		, version: data.version.asset
-	};
-	var helpButton = navButtonTemplate(helpOpts);
+	if (data.ui.modal === 'nav') {
+		discoverOpts.className += ' active';
+	}
 
 	var titleOpts = {
 		href: '#'
-		, className: 'secondary title'
+		, className: 'plain title'
 		, text: 'menu.nav.discover'
 		, icon: 'compass'
 		, version: data.version.asset
@@ -78,7 +43,7 @@ function template(data) {
 
 	var closeOpts = {
 		href: '#'
-		, className: 'secondary close'
+		, className: 'plain close'
 		, icon: 'delete'
 		, version: data.version.asset
 		, eventName: 'ev-click'
@@ -86,15 +51,50 @@ function template(data) {
 	};
 	var closeButton = buttonTemplate(closeOpts);
 
-	var discoverOpts = {
-		key: 'discover'
-		, id: 'discover'
-		, className: 'page-discover'
+	var homeOpts = {
+		href: '/'
+		, className: 'plain discover home'
+		, text: 'menu.nav.home'
+		, icon: 'squares'
+		, version: data.version.asset
 	};
+	var homeButton = navButtonTemplate(homeOpts);
 
-	if (data.ui.nav) {
-		discoverOpts.className += ' active';
-	}
+	var clubOpts = {
+		href: '/c/club-home'
+		, className: 'plain discover club'
+		, text: 'menu.nav.club'
+		, icon: 'share'
+		, version: data.version.asset
+	};
+	var clubButton = navButtonTemplate(clubOpts);
+
+	var profileOpts = {
+		href: '#'
+		, className: 'plain discover login'
+		, text: 'menu.nav.login'
+		, icon: 'upload'
+		, version: data.version.asset
+	};
+	var profileButton = navButtonTemplate(profileOpts);
+
+	var rankingOpts = {
+		href: '/c/club-ranking'
+		, className: 'plain discover ranking'
+		, text: 'menu.nav.ranking'
+		, icon: 'graph_rising'
+		, version: data.version.asset
+	};
+	var rankingButton = navButtonTemplate(rankingOpts);
+
+	var helpOpts = {
+		href: '/help'
+		, className: 'plain discover help'
+		, text: 'menu.nav.help'
+		, icon: 'life_buoy'
+		, version: data.version.asset
+	};
+	var helpButton = navButtonTemplate(helpOpts);
 
 	var discover = $('div', discoverOpts, $('div.wrapper', [
 		titleButton

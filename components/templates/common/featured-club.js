@@ -27,14 +27,14 @@ function template(data) {
 
 	if (data.image) {
 		imageOpts = {
-			src: data.image + '&size=ls-small'
-			, alt: data.title + i18n.t('placeholder.image-preview')
-			, attributes: {
+			attributes: {
 				'data-srcset': data.image + '&size=ls-small 320w, '
 					+ data.image + '&size=ls-medium 640w, '
 					+ data.image + '&size=ls-large 960w'
 				, 'data-sizes': 'auto'
 			}
+			, src: data.image + '&size=ls-small'
+			, alt: data.title + i18n.t('placeholder.image-preview')
 		};
 
 		clubImage = $('img.lazyload', imageOpts);

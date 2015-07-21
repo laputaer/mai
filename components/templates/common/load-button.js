@@ -34,12 +34,15 @@ function template(data) {
 
 	// button background
 	if (data.base_url && data.image) {
-		linkOpts.style = {
-			'background-image': 'url(' + data.base_url + data.image + ')'
+		linkOpts.className = 'wrapper lazyload';
+
+		linkOpts.attributes = {
+			'data-bgset': data.base_url + data.image + '?' + data.version + ' 400w'
+			, 'data-sizes': 'auto'
 		};
 	}
 
-	var load = $('div', buttonOpts, $('a.wrapper', linkOpts, i18n.t(data.title)));
+	var load = $('div', buttonOpts, $('a', linkOpts, i18n.t(data.title)));
 
 	return load;
 };

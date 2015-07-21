@@ -13,8 +13,7 @@ var prefix = '/api/v1';
 // API group
 var api = {
 	init: {
-		user: '/user'
-		, global: '/global'
+		global: '/global'
 	}
 	, home: {
 		featured_clubs: '/featured/clubs'

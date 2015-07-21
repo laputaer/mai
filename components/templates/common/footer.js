@@ -22,16 +22,13 @@ function template(data) {
 	var footerOpts = {
 		id: 'footer'
 		, key: 'footer'
-		, className: 'page-footer'
+		, className: 'page-footer lazyload'
 		, attributes: {
-			'data-bgset': data.base_url + '/images/footer-320.jpg 320w, '
-				+ data.base_url + '/images/footer-640.jpg 640w, '
-				+ data.base_url + '/images/footer-960.jpg 960w, '
-				+ data.base_url + '/images/footer-1280.jpg 1280w'
+			'data-bgset': data.base_url + '/images/footer-320.jpg?' + data.version.asset + ' 320w, '
+				+ data.base_url + '/images/footer-640.jpg?' + data.version.asset + ' 640w, '
+				+ data.base_url + '/images/footer-960.jpg?' + data.version.asset + ' 960w, '
+				+ data.base_url + '/images/footer-1280.jpg?' + data.version.asset + ' 1280w'
 			, 'data-sizes': 'auto'
-		}
-		, style: {
-			'background-image': 'url(' + data.base_url + '/images/footer-320.jpg)'
 		}
 	}
 
@@ -39,7 +36,7 @@ function template(data) {
 
 	var loginButton = buttonTemplate({
 		href: '#'
-		, className: 'rounded footer'
+		, className: 'rounded nav'
 		, text: 'menu.nav.login-alt'
 		, icon: 'dialogue_happy'
 		, version: data.version.asset

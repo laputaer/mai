@@ -17,7 +17,7 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var icon, text, buttonOpt;
+	var icon, image, text, buttonOpt;
 
 	// button options
 	buttonOpt = {
@@ -41,11 +41,20 @@ function template(data) {
 		]);
 	}
 
+	// button image
+	if (data.image && data.version) {
+		image = $('div.m-icon.m-avatar', {
+			style: {
+				'background-image': 'url(' + data.image + '?' + data.version + ')'
+			}
+		});
+	}
+
 	// button text
 	if (data.text !== undefined) {
 		text = $('span.m-text', i18n.t(data.text));
 	}
 
-	var button = $('a.m-button', buttonOpt, [ icon, text ]);
+	var button = $('a.m-button', buttonOpt, [ icon, image, text ]);
 	return button;
 };

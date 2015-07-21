@@ -25,9 +25,9 @@ module.exports = {
 			, 'login-alt': '加入我们'
 		}
 		, 'login': {
-			'twitter': 'Twitter账号登录'
-			, 'github': 'Github账号登录'
-			, 'weibo': '微博账号登录'
+			'twitter': 'Twitter账号'
+			, 'github': 'Github账号'
+			, 'weibo': '新浪微博账号'
 		}
 		, 'footer': {
 			'copyright': '© MaiHQ'
