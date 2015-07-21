@@ -12,6 +12,7 @@ var filterAttributes = require('../helpers/filter-attributes');
 var i18n = require('../templates/i18n')();
 var clubsDomain = require('../domains/clubs');
 var usersDomain = require('../domains/users');
+var socialDomain = require('../domains/social');
 var proxyUrl = require('../security/proxy');
 
 var filter_output = [
@@ -19,7 +20,7 @@ var filter_output = [
 	, 'user', 'user_name', 'user_login', 'user_avatar'
 	, 'club', 'club_name', 'club_image', 'club_intro'
 	, 'domain', 'url', 'image', 'doc_title'
-	, 'fav_point'
+	, 'fav_point', 'current_user_fav'
 ];
 
 module.exports = factory;
@@ -47,6 +48,7 @@ function *middleware(next) {
 	// STEP 1: prepare common data
 	var config = this.config;
 	var state = this.state;
+	var uid = this.session.uid;
 
 	var post_pids = config.showcase.posts;
 
@@ -63,9 +65,14 @@ function *middleware(next) {
 	// STEP 3: get complementary user and club info
 	var temp_slugs = []
 	var temp_uids = [];
+	var temp_favs = [];
 	featured_posts.forEach(function (post) {
 		temp_slugs.push(post.club);
 		temp_uids.push(post.user);
+		temp_favs.push({
+			post: post.pid
+			, user: uid
+		});
 
 		return post;
 	});
@@ -77,6 +84,10 @@ function *middleware(next) {
 	var temp_users = yield usersDomain.getUsersByIds({
 		db: this.db
 		, uids: temp_uids
+	});
+	var temp_favorites = yield socialDomain.getFavoritePostsByIds({
+		db: this.db
+		, favs: temp_favs
 	});
 
 	// STEP 4: append user and club info to output
@@ -131,6 +142,13 @@ function *middleware(next) {
 				, key: config.proxy.key
 				, base: state.image_base_url
 			});
+		}
+
+		// favorite info
+		if (temp_favorites[post.pid]) {
+			post.current_user_fav = true;
+		} else {
+			post.current_user_fav = false;
 		}
 
 		// filter output
