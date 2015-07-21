@@ -81,10 +81,35 @@ emitter.on('page:load:post', function () {
 	});
 });
 
-emitter.on('page:favorite:create', function (pid) {
-	// TODO
+// TODO: can be avoid logic here
+emitter.on('page:favorite:create', function (data) {
+	app.send('/posts/' + data.id + '/favorite', {
+		method: 'PUT'
+	}).then(function (res) {
+		if (!res.ok) {
+			return;
+		}
+
+		var fav_point_path = ['featured_posts', data.order, 'fav_point'];
+		var fav_point = app.read(fav_point_path);
+		app.modify(fav_point_path, fav_point + 1);
+		app.modify(['featured_posts', data.order, 'current_user_fav'], true);
+		app.refresh();
+	});
 });
 
-emitter.on('page:favorite:remove', function (pid) {
-	// TODO
+emitter.on('page:favorite:remove', function (data) {
+	app.send('/posts/' + data.id + '/favorite', {
+		method: 'DELETE'
+	}).then(function (res) {
+		if (!res.ok) {
+			return;
+		}
+
+		var fav_point_path = ['featured_posts', data.order, 'fav_point'];
+		var fav_point = app.read(fav_point_path);
+		app.modify(fav_point_path, fav_point - 1);
+		app.modify(['featured_posts', data.order, 'current_user_fav'], false);
+		app.refresh();
+	});
 });

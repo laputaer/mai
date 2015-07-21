@@ -34,7 +34,7 @@ function App() {
  *
  * @return  Promise
  */
-App.prototype.init = function() {
+App.prototype.init = function () {
 	var self = this;
 
 	// init vdom and dom cache
@@ -52,7 +52,7 @@ App.prototype.init = function() {
  *
  * @return  Promise
  */
-App.prototype.update = function() {
+App.prototype.update = function () {
 	var self = this;
 
 	// match current route
@@ -75,7 +75,7 @@ App.prototype.update = function() {
  *
  * @return  Void
  */
-App.prototype.refresh = function() {
+App.prototype.refresh = function () {
 	var self = this;
 
 	// match current route
@@ -94,7 +94,7 @@ App.prototype.refresh = function() {
  * @param   Mixed   path  Store key path
  * @return  Object
  */
-App.prototype.read = function(path) {
+App.prototype.read = function (path) {
 	var self = this;
 
 	return self.model.get(path);
@@ -107,7 +107,7 @@ App.prototype.read = function(path) {
  * @param   Mixed   data  New data
  * @return  Object
  */
-App.prototype.modify = function(path, data) {
+App.prototype.modify = function (path, data) {
 	var self = this;
 
 	return self.model.set(path, data);
@@ -119,7 +119,7 @@ App.prototype.modify = function(path, data) {
  * @param   Boolean  state  Ready flag
  * @return  Void
  */
-App.prototype.ready = function(state) {
+App.prototype.ready = function (state) {
 	this.ready_flag = state;
 };
 
@@ -128,7 +128,7 @@ App.prototype.ready = function(state) {
  *
  * @return  Boolean
  */
-App.prototype.isReady = function() {
+App.prototype.isReady = function () {
 	return this.ready_flag;
 };
 
@@ -139,7 +139,7 @@ App.prototype.isReady = function() {
  * @param   Object   opts  Optional parameters
  * @return  Promise
  */
-App.prototype.load = function(name, opts) {
+App.prototype.load = function (name, opts) {
 	var self = this;
 
 	// match current route
@@ -149,12 +149,36 @@ App.prototype.load = function(name, opts) {
 	}
 
 	// contact backend service
-	return self.service.fetch(name, opts.query).then(function(data) {
+	return self.service.fetch(name, opts.query).then(function (data) {
 		if (data.endpoint.ok) {
 			// update data store
 			self.model.append(name, data.endpoint.data, opts.key);
 			// update view using current model
 			self.renderer.update(route, self.model.get());
 		}
+	});
+};
+
+/**
+ * Send request to backend using given method
+ *
+ * @param   String   url   Backend service endpoint
+ * @param   Object   opts  Optional parameters
+ * @return  Promise
+ */
+App.prototype.send = function (url, opts) {
+	var self = this;
+
+	// contact backend service, get back result
+	return self.service.send(url, opts).then(function (res) {
+		if (!res.ok) {
+			return;
+		}
+		return res.json();
+	}).then(function (json) {
+		if (!json) {
+			return;
+		}
+		return json;
 	});
 };

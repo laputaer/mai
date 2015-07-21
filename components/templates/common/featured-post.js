@@ -76,6 +76,7 @@ function template(data) {
 		});
 	}
 
+	var favoriteOpts = { id: data.pid, order: data.num };
 	var favorite = buttonTemplate({
 		href: '#'
 		, className: data.current_user_fav ? 'plain action active' : 'plain action'
@@ -84,8 +85,8 @@ function template(data) {
 		, version: data.version
 		, eventName: 'ev-click'
 		, eventHandler: data.current_user_fav ?
-			emitter.capture('page:favorite:remove', data.pid)
-			: emitter.capture('page:favorite:create', data.pid)
+			emitter.capture('page:favorite:remove', favoriteOpts)
+			: emitter.capture('page:favorite:create', favoriteOpts)
 	});
 
 	var post = $('div', postOpts, [
