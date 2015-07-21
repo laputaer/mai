@@ -35,14 +35,14 @@ function template(data) {
 
 	if (data.image) {
 		image = $('img.thumbnail.lazyload', {
-			src: data.image + '&size=sq-small'
-			, alt: data.title + i18n.t('placeholder.image-preview')
-			, attributes: {
+			attributes: {
 				'data-srcset': data.image + '&size=sq-small 80w, '
 					+ data.image + '&size=sq-medium 100w, '
 					+ data.image + '&size=sq-large 200w'
 				, 'data-sizes': 'auto'
 			}
+			, src: data.image + '&size=sq-small'
+			, alt: data.title + i18n.t('placeholder.image-preview')
 		});
 
 		image = $('div.image-column', image);

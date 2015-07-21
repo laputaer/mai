@@ -94,9 +94,7 @@ function template(data) {
 	};
 
 	var imageOpts = {
-		src: data.base_url + '/images/header-320.jpg'
-		, alt: ''
-		, attributes: {
+		attributes: {
 			'data-srcset': data.base_url + '/images/header-320.jpg 320w, '
 				+ data.base_url + '/images/header-640.jpg 640w, '
 				+ data.base_url + '/images/header-960.jpg 960w, '
@@ -104,6 +102,8 @@ function template(data) {
 			, 'data-sizes': 'auto'
 			, role: 'presentation'
 		}
+		, src: data.base_url + '/images/header-320.jpg'
+		, alt: ''
 	};
 
 	var heroImage = $('img.lazyload', imageOpts);

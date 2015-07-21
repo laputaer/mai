@@ -56,7 +56,7 @@ function template(data) {
 	var load_more = loadButtonTemplate({
 		title: 'section.load.featured-post'
 		, key: 'load-button'
-		, image: '/images/load-bg-400.png'
+		, image: '/images/load-bg-400.jpg'
 		, base_url: data.base_url
 		, eventName: 'ev-click'
 		, eventHandler: emitter.capture('page:load:post')

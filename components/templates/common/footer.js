@@ -22,7 +22,7 @@ function template(data) {
 	var footerOpts = {
 		id: 'footer'
 		, key: 'footer'
-		, className: 'page-footer'
+		, className: 'page-footer lazyload'
 		, attributes: {
 			'data-bgset': data.base_url + '/images/footer-320.jpg 320w, '
 				+ data.base_url + '/images/footer-640.jpg 640w, '
