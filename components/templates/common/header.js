@@ -23,7 +23,7 @@ module.exports = template;
 function template(data) {
 	var discoverButton = buttonTemplate({
 		href: '#'
-		, className: 'rounded header'
+		, className: 'rounded nav'
 		, text: 'menu.nav.discover'
 		, icon: 'compass'
 		, version: data.version.asset
@@ -33,7 +33,7 @@ function template(data) {
 
 	var clubOpt = {
 		href: '/c/club-home'
-		, className: 'rounded header tablet'
+		, className: 'rounded nav tablet'
 		, text: 'menu.nav.club'
 		, icon: 'share'
 		, version: data.version.asset
@@ -45,7 +45,7 @@ function template(data) {
 
 	var rankingOpt = {
 		href: '/c/club-ranking'
-		, className: 'rounded header tablet'
+		, className: 'rounded nav tablet'
 		, text: 'menu.nav.ranking'
 		, icon: 'graph_rising'
 		, version: data.version.asset
@@ -57,7 +57,7 @@ function template(data) {
 
 	var helpOpt = {
 		href: '/help'
-		, className: 'rounded header tablet'
+		, className: 'rounded nav tablet'
 		, text: 'menu.nav.help'
 		, icon: 'life_buoy'
 		, version: data.version.asset
@@ -71,14 +71,14 @@ function template(data) {
 	if (data.current_user) {
 		userButton = userButtonTemplate({
 			href: '/u/' + data.current_user.uid
-			, className: 'rounded header'
+			, className: 'rounded nav'
 			, text: data.current_user.login
 			, icon: data.current_user.avatar
 		});
 	} else {
 		userButton = buttonTemplate({
 			href: '#'
-			, className: 'rounded header'
+			, className: 'rounded nav'
 			, text: 'menu.nav.login'
 			, icon: 'upload'
 			, version: data.version.asset
@@ -95,14 +95,14 @@ function template(data) {
 
 	var imageOpts = {
 		attributes: {
-			'data-srcset': data.base_url + '/images/header-320.jpg 320w, '
-				+ data.base_url + '/images/header-640.jpg 640w, '
-				+ data.base_url + '/images/header-960.jpg 960w, '
-				+ data.base_url + '/images/header-1280.jpg 1280w'
+			'data-srcset': data.base_url + '/images/header-320.jpg?' + data.version.asset + ' 320w, '
+				+ data.base_url + '/images/header-640.jpg?' + data.version.asset + ' 640w, '
+				+ data.base_url + '/images/header-960.jpg?' + data.version.asset + ' 960w, '
+				+ data.base_url + '/images/header-1280.jpg?' + data.version.asset + ' 1280w'
 			, 'data-sizes': 'auto'
 			, role: 'presentation'
 		}
-		, src: data.base_url + '/images/header-320.jpg'
+		, src: data.base_url + '/images/header-320.jpg?' + data.version.asset
 		, alt: ''
 	};
 

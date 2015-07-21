@@ -37,7 +37,7 @@ function template(data) {
 		linkOpts.className = 'wrapper lazyload';
 
 		linkOpts.attributes = {
-			'data-bgset': data.base_url + data.image + ' 400w'
+			'data-bgset': data.base_url + data.image + '?' + data.version + ' 400w'
 			, 'data-sizes': 'auto'
 		};
 	}

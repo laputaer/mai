@@ -1,6 +1,6 @@
 
 /**
- * menu.js
+ * menu.js (deprecated)
  *
  * Template for default navigation menu
  */

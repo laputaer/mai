@@ -59,7 +59,7 @@ function template(data) {
 	if (data.user) {
 		user = postButtonTemplate({
 			href: '/u/' + data.user
-			, className: 'rounded internal'
+			, className: 'plain internal'
 			, text: data.user_login
 			, icon: data.user_avatar
 			, title: data.user_name
@@ -69,7 +69,7 @@ function template(data) {
 	if (data.club) {
 		club = postButtonTemplate({
 			href: '/c/' + data.club
-			, className: 'rounded internal'
+			, className: 'plain internal'
 			, text: data.club_name
 			, icon: data.club_image
 			, title: data.club_intro
@@ -78,7 +78,7 @@ function template(data) {
 
 	var heart = buttonTemplate({
 		href: '#'
-		, className: 'rounded action'
+		, className: 'plain action'
 		, value: data.heart || '0'
 		, icon: 'heart'
 		, version: data.version
