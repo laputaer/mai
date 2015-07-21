@@ -30,9 +30,6 @@ function template(data) {
 				+ data.base_url + '/images/footer-1280.jpg 1280w'
 			, 'data-sizes': 'auto'
 		}
-		, style: {
-			'background-image': 'url(' + data.base_url + '/images/footer-320.jpg)'
-		}
 	}
 
 	var tagline = $('p.tagline', i18n.t('common.tagline-alt'));
