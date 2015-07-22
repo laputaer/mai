@@ -6,6 +6,7 @@
  * eg. cache service down, db query failure etc.
  */
 
+var getStandardJson = require('../helpers/get-standard-json');
 var builder = require('../builders/index-error');
 var prepareData = require('../builders/prepare-data');
 var i18n = require('../templates/i18n')();
@@ -67,19 +68,24 @@ function *middleware(next) {
  * @return  Void
  */
 function errorPage(ctx, err) {
-	// prepare common data
-	var data = prepareData(ctx);
-
 	// default to generic error
 	err = err || {
 		status: 500
 		, message: i18n.t('error.internal-service-down')
 	};
 
+	// api error response
+	if (ctx.path.substr(0, 5) === '/api/') {
+		ctx.status = err.status;
+		ctx.state.json = getStandardJson(null, err.status, err.message);
+		return;
+	}
+
+	// page error response
+	var data = prepareData(ctx);
 	data.error_status = i18n.t('error.status-code', { code: err.status })
 	data.error_message = err.message;
 
-	// status code and page output
 	ctx.status = err.status;
 	ctx.state.vdoc = builder(data);
 };

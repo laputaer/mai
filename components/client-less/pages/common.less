@@ -333,6 +333,7 @@
 			position: relative;
 			display: block;
 			width: 100%;
+			height: auto;
 		}
 
 		@media @supported {
@@ -354,13 +355,18 @@
 
 	.title {
 		position: absolute;
-		left: 0;
-		bottom: -4px;
+		left: 2px;
+		bottom: 2px;
 		margin: 0;
 		line-height: 1em;
 		font-weight: 700;
 		.long-text();
-		.size(36);
+		.size(24);
+
+		&:first-letter {
+			line-height: 1em;
+			.size(36);
+		}
 
 		a {
 			.link-alt(@color-yellow-light);

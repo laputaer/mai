@@ -76,14 +76,17 @@ function template(data) {
 		});
 	}
 
-	var heart = buttonTemplate({
+	var favoriteOpts = { id: data.pid, order: data.num };
+	var favorite = buttonTemplate({
 		href: '#'
-		, className: 'plain action'
-		, value: data.heart || '0'
+		, className: data.current_user_fav ? 'plain action active' : 'plain action'
+		, value: data.fav_point || '0'
 		, icon: 'heart'
 		, version: data.version
 		, eventName: 'ev-click'
-		, eventHandler: emitter.capture('page:heart', data.pid)
+		, eventHandler: data.current_user_fav ?
+			emitter.capture('page:favorite:remove', favoriteOpts)
+			: emitter.capture('page:favorite:create', favoriteOpts)
 	});
 
 	var post = $('div', postOpts, [
@@ -97,7 +100,7 @@ function template(data) {
 		, $('div.action-block', [
 			user
 			, club
-			, heart
+			, favorite
 		])
 	]);
 

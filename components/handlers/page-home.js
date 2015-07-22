@@ -5,13 +5,8 @@
  * Koa route handler for index page
  */
 
-var parser = require('url').parse;
-
 var builder = require('../builders/index');
 var prepareData = require('../builders/prepare-data');
-var clubsDomain = require('../domains/clubs');
-var usersDomain = require('../domains/users');
-var proxyUrl = require('../security/proxy');
 
 var featurePosts = require('../api/featured-posts')();
 var featureClubs = require('../api/featured-clubs')();

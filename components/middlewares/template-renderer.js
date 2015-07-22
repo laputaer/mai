@@ -46,6 +46,7 @@ function *middleware(next) {
 	} else if (this.state.json) {
 		// format and output
 		this.type = 'json';
+		this.set('Cache-Control', 'no-cache, no-store, must-revalidate');
 		this.body = JSON.stringify(this.state.json, null, '\t');
 	}
 };

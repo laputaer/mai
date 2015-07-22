@@ -6,6 +6,11 @@
  */
 
 var getStandardJson = require('../helpers/get-standard-json');
+var filterAttributes = require('../helpers/filter-attributes');
+
+var filter_output = [
+	'uid', 'id', 'provider', 'login', 'name', 'avatar'
+];
 
 module.exports = factory;
 
@@ -35,7 +40,7 @@ function *middleware(next) {
 	};
 
 	if (this.session.uid) {
-		data.current_user = normalize(this.state.user, 'outputUser');
+		data.current_user = filterAttributes(this.state.user, filter_output);
 	}
 
 	// STEP 2: output json

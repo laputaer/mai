@@ -8,7 +8,6 @@
 var I = require('icepick');
 
 var $ = require('../vdom');
-var i18n = require('../i18n')();
 var emitter = require('../emitter');
 
 var clubTemplate = require('../common/featured-club');
@@ -42,12 +41,12 @@ function template(data) {
 		featured_posts = featured_posts.slice(0, 3);
 	}
 
-	var featured_clubs = featured_clubs.map(function(club, i) {
+	featured_clubs = featured_clubs.map(function(club, i) {
 		club = I.assoc(club, 'num', i);
 		return clubTemplate(club);
 	});
 
-	var featured_posts = featured_posts.map(function(post, i) {
+	featured_posts = featured_posts.map(function(post, i) {
 		post = I.assoc(post, 'num', i);
 		post = I.assoc(post, 'version', data.version.asset);
 		return postTemplate(post);

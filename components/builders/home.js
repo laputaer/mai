@@ -5,7 +5,6 @@
  * Render generic home page
  */
 
-var immutable = require('./immutable');
 var templates = require('../templates/index');
 
 module.exports = partial;

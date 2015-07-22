@@ -56,6 +56,7 @@ module.exports = {
 		, 'login': '登录社区'
 		, 'image-preview': '的预览图片'
 		, 'avatar-preview': '的预览头像'
+		, 'action-done': '操作完成'
 	}
 	, 'error': {
 		'status-code': 'Error %{code}'
@@ -68,6 +69,8 @@ module.exports = {
 		, 'not-found-page': '你要找的页面不存在'
 		, 'not-found-user': '你要找的团员不存在'
 		, 'not-found-club': '你要找的社团不存在'
+		, 'not-found-post': '你要找的文章不存在'
+		, 'not-found-favorite': '你要找的收藏不存在'
 		, 'oauth-error-response': '请求 %{provider} 访问权限时发生错误，你允许了我们的请求吗？请再次尝试登陆。'
 		, 'oauth-error-profile': '请求 %{provider} 用户数据时发生错误，如重复出现，请联系我们反馈错误。'
 		, 'oauth-invalid-profile': '请求 %{provider} 时得到了不正确的用户数据，如重复出现，请联系我们反馈错误。'
@@ -75,6 +78,7 @@ module.exports = {
 		, 'opengraph-error-response': '请求远端页面时出现了网络错误，可能理由：(1) 该页面不支持站外引用 (2) 暂时的网络错误'
 		, 'opengraph-invalid-profile': '请求远端页面时得到了不正确数据，如重复出现，请联系我们反馈错误。'
 		, 'membership-required-to-post': '你需要先加入社团才能发布分享。'
+		, 'duplicate-action': '你已经执行过这个操作。'
 	}
 	, 'user': {
 		'oauth-origin': '来自站点'

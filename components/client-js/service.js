@@ -58,6 +58,23 @@ Service.prototype.sync = function(name) {
 };
 
 /**
+ * Fetch backend, raw request
+ *
+ * @param   String   url   Backend service endpoint
+ * @param   Object   opts  Optional parameters
+ * @return  Promise
+ */
+Service.prototype.send = function(url, opts) {
+	opts = opts || {};
+
+	if (!opts.credentials) {
+		opts.credentials = 'same-origin';
+	}
+
+	return fetch(prefix + url, opts);
+};
+
+/**
  * Fetch backend in parallel
  *
  * @param   String   name  API name

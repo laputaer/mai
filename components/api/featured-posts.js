@@ -9,9 +9,9 @@ var parser = require('url').parse;
 
 var getStandardJson = require('../helpers/get-standard-json');
 var filterAttributes = require('../helpers/filter-attributes');
-var i18n = require('../templates/i18n')();
 var clubsDomain = require('../domains/clubs');
 var usersDomain = require('../domains/users');
+var socialDomain = require('../domains/social');
 var proxyUrl = require('../security/proxy');
 
 var filter_output = [
@@ -19,6 +19,7 @@ var filter_output = [
 	, 'user', 'user_name', 'user_login', 'user_avatar'
 	, 'club', 'club_name', 'club_image', 'club_intro'
 	, 'domain', 'url', 'image', 'doc_title'
+	, 'fav_point', 'current_user_fav'
 ];
 
 module.exports = factory;
@@ -46,6 +47,7 @@ function *middleware(next) {
 	// STEP 1: prepare common data
 	var config = this.config;
 	var state = this.state;
+	var uid = this.session.uid;
 
 	var post_pids = config.showcase.posts;
 
@@ -62,9 +64,14 @@ function *middleware(next) {
 	// STEP 3: get complementary user and club info
 	var temp_slugs = []
 	var temp_uids = [];
+	var temp_favs = [];
 	featured_posts.forEach(function (post) {
 		temp_slugs.push(post.club);
 		temp_uids.push(post.user);
+		temp_favs.push({
+			post: post.pid
+			, user: uid
+		});
 
 		return post;
 	});
@@ -77,10 +84,14 @@ function *middleware(next) {
 		db: this.db
 		, uids: temp_uids
 	});
+	var temp_favorites = yield socialDomain.getFavoritePostsByIds({
+		db: this.db
+		, favs: temp_favs
+	});
 
 	// STEP 4: append user and club info to output
 	featured_posts = featured_posts.map(function (post) {
-		var uid = post.user;
+		var user = post.user;
 		var slug = post.club;
 
 		// post related
@@ -109,10 +120,10 @@ function *middleware(next) {
 		}
 
 		// user info
-		post.user_name = temp_users[uid].name;
-		post.user_login = temp_users[uid].login;
+		post.user_name = temp_users[user].name;
+		post.user_login = temp_users[user].login;
 		post.user_avatar = proxyUrl({
-			url: temp_users[uid].avatar
+			url: temp_users[user].avatar
 			, key: config.proxy.key
 			, base: state.image_base_url
 		});
@@ -124,12 +135,19 @@ function *middleware(next) {
 			&& Array.isArray(temp_clubs[slug].embed.image)
 			&& temp_clubs[slug].embed.image.length > 0
 		) {
-			var image = temp_clubs[slug].embed.image[0];
+			image = temp_clubs[slug].embed.image[0];
 			post.club_image = proxyUrl({
 				url: image.secure_url || image.url
 				, key: config.proxy.key
 				, base: state.image_base_url
 			});
+		}
+
+		// favorite info
+		if (temp_favorites[post.pid]) {
+			post.current_user_fav = true;
+		} else {
+			post.current_user_fav = false;
 		}
 
 		// filter output

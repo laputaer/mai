@@ -57,6 +57,8 @@ function myRouter(app) {
 	apiRouter.get('/global', apiHandlers.getGlobalConfig());
 	apiRouter.get('/featured/clubs', apiHandlers.getFeaturedClubs());
 	apiRouter.get('/featured/posts', apiHandlers.getFeaturedPosts());
+	apiRouter.put('/posts/:pid/favorite', apiHandlers.favoritePost());
+	apiRouter.del('/posts/:pid/favorite', apiHandlers.unfavoritePost());
 
 	// mount api routes to main router
 	router.use('/api/v1', apiRouter.routes());

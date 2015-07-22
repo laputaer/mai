@@ -49,7 +49,7 @@ function template(data) {
 
 	// button value
 	if (data.value !== undefined) {
-		text = $('span.m-text', data.value);
+		text = $('span.m-text', data.value.toString());
 	}
 
 	var button = $('a.m-button', buttonOpt, [ icon, text ]);

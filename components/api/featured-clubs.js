@@ -7,7 +7,6 @@
 
 var getStandardJson = require('../helpers/get-standard-json');
 var filterAttributes = require('../helpers/filter-attributes');
-var i18n = require('../templates/i18n')();
 var clubsDomain = require('../domains/clubs');
 var proxyUrl = require('../security/proxy');
 
