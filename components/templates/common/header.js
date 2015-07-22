@@ -95,18 +95,19 @@ function template(data) {
 
 	var imageOpts = {
 		attributes: {
-			'data-srcset': data.base_url + '/images/header-320.jpg?' + data.version.asset + ' 320w, '
+			role: 'presentation'
+			, 'data-srcset': data.base_url + '/images/header-320.jpg?' + data.version.asset + ' 320w, '
 				+ data.base_url + '/images/header-640.jpg?' + data.version.asset + ' 640w, '
 				+ data.base_url + '/images/header-960.jpg?' + data.version.asset + ' 960w, '
 				+ data.base_url + '/images/header-1280.jpg?' + data.version.asset + ' 1280w'
 			, 'data-sizes': 'auto'
-			, role: 'presentation'
 		}
 		, src: data.base_url + '/images/header-320.jpg?' + data.version.asset
 		, alt: ''
+		, className: 'lazyload'
 	};
 
-	var heroImage = $('img.lazyload', imageOpts);
+	var heroImage = $('img', imageOpts);
 	var titleLink = $('a', { href: '/' }, i18n.t('common.domain'));
 	var taglineLink = $('a', { href: '/' }, i18n.t('common.tagline'));
 
