@@ -11,7 +11,6 @@ var sharp = require('sharp');
 var sendfile = require('koa-sendfile');
 var mime = require('mime-types');
 var parser = require('url').parse;
-var pipeStream = require('stream').PassThrough;
 var readStream = require('fs').createReadStream;
 var writeStream = require('fs').createWriteStream;
 var debug = require('debug')('mai:proxy');

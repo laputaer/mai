@@ -28,7 +28,7 @@ var App = require('./app');
 var app = new App();
 
 // event delegator (capture user input)
-var delegator = require('dom-delegator')();
+require('dom-delegator')();
 // event emitter (handle user input)
 var emitter = require('../templates/emitter');
 
@@ -86,7 +86,7 @@ emitter.on('page:favorite:create', function (data) {
 	app.send('/posts/' + data.id + '/favorite', {
 		method: 'PUT'
 	}).then(function (res) {
-		if (!res.ok) {
+		if (!res || !res.ok) {
 			return;
 		}
 
@@ -102,7 +102,7 @@ emitter.on('page:favorite:remove', function (data) {
 	app.send('/posts/' + data.id + '/favorite', {
 		method: 'DELETE'
 	}).then(function (res) {
-		if (!res.ok) {
+		if (!res || !res.ok) {
 			return;
 		}
 

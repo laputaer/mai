@@ -18,10 +18,10 @@ function *getFavoritePostsByIds(opts) {
 	var favs = opts.favs;
 	var Social = db.col('social');
 
-	var favs = yield Social.find().or(favs);
+	var favorites = yield Social.find().or(favs);
 	var output = {};
 
-	favs.forEach(function (fav) {
+	favorites.forEach(function (fav) {
 		output[fav.post] = fav;
 	});
 

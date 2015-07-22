@@ -9,7 +9,6 @@ var parser = require('url').parse;
 
 var getStandardJson = require('../helpers/get-standard-json');
 var filterAttributes = require('../helpers/filter-attributes');
-var i18n = require('../templates/i18n')();
 var clubsDomain = require('../domains/clubs');
 var usersDomain = require('../domains/users');
 var socialDomain = require('../domains/social');
@@ -92,7 +91,7 @@ function *middleware(next) {
 
 	// STEP 4: append user and club info to output
 	featured_posts = featured_posts.map(function (post) {
-		var uid = post.user;
+		var user = post.user;
 		var slug = post.club;
 
 		// post related
@@ -121,10 +120,10 @@ function *middleware(next) {
 		}
 
 		// user info
-		post.user_name = temp_users[uid].name;
-		post.user_login = temp_users[uid].login;
+		post.user_name = temp_users[user].name;
+		post.user_login = temp_users[user].login;
 		post.user_avatar = proxyUrl({
-			url: temp_users[uid].avatar
+			url: temp_users[user].avatar
 			, key: config.proxy.key
 			, base: state.image_base_url
 		});
@@ -136,7 +135,7 @@ function *middleware(next) {
 			&& Array.isArray(temp_clubs[slug].embed.image)
 			&& temp_clubs[slug].embed.image.length > 0
 		) {
-			var image = temp_clubs[slug].embed.image[0];
+			image = temp_clubs[slug].embed.image[0];
 			post.club_image = proxyUrl({
 				url: image.secure_url || image.url
 				, key: config.proxy.key

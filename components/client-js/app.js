@@ -172,12 +172,12 @@ App.prototype.send = function (url, opts) {
 	// contact backend service, get back result
 	return self.service.send(url, opts).then(function (res) {
 		if (!res.ok) {
-			return;
+			return null;
 		}
 		return res.json();
 	}).then(function (json) {
 		if (!json) {
-			return;
+			return null;
 		}
 		return json;
 	});
