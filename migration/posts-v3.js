@@ -25,7 +25,22 @@ function *migration(db) {
 	// run migration
 	var Target = db.col(opts.name);
 
-	// TODO: drop old indexes
+	// remove incorrect unique flag on these indexes
+	yield Target.dropIndex({
+		club: 1
+		, created: -1
+	});
+
+	yield Target.dropIndex({
+		user: 1
+		, created: -1
+	});
+
+	yield Target.dropIndex({
+		created: -1
+	});
+
+	// re-index properly
 	yield Target.index({
 		club: 1
 		, created: -1
