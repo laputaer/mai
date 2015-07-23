@@ -395,7 +395,6 @@
 
 	.text-column {
 		flex: 1;
-		padding-left: 10px;
 		max-height: 80px;
 		overflow: hidden;
 		position: relative;
@@ -412,6 +411,10 @@
 			display: block;
 			background-image: linear-gradient(to right, fadeout(@color-gray-pastel, 100%), fadeout(@color-gray-pastel, 0%));
 		}
+	}
+
+	.image-column + .text-column {
+		padding-left: 10px;
 	}
 
 	.action-block {

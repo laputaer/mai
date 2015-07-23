@@ -1,6 +1,6 @@
 
 /**
- * add-to-showcase.js
+ * list-showcase.js
  *
  * Standalone script to manage showcase list
  */
@@ -13,8 +13,8 @@ var configFactory = require('../components/config/config');
 function *cron() {
 	console.log('cron started');
 
-	if (argv._.length !== 2) {
-		console.log('type and id input missing');
+	if (argv._.length !== 1) {
+		console.log('type input missing');
 		return;
 	}
 
@@ -36,26 +36,7 @@ function *cron() {
 		return;
 	}
 
-	// push new id and trim the list
-	var list = feature.list;
-	var pos = list.indexOf(input[1]);
-
-	if (pos !== -1) {
-		console.log('feature ' + input[1] + ' already added');
-		return;
-	}
-
-	list.unshift(input[1]);
-	list = list.slice(0, feature.limit);
-
-	// update feature doc
-	yield Showcase.update({
-		type: input[0]
-	}, {
-		list: list
-	});
-
-	console.log('added ' + input[1] + ' to ' + input[0] + ' list');
+	console.log(feature.list);
 };
 
 co(cron).then(function() {

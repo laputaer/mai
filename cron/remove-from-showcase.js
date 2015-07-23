@@ -41,7 +41,7 @@ function *cron() {
 	var pos = list.indexOf(input[1]);
 
 	if (pos === -1) {
-		console.log('feature item not found');
+		console.log('feature ' + input[1] + ' not found');
 		return;
 	}
 

@@ -31,7 +31,9 @@
     "feature:club:add": "node cron/add-to-showcase.js featured-club-ids",
     "feature:post:add": "node cron/add-to-showcase.js featured-post-ids",
     "feature:club:remove": "node cron/remove-from-showcase.js featured-club-ids",
-    "feature:post:remove": "node cron/remove-from-showcase.js featured-post-ids"
+    "feature:post:remove": "node cron/remove-from-showcase.js featured-post-ids",
+    "feature:club:list": "node cron/list-showcase.js featured-club-ids",
+    "feature:post:list": "node cron/list-showcase.js featured-post-ids"
   },
   "repository": {
     "type": "git",
