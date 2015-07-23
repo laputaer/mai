@@ -23,11 +23,15 @@
     "build:js:dev": "browserify components/client-js/main.js -s mai -o public/dev/app.js",
     "build:svg": "svgo --enable=removeDesc --multipass -f components/client-svg/ && svgshelf components/client-svg/\\*.svg public/assets/icons.svg",
     "build:img": "find ./public/images -maxdepth 1 -type f -not -name .gitignore -exec rm -fv {} + && imagemin -i -p components/client-image/* public/images/",
+    "review:code:size": "browserify components/client-js/main.js -s app --list",
+    "review:code:lint": "eslint components/",
     "cache:purge:all": "find ./cache/ -maxdepth 1 -type f -not -name .gitignore -exec rm -fv {} + | wc -w",
     "cache:purge:old": "find ./cache/ -maxdepth 1 -type f -mtime +7 -not -name .gitignore -exec rm -fv {} + | wc -w",
     "user:recover:ap": "node cron/action-point-recovery.js",
-    "review:code:size": "browserify components/client-js/main.js -s app --list",
-    "review:code:lint": "eslint components/"
+    "feature:club:add": "node cron/add-to-showcase.js featured-club-ids",
+    "feature:post:add": "node cron/add-to-showcase.js featured-post-ids",
+    "feature:club:remove": "node cron/remove-from-showcase.js featured-club-ids",
+    "feature:post:remove": "node cron/remove-from-showcase.js featured-post-ids"
   },
   "repository": {
     "type": "git",

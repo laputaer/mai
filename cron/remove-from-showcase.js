@@ -1,6 +1,6 @@
 
 /**
- * add-to-showcase.js
+ * remove-from-showcase.js
  *
  * Standalone script to manage showcase list
  */
@@ -36,10 +36,16 @@ function *cron() {
 		return;
 	}
 
-	// push new id and trim the list
+	// find id and trim the list
 	var list = feature.list;
-	list.unshift(input[1]);
-	list = list.slice(0, feature.limit);
+	var pos = list.indexOf(input[1]);
+
+	if (pos === -1) {
+		console.log('feature item not found');
+		return;
+	}
+
+	list.splice(pos, 1);
 
 	// update feature doc
 	yield Showcase.update({
@@ -48,7 +54,7 @@ function *cron() {
 		list: list
 	});
 
-	console.log('added ' + input[1] + ' to ' + input[0] + ' list');
+	console.log('removed ' + input[1] + ' from ' + input[0] + ' list');
 };
 
 co(cron).then(function() {
