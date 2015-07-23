@@ -14,6 +14,7 @@ var usersDomain = require('../domains/users');
 var socialDomain = require('../domains/social');
 var showcaseDomain = require('../domains/showcase');
 var proxyUrl = require('../security/proxy');
+var validate = require('../security/validation');
 
 var filter_output = [
 	'pid', 'title', 'summary'
@@ -50,6 +51,16 @@ function *middleware(next) {
 	var config = this.config;
 	var state = this.state;
 	var uid = this.session.uid;
+	var limit = 8;
+	var skip = 0;
+
+	if (next) {
+		var result = yield validate(this.request.query, 'query');
+		if (result.valid) {
+			limit = parseInt(this.request.query.limit) || limit;
+			skip = parseInt(this.request.query.skip) || skip;
+		}
+	}
 
 	var post_pids = this.state.featured_post_ids;
 
@@ -59,6 +70,8 @@ function *middleware(next) {
 			, type: 'featured-post-ids'
 		});
 	}
+
+	post_pids = post_pids.slice(skip, limit);
 
 	// STEP 2: get featured posts
 	var featured_posts = yield clubsDomain.getFeaturedPosts({

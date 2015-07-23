@@ -70,12 +70,15 @@ emitter.on('page:login:close', function () {
 
 emitter.on('page:load:post', function () {
 	var count = app.read(['ui', 'load_post']) || 0;
-	count += 10;
-	app.modify(['ui', 'load_post'], count);
+	var limit = 20;
+	var skip = count + limit;
+	app.modify(['ui', 'load_post'], skip);
+	app.refresh();
 
 	app.load('featured_posts', {
 		query: {
-			skip: count
+			skip: skip
+			, limit: limit
 		}
 		, key: 'pid'
 	});

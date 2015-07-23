@@ -15,6 +15,7 @@ var oembedContent = require('./schema/oembed-content');
 var opengraph = require('./schema/opengraph');
 var postStart = require('./schema/post-start');
 var postConfirm = require('./schema/post-confirm');
+var query = require('./schema/query');
 
 module.exports = {
 	club: club
@@ -27,4 +28,5 @@ module.exports = {
 	, opengraph: opengraph
 	, postStart: postStart
 	, postConfirm: postConfirm
+	, query: query
 };
