@@ -71,7 +71,7 @@ function *middleware(next) {
 		});
 	}
 
-	post_pids = post_pids.slice(skip, limit);
+	post_pids = post_pids.slice(skip, skip + limit);
 
 	// STEP 2: get featured posts
 	var featured_posts = yield clubsDomain.getFeaturedPosts({

@@ -62,7 +62,7 @@ function *middleware(next) {
 		});
 	}
 
-	club_slugs = club_slugs.slice(skip, limit);
+	club_slugs = club_slugs.slice(skip, skip + limit);
 
 	// STEP 2: get featured clubs
 	var featured_clubs = yield clubsDomain.getFeaturedClubs({
