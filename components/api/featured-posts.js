@@ -12,6 +12,7 @@ var filterAttributes = require('../helpers/filter-attributes');
 var clubsDomain = require('../domains/clubs');
 var usersDomain = require('../domains/users');
 var socialDomain = require('../domains/social');
+var showcaseDomain = require('../domains/showcase');
 var proxyUrl = require('../security/proxy');
 
 var filter_output = [
@@ -40,6 +41,7 @@ function factory() {
  * @return  Void
  */
 function *middleware(next) {
+	// optional flow control, so this can be used as component
 	if (next) {
 		yield next;
 	}
@@ -49,10 +51,13 @@ function *middleware(next) {
 	var state = this.state;
 	var uid = this.session.uid;
 
-	var post_pids = config.showcase.posts;
+	var post_pids = this.state.featured_post_ids;
 
-	if (!next) {
-		post_pids = post_pids.slice(0, 5);
+	if (!post_pids) {
+		post_pids = yield showcaseDomain.getFeaturedIds({
+			db: this.db
+			, type: 'featured-post-ids'
+		});
 	}
 
 	// STEP 2: get featured posts
@@ -60,6 +65,8 @@ function *middleware(next) {
 		db: this.db
 		, pids: post_pids
 	});
+
+	console.log(featured_posts);
 
 	// STEP 3: get complementary user and club info
 	var temp_slugs = []
@@ -84,10 +91,14 @@ function *middleware(next) {
 		db: this.db
 		, uids: temp_uids
 	});
-	var temp_favorites = yield socialDomain.getFavoritePostsByIds({
-		db: this.db
-		, favs: temp_favs
-	});
+
+	var temp_favorites = {};
+	if (temp_favs.length > 0) {
+		temp_favorites = yield socialDomain.getFavoritePostsByIds({
+			db: this.db
+			, favs: temp_favs
+		});
+	}
 
 	// STEP 4: append user and club info to output
 	featured_posts = featured_posts.map(function (post) {

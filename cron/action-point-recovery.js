@@ -9,7 +9,7 @@ var co = require('co');
 var mongodb = require('../components/db/mongodb');
 var configFactory = require('../components/config/config');
 
-function *migration() {
+function *cron() {
 	console.log('cron started');
 
 	// prepare database connection
@@ -44,7 +44,7 @@ function *migration() {
 	console.log('updated ' + counter + ' users');
 };
 
-co(migration).then(function() {
+co(cron).then(function() {
 	console.log('cron done');
 	process.exit();
 }).catch(function(err) {

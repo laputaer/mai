@@ -7,6 +7,7 @@
 
 var getStandardJson = require('../helpers/get-standard-json');
 var filterAttributes = require('../helpers/filter-attributes');
+var showcaseDomain = require('../domains/showcase');
 var clubsDomain = require('../domains/clubs');
 var proxyUrl = require('../security/proxy');
 
@@ -32,6 +33,7 @@ function factory() {
  * @return  Void
  */
 function *middleware(next) {
+	// optional flow control, so this can be used as component
 	if (next) {
 		yield next;
 	}
@@ -40,10 +42,13 @@ function *middleware(next) {
 	var config = this.config;
 	var state = this.state;
 
-	var club_slugs = config.showcase.clubs;
+	var club_slugs = this.state.featured_club_ids;
 
-	if (!next) {
-		club_slugs = club_slugs.slice(0, 5);
+	if (!club_slugs) {
+		club_slugs = yield showcaseDomain.getFeaturedIds({
+			db: this.db
+			, type: 'featured-club-ids'
+		});
 	}
 
 	// STEP 2: get featured clubs

@@ -7,7 +7,7 @@
 
 var builder = require('../builders/index');
 var prepareData = require('../builders/prepare-data');
-
+var showcaseDomain = require('../domains/showcase');
 var featurePosts = require('../api/featured-posts')();
 var featureClubs = require('../api/featured-clubs')();
 
@@ -33,6 +33,14 @@ function *middleware(next) {
 
 	// STEP 1: prepare common data
 	var data = prepareData(this);
+	this.state.featured_club_ids = yield showcaseDomain.getFeaturedIds({
+		db: this.db
+		, type: 'featured-club-ids'
+	});
+	this.state.featured_post_ids = yield showcaseDomain.getFeaturedIds({
+		db: this.db
+		, type: 'featured-post-ids'
+	});
 
 	// STEP 2: get featured clubs
 	// note that yield here call method using current context, ie. koa, which is exactly what we need
