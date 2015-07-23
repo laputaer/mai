@@ -16,10 +16,10 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var avatar, text, buttonOpt;
+	var avatar, text, buttonOpts, avatarOpts;
 
 	// button options
-	buttonOpt = {
+	buttonOpts = {
 		href: data.href || '#'
 		, className: data.className || ''
 		, title: data.title || undefined
@@ -27,19 +27,24 @@ function template(data) {
 
 	// button events
 	if (data.eventName && data.eventHandler) {
-		buttonOpt[data.eventName] = data.eventHandler;
+		buttonOpts[data.eventName] = data.eventHandler;
 	}
 
 	// button icon
-	avatar = $('div.m-icon.m-avatar', {
-		style: {
+	avatarOpts = {};
+
+	// icon can be missing
+	if (data.icon) {
+		avatarOpts.style = {
 			'background-image': 'url(' + data.icon + '&size=sq-tiny)'
 		}
-	});
+	}
+
+	avatar = $('div.m-icon.m-avatar', avatarOpts);
 
 	// button text
 	text = $('span.m-text', data.text);
 
-	var button = $('a.m-button', buttonOpt, [ avatar, text ]);
+	var button = $('a.m-button', buttonOpts, [ avatar, text ]);
 	return button;
 };
