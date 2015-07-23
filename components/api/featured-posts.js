@@ -66,8 +66,6 @@ function *middleware(next) {
 		, pids: post_pids
 	});
 
-	console.log(featured_posts);
-
 	// STEP 3: get complementary user and club info
 	var temp_slugs = []
 	var temp_uids = [];
