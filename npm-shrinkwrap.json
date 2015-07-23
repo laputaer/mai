@@ -18572,14 +18572,14 @@
           "resolved": "https://registry.npmjs.org/mongodb/-/mongodb-1.4.38.tgz",
           "dependencies": {
             "bson": {
-              "version": "0.2.21",
+              "version": "0.2.22",
               "from": "bson@>=0.2.0 <0.3.0",
-              "resolved": "https://registry.npmjs.org/bson/-/bson-0.2.21.tgz",
+              "resolved": "https://registry.npmjs.org/bson/-/bson-0.2.22.tgz",
               "dependencies": {
                 "nan": {
-                  "version": "1.7.0",
-                  "from": "nan@1.7.0",
-                  "resolved": "https://registry.npmjs.org/nan/-/nan-1.7.0.tgz"
+                  "version": "1.8.4",
+                  "from": "nan@>=1.8.0 <1.9.0",
+                  "resolved": "https://registry.npmjs.org/nan/-/nan-1.8.4.tgz"
                 }
               }
             },
