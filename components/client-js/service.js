@@ -20,7 +20,7 @@ var api = {
 		, featured_posts: '/featured/posts?skip=0&limit=20'
 	}
 	, help: {}
-	, 'featured_posts': {
+	, featured_posts: {
 		endpoint: '/featured/posts'
 	}
 };
