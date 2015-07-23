@@ -38,6 +38,13 @@ function *cron() {
 
 	// push new id and trim the list
 	var list = feature.list;
+	var pos = list.indexOf(input[1]);
+
+	if (pos !== -1) {
+		console.log('feature item already added');
+		return;
+	}
+
 	list.unshift(input[1]);
 	list = list.slice(0, feature.limit);
 
