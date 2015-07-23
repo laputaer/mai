@@ -69,47 +69,63 @@ emitter.on('page:login:close', function () {
 });
 
 emitter.on('page:load:post', function () {
+	// show hidden data immediately
 	var count = app.read(['ui', 'load_post']) || 0;
-	count += 10;
-	app.modify(['ui', 'load_post'], count);
+	var limit = 20;
+	var skip = count + limit;
+	app.modify(['ui', 'load_post'], skip);
+	app.refresh();
 
+	// load more data in background
 	app.load('featured_posts', {
 		query: {
-			skip: count
+			skip: skip
+			, limit: limit
 		}
 		, key: 'pid'
 	});
 });
 
-// TODO: can be avoid logic here
 emitter.on('page:favorite:create', function (data) {
-	app.send('/posts/' + data.id + '/favorite', {
-		method: 'PUT'
-	}).then(function (res) {
-		if (!res || !res.ok) {
+	// react asap
+	createFavorite(data.order);
+
+	// send request, if failed, reset
+	app.json('PUT', '/posts/' + data.id + '/favorite').then(function (res) {
+		if (res.ok) {
 			return;
 		}
 
-		var fav_point_path = ['featured_posts', data.order, 'fav_point'];
-		var fav_point = app.read(fav_point_path);
-		app.modify(fav_point_path, fav_point + 1);
-		app.modify(['featured_posts', data.order, 'current_user_fav'], true);
-		app.refresh();
+		deleteFavorite(data.order);
 	});
 });
 
 emitter.on('page:favorite:remove', function (data) {
-	app.send('/posts/' + data.id + '/favorite', {
-		method: 'DELETE'
-	}).then(function (res) {
-		if (!res || !res.ok) {
+	// react asap
+	deleteFavorite(data.order);
+
+	// send request, if failed, reset
+	app.json('DELETE', '/posts/' + data.id + '/favorite').then(function (res) {
+		if (res.ok) {
 			return;
 		}
 
-		var fav_point_path = ['featured_posts', data.order, 'fav_point'];
-		var fav_point = app.read(fav_point_path);
-		app.modify(fav_point_path, fav_point - 1);
-		app.modify(['featured_posts', data.order, 'current_user_fav'], false);
-		app.refresh();
+		createFavorite(data.order);
 	});
 });
+
+function createFavorite (order) {
+	var fav_point_path = ['featured_posts', order, 'fav_point'];
+	var fav_point = app.read(fav_point_path) || 0;
+	app.modify(fav_point_path, fav_point + 1);
+	app.modify(['featured_posts', order, 'current_user_fav'], true);
+	app.refresh();
+};
+
+function deleteFavorite (order) {
+	var fav_point_path = ['featured_posts', order, 'fav_point'];
+	var fav_point = app.read(fav_point_path) || 0;
+	app.modify(fav_point_path, fav_point - 1);
+	app.modify(['featured_posts', order, 'current_user_fav'], false);
+	app.refresh();
+};

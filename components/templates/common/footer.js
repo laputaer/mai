@@ -7,6 +7,7 @@
 
 var $ = require('../vdom');
 var i18n = require('../i18n')();
+var emitter = require('../emitter');
 
 var buttonTemplate = require('./button');
 
@@ -41,6 +42,8 @@ function template(data) {
 		, icon: 'dialogue_happy'
 		, version: data.version.asset
 		, base_url: data.base_url
+		, eventName: 'ev-click'
+		, eventHandler: emitter.capture('page:login:open')
 	});
 
 	var copyrightLink = $('a', {

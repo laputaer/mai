@@ -42,6 +42,7 @@ function *middleware(next) {
 			});
 		}
 
+		this.set('Cache-Control', 'no-cache, no-store, must-revalidate');
 		this.body = html;
 	} else if (this.state.json) {
 		// format and output

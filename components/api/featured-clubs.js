@@ -7,8 +7,10 @@
 
 var getStandardJson = require('../helpers/get-standard-json');
 var filterAttributes = require('../helpers/filter-attributes');
+var showcaseDomain = require('../domains/showcase');
 var clubsDomain = require('../domains/clubs');
 var proxyUrl = require('../security/proxy');
+var validate = require('../security/validation');
 
 var filter_output = [
 	'slug', 'title', 'image', 'intro'
@@ -32,6 +34,7 @@ function factory() {
  * @return  Void
  */
 function *middleware(next) {
+	// optional flow control, so this can be used as component
 	if (next) {
 		yield next;
 	}
@@ -39,12 +42,27 @@ function *middleware(next) {
 	// STEP 1: prepare common data
 	var config = this.config;
 	var state = this.state;
+	var limit = 8;
+	var skip = 0;
 
-	var club_slugs = config.showcase.clubs;
-
-	if (!next) {
-		club_slugs = club_slugs.slice(0, 5);
+	if (next) {
+		var result = yield validate(this.request.query, 'query');
+		if (result.valid) {
+			limit = parseInt(this.request.query.limit) || limit;
+			skip = parseInt(this.request.query.skip) || skip;
+		}
 	}
+
+	var club_slugs = this.state.featured_club_ids;
+
+	if (!club_slugs) {
+		club_slugs = yield showcaseDomain.getFeaturedIds({
+			db: this.db
+			, type: 'featured-club-ids'
+		});
+	}
+
+	club_slugs = club_slugs.slice(skip, limit);
 
 	// STEP 2: get featured clubs
 	var featured_clubs = yield clubsDomain.getFeaturedClubs({

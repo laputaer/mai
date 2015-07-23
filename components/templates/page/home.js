@@ -37,8 +37,11 @@ function template(data) {
 	var featured_clubs = data.featured_clubs;
 	var featured_posts = data.featured_posts;
 
+	// a trick to hide available until user click load more
 	if (!data.ui.load_post) {
-		featured_posts = featured_posts.slice(0, 3);
+		featured_posts = featured_posts.slice(0, 8);
+	} else if (data.ui.load_post > 0) {
+		featured_posts = featured_posts.slice(0, data.ui.load_post);
 	}
 
 	featured_clubs = featured_clubs.map(function(club, i) {

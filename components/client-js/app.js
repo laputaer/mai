@@ -133,7 +133,7 @@ App.prototype.isReady = function () {
 };
 
 /**
- * Load data from backend and push onto app store and update view
+ * Load data from backend and push onto app store
  *
  * @param   String   name  Backend service
  * @param   Object   opts  Optional parameters
@@ -153,31 +153,33 @@ App.prototype.load = function (name, opts) {
 		if (data.endpoint.ok) {
 			// update data store
 			self.model.append(name, data.endpoint.data, opts.key);
-			// update view using current model
-			self.renderer.update(route, self.model.get());
 		}
 	});
 };
 
 /**
- * Send request to backend using given method
+ * Send request to backend and retrieve data
  *
- * @param   String   url   Backend service endpoint
- * @param   Object   opts  Optional parameters
+ * @param   String   method  Request method
+ * @param   String   url     Backend service endpoint
+ * @param   Object   opts    Optional parameters
  * @return  Promise
  */
-App.prototype.send = function (url, opts) {
+App.prototype.json = function (method, url, opts) {
 	var self = this;
 
-	// contact backend service, get back result
+	opts = opts || {};
+	opts.method = method || 'GET';
+
+	// contact backend service, get back json result
 	return self.service.send(url, opts).then(function (res) {
 		if (!res.ok) {
-			return null;
+			return {};
 		}
 		return res.json();
 	}).then(function (json) {
 		if (!json) {
-			return null;
+			return {};
 		}
 		return json;
 	});
