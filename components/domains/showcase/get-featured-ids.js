@@ -26,5 +26,5 @@ function *getFeaturedIds(opts) {
 		return [];
 	}
 
-	return features.ids;
+	return features.list;
 };
