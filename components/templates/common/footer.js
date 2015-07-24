@@ -37,9 +37,9 @@ function template(data) {
 
 	var loginButton = buttonTemplate({
 		href: '#'
-		, className: 'rounded nav'
+		, className: 'rounded nav signup'
 		, text: 'menu.nav.login-alt'
-		, icon: 'dialogue_happy'
+		, icon: 'flag'
 		, version: data.version.asset
 		, base_url: data.base_url
 		, eventName: 'ev-click'
