@@ -7,7 +7,7 @@
 
 .page-header {
 	width: 100%;
-	height: 130px;
+	height: 160px;
 	overflow: hidden;
 	position: relative;
 	background-color: #355C7E;
@@ -24,44 +24,14 @@
 		@media @supported {
 			img {
 				width: 320px;
-				height: 100%;
+				height: 200px;
 			}
 		}
 
-		@media screen and (min-width: 320px) {
+		@media @mobile {
 			img {
 				width: 100%;
-				height: 40.625vw;
-			}
-		}
-
-		@media @tablet {
-			img {
-				top: -20px;
-			}
-		}
-
-		@media @tablet-medium {
-			img {
-				top: -40px;
-			}
-		}
-
-		@media @monitor-small {
-			img {
-				top: -80px;
-			}
-		}
-
-		@media @monitor-medium {
-			img {
-				top: -120px;
-			}
-		}
-
-		@media @monitor-large {
-			img {
-				top: 0;
+				height: 62.5vw;
 			}
 		}
 	}
@@ -105,7 +75,6 @@
 		text-align: center;
 
 		color: @color-white;
-		font-weight: 400;
 		.long-text();
 
 		a {
@@ -114,15 +83,17 @@
 	}
 
 	.title {
-		margin-top: 45px;
+		margin-top: 50px;
+		font-weight: 400;
 		font-family: @sans-logo;
 		text-transform: uppercase;
-		.size(36);
+		.size(40);
 	}
 
 	.tagline {
 		margin-top: 4px;
-		.size(20);
+		font-weight: 300;
+		.size(18);
 	}
 
 	.tablet {
@@ -130,7 +101,13 @@
 	}
 
 	@media @tablet {
-		height: 150px;
+		height: 180px;
+
+		.image {
+			img {
+				top: -40px;
+			}
+		}
 
 		.navigation, .login {
 			.size(18);
@@ -146,7 +123,13 @@
 	}
 
 	@media @tablet-medium {
-		height: 180px;
+		height: 200px;
+
+		.image {
+			img {
+				top: -100px;
+			}
+		}
 
 		.navigation, .login {
 			top: 15px;
@@ -161,7 +144,7 @@
 		}
 
 		.title {
-			margin-top: 60px;
+			margin-top: 70px;
 			.size(54);
 		}
 
@@ -176,6 +159,12 @@
 
 	@media @tablet-large {
 		height: 240px;
+
+		.image {
+			img {
+				top: -140px;
+			}
+		}
 
 		.navigation, .login {
 			top: 20px;
@@ -197,6 +186,30 @@
 
 		.tagline {
 			.size(28);
+		}
+	}
+
+	@media @monitor {
+		.image {
+			img {
+				top: -240px;
+			}
+		}
+	}
+
+	@media @monitor-medium {
+		.image {
+			img {
+				top: -320px;
+			}
+		}
+	}
+
+	@media @monitor-large {
+		.image {
+			img {
+				top: -420px;
+			}
 		}
 	}
 }
