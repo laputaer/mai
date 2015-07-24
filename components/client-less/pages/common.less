@@ -208,7 +208,7 @@
 	@media @monitor-large {
 		.image {
 			img {
-				top: -420px;
+				top: -400px;
 			}
 		}
 	}
@@ -536,17 +536,17 @@
 		position: relative;
 	}
 
-	.signup {
-		padding: 8px 10px;
-		.size(24);
-	}
-
 	.tagline {
 		color: @color-white;
 		margin: 20px 0;
 		font-weight: 700;
 		line-height: 1em;
 		.size(20);
+	}
+
+	.signup {
+		padding: 8px 10px;
+		.size(24);
 	}
 
 	.footer {
@@ -573,6 +573,24 @@
 
 		a {
 			.link-alt(@color-yellow-light);
+		}
+	}
+
+	@media @tablet {
+		.tagline {
+			.size(24);
+		}
+	}
+
+	@media @tablet-large {
+		height: 240px;
+
+		.tagline {
+			margin: 30px 0;
+		}
+
+		.navigation {
+			bottom: 10px;
 		}
 	}
 }
