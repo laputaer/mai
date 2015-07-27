@@ -17,18 +17,22 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var icon, text, buttonOpt;
+	var icon, text, buttonOpts;
 
 	// button options
-	buttonOpt = {
+	buttonOpts = {
 		href: data.href || '#'
-		, target: data.target || undefined
 		, className: data.className || ''
 	};
 
+	// button target
+	if (data.target) {
+		buttonOpts.target = data.target;
+	}
+
 	// button events
 	if (data.eventName && data.eventHandler) {
-		buttonOpt[data.eventName] = data.eventHandler;
+		buttonOpts[data.eventName] = data.eventHandler;
 	}
 
 	// button icon
@@ -52,6 +56,6 @@ function template(data) {
 		text = $('span.m-text', data.value.toString());
 	}
 
-	var button = $('a.m-button', buttonOpt, [ icon, text ]);
+	var button = $('a.m-button', buttonOpts, [ icon, text ]);
 	return button;
 };

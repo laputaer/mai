@@ -45,22 +45,20 @@ function template(data) {
 	}
 
 	featured_clubs = featured_clubs.map(function(club, i) {
-		club = I.assoc(club, 'num', i);
 		return clubTemplate(club);
 	});
 
 	featured_posts = featured_posts.map(function(post, i) {
-		post = I.assoc(post, 'num', i);
-		post = I.assoc(post, 'version', data.version.asset);
+		post = I.assign(post, {
+			'num': i
+			, 'version': data.version.asset
+		});
 		return postTemplate(post);
 	});
 
 	var load_more = loadButtonTemplate({
 		title: 'section.load.featured-post'
 		, key: 'load-button'
-		, image: '/images/load-bg-400.jpg'
-		, version: data.version.asset
-		, base_url: data.base_url
 		, eventName: 'ev-click'
 		, eventHandler: emitter.capture('page:load:post')
 	});

@@ -150,9 +150,10 @@ App.prototype.load = function (name, opts) {
 
 	// contact backend service
 	return self.service.fetch(name, opts.query).then(function (data) {
-		if (data.endpoint.ok) {
-			// update data store
-			self.model.append(name, data.endpoint.data, opts.key);
+		if (data.endpoint.ok && Array.isArray(data.endpoint.data)) {
+			data.endpoint.data.forEach(function (item) {
+				self.model.append(name, item, opts.key);
+			});
 		}
 	});
 };

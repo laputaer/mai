@@ -55,7 +55,7 @@ function template(data) {
 		href: '/'
 		, className: 'plain discover home'
 		, text: 'menu.nav.home'
-		, icon: 'squares'
+		, icon: 'home'
 		, version: data.version.asset
 	};
 	var homeButton = navButtonTemplate(homeOpts);

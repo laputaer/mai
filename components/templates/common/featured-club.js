@@ -17,7 +17,7 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var clubOpt = {
+	var clubOpts = {
 		id: data.slug
 		, key: data.slug
 		, className: 'featured-club'
@@ -45,20 +45,16 @@ function template(data) {
 		className: 'wrapper'
 	}
 
-	if (data.num === 0) {
-		wrapperOpts.className += ' section-inset';
-	}
-
-	var titleLink = $('a', {
+	var linkOpts = {
 		href: '/c/' + data.slug
 		, title: data.intro
-	}, data.title);
+	};
 
-	var club = $('div', clubOpt, [
+	var clubTitle = $('span.title', data.title);
+
+	var club = $('div', clubOpts, [
 		$('div.image', clubImage)
-		, $('div', wrapperOpts, [
-			$('h1.title', titleLink)
-		])
+		, $('div', wrapperOpts, $('a.link', linkOpts, clubTitle))
 	]);
 
 	return club;

@@ -27,10 +27,6 @@ function template(data) {
 		, className: 'featured-post'
 	};
 
-	if (data.num === 0) {
-		postOpts.className += ' section-inset';
-	}
-
 	var image, user, club;
 
 	if (data.image) {

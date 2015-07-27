@@ -12,7 +12,7 @@ module.exports = {
 		, 'description': '「入部么」是全球首家关注与支持「小众文化」的社区。欢迎你与我们一道，分享独特的「消费主义」与「文化信仰」。'
 		, 'domain': 'rubu.me'
 		, 'tagline': '「与世界一同入迷」'
-		, 'tagline-alt': '「与朋友一起探索」'
+		, 'tagline-alt': '「入部么？与朋友一起探索」'
 	}
 	, 'menu': {
 		'nav': {
@@ -42,7 +42,7 @@ module.exports = {
 			, 'featured-posts': '社区精选'
 		}
 		, 'load': {
-			'featured-post': '载入更多精彩内容'
+			'featured-post': '浏览更多精彩内容'
 		}
 	}
 	, 'placeholder': {

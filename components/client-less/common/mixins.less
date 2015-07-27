@@ -28,6 +28,13 @@
 	background-image: none;
 }
 
+// remove common link styling
+.hide-link() {
+	color: inherit;
+	text-decoration: none;
+	outline: 0;
+}
+
 // font-size using rem
 .size(@px) {
 	font-size: @px * 1px;
@@ -62,12 +69,12 @@
 }
 
 // simple overlay with absolute positioning
-.overlay() {
+.overlay(@px: 0) {
 	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
+	top: @px;
+	left: @px;
+	right: @px;
+	bottom: @px;
 }
 
 // background image cover

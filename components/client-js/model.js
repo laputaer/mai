@@ -125,7 +125,7 @@ Model.prototype.get = function(path) {
 };
 
 /**
- * Append data onto an array in store, prevent duplicate
+ * Append item onto an array in store, prevent duplicate
  *
  * @param   Mixed   path  Store key path
  * @param   Mixed   data  New data
@@ -163,7 +163,7 @@ Model.prototype.append = function(path, data, key) {
 	}
 
 	// append value or update existing value
-	if (pos !== undefined) {
+	if (pos === undefined) {
 		this.set(path, I.push(arr, data));
 	} else {
 		var new_path = typeof path === 'string' ? [path, pos] : path.concat(pos);
