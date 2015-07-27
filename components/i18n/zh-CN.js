@@ -42,7 +42,7 @@ module.exports = {
 			, 'featured-posts': '社区精选'
 		}
 		, 'load': {
-			'featured-post': '载入更多精彩内容'
+			'featured-post': '浏览更多精彩内容'
 		}
 	}
 	, 'placeholder': {
