@@ -314,10 +314,15 @@
 	width: 100%;
 	height: 50px;
 	background-color: @color-white;
+	position: relative;
+	z-index: 10;
+	box-shadow: 0 1px 0 0 fadeout(@color-black, 80%);
 
 	.wrapper {
 		width: 100%;
 		height: 100%;
+		max-width: 1200px;
+		margin: 0 auto;
 		overflow: hidden;
 		display: flex;
 		align-items: center;
@@ -354,6 +359,13 @@
 				top: -60px;
 			}
 		}
+
+		@media @tablet {
+			img {
+				top: 0;
+				height: 250px;
+			}
+		}
 	}
 
 	.wrapper {
@@ -386,10 +398,16 @@
 			.link-alt(@color-yellow-light);
 		}
 	}
+
+	@media @tablet {
+		width: 400px;
+		height: 250px;
+		margin: 10px auto;
+	}
 }
 
 .section-inset {
-	box-shadow: inset 0 1px 0 0 fadeout(@color-black, 80%);
+	//box-shadow: inset 0 1px 0 0 fadeout(@color-black, 80%);
 }
 
 .featured-post {

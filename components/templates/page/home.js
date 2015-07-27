@@ -45,13 +45,14 @@ function template(data) {
 	}
 
 	featured_clubs = featured_clubs.map(function(club, i) {
-		club = I.assoc(club, 'num', i);
 		return clubTemplate(club);
 	});
 
 	featured_posts = featured_posts.map(function(post, i) {
-		post = I.assoc(post, 'num', i);
-		post = I.assoc(post, 'version', data.version.asset);
+		post = I.assign(post, {
+			'num': i
+			, 'version': data.version.asset
+		});
 		return postTemplate(post);
 	});
 

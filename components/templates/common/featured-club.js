@@ -45,10 +45,6 @@ function template(data) {
 		className: 'wrapper'
 	}
 
-	if (data.num === 0) {
-		wrapperOpts.className += ' section-inset';
-	}
-
 	var titleLink = $('a', {
 		href: '/c/' + data.slug
 		, title: data.intro
