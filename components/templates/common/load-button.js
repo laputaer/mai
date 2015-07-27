@@ -25,21 +25,12 @@ function template(data) {
 
 	var linkOpts = {
 		href: '#'
+		, className: 'wrapper'
 	};
 
 	// button events
 	if (data.eventName && data.eventHandler) {
 		linkOpts[data.eventName] = data.eventHandler;
-	}
-
-	// button background
-	if (data.base_url && data.image) {
-		linkOpts.className = 'wrapper lazyload';
-
-		linkOpts.attributes = {
-			'data-bgset': data.base_url + data.image + '?' + data.version + ' 400w'
-			, 'data-sizes': 'auto'
-		};
 	}
 
 	var load = $('div', buttonOpts, $('a', linkOpts, i18n.t(data.title)));

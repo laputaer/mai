@@ -379,7 +379,7 @@
 
 	.link {
 		.overlay(8px);
-		.link-alt(@color-yellow-light);
+		.hide-link();
 	}
 
 	.title {
@@ -390,6 +390,7 @@
 		font-weight: 700;
 		.long-text();
 		.size(24);
+		.link-alt(@color-yellow-light);
 
 		&:first-letter {
 			line-height: 1em;
@@ -543,31 +544,28 @@
 
 .page-load-button {
 	width: 100%;
-	padding: 15px;
-	color: @color-white;
+	padding: 20px 30px 10px;
 	box-sizing: border-box;
 	overflow: hidden;
+	color: @color-gray-dark;
 
 	.wrapper {
 		display: block;
 		width: 100%;
 		padding: 15px 0;
 		box-sizing: border-box;
-		border: 1px solid @color-black;
-		border-radius: 10px;
-		background-color: @color-black;
-		background-position: 50% 50%;
+		border: 1px solid currentColor;
+		border-radius: 100px;
 
 		text-align: center;
 		line-height: 1em;
 		font-weight: 400;
 		.size(20);
-		.link-alt(@color-yellow-light);
-	}
+		.hide-link();
 
-	@media @x2 {
-		.wrapper {
-			background-size: 200px;
+		&:hover {
+			background-color: @color-gray-dark;
+			color: @color-white;
 		}
 	}
 }
