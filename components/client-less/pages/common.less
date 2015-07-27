@@ -317,6 +317,7 @@
 	position: relative;
 	z-index: 10;
 	box-shadow: 0 1px 0 0 fadeout(@color-black, 80%);
+	clear: both;
 
 	.wrapper {
 		width: 100%;
@@ -343,6 +344,7 @@
 	background-color: @color-yellow-pastel;
 	position: relative;
 	overflow: hidden;
+	box-sizing: border-box;
 
 	.image {
 		.overlay();
@@ -363,7 +365,7 @@
 		@media @tablet {
 			img {
 				top: 0;
-				height: 250px;
+				height: ~'calc((50vw - 30px) * 0.625)';
 			}
 		}
 	}
@@ -400,9 +402,11 @@
 	}
 
 	@media @tablet {
-		width: 400px;
-		height: 250px;
-		margin: 10px auto;
+		width: ~'calc(50% - 30px)';
+		height: 120px;
+		border-radius: 4px;
+		margin: 20px 0 0 20px;
+		float: left;
 	}
 }
 
