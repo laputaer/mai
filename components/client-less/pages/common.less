@@ -110,10 +110,20 @@
 		}
 
 		.navigation, .login {
+			top: 15px;
 			.size(18);
 		}
 
+		.navigation {
+			left: 15px;
+		}
+
+		.login {
+			right: 15px;
+		}
+
 		.title {
+			margin-top: 60px;
 			.size(48);
 		}
 
@@ -131,25 +141,8 @@
 			}
 		}
 
-		.navigation, .login {
-			top: 15px;
-		}
-
-		.navigation {
-			left: 15px;
-		}
-
-		.login {
-			right: 15px;
-		}
-
 		.title {
 			margin-top: 70px;
-			.size(54);
-		}
-
-		.tagline {
-			.size(24);
 		}
 
 		.tablet {
@@ -181,11 +174,11 @@
 
 		.title {
 			margin-top: 80px;
-			.size(64);
+			.size(54);
 		}
 
 		.tagline {
-			.size(28);
+			.size(24);
 		}
 	}
 
@@ -335,6 +328,23 @@
 		font-weight: 400;
 		line-height: 1em;
 		.size(18);
+	}
+
+	@media @tablet {
+		background-color: transparent;
+		box-shadow: none;
+		height: auto;
+
+		.title {
+			margin: 40px 20px 20px;
+			.size(24);
+		}
+
+		&:first-child {
+			.title {
+				margin: 20px 20px 0;
+			}
+		}
 	}
 }
 
@@ -550,6 +560,43 @@
 					, fadeout(lighten(@color-gray-pastel, 1%), 100%)
 					, fadeout(lighten(@color-gray-pastel, 1%), 0%) 20px);
 			}
+		}
+	}
+
+	@media @tablet {
+		padding: 20px 20px 10px;
+
+		.image-column {
+			width: 100px;
+		}
+
+		.text-column {
+			max-height: 100px;
+		}
+
+		.action-block {
+			.size(16);
+		}
+
+		.thumbnail {
+			width: 100px;
+			height: 100px;
+		}
+
+		.title {
+			.size(25);
+		}
+
+		.link {
+			.size(16);
+		}
+
+		.wrapper:after {
+			content: none;
+		}
+
+		.action-block:after {
+			content: none;
 		}
 	}
 }
