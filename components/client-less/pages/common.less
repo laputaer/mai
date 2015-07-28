@@ -227,7 +227,7 @@
 	}
 
 	.item {
-		margin: 15px 20px;
+		margin: 10px 20px;
 
 		.m-button {
 			color: @color-white;
@@ -236,7 +236,7 @@
 		.m-text {
 			font-weight: 700;
 			line-height: 20px;
-			.size(24);
+			.size(16);
 		}
 
 		.m-icon {
@@ -248,18 +248,28 @@
 
 	.title {
 		position: absolute;
-		top: 15px;
-		left: 15px;
+		top: 20px;
+		left: 20px;
 		.size(20);
 	}
 
 	.close {
 		position: absolute;
-		top: 15px;
-		right: 15px;
+		top: 20px;
+		right: 20px;
 	}
 
 	@media screen and (min-height: 300px) {
+		.item {
+			margin: 15px 20px;
+
+			.m-text {
+				.size(20);
+			}
+		}
+	}
+
+	@media screen and (min-height: 350px) {
 		.item {
 			margin: 20px;
 
@@ -286,6 +296,21 @@
 				width: 32px;
 				height: 32px;
 			}
+		}
+	}
+
+	@media @tablet {
+		.wrapper {
+			margin: 20px;
+			width: ~'calc(100% - 40px)';
+			height: ~'calc(100% - 40px)';
+		}
+	}
+
+	@media @monitor {
+		.wrapper {
+			max-width: 1200px;
+			margin: 20px auto;
 		}
 	}
 }
