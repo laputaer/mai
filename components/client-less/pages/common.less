@@ -353,12 +353,20 @@
 			position: relative;
 			display: block;
 			width: 100%;
-			height: 62.5vw;
 		}
 
 		@media @supported {
 			img {
+				width: 320px;
+				height: 200px;
 				top: -60px;
+			}
+		}
+
+		@media @mobile {
+			img {
+				width: 100%;
+				height: 62.5vw;
 			}
 		}
 
