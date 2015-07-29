@@ -10,7 +10,7 @@ module.exports = getUserOwnedClubs;
 /**
  * Find clubs by membership uid
  *
- * @param   Object  opts  Options { db, uid, limit, range }
+ * @param   Object  opts  Options { db, uid, limit, range, skip }
  * @return  Array         A list of clubs
  */
 function *getUserOwnedClubs(opts) {
@@ -18,6 +18,7 @@ function *getUserOwnedClubs(opts) {
 	var uid = opts.uid;
 	var limit = opts.limit;
 	var range = opts.range;
+	var skip = opts.skip;
 
 	var Club = db.col('clubs');
 	var Membership = db.col('memberships');
@@ -34,7 +35,7 @@ function *getUserOwnedClubs(opts) {
 	}
 
 	// STEP 1: find memberships
-	var memberships = yield Membership.find(query).sort({ created: -1 }).limit(limit);
+	var memberships = yield Membership.find(query).sort({ created: -1 }).limit(limit).skip(skip);
 
 	// STEP 2: get club slugs
 	var slugs = memberships.map(function(member) {

@@ -42,14 +42,16 @@ function *middleware(next) {
 	// STEP 1: prepare common data
 	var config = this.config;
 	var state = this.state;
-	var limit = 8;
+	var limit = 10;
 	var range = 0;
+	var skip = 0;
 
 	if (next) {
 		var result = yield validate(this.request.query, 'query');
 		if (result.valid) {
 			limit = parseInt(this.request.query.limit) || limit;
 			range = parseInt(this.request.query.range) || range;
+			skip = parseInt(this.request.query.skip) || skip;
 		}
 	}
 
@@ -59,6 +61,7 @@ function *middleware(next) {
 		, uid: this.session.uid
 		, limit: limit
 		, range: range
+		, skip: skip
 	});
 
 	// STEP 3: filter output

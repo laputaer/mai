@@ -12,6 +12,7 @@ var createRoute = require('../helpers/create-named-route');
 var routes = {
 	home: createRoute('^/$')
 	, help: createRoute('^/help$')
+	, myClubs: createRoute('^/my-clubs$')
 };
 
 module.exports = router;
