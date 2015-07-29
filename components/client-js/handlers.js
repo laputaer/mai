@@ -8,6 +8,10 @@
 var emitter = require('../templates/emitter');
 var toggleScroll = require('./helpers/toggle-body-scroll');
 
+var createFavorite = require('./handlers/create-favorite');
+var deleteFavorite = require('./handlers/delete-favorite');
+var loadContent = require('./handlers/load-content');
+
 module.exports = handlers;
 
 /**
@@ -81,39 +85,5 @@ function handlers(app) {
 				createFavorite(app, data.order);
 			}
 		});
-	});
-};
-
-function createFavorite (app, order) {
-	var fav_point_path = ['featured_posts', order, 'fav_point'];
-	var fav_point = app.read(fav_point_path) || 0;
-	app.modify(fav_point_path, fav_point + 1);
-	app.modify(['featured_posts', order, 'current_user_fav'], true);
-	app.refresh();
-};
-
-function deleteFavorite (app, order) {
-	var fav_point_path = ['featured_posts', order, 'fav_point'];
-	var fav_point = app.read(fav_point_path) || 0;
-	app.modify(fav_point_path, fav_point - 1);
-	app.modify(['featured_posts', order, 'current_user_fav'], false);
-	app.refresh();
-};
-
-function loadContent (app, opts) {
-	// show hidden data immediately
-	var count = app.read(['ui', opts.name]) || 0;
-	var limit = 20;
-	var skip = count + limit;
-	app.modify(['ui', opts.name], skip);
-	app.refresh();
-
-	// load more data in background
-	app.load(opts.endpoint, {
-		query: {
-			skip: skip
-			, limit: limit
-		}
-		, key: opts.key
 	});
 };
