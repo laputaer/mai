@@ -19,9 +19,19 @@ var api = {
 		featured_clubs: '/featured/clubs'
 		, featured_posts: '/featured/posts?skip=0&limit=20'
 	}
+	, myClubs: {
+		my_clubs: '/clubs/owner?skip=0&limit=20'
+		, joined_clubs: '/clubs/member?skip=0&limit=20'
+	}
 	, help: {}
 	, featured_posts: {
 		endpoint: '/featured/posts'
+	}
+	, my_clubs: {
+		endpoint: '/clubs/owner'
+	}
+	, joined_clubs: {
+		endpoint: '/clubs/member'
 	}
 };
 

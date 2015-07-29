@@ -32,7 +32,7 @@ function template(data) {
 	});
 
 	var clubOpt = {
-		href: '/c/club-home'
+		href: '/my-clubs'
 		, className: 'rounded nav tablet'
 		, text: 'menu.nav.club'
 		, icon: 'share'

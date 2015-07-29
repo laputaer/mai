@@ -61,7 +61,7 @@ function template(data) {
 	var homeButton = navButtonTemplate(homeOpts);
 
 	var clubOpts = {
-		href: '/c/club-home'
+		href: '/my-clubs'
 		, className: 'plain discover club'
 		, text: 'menu.nav.club'
 		, icon: 'share'

@@ -6,6 +6,7 @@
  */
 
 module.exports = {
+	// old builders
 	clubAddConfirmForm: require('./club-add-confirm-form')
 	, clubAddPostForm: require('./club-add-post-form')
 	, clubEditor: require('./club-editor')
@@ -17,7 +18,9 @@ module.exports = {
 	, customError: require('./custom-error')
 	, doc: require('./doc')
 	, help: require('./help')
-	, home: require('./home')
 	, login: require('./login')
 	, userProfile: require('./user-profile')
+	// updated builders
+	, home: require('./home')
+	, myClubs: require('./my-clubs')
 };

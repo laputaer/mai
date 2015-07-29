@@ -32,12 +32,13 @@ function template(data) {
 	var section_title_2 = sectionTitleTemplate({
 		title: 'section.titles.featured-posts'
 		, key: 'featured-posts'
+		, top: true
+		, bottom: true
 	});
 
 	var featured_clubs = data.featured_clubs;
 	var featured_posts = data.featured_posts;
 
-	// a trick to hide available until user click load more
 	if (!data.ui.load_post) {
 		featured_posts = featured_posts.slice(0, 8);
 	} else if (data.ui.load_post > 0) {
@@ -63,7 +64,13 @@ function template(data) {
 		, eventHandler: emitter.capture('page:load:post')
 	});
 
-	var home = $('div.page-content', [
+	var homeOpts = {
+		id: 'content'
+		, key: 'content'
+		, className: 'page-content'
+	};
+
+	var home = $('div', homeOpts, [
 		section_title_1
 		, featured_clubs
 		, section_title_2

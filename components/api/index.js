@@ -11,4 +11,6 @@ module.exports = {
 	, getFeaturedPosts: require('./featured-posts')
 	, favoritePost: require('./favorite-post')
 	, unfavoritePost: require('./unfavorite-post')
+	, userJoinedClubs: require('./current-user-joined-clubs')
+	, userOwnedClubs: require('./current-user-owned-clubs')
 };

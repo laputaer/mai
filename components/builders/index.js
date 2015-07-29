@@ -11,7 +11,10 @@ var builders = require('./builders');
 var createRoute = require('../helpers/create-named-route');
 
 var routes = {
+	// new routes
 	home: createRoute('^/$')
+	, myClubs: createRoute('^/my-clubs$')
+	// old routes
 	, help: createRoute('^/help$')
 	, login: createRoute('^/login/redirect$')
 	, userProfile: createRoute('^/u/:uid$')

@@ -27,6 +27,7 @@ function myRouter(app) {
 	// standalone
 	router.get('/', handlers.pageLanding());
 	router.get('/help', handlers.pageHelp());
+	router.get('/my-clubs', handlers.pageMyClubs());
 
 	// user login
 	router.get('/login/redirect', handlers.loginRedirect());
@@ -59,6 +60,8 @@ function myRouter(app) {
 	apiRouter.get('/featured/posts', apiHandlers.getFeaturedPosts());
 	apiRouter.put('/posts/:pid/favorite', apiHandlers.favoritePost());
 	apiRouter.del('/posts/:pid/favorite', apiHandlers.unfavoritePost());
+	apiRouter.get('/clubs/owner', apiHandlers.userOwnedClubs());
+	apiRouter.get('/clubs/member', apiHandlers.userJoinedClubs());
 
 	// mount api routes to main router
 	router.use('/api/v1', apiRouter.routes());

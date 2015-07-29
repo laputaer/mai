@@ -22,8 +22,8 @@ module.exports = template;
  */
 function template(data) {
 	var postOpts = {
-		id: data.pid
-		, key: data.pid
+		id: 'post-' + data.pid
+		, key: 'post-' + data.pid
 		, className: 'featured-post'
 	};
 

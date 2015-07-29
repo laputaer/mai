@@ -10,31 +10,52 @@ module.exports = getUserJoinedClubs;
 /**
  * Find clubs by membership uid
  *
- * @param   Object  opts  Options { db, uid }
+ * @param   Object  opts  Options { db, uid, limit, range, skip }
  * @return  Array         A list of clubs
  */
 function *getUserJoinedClubs(opts) {
 	var db = opts.db;
+	var uid = opts.uid;
+	var limit = opts.limit;
+	var range = opts.range;
+	var skip = opts.skip;
+
 	var Club = db.col('clubs');
 	var Membership = db.col('memberships');
 
-	// STEP 1: find all memberships
-	var memberships = yield Membership.find({
-		uid: opts.uid
-	});
+	var query = {
+		uid: uid
+		, type: 'member'
+	};
 
-	// STEP 2: get all club ids
-	memberships = memberships.map(function(member) {
+	if (range > 0) {
+		query.created = {
+			'$lt': range
+		};
+	}
+
+	// STEP 1: find memberships
+	var memberships = yield Membership.find(query).sort({ created: -1 }).limit(limit).skip(skip);
+
+	// STEP 2: get club slugs
+	var slugs = memberships.map(function(member) {
 		return member.slug;
 	});
 
-	// STEP 3: find all clubs
-	var clubs = yield Club.where('slug').in(memberships);
+	// STEP 3: find clubs
+	var clubs = yield Club.where('slug').in(slugs);
+	var output = [];
 
-	// STEP 4: filter clubs
-	clubs = clubs.filter(function(club) {
-		return club.owner !== opts.uid;
+	// STEP 4: order result
+	clubs.forEach(function (club) {
+		var pos = slugs.indexOf(club.slug);
+		output[pos] = club;
 	});
 
-	return clubs;
+	// STEP 5: normalized array
+	output = output.filter(function(value) {
+		return !!value;
+	});
+
+	return output;
 };
