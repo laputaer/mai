@@ -1,6 +1,6 @@
 
 /**
- * memberships-v1.js
+ * memberships-v2.js
  *
  * Migration script for `memberships` collection, rev.2
  */

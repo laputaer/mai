@@ -18,8 +18,8 @@ module.exports = template;
  */
 function template(data) {
 	var clubOpts = {
-		id: data.slug
-		, key: data.slug
+		id: 'club-' + data.slug
+		, key: 'club-' + data.slug
 		, className: 'featured-club'
 	};
 

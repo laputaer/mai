@@ -43,5 +43,20 @@ function factory() {
 
 				return true;
 			}, 'skip invalid')
+		.validates('range')
+			.optional()
+			.using(function(value) {
+				if (!validator.supported(value)) {
+					return false
+				}
+
+				var num = validator.toInt(value);
+
+				if (isNaN(num) || num < 0 || num > Date.now()) {
+					return false
+				}
+
+				return true;
+			}, 'range invalid')
 		.build();
 };
