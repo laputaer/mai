@@ -1,6 +1,6 @@
 
 /**
- * page-current-user-clubs.js
+ * page-my-clubs.js
  *
  * Koa route handler for current user's clubs
  */
@@ -40,13 +40,7 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 3: get full user profile
-	data.user = yield usersDomain.matchUser({
-		db: this.db
-		, uid: this.session.uid
-	});
-
-	// STEP 4 :get user clubs
+	// STEP 3: get user clubs
 	data.my_clubs = yield myClubs;
 	data.joined_clubs = yield joinedClubs;
 

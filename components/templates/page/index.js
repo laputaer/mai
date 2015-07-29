@@ -6,7 +6,8 @@
  */
 
 module.exports = {
-	userManual: require('./user-manual')
-	, home: require('./home')
+	home: require('./home')
+	, myClubs: require('./my-clubs')
 	, ranking: require('./ranking')
+	, userManual: require('./user-manual')
 };

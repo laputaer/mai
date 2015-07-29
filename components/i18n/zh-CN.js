@@ -40,6 +40,8 @@ module.exports = {
 		'titles': {
 			'featured-clubs': '推荐社团'
 			, 'featured-posts': '社区精选'
+			, 'owner-clubs': '我创建的社团'
+			, 'joined-clubs': '我加入的社团'
 		}
 		, 'load': {
 			'featured-post': '浏览更多精彩内容'

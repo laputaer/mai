@@ -8,6 +8,7 @@
 module.exports = {
 	pageLanding: require('./page-home')
 	, pageHelp: require('./page-help')
+	, pageMyClubs: require('./page-my-clubs')
 	, loginRedirect: require('./login-redirect')
 	, loginOauth: require('./oauth')
 	, userProfile: require('./user-profile')

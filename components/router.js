@@ -27,6 +27,7 @@ function myRouter(app) {
 	// standalone
 	router.get('/', handlers.pageLanding());
 	router.get('/help', handlers.pageHelp());
+	router.get('/my-clubs', handlers.pageMyClubs());
 
 	// user login
 	router.get('/login/redirect', handlers.loginRedirect());

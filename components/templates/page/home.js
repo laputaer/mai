@@ -32,6 +32,8 @@ function template(data) {
 	var section_title_2 = sectionTitleTemplate({
 		title: 'section.titles.featured-posts'
 		, key: 'featured-posts'
+		, top: true
+		, bottom: true
 	});
 
 	var featured_clubs = data.featured_clubs;
@@ -63,7 +65,13 @@ function template(data) {
 		, eventHandler: emitter.capture('page:load:post')
 	});
 
-	var home = $('div.page-content', [
+	var homeOpts = {
+		id: 'content'
+		, key: 'content'
+		, className: 'page-content'
+	};
+
+	var home = $('div', homeOpts, [
 		section_title_1
 		, featured_clubs
 		, section_title_2
