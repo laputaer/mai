@@ -14,6 +14,7 @@ var routes = {
 	, help: createRoute('^/help$')
 	, myClubs: createRoute('^/my-clubs$')
 	, clubProfile: createRoute('^/c/:slug$')
+	, userProfile: createRoute('^/u/:uid$')
 };
 
 module.exports = router;

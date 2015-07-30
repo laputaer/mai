@@ -24,7 +24,12 @@ var api = {
 		, joined_clubs: '/clubs/member?skip=0&limit=20'
 	}
 	, clubProfile: {
-		club_posts: '/clubs/:slug/posts?skip=0&limit=20'
+		club_profile: '/clubs/:slug/profile'
+		, club_posts: '/clubs/:slug/posts?skip=0&limit=20'
+	}
+	, userProfile: {
+		user_profile: '/users/:uid/profile'
+		, user_posts: '/users/:uid/posts?skip=0&limit=20'
 	}
 	, help: {}
 	, featured_posts: {
@@ -38,6 +43,9 @@ var api = {
 	}
 	, club_posts: {
 		endpoint: '/clubs/:slug/posts'
+	}
+	, user_posts: {
+		endpoint: '/users/:uid/posts'
 	}
 };
 
