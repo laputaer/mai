@@ -1,6 +1,6 @@
 
 /**
- * posts-v1.js
+ * posts-v3.js
  *
  * Migration script for `posts` collection, rev.3
  */
