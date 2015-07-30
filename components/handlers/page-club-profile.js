@@ -36,9 +36,6 @@ function *middleware(next) {
 
 	// STEP 1: prepare common data
 	var data = prepareData(this);
-	var config = this.config;
-	var state = this.state;
-
 	data.canonical_url = resolver(data.current_url, data.current_path);
 
 	// STEP 2: find club
