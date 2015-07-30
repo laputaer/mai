@@ -23,6 +23,9 @@ var api = {
 		my_clubs: '/clubs/owner?skip=0&limit=20'
 		, joined_clubs: '/clubs/member?skip=0&limit=20'
 	}
+	, clubProfile: {
+		club_posts: '/clubs/:slug/posts?skip=0&limit=20'
+	}
 	, help: {}
 	, featured_posts: {
 		endpoint: '/featured/posts'

@@ -42,6 +42,7 @@ module.exports = {
 			, 'featured-posts': '社区精选'
 			, 'my-clubs': '我创建的社团'
 			, 'joined-clubs': '我加入的社团'
+			, 'recent-posts': '近期分享'
 		}
 		, 'load': {
 			'featured-post': '浏览更多精彩内容'

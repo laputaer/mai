@@ -14,6 +14,7 @@ var routes = {
 	// new routes
 	home: createRoute('^/$')
 	, myClubs: createRoute('^/my-clubs$')
+	, clubProfile: createRoute('^/c/:slug$')
 	// old routes
 	, help: createRoute('^/help$')
 	, login: createRoute('^/login/redirect$')
@@ -22,7 +23,6 @@ var routes = {
 	, clubRanking: createRoute('^/c/club-ranking$')
 	, clubSearch: createRoute('^/c/club-search$')
 	, clubNew: createRoute('^/c/club-add$')
-	, clubProfile: createRoute('^/c/:slug$')
 	, clubEditor: createRoute('^/c/:slug/edit$')
 	, clubAddPostForm: createRoute('^/c/:slug/p/post-add$')
 	, clubAddConfirmForm: createRoute('^/c/:slug/p/post-add-2$')

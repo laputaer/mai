@@ -42,7 +42,7 @@ function myRouter(app) {
 	router.get('/c/club-ranking', handlers.clubsFilterRanking());
 	router.get('/c/club-search', handlers.clubsFilterSearch());
 	router.get('/c/club-add', handlers.clubAddForm());
-	router.get('/c/:slug', handlers.club());
+	router.get('/c/:slug', handlers.pageClubProfile());
 	router.get('/c/:slug/edit', handlers.clubEditForm());
 	router.post('/c', handlers.clubCreate());
 	router.post('/c/:slug', handlers.clubUpdate());

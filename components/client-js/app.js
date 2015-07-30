@@ -61,6 +61,8 @@ App.prototype.update = function () {
 		return Promise.resolve(null);
 	}
 
+	var path = self.model.get('current_path');
+
 	// found route, contact backend service
 	return self.service.sync(name).then(function(data) {
 		// update data store, such as page-specific content

@@ -13,6 +13,7 @@ var routes = {
 	home: createRoute('^/$')
 	, help: createRoute('^/help$')
 	, myClubs: createRoute('^/my-clubs$')
+	, clubProfile: createRoute('^/c/:slug$')
 };
 
 module.exports = router;
