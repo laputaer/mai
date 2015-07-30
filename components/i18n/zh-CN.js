@@ -49,6 +49,7 @@ module.exports = {
 			, 'my-clubs': '更多我创建的社团'
 			, 'joined-clubs': '更多我加入的社团'
 			, 'club-posts': '更多社团分享'
+			, 'user-posts': '更多用户分享'
 		}
 	}
 	, 'placeholder': {

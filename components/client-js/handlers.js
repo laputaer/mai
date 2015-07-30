@@ -61,6 +61,14 @@ function handlers(app) {
 		});
 	});
 
+	emitter.on('page:load:user-posts', function () {
+		loadContent(app, {
+			name: 'load_post'
+			, key: 'pid'
+			, endpoint: 'user_posts'
+		});
+	});
+
 	emitter.on('page:load:my-clubs', function () {
 		loadContent(app, {
 			name: 'load_my_clubs'

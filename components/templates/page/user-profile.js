@@ -1,8 +1,8 @@
 
 /**
- * club-profile.js
+ * user-profile.js
  *
- * Template for club profile page
+ * Template for user profile page
  */
 
 var I = require('icepick');
@@ -29,28 +29,28 @@ function template(data) {
 		, bottom: true
 	});
 
-	var club_posts = data.club_posts;
+	var user_posts = data.user_posts;
 
 	if (!data.ui.load_post) {
-		club_posts = club_posts.slice(0, 8);
+		user_posts = user_posts.slice(0, 8);
 	} else if (data.ui.load_post > 0) {
-		club_posts = club_posts.slice(0, data.ui.load_post);
+		user_posts = user_posts.slice(0, data.ui.load_post);
 	}
 
-	club_posts = club_posts.map(function(post, i) {
+	user_posts = user_posts.map(function(post, i) {
 		post = I.assign(post, {
 			'num': i
 			, 'version': data.version.asset
-			, 'view': 'club_posts'
+			, 'view': 'user_posts'
 		});
 		return postTemplate(post);
 	});
 
 	var load_more = loadButtonTemplate({
-		title: 'section.load.club-posts'
+		title: 'section.load.user-posts'
 		, key: 'load-button'
 		, eventName: 'ev-click'
-		, eventHandler: emitter.capture('page:load:club-posts')
+		, eventHandler: emitter.capture('page:load:user-posts')
 	});
 
 	var homeOpts = {
@@ -61,7 +61,7 @@ function template(data) {
 
 	var home = $('div', homeOpts, [
 		section_title_1
-		, club_posts
+		, user_posts
 		, load_more
 	]);
 

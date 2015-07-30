@@ -72,6 +72,10 @@ function *middleware(next) {
 
 	user_profile = filterAttributes(user_profile, filter_output);
 
+	if (!next) {
+		return user_profile;
+	}
+
 	// STEP 4: output json
 	this.state.json = getStandardJson(user_profile);
 };

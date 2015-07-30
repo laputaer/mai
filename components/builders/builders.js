@@ -18,9 +18,9 @@ module.exports = {
 	, doc: require('./doc')
 	, help: require('./help')
 	, login: require('./login')
-	, userProfile: require('./user-profile')
 	// updated builders
 	, home: require('./home')
 	, myClubs: require('./my-clubs')
 	, clubProfile: require('./club-profile')
+	, userProfile: require('./user-profile')
 };

@@ -10,6 +10,7 @@ module.exports = {
 	pageLanding: require('./page-home')
 	, pageMyClubs: require('./page-my-clubs')
 	, pageClubProfile: require('./page-club-profile')
+	, pageUserProfile: require('./page-user-profile')
 	// old route
 	, loginRedirect: require('./login-redirect')
 	, loginOauth: require('./oauth')

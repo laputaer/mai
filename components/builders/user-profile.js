@@ -6,7 +6,6 @@
  */
 
 var templates = require('../templates/index');
-var immutable = require('./immutable');
 
 module.exports = renderer;
 
@@ -17,19 +16,7 @@ module.exports = renderer;
  * @return  Object
  */
 function renderer(data) {
-	data.post_list = data.posts.map(function(post) {
-		return immutable(templates.common.preview, post);
-	});
-
-	data.main = templates.user.profile(data);
-
-	data.page_title = data.user.name + ' (' + data.user.login + ')';
-
-	data.page_opengraph = {
-		title: data.page_title
-		, url: data.canonical_url
-		, image: data.user.full_avatar + '&size=400'
-	};
+	data.main = templates.page.userProfile(data);
 
 	return data;
 };

@@ -15,10 +15,10 @@ var routes = {
 	home: createRoute('^/$')
 	, myClubs: createRoute('^/my-clubs$')
 	, clubProfile: createRoute('^/c/:slug$')
+	, userProfile: createRoute('^/u/:uid$')
 	// old routes
 	, help: createRoute('^/help$')
 	, login: createRoute('^/login/redirect$')
-	, userProfile: createRoute('^/u/:uid$')
 	, club: createRoute('^/c/club-home$')
 	, clubRanking: createRoute('^/c/club-ranking$')
 	, clubSearch: createRoute('^/c/club-search$')

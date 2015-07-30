@@ -41,6 +41,11 @@ function *middleware(next) {
 	// STEP 2: find club
 	data.club_profile = yield clubProfile;
 
+	if (!data.club_profile) {
+		this.state.error_page = createError(404, i18n.t('error.not-found-club'));
+		return;
+	}
+
 	// STEP 3: find posts
 	data.club_posts = yield clubPosts;
 

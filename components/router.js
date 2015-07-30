@@ -35,7 +35,7 @@ function myRouter(app) {
 	// /connect/ namespace is also used to do initial oauth
 
 	// user profile
-	router.get('/u/:uid', handlers.userProfile());
+	router.get('/u/:uid', handlers.pageUserProfile());
 
 	// club management
 	router.get('/c/club-home', handlers.clubsFilterUser());
