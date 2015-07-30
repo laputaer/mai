@@ -22,12 +22,11 @@ module.exports = router;
  * Get the proper route name
  *
  * @param   Object  data  From data source
- * @return  String        Route name
+ * @return  Object        Matched route
  */
 function router(data) {
-	// similar to builders/index but only retrieve named routes
 	var path = data.current_path;
-	var name;
+	var result;
 
 	for (var route in routes) {
 		if (!routes.hasOwnProperty(route)) {
@@ -38,9 +37,29 @@ function router(data) {
 			continue;
 		}
 
-		name = route;
+		var matches = routes[route].exec(path);
+		var params = [];
+
+		for (var prop in matches) {
+			if (!matches.hasOwnProperty(prop)) {
+				continue;
+			}
+
+			if (prop > 0 && prop < 5) {
+				params[prop] = matches[prop];
+			}
+		}
+
+		params = params.filter(function(value) {
+			return !!value;
+		});
+
+		result = {
+			name: route
+			, params: params
+		}
 		break;
 	}
 
-	return name;
+	return result;
 };

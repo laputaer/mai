@@ -58,10 +58,10 @@ function template(data) {
 	});
 
 	var load_more = loadButtonTemplate({
-		title: 'section.load.featured-post'
+		title: 'section.load.featured-posts'
 		, key: 'load-button'
 		, eventName: 'ev-click'
-		, eventHandler: emitter.capture('page:load:post')
+		, eventHandler: emitter.capture('page:load:featured-post')
 	});
 
 	var homeOpts = {

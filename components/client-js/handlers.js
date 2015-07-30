@@ -45,11 +45,19 @@ function handlers(app) {
 		app.refresh();
 	});
 
-	emitter.on('page:load:post', function () {
+	emitter.on('page:load:featured-post', function () {
 		loadContent(app, {
 			name: 'load_post'
 			, key: 'pid'
 			, endpoint: 'featured_posts'
+		});
+	});
+
+	emitter.on('page:load:club-posts', function () {
+		loadContent(app, {
+			name: 'load_post'
+			, key: 'pid'
+			, endpoint: 'club_posts'
 		});
 	});
 

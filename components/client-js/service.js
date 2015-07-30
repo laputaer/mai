@@ -36,6 +36,9 @@ var api = {
 	, joined_clubs: {
 		endpoint: '/clubs/member'
 	}
+	, club_posts: {
+		endpoint: '/clubs/:slug/posts'
+	}
 };
 
 module.exports = Service;
@@ -63,11 +66,11 @@ Service.prototype.init = function() {
 /**
  * Sync page-specific data with backend
  *
- * @param   String   name  API name
+ * @param   Object   route  { name, params }
  * @return  Promise
  */
-Service.prototype.sync = function(name) {
-	return this.fetch(name);
+Service.prototype.sync = function(route) {
+	return this.fetch(route.name, null, route.params);
 };
 
 /**
@@ -90,12 +93,14 @@ Service.prototype.send = function(url, opts) {
 /**
  * Fetch backend in parallel
  *
- * @param   String   name  API name
- * @param   Object   opts  Optional parameters
+ * @param   String   name    API name or url
+ * @param   Object   opts    Optional parameters
+ * @param   Array    params  Params for endpoints
  * @return  Promise
  */
-Service.prototype.fetch = function(name, opts) {
+Service.prototype.fetch = function(name, opts, params) {
 	opts = opts || {};
+	params = params || [];
 
 	var endpoint = api[name];
 	var results = {};
@@ -121,9 +126,19 @@ Service.prototype.fetch = function(name, opts) {
 			continue;
 		}
 
+		var path = endpoint[prop];
+		var count = 0;
+
+		// allow optional route params
+		if (params.length > 0) {
+			path = path.replace(/:[^\s\$/]+/g, function () {
+				return params[count++];
+			});
+		}
+
 		// send cookie
 		// TODO: investigate auth token
-		var f = fetch(prefix + endpoint[prop] + queries, {
+		var f = fetch(prefix + path + queries, {
 			credentials: 'same-origin'
 		});
 

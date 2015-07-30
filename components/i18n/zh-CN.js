@@ -45,9 +45,10 @@ module.exports = {
 			, 'recent-posts': '近期分享'
 		}
 		, 'load': {
-			'featured-post': '浏览更多精彩内容'
+			'featured-posts': '浏览更多精彩内容'
 			, 'my-clubs': '更多我创建的社团'
 			, 'joined-clubs': '更多我加入的社团'
+			, 'club-posts': '更多社团分享'
 		}
 	}
 	, 'placeholder': {
