@@ -29,6 +29,7 @@ var postsV2 = require('./posts-v2');
 var postsV3 = require('./posts-v3');
 var postsV4 = require('./posts-v4');
 var socialV1 = require('./social-v1');
+var socialV2 = require('./social-v2');
 var showcaseV1 = require('./showcase-v1');
 
 function *migration() {
@@ -60,6 +61,7 @@ function *migration() {
 	yield showcaseV1(db);
 	yield membershipsV3(db);
 	yield postsV4(db);
+	yield socialV2(db);
 };
 
 co(migration).then(function() {
