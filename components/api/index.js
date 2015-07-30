@@ -13,4 +13,6 @@ module.exports = {
 	, unfavoritePost: require('./unfavorite-post')
 	, userJoinedClubs: require('./current-user-joined-clubs')
 	, userOwnedClubs: require('./current-user-owned-clubs')
+	, clubPosts: require('./club-posts')
+	, clubProfile: require('./club-profile')
 };
