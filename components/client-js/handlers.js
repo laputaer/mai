@@ -78,19 +78,19 @@ function handlers(app) {
 	});
 
 	emitter.on('page:favorite:create', function (data) {
-		createFavorite(app, data.order);
+		createFavorite(app, data);
 		app.json('PUT', '/posts/' + data.id + '/favorite').then(function (res) {
 			if (!res.ok) {
-				deleteFavorite(app, data.order);
+				deleteFavorite(app, data);
 			}
 		});
 	});
 
 	emitter.on('page:favorite:remove', function (data) {
-		deleteFavorite(app, data.order);
+		deleteFavorite(app, data);
 		app.json('DELETE', '/posts/' + data.id + '/favorite').then(function (res) {
 			if (!res.ok) {
-				createFavorite(app, data.order);
+				createFavorite(app, data);
 			}
 		});
 	});

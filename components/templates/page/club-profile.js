@@ -40,6 +40,7 @@ function template(data) {
 		post = I.assign(post, {
 			'num': i
 			, 'version': data.version.asset
+			, 'view': 'club_posts'
 		});
 		return postTemplate(post);
 	});

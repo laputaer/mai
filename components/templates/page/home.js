@@ -53,6 +53,7 @@ function template(data) {
 		post = I.assign(post, {
 			'num': i
 			, 'version': data.version.asset
+			, 'view': 'featured_posts'
 		});
 		return postTemplate(post);
 	});
