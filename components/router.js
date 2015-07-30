@@ -35,14 +35,14 @@ function myRouter(app) {
 	// /connect/ namespace is also used to do initial oauth
 
 	// user profile
-	router.get('/u/:uid', handlers.userProfile());
+	router.get('/u/:uid', handlers.pageUserProfile());
 
 	// club management
 	router.get('/c/club-home', handlers.clubsFilterUser());
 	router.get('/c/club-ranking', handlers.clubsFilterRanking());
 	router.get('/c/club-search', handlers.clubsFilterSearch());
 	router.get('/c/club-add', handlers.clubAddForm());
-	router.get('/c/:slug', handlers.club());
+	router.get('/c/:slug', handlers.pageClubProfile());
 	router.get('/c/:slug/edit', handlers.clubEditForm());
 	router.post('/c', handlers.clubCreate());
 	router.post('/c/:slug', handlers.clubUpdate());
@@ -62,6 +62,10 @@ function myRouter(app) {
 	apiRouter.del('/posts/:pid/favorite', apiHandlers.unfavoritePost());
 	apiRouter.get('/clubs/owner', apiHandlers.userOwnedClubs());
 	apiRouter.get('/clubs/member', apiHandlers.userJoinedClubs());
+	apiRouter.get('/clubs/:slug/posts', apiHandlers.clubPosts());
+	apiRouter.get('/clubs/:slug/profile', apiHandlers.clubProfile());
+	apiRouter.get('/users/:uid/posts', apiHandlers.userPosts());
+	apiRouter.get('/users/:uid/profile', apiHandlers.userProfile());
 
 	// mount api routes to main router
 	router.use('/api/v1', apiRouter.routes());

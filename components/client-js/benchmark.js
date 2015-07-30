@@ -48,7 +48,8 @@ function Benchmark(active) {
 	this.patchFilter = function(data) {
 		var output = {};
 		for (var p in data) {
-			if (data.hasOwnProperty(p) && data[p] && data[p].type !== 4) {
+			// filter out prop update and thunk update
+			if (data.hasOwnProperty(p) && data[p] && data[p].type !== 4 && data[p].type !== 8) {
 				output[p] = data[p];
 			}
 		};

@@ -164,7 +164,7 @@ Model.prototype.append = function(path, data, key) {
 
 	// append value or update existing value
 	if (pos === undefined) {
-		this.set(path, I.push(arr, data));
+		this.set(path, I.push(arr, I.freeze(data)));
 	} else {
 		var new_path = typeof path === 'string' ? [path, pos] : path.concat(pos);
 		this.set(new_path, data);

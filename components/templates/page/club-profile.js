@@ -1,15 +1,14 @@
 
 /**
- * home.js
+ * club-profile.js
  *
- * Template for home page
+ * Template for club profile page
  */
 
 var $ = require('../vdom');
 var emitter = require('../emitter');
 var immutable = require('../immutable');
 
-var clubTemplate = require('../common/featured-club');
 var postTemplate = require('../common/featured-post');
 var sectionTitleTemplate = require('../common/section-title');
 var loadButtonTemplate = require('../common/load-button');
@@ -24,35 +23,24 @@ module.exports = template;
  */
 function template(data) {
 	var section_title_1 = sectionTitleTemplate({
-		title: 'section.titles.featured-clubs'
-		, key: 'featured-clubs'
-	});
-
-	var section_title_2 = sectionTitleTemplate({
-		title: 'section.titles.featured-posts'
-		, key: 'featured-posts'
-		, top: true
+		title: 'section.titles.recent-posts'
+		, key: 'recent-posts'
 		, bottom: true
 	});
 
-	var featured_clubs = data.featured_clubs;
-	var featured_posts = data.featured_posts;
+	var club_posts = data.club_posts;
 
 	if (!data.ui.load_post) {
-		featured_posts = featured_posts.slice(0, 8);
+		club_posts = club_posts.slice(0, 8);
 	} else if (data.ui.load_post > 0) {
-		featured_posts = featured_posts.slice(0, data.ui.load_post);
+		club_posts = club_posts.slice(0, data.ui.load_post);
 	}
 
-	featured_clubs = featured_clubs.map(function(club, i) {
-		return clubTemplate(club);
-	});
-
-	featured_posts = featured_posts.map(function(post, i) {
+	club_posts = club_posts.map(function(post, i) {
 		var opts = {
 			'num': i
 			, 'version': data.version.asset
-			, 'view': 'featured_posts'
+			, 'view': 'club_posts'
 			, 'client': data.client
 		};
 
@@ -60,10 +48,10 @@ function template(data) {
 	});
 
 	var load_more = loadButtonTemplate({
-		title: 'section.load.featured-posts'
+		title: 'section.load.club-posts'
 		, key: 'load-button'
 		, eventName: 'ev-click'
-		, eventHandler: emitter.capture('page:load:featured-post')
+		, eventHandler: emitter.capture('page:load:club-posts')
 	});
 
 	var homeOpts = {
@@ -74,9 +62,7 @@ function template(data) {
 
 	var home = $('div', homeOpts, [
 		section_title_1
-		, featured_clubs
-		, section_title_2
-		, featured_posts
+		, club_posts
 		, load_more
 	]);
 

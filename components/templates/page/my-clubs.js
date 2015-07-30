@@ -7,6 +7,7 @@
 
 var $ = require('../vdom');
 var emitter = require('../emitter');
+var immutable = require('../immutable');
 
 var clubTemplate = require('../common/featured-club');
 var sectionTitleTemplate = require('../common/section-title');
@@ -48,11 +49,19 @@ function template(data) {
 	}
 
 	my_clubs = my_clubs.map(function(club) {
-		return clubTemplate(club);
+		var opts = {
+			'client': data.client
+		};
+
+		return immutable(clubTemplate, club, opts);
 	});
 
 	joined_clubs = joined_clubs.map(function(club) {
-		return clubTemplate(club);
+		var opts = {
+			'client': data.client
+		};
+
+		return immutable(clubTemplate, club, opts);
 	});
 
 	var load_my_clubs_button = loadButtonTemplate({

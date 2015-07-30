@@ -1,8 +1,8 @@
 
 /**
- * api-featured-posts.js
+ * club-posts.js
  *
- * API for getting featured posts
+ * API for getting club posts and related information
  */
 
 var parser = require('url').parse;
@@ -12,14 +12,12 @@ var filterAttributes = require('../helpers/filter-attributes');
 var clubsDomain = require('../domains/clubs');
 var usersDomain = require('../domains/users');
 var socialDomain = require('../domains/social');
-var showcaseDomain = require('../domains/showcase');
 var proxyUrl = require('../security/proxy');
 var validate = require('../security/validation');
 
 var filter_output = [
 	'pid', 'title', 'summary'
 	, 'user', 'user_name', 'user_login', 'user_avatar'
-	, 'club', 'club_name', 'club_image', 'club_intro'
 	, 'domain', 'url', 'image', 'doc_title', 'doc_summary'
 	, 'fav_point', 'current_user_fav'
 ];
@@ -50,41 +48,34 @@ function *middleware(next) {
 	// STEP 1: prepare common data
 	var config = this.config;
 	var state = this.state;
+	var slug = this.params.slug;
 	var uid = this.session.uid;
 	var limit = 8;
+	var range = 0;
 	var skip = 0;
 
 	if (next) {
 		var result = yield validate(this.request.query, 'query');
 		if (result.valid) {
 			limit = parseInt(this.request.query.limit) || limit;
+			range = parseInt(this.request.query.range) || range;
 			skip = parseInt(this.request.query.skip) || skip;
 		}
 	}
 
-	var post_pids = this.state.featured_post_ids;
-
-	if (!post_pids) {
-		post_pids = yield showcaseDomain.getFeaturedIds({
-			db: this.db
-			, type: 'featured-post-ids'
-		});
-	}
-
-	post_pids = post_pids.slice(skip, skip + limit);
-
-	// STEP 2: get featured posts
-	var featured_posts = yield clubsDomain.getFeaturedPosts({
+	// STEP 2: find posts
+	var club_posts = yield clubsDomain.getClubPosts({
 		db: this.db
-		, pids: post_pids
+		, slug: slug
+		, limit: limit
+		, range: range
+		, skip: skip
 	});
 
 	// STEP 3: get complementary user and club info
-	var temp_slugs = []
 	var temp_uids = [];
 	var temp_favs = [];
-	featured_posts.forEach(function (post) {
-		temp_slugs.push(post.club);
+	club_posts.forEach(function (post) {
 		temp_uids.push(post.user);
 		temp_favs.push({
 			post: post.pid
@@ -94,10 +85,6 @@ function *middleware(next) {
 		return post;
 	});
 
-	var temp_clubs = yield clubsDomain.getClubsByIds({
-		db: this.db
-		, slugs: temp_slugs
-	});
 	var temp_users = yield usersDomain.getUsersByIds({
 		db: this.db
 		, uids: temp_uids
@@ -111,8 +98,8 @@ function *middleware(next) {
 		});
 	}
 
-	// STEP 4: append user and club info to output
-	featured_posts = featured_posts.map(function (post) {
+	// STEP 4: append user info to output
+	club_posts = club_posts.map(function (post) {
 		var user = post.user;
 		var slug = post.club;
 
@@ -155,21 +142,6 @@ function *middleware(next) {
 			, base: state.image_base_url
 		});
 
-		// club info
-		post.club_name = temp_clubs[slug].title;
-		post.club_intro = temp_clubs[slug].intro;
-		if (temp_clubs[slug].embed
-			&& Array.isArray(temp_clubs[slug].embed.image)
-			&& temp_clubs[slug].embed.image.length > 0
-		) {
-			image = temp_clubs[slug].embed.image[0];
-			post.club_image = proxyUrl({
-				url: image.secure_url || image.url
-				, key: config.proxy.key
-				, base: state.image_base_url
-			});
-		}
-
 		// favorite info
 		if (temp_favorites[post.pid]) {
 			post.current_user_fav = true;
@@ -182,9 +154,9 @@ function *middleware(next) {
 	});
 
 	if (!next) {
-		return featured_posts;
+		return club_posts;
 	}
 
 	// STEP 5: output json
-	this.state.json = getStandardJson(featured_posts);
+	this.state.json = getStandardJson(club_posts);
 };

@@ -34,7 +34,7 @@ function *middleware(next) {
 
 	// STEP 1: handle guest user
 	if (!this.session.uid) {
-		this.state.json = getStandardJson(null, 400, i18n.t('error.login-required'));
+		this.state.error_json = getStandardJson(null, 400, i18n.t('error.login-required'));
 		return;
 	}
 
@@ -48,7 +48,7 @@ function *middleware(next) {
 	});
 
 	if (!post) {
-		this.state.json = getStandardJson(null, 400, i18n.t('error.not-found-post'));
+		this.state.error_json = getStandardJson(null, 404, i18n.t('error.not-found-post'));
 		return;
 	}
 
@@ -60,7 +60,7 @@ function *middleware(next) {
 	});
 
 	if (!exist) {
-		this.state.json = getStandardJson(null, 400, i18n.t('error.not-found-favorite'));
+		this.state.error_json = getStandardJson(null, 400, i18n.t('error.not-found-favorite'));
 		return;
 	}
 

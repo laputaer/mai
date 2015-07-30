@@ -45,11 +45,27 @@ function handlers(app) {
 		app.refresh();
 	});
 
-	emitter.on('page:load:post', function () {
+	emitter.on('page:load:featured-post', function () {
 		loadContent(app, {
 			name: 'load_post'
 			, key: 'pid'
 			, endpoint: 'featured_posts'
+		});
+	});
+
+	emitter.on('page:load:club-posts', function () {
+		loadContent(app, {
+			name: 'load_post'
+			, key: 'pid'
+			, endpoint: 'club_posts'
+		});
+	});
+
+	emitter.on('page:load:user-posts', function () {
+		loadContent(app, {
+			name: 'load_post'
+			, key: 'pid'
+			, endpoint: 'user_posts'
 		});
 	});
 
@@ -70,19 +86,19 @@ function handlers(app) {
 	});
 
 	emitter.on('page:favorite:create', function (data) {
-		createFavorite(app, data.order);
+		createFavorite(app, data);
 		app.json('PUT', '/posts/' + data.id + '/favorite').then(function (res) {
 			if (!res.ok) {
-				deleteFavorite(app, data.order);
+				deleteFavorite(app, data);
 			}
 		});
 	});
 
 	emitter.on('page:favorite:remove', function (data) {
-		deleteFavorite(app, data.order);
+		deleteFavorite(app, data);
 		app.json('DELETE', '/posts/' + data.id + '/favorite').then(function (res) {
 			if (!res.ok) {
-				createFavorite(app, data.order);
+				createFavorite(app, data);
 			}
 		});
 	});

@@ -6,8 +6,10 @@
  */
 
 module.exports = {
-	home: require('./home')
+	clubProfile: require('./club-profile')
+	, home: require('./home')
 	, myClubs: require('./my-clubs')
 	, ranking: require('./ranking')
 	, userManual: require('./user-manual')
+	, userProfile: require('./user-profile')
 };

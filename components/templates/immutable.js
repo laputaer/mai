@@ -5,6 +5,8 @@
  * An immutable virtual-dom thunk implementation
  */
 
+var extend = require('xtend');
+
 module.exports = immutable;
 
 /**
@@ -12,21 +14,18 @@ module.exports = immutable;
  *
  * @param   Function  fn    Template function
  * @param   Object    data  Input data
+ * @param   Object    opts  Addition runtime options
  * @return  Object          VNode or Thunk
  */
-function immutable(fn, data) {
-	// render without thunk on server-side
-	if (typeof data !== 'object' || !data.client) {
-		return fn(data);
+function immutable(fn, data, opts) {
+	data = data || {};
+	opts = opts || {};
+
+	if (!opts.client) {
+		return fn(extend(data, opts));
 	}
 
-	// on client-side use thunk and key when possible
-	var key;
-	if (typeof data === 'object' && data.hasOwnProperty('key')) {
-		key = data.key;
-	}
-
-	return new ImmutableThunk(fn, data, key);
+	return new ImmutableThunk(fn, data, opts);
 };
 
 /**
@@ -38,6 +37,7 @@ function immutable(fn, data) {
  */
 function eq(current, previous) {
 	try {
+		// input is object
 		if (typeof current === 'object' && Object.isFrozen(current)) {
 			return current === previous;
 		}
@@ -54,21 +54,21 @@ function eq(current, previous) {
  *
  * @param   Function  fn    Template function
  * @param   Object    data  Input data
- * @param   Object    data  Input data  
+ * @param   Object    opts  Addition runtime options
  * @return  Thunk
  */
-function ImmutableThunk(fn, data, key) {
+function ImmutableThunk(fn, data, opts) {
 	this.fn = fn;
 	this.data = data;
-	this.key = key;
+	this.opts = opts;
 }
 
 // see spec: https://github.com/Matt-Esch/virtual-dom/blob/master/docs/thunk.md
 ImmutableThunk.prototype.type = 'Thunk';
 ImmutableThunk.prototype.render = function(previous) {
-	// new node or data chnaged, re-render
+	// new node or data changed, re-render
 	if (!previous || !eq(this.data, previous.data)) {
-		return this.fn.call(null, this.data);
+		return this.fn.call(null, extend(this.data, this.opts));
 	// otherwise return cached vdom
 	} else {
 		return previous.vnode;

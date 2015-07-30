@@ -50,6 +50,12 @@ function *middleware(next) {
 		return;
 	}
 
+	// STEP 3: handle upstream custom json error
+	if (this.state.error_json) {
+		errorPage(this, this.state.error_json);
+		return;
+	}
+
 	// STEP 4: custom 404 page for unmatched route
 	if (this.status === 404 && !this.state.vdoc && !this.state.json) {
 		errorPage(this, {
@@ -76,8 +82,8 @@ function errorPage(ctx, err) {
 
 	// api error response
 	if (ctx.path.substr(0, 5) === '/api/') {
-		ctx.status = err.status;
-		ctx.state.json = getStandardJson(null, err.status, err.message);
+		ctx.status = err.code || err.status;
+		ctx.state.json = err.code ? err : getStandardJson(null, err.status, err.message);
 		return;
 	}
 

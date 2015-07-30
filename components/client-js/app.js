@@ -56,17 +56,17 @@ App.prototype.update = function () {
 	var self = this;
 
 	// match current route
-	var name = router(self.model.get());
-	if (!name) {
+	var route = router(self.model.get());
+	if (!route) {
 		return Promise.resolve(null);
 	}
 
 	// found route, contact backend service
-	return self.service.sync(name).then(function(data) {
+	return self.service.sync(route).then(function(data) {
 		// update data store, such as page-specific content
 		self.model.update(data);
 		// update view using current model
-		self.renderer.update(name, self.model.get());
+		self.renderer.update(route.name, self.model.get());
 	});
 };
 
@@ -79,13 +79,13 @@ App.prototype.refresh = function () {
 	var self = this;
 
 	// match current route
-	var name = router(self.model.get());
-	if (!name) {
+	var route = router(self.model.get());
+	if (!route) {
 		return Promise.resolve(false);
 	}
 
 	// trigger view update
-	self.renderer.update(name, self.model.get());
+	self.renderer.update(route.name, self.model.get());
 };
 
 /**
@@ -149,7 +149,7 @@ App.prototype.load = function (name, opts) {
 	}
 
 	// contact backend service
-	return self.service.fetch(name, opts.query).then(function (data) {
+	return self.service.fetch(name, opts.query, route.params).then(function (data) {
 		if (data.endpoint.ok && Array.isArray(data.endpoint.data)) {
 			data.endpoint.data.forEach(function (item) {
 				self.model.append(name, item, opts.key);

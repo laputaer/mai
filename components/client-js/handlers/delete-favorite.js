@@ -5,10 +5,17 @@
  * Update post favorite status
  */
 
-module.exports = function deleteFavorite (app, order) {
-	var fav_point_path = ['featured_posts', order, 'fav_point'];
+/**
+ * Delete favorite
+ *
+ * @oaram   Object  app   App instance
+ * @oaram   Object  data  Event data
+ * @return  Void
+ */
+module.exports = function deleteFavorite (app, data) {
+	var fav_point_path = [data.view, data.order, 'fav_point'];
 	var fav_point = app.read(fav_point_path) || 0;
 	app.modify(fav_point_path, fav_point - 1);
-	app.modify(['featured_posts', order, 'current_user_fav'], false);
+	app.modify([data.view, data.order, 'current_user_fav'], false);
 	app.refresh();
 };
