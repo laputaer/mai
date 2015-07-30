@@ -5,10 +5,9 @@
  * Template for home page
  */
 
-var I = require('icepick');
-
 var $ = require('../vdom');
 var emitter = require('../emitter');
+var immutable = require('../immutable');
 
 var clubTemplate = require('../common/featured-club');
 var postTemplate = require('../common/featured-post');
@@ -50,12 +49,14 @@ function template(data) {
 	});
 
 	featured_posts = featured_posts.map(function(post, i) {
-		post = I.assign(post, {
+		var opts = {
 			'num': i
 			, 'version': data.version.asset
 			, 'view': 'featured_posts'
-		});
-		return postTemplate(post);
+			, 'client': data.client
+		};
+
+		return immutable(postTemplate, post, opts);
 	});
 
 	var load_more = loadButtonTemplate({

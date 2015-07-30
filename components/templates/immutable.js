@@ -5,7 +5,6 @@
  * An immutable virtual-dom thunk implementation
  */
 
-var I = require('icepick');
 var extend = require('xtend');
 
 module.exports = immutable;
