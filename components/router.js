@@ -64,6 +64,8 @@ function myRouter(app) {
 	apiRouter.get('/clubs/member', apiHandlers.userJoinedClubs());
 	apiRouter.get('/clubs/:slug/posts', apiHandlers.clubPosts());
 	apiRouter.get('/clubs/:slug/profile', apiHandlers.clubProfile());
+	apiRouter.get('/users/:uid/posts', apiHandlers.userPosts());
+	apiRouter.get('/users/:uid/profile', apiHandlers.userProfile());
 
 	// mount api routes to main router
 	router.use('/api/v1', apiRouter.routes());

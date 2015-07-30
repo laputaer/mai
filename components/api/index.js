@@ -15,4 +15,6 @@ module.exports = {
 	, userOwnedClubs: require('./current-user-owned-clubs')
 	, clubPosts: require('./club-posts')
 	, clubProfile: require('./club-profile')
+	, userPosts: require('./user-posts')
+	, userProfile: require('./user-profile')
 };
