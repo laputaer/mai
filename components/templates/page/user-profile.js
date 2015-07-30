@@ -5,10 +5,9 @@
  * Template for user profile page
  */
 
-var I = require('icepick');
-
 var $ = require('../vdom');
 var emitter = require('../emitter');
+var immutable = require('../immutable');
 
 var postTemplate = require('../common/featured-post');
 var sectionTitleTemplate = require('../common/section-title');
@@ -38,12 +37,14 @@ function template(data) {
 	}
 
 	user_posts = user_posts.map(function(post, i) {
-		post = I.assign(post, {
+		var opts = {
 			'num': i
 			, 'version': data.version.asset
 			, 'view': 'user_posts'
-		});
-		return postTemplate(post);
+			, 'client': data.client
+		};
+
+		return immutable(postTemplate, post, opts);
 	});
 
 	var load_more = loadButtonTemplate({

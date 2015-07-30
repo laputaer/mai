@@ -37,7 +37,7 @@ function factory() {
 
 				var num = validator.toInt(value);
 
-				if (isNaN(num) || num < 0 || num > 100) {
+				if (isNaN(num) || num < 0 || num > 500) {
 					return false
 				}
 
