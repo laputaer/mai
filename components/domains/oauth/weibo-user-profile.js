@@ -19,10 +19,10 @@ function getWeiboUserProfile(client, opts) {
 		client.query()
 			.get('users/show')
 			.auth(opts.access_token)
-			.qs({ uid: opts.uid })
+			.where({ uid: opts.uid })
 			.request(function(err, res, body) {
 				if (err) {
-					reject(new Error('unable to contact remote server, reason: ' + err.message));
+					reject(new Error('unable to contact remote server, reason: ' + err.error));
 					return;
 				}
 

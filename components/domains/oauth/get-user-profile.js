@@ -33,7 +33,6 @@ function *getUserProfile(opts) {
 		, access_token: opts.response.access_token
 		, refresh_token: opts.response.refresh_token // oauth 2
 		, access_secret: opts.response.access_secret // oauth 1
-		, uid: opts.response.uid // weibo oauth 2
 		, key: oauth[provider].oauth === 1 ? oauth[provider].key : undefined // oauth 1
 		, secret: oauth[provider].oauth === 1 ? oauth[provider].secret : undefined // oauth 1
 		, defaults: {
@@ -45,6 +44,7 @@ function *getUserProfile(opts) {
 
 	if (provider === 'weibo') {
 		options.config = weiboConfig;
+		options.uid = opts.response.raw.uid // weibo user id
 	}
 
 	// setup client
