@@ -10,7 +10,6 @@ var Purest = require('purest');
 var getGithubUserProfile = require('./github-user-profile');
 var getTwitterUserProfile = require('./twitter-user-profile');
 var getWeiboUserProfile = require('./weibo-user-profile');
-var weiboConfig = require('./weibo-config.js');
 
 module.exports = getUserProfile;
 
@@ -41,10 +40,6 @@ function *getUserProfile(opts) {
 			}
 		}
 	};
-
-	if (provider === 'weibo') {
-		options.config = weiboConfig;
-	}
 
 	// setup client
 	var client = new Purest(options);
