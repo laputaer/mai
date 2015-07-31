@@ -85,6 +85,7 @@
     "dom-delegator": "13.1.0",
     "domready": "1.0.8",
     "escape-string-regexp": "1.0.3",
+    "grant": "bitinn/grant#local",
     "grant-koa": "3.4.0",
     "he": "0.5.0",
     "icepick": "0.5.0",
