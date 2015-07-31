@@ -22,11 +22,11 @@ function template(data) {
 	};
 
 	if (data.top) {
-		sectionOpts.className += ' extra-margin-top';
+		sectionOpts.className += ' extra-top';
 	}
 
-	if (data.bottom) {
-		sectionOpts.className += ' extra-margin-bottom';
+	if (!data.bottom) {
+		sectionOpts.className += ' no-bottom';
 	}
 
 	if (data.key) {
