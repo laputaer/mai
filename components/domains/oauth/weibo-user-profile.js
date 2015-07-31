@@ -19,10 +19,10 @@ function getWeiboUserProfile(client, opts) {
 		client.query()
 			.get('users/show')
 			.auth(opts.access_token)
-			.qs({ uid: opts.uid })
+			.where({ uid: opts.uid })
 			.request(function(err, res, body) {
 				if (err) {
-					reject(new Error('unable to contact remote server, reason: ' + err.message));
+					reject(new Error('unable to contact remote server, reason: ' + err.error));
 					return;
 				}
 
@@ -34,7 +34,7 @@ function getWeiboUserProfile(client, opts) {
 				resolve({
 					id: body.idstr
 					, name: body.screen_name || body.name
-					, login: body.domain || body.idstr
+					, login: body.domain || body.profile_url
 					, avatar: body.avatar_hd || body.avatar_large
 				});
 			});
