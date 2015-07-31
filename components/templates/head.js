@@ -56,7 +56,7 @@ function template(data) {
 		});
 		t_site = $('meta', {
 			name: 'twitter:site'
-			, content: '@bitinn'
+			, content: '@rubume'
 		});
 		t_title = $('meta', {
 			name: 'twitter:title'
