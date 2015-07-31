@@ -56,7 +56,7 @@ function template(data) {
 		});
 		t_site = $('meta', {
 			name: 'twitter:site'
-			, content: '@bitinn'
+			, content: '@rubume'
 		});
 		t_title = $('meta', {
 			name: 'twitter:title'
@@ -179,7 +179,7 @@ function template(data) {
 			innerHTML: data.inline_js
 				+ ';var l=document.getElementById("css-loader");'
 				+ 'loadCSS("' + base_url + main_css_file + '?' + data.version.css + '", l);'
-				+ 'loadCSS("' + base_url + '/fonts/webfont.css?' + data.version.css + '", l);'
+				+ 'loadCSS("' + base_url + '/fonts/webfont.v1.css?' + data.version.css + '", l);'
 		})
 		, $('noscript', [
 			$('link', {

@@ -21,7 +21,8 @@ function immutable(fn, data, opts) {
 	data = data || {};
 	opts = opts || {};
 
-	if (!opts.client) {
+	// don't use immutable when list is small or when rendering on server-side
+	if (!opts.client || !opts.count || opts.count < 50) {
 		return fn(extend(data, opts));
 	}
 
@@ -37,7 +38,7 @@ function immutable(fn, data, opts) {
  */
 function eq(current, previous) {
 	try {
-		// input is object
+		// input is object and freezed
 		if (typeof current === 'object' && Object.isFrozen(current)) {
 			return current === previous;
 		}
@@ -48,6 +49,8 @@ function eq(current, previous) {
 		return false;
 	}
 };
+
+// see spec: https://github.com/Matt-Esch/virtual-dom/blob/master/docs/thunk.md
 
 /**
  * A simple thunk that cache input
@@ -63,7 +66,6 @@ function ImmutableThunk(fn, data, opts) {
 	this.opts = opts;
 }
 
-// see spec: https://github.com/Matt-Esch/virtual-dom/blob/master/docs/thunk.md
 ImmutableThunk.prototype.type = 'Thunk';
 ImmutableThunk.prototype.render = function(previous) {
 	// new node or data changed, re-render

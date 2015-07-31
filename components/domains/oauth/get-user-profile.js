@@ -9,6 +9,7 @@ var Purest = require('purest');
 
 var getGithubUserProfile = require('./github-user-profile');
 var getTwitterUserProfile = require('./twitter-user-profile');
+var getWeiboUserProfile = require('./weibo-user-profile');
 
 module.exports = getUserProfile;
 
@@ -49,6 +50,8 @@ function *getUserProfile(opts) {
 		profile = yield getGithubUserProfile(client, options);
 	} else if (provider === 'twitter') {
 		profile = yield getTwitterUserProfile(client, options);
+	} else if (provider === 'weibo') {
+		profile = yield getWeiboUserProfile(client, options);
 	}
 
 	// empty user profile

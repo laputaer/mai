@@ -85,7 +85,7 @@ function template(data) {
 			: emitter.capture('page:favorite:create', favoriteOpts)
 	});
 
-	var post = $('div', postOpts, [
+	var post = $('article', postOpts, [
 		$('div.wrapper', [
 			image
 			, $('div.text-column', [

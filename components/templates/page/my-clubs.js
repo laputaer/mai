@@ -51,6 +51,7 @@ function template(data) {
 	my_clubs = my_clubs.map(function(club) {
 		var opts = {
 			'client': data.client
+			, 'count': data.ui.load_my_clubs
 		};
 
 		return immutable(clubTemplate, club, opts);
@@ -59,6 +60,7 @@ function template(data) {
 	joined_clubs = joined_clubs.map(function(club) {
 		var opts = {
 			'client': data.client
+			, 'count': data.ui.load_joined_clubs
 		};
 
 		return immutable(clubTemplate, club, opts);

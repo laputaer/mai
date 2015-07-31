@@ -26,6 +26,8 @@ function *createUser(opts) {
 		, uid: opts.profile.uid
 		, action_point: 15
 		, action_base: 15
+		, fav_count: 0
+		, fav_point: 0
 		, created: new Date()
 		, updated: new Date()
 	};
