@@ -29,7 +29,6 @@ var startUp = require('./start-up');
 
 var app = koa();
 var config = configFactory();
-console.log(config.oauth);
 var grant = new Grant(config.oauth);
 
 app.keys = [config.cookies.key];
