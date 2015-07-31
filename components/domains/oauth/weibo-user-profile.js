@@ -34,7 +34,7 @@ function getWeiboUserProfile(client, opts) {
 				resolve({
 					id: body.idstr
 					, name: body.screen_name || body.name
-					, login: body.domain || body.idstr
+					, login: body.domain || body.profile_url
 					, avatar: body.avatar_hd || body.avatar_large
 				});
 			});
