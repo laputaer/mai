@@ -42,6 +42,7 @@ function template(data) {
 			, 'version': data.version.asset
 			, 'view': 'club_posts'
 			, 'client': data.client
+			, 'count': data.ui.load_post
 		};
 
 		return immutable(postTemplate, post, opts);

@@ -54,6 +54,7 @@ function template(data) {
 			, 'version': data.version.asset
 			, 'view': 'featured_posts'
 			, 'client': data.client
+			, 'count': data.ui.load_post
 		};
 
 		return immutable(postTemplate, post, opts);
