@@ -9,6 +9,8 @@ var Purest = require('purest');
 
 var getGithubUserProfile = require('./github-user-profile');
 var getTwitterUserProfile = require('./twitter-user-profile');
+var getWeiboUserProfile = require('./weibo-user-profile');
+var weiboConfig = require('./weibo-config.js');
 
 module.exports = getUserProfile;
 
@@ -40,6 +42,10 @@ function *getUserProfile(opts) {
 		}
 	};
 
+	if (provider === 'weibo') {
+		options.config = weiboConfig;
+	}
+
 	// setup client
 	var client = new Purest(options);
 	var profile;
@@ -49,6 +55,8 @@ function *getUserProfile(opts) {
 		profile = yield getGithubUserProfile(client, options);
 	} else if (provider === 'twitter') {
 		profile = yield getTwitterUserProfile(client, options);
+	} else if (provider === 'weibo') {
+		profile = yield getWeiboUserProfile(client, options);
 	}
 
 	// empty user profile

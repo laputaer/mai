@@ -39,3 +39,6 @@ components/config/custom.js
 # Local development ssl cert
 ssl.crt
 ssl.key
+
+# Verification files
+public/wb_5041a9f277ccab44.txt
