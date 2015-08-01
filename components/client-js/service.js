@@ -187,17 +187,11 @@ function deferFetch(ps, p, results, name) {
 
 	// TODO: better error handling
 	ps.push(p.then(function(res) {
-		// non-2xx response
-		if (!res.ok) {
-			results[name] = null;
-			return null;
-		}
 		return res.json();
 	}).then(function(json) {
-		// invalid json
 		if (!json) {
 			results[name] = null;
-			return null;
+			return;
 		}
 		results[name] = json;
 	}));

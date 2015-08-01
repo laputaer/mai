@@ -18,7 +18,7 @@ module.exports = template;
  */
 function template(data) {
 	var error = $('div.page-section-feedback', [
-		$('h1.title', data.error_status)
+		$('h1.title', i18n.t('error.status-code', { code: data.error_status }))
 		, $('p.subtitle', data.error_message)
 	]);
 

@@ -101,7 +101,11 @@ Renderer.prototype.update = function(name, model) {
 	var vdom;
 	try {
 		bench.incr('copy done');
-		data = builders[name](data);
+		if (!name) {
+			data = builders.error(data);
+		} else {
+			data = builders[name](data);
+		}
 		vdom = builders.doc(data);
 	} catch(err) {
 		bench.incr('vdom error', err);

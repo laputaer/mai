@@ -89,7 +89,7 @@ function errorPage(ctx, err) {
 
 	// page error response
 	var data = prepareData(ctx);
-	data.error_status = i18n.t('error.status-code', { code: err.status });
+	data.error_status = err.status;
 	data.error_message = err.message;
 
 	ctx.status = err.status;

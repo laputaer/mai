@@ -49,6 +49,14 @@ Model.prototype.init = function(data) {
 	this.set('current_url', win.location.href);
 	this.set('ui', {});
 
+	// retrieve error message
+	var error_status = doc.head.querySelector('meta[name="mai:error"]');
+	if (error_status) {
+		var error = error_status.content.split('_');
+		this.set('error_status', error[0]);
+		this.set('error_message', error[1]);
+	}
+
 	// handle guest user
 	if (!data.global.data.current_user) {
 		return;

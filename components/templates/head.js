@@ -68,6 +68,14 @@ function template(data) {
 		, href: '/favicon.png?' + data.version.asset
 	});
 
+	var error_status;
+	if (data.error_status && data.error_message) {
+		error_status = $('meta', {
+			name: 'mai:error'
+			, content: data.error_status + '_' + data.error_message
+		});
+	}
+
 	var csrf_token;
 	if (data.current_user) {
 		csrf_token = $('meta', {
@@ -187,6 +195,8 @@ function template(data) {
 		, apple_icon
 		, android_icon
 		, favicon
+		// error page only
+		, error_status
 		// user only
 		, csrf_token
 		// club and user profile only
