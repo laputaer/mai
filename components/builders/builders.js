@@ -16,7 +16,6 @@ module.exports = {
 	, club: require('./club')
 	, customError: require('./custom-error')
 	, doc: require('./doc')
-	, help: require('./help')
 	, login: require('./login')
 	// updated builders
 	, home: require('./home')
@@ -24,4 +23,5 @@ module.exports = {
 	, clubProfile: require('./club-profile')
 	, userProfile: require('./user-profile')
 	, ranking: require('./ranking')
+	, help: require('./help')
 };

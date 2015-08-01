@@ -373,7 +373,7 @@
 	background-color: @color-white;
 	position: relative;
 	z-index: 10;
-	box-shadow: 0 1px 0 0 fadeout(@color-black, 80%);
+	box-shadow: 0 1px 0 0 fadeout(@color-black, 90%), 0 -1px 0 0 fadeout(@color-black, 90%);
 	clear: both;
 
 	.wrapper {
@@ -413,6 +413,14 @@
 				margin-bottom: 0;
 			}
 		}
+	}
+}
+
+.page-section-help {
+	padding: 0 15px;
+
+	@media @tablet {
+		padding: 0 20px 20px;
 	}
 }
 

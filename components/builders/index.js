@@ -17,8 +17,8 @@ var routes = {
 	, clubProfile: createRoute('^/c/:slug$')
 	, userProfile: createRoute('^/u/:uid$')
 	, ranking: createRoute('^/ranking$')
-	// old routes
 	, help: createRoute('^/help$')
+	// old routes
 	, login: createRoute('^/login/redirect$')
 	, club: createRoute('^/c/club-home$')
 	, clubSearch: createRoute('^/c/club-search$')
