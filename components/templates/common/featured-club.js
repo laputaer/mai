@@ -17,9 +17,11 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
+	var prefix = data.prefix || 'club';
+
 	var clubOpts = {
-		id: 'club-' + data.slug
-		, key: 'club-' + data.slug
+		id: prefix + '-' + data.slug
+		, key: prefix + '-' + data.slug
 		, className: 'featured-club'
 	};
 

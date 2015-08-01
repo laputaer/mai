@@ -52,11 +52,11 @@ var api = {
 	, user_posts: {
 		endpoint: '/users/:uid/posts'
 	}
-	, top_clubs: {
-		endpoint: '/clubs/top'
-	}
 	, hot_clubs: {
 		endpoint: '/clubs/hot'
+	}
+	, top_clubs: {
+		endpoint: '/clubs/top'
 	}
 	, recent_clubs: {
 		endpoint: '/clubs/recent'

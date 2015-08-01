@@ -33,42 +33,39 @@ function template(data) {
 		, top: true
 	});
 
-/*
 	var section_title_3 = sectionTitleTemplate({
 		title: 'section.titles.recent-clubs'
 		, key: 'recent-clubs'
 		, top: true
 	});
-*/
 
 	var hot_clubs = data.hot_clubs;
 	var top_clubs = data.top_clubs;
-	//var recent_clubs = data.recent_clubs;
+	var recent_clubs = data.recent_clubs;
 
 	if (!data.ui.load_hot_clubs) {
-		hot_clubs = hot_clubs.slice(0, 8);
+		hot_clubs = hot_clubs.slice(0, 10);
 	} else if (data.ui.load_hot_clubs > 0) {
 		hot_clubs = hot_clubs.slice(0, data.ui.load_hot_clubs);
 	}
 
 	if (!data.ui.load_top_clubs) {
-		top_clubs = top_clubs.slice(0, 8);
+		top_clubs = top_clubs.slice(0, 10);
 	} else if (data.ui.load_top_clubs > 0) {
 		top_clubs = top_clubs.slice(0, data.ui.load_top_clubs);
 	}
 
-/*
 	if (!data.ui.load_recent_clubs) {
-		recent_clubs = recent_clubs.slice(0, 8);
+		recent_clubs = recent_clubs.slice(0, 10);
 	} else if (data.ui.load_recent_clubs > 0) {
 		recent_clubs = recent_clubs.slice(0, data.ui.load_recent_clubs);
 	}
-*/
 
 	hot_clubs = hot_clubs.map(function(club) {
 		var opts = {
-			'client': data.client
-			, 'count': data.ui.load_hot_clubs
+			client: data.client
+			, count: data.ui.load_hot_clubs
+			, prefix: 'hot-club'
 		};
 
 		return immutable(clubTemplate, club, opts);
@@ -76,23 +73,23 @@ function template(data) {
 
 	top_clubs = top_clubs.map(function(club) {
 		var opts = {
-			'client': data.client
-			, 'count': data.ui.load_top_clubs
+			client: data.client
+			, count: data.ui.load_top_clubs
+			, prefix: 'top-club'
 		};
 
 		return immutable(clubTemplate, club, opts);
 	});
 
-/*
 	recent_clubs = recent_clubs.map(function(club) {
 		var opts = {
-			'client': data.client
-			, 'count': data.ui.load_recent_clubs
+			client: data.client
+			, count: data.ui.load_recent_clubs
+			, prefix: 'recent-club'
 		};
 
 		return immutable(clubTemplate, club, opts);
 	});
-*/
 
 	var load_hot_clubs_button = loadButtonTemplate({
 		title: 'section.load.hot-clubs'
@@ -108,14 +105,12 @@ function template(data) {
 		, eventHandler: emitter.capture('page:load:top-clubs')
 	});
 
-/*
 	var load_recent_clubs_button = loadButtonTemplate({
 		title: 'section.load.recent-clubs'
 		, key: 'load-recent-clubs'
 		, eventName: 'ev-click'
 		, eventHandler: emitter.capture('page:load:recent-clubs')
 	});
-*/
 
 	var clubOpts = {
 		id: 'content'
@@ -130,9 +125,9 @@ function template(data) {
 		, section_title_2
 		, top_clubs
 		, load_top_clubs_button
-		//, section_title_3
-		//, recent_clubs
-		//, load_recent_clubs_button
+		, section_title_3
+		, recent_clubs
+		, load_recent_clubs_button
 	]);
 
 	return ranking;

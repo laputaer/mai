@@ -38,11 +38,11 @@ function template(data) {
 
 	club_posts = club_posts.map(function(post, i) {
 		var opts = {
-			'num': i
-			, 'version': data.version.asset
-			, 'view': 'club_posts'
-			, 'client': data.client
-			, 'count': data.ui.load_post
+			num: i
+			, version: data.version.asset
+			, view: 'club_posts'
+			, client: data.client
+			, count: data.ui.load_post
 		};
 
 		return immutable(postTemplate, post, opts);

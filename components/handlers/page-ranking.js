@@ -35,8 +35,8 @@ function *middleware(next) {
 	var data = prepareData(this);
 
 	// STEP 2: load clubs
-	data.top_clubs = yield topClubs;
 	data.hot_clubs = yield hotClubs;
+	data.top_clubs = yield topClubs;
 	data.recent_clubs = yield recentClubs;
 
 	// STEP 3: render page
