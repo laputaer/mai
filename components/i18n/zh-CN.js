@@ -92,6 +92,11 @@ module.exports = {
 		, 'opengraph-invalid-profile': '请求远端页面时得到了不正确数据，如重复出现，请联系我们反馈错误。'
 		, 'membership-required-to-post': '你需要先加入社团才能发布分享。'
 		, 'duplicate-action': '你已经执行过这个操作。'
+		, 'feedback': '为什么出现这个错误？'
+		, 'feedback-contact-1': '可联系开发者'
+		, 'feedback-contact-1-name': '@bitinn'
+		, 'feedback-contact-2': '或提交反馈至'
+		, 'feedback-contact-2-name': 'Github'
 	}
 	, 'user': {
 		'oauth-origin': '来自站点'

@@ -6,6 +6,7 @@
  */
 
 var builders = require('./builders');
+var templates = require('../templates/index');
 
 module.exports = builder;
 
@@ -16,7 +17,7 @@ module.exports = builder;
  * @return  VNode
  */
 function builder(data) {
-	data = builders.customError(data);
+	data.main = templates.page.errorPage(data);
 
 	return builders.doc(data);
 };

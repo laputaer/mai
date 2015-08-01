@@ -114,25 +114,6 @@ App.prototype.modify = function (path, data) {
 };
 
 /**
- * Signify app state and view are ready
- *
- * @param   Boolean  state  Ready flag
- * @return  Void
- */
-App.prototype.ready = function (state) {
-	this.ready_flag = state;
-};
-
-/**
- * Check app state and view are ready
- *
- * @return  Boolean
- */
-App.prototype.isReady = function () {
-	return this.ready_flag;
-};
-
-/**
  * Load data from backend and push onto app store
  *
  * @param   String   name  Backend service

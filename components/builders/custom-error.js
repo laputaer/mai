@@ -1,6 +1,6 @@
 
 /**
- * custom-error.js
+ * custom-error.js (deprecated)
  *
  * Render custom error page
  */
@@ -16,7 +16,7 @@ module.exports = partial;
  * @return  Object
  */
 function partial(data) {
-	data.placeholder = templates.common.placeholder({ content: templates.common.customError(data) });
+	data.main = templates.page.errorPage(data);
 
 	return data;
 };

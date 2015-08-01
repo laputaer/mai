@@ -7,6 +7,7 @@
 
 module.exports = {
 	clubProfile: require('./club-profile')
+	, errorPage: require('./error-page')
 	, home: require('./home')
 	, myClubs: require('./my-clubs')
 	, ranking: require('./ranking')
