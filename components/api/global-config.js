@@ -37,6 +37,7 @@ function *middleware(next) {
 		version: this.config.version
 		, locale: this.locale
 		, base_url: this.state.base_url
+		, production: this.state.production
 	};
 
 	if (this.session.uid) {

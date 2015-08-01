@@ -42,6 +42,7 @@ function Model() {
 Model.prototype.init = function(data) {
 	// this is similar to builders/prepare-data but for client-side
 	this.set('client', true);
+	this.set('production', data.global.data.production);
 	this.set('locale', data.global.data.locale);
 	this.set('version', data.global.data.version);
 	this.set('base_url', data.global.data.base_url);

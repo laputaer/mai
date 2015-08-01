@@ -37,13 +37,15 @@ function App() {
 App.prototype.init = function () {
 	var self = this;
 
-	// init vdom and dom cache
-	self.renderer.init({ container: document.querySelector('.page') });
-
 	// contact backend service
 	return self.service.init().then(function(data) {
 		// init data store, such as asset version and current user
 		self.model.init(data);
+		// init vdom and dom cache
+		self.renderer.init({
+			container: document.querySelector('.page')
+			, production: self.model.get('production')
+		});
 	});
 };
 

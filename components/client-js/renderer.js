@@ -13,7 +13,7 @@ var doc = document;
 // builder bundle
 var builders = require('../builders/builders');
 // to debug, set it to true
-var bench = require('./benchmark')(true);
+var bench = require('./benchmark')();
 
 // immutable object
 var extend = require('xtend');
@@ -57,12 +57,18 @@ Renderer.prototype.init = function(opts) {
 	opts = opts || {};
 	var container = opts.container || doc.body;
 
+	// local development mode
+	if (!opts.production) {
+		bench.enable();
+	}
+
 	// parse dom into vdom, and remember container
 	bench.start('init');
 	this.vdomCache = parser(container, 'id');
 	bench.incr('parser done');
 
 	/*
+	// alternative mode: clean up the whole dom, debug only
 	bench.start('init');
 	while (container.firstChild) {
 		container.removeChild(container.firstChild);
