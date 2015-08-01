@@ -75,11 +75,13 @@ function template(data) {
 		, text: 'menu.nav.login'
 		, icon: 'upload'
 		, version: data.version.asset
+		, eventName: 'ev-click'
+		, eventHandler: emitter.capture('page:login:open')
 	};
 	var profileButton = navButtonTemplate(profileOpts);
 
 	var rankingOpts = {
-		href: '/c/club-ranking'
+		href: '/ranking'
 		, className: 'plain discover ranking'
 		, text: 'menu.nav.ranking'
 		, icon: 'graph_rising'

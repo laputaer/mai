@@ -16,8 +16,8 @@ var api = {
 		global: '/global'
 	}
 	, home: {
-		featured_clubs: '/featured/clubs'
-		, featured_posts: '/featured/posts?skip=0&limit=20'
+		featured_clubs: '/clubs/featured'
+		, featured_posts: '/posts/featured?skip=0&limit=20'
 	}
 	, myClubs: {
 		my_clubs: '/clubs/owner?skip=0&limit=20'
@@ -33,7 +33,7 @@ var api = {
 	}
 	, help: {}
 	, featured_posts: {
-		endpoint: '/featured/posts'
+		endpoint: '/posts/featured'
 	}
 	, my_clubs: {
 		endpoint: '/clubs/owner'

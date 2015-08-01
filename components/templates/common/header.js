@@ -44,7 +44,7 @@ function template(data) {
 	var clubButton = buttonTemplate(clubOpt);
 
 	var rankingOpt = {
-		href: '/c/club-ranking'
+		href: '/ranking'
 		, className: 'rounded nav tablet'
 		, text: 'menu.nav.ranking'
 		, icon: 'graph_rising'

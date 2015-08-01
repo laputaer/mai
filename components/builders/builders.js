@@ -23,4 +23,5 @@ module.exports = {
 	, myClubs: require('./my-clubs')
 	, clubProfile: require('./club-profile')
 	, userProfile: require('./user-profile')
+	, ranking: require('./ranking')
 };

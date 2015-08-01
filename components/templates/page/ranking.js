@@ -2,11 +2,13 @@
 /**
  * ranking.js
  *
- * Template for default ranked club section
+ * Template for ranking page
  */
 
 var $ = require('../vdom');
-var i18n = require('../i18n')();
+
+var clubTemplate = require('../common/featured-club');
+var sectionTitleTemplate = require('../common/section-title');
 
 module.exports = template;
 
@@ -17,18 +19,53 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var search = $('div.m-rows', [
-		$('div.m-content.m-row-2', [
-			$('div.m-section.green.lead', [
-				$('h1.m-subtitle', i18n.t('club.ranking-result'))
-				, $('div.m-list', data.ranking_result)
-			])
-			, $('div.m-section.green', [
-				$('h1.m-subtitle', i18n.t('club.ranking-created'))
-				, $('div.m-list', data.created_result)
-			])
-		])
+	var section_title_1 = sectionTitleTemplate({
+		title: 'section.titles.hot-clubs'
+		, key: 'hot-clubs'
+	});
+
+	var section_title_2 = sectionTitleTemplate({
+		title: 'section.titles.top-clubs'
+		, key: 'top-clubs'
+		, top: true
+	});
+
+	var section_title_3 = sectionTitleTemplate({
+		title: 'section.titles.recent-clubs'
+		, key: 'recent-clubs'
+		, top: true
+	});
+
+	var hot_clubs = data.hot_clubs;
+	var top_clubs = data.top_clubs;
+	var recent_clubs = data.recent_clubs;
+
+	hot_clubs = hot_clubs.map(function(club) {
+		return clubTemplate(club);
+	});
+
+	top_clubs = top_clubs.map(function(club) {
+		return clubTemplate(club);
+	});
+
+	recent_clubs = recent_clubs.map(function(club) {
+		return clubTemplate(club);
+	});
+
+	var clubOpts = {
+		id: 'content'
+		, key: 'content'
+		, className: 'page-content'
+	};
+
+	var ranking = $('div', clubOpts, [
+		section_title_1
+		, hot_clubs
+		, section_title_2
+		, top_clubs
+		, section_title_3
+		, recent_clubs
 	]);
 
-	return search;
+	return ranking;
 };
