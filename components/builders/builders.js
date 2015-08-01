@@ -14,14 +14,14 @@ module.exports = {
 	, clubRanking: require('./club-ranking')
 	, clubSearch: require('./club-search')
 	, club: require('./club')
-	, customError: require('./custom-error')
-	, doc: require('./doc')
 	, login: require('./login')
 	// updated builders
+	, doc: require('./doc')
 	, home: require('./home')
 	, myClubs: require('./my-clubs')
 	, clubProfile: require('./club-profile')
 	, userProfile: require('./user-profile')
 	, ranking: require('./ranking')
 	, help: require('./help')
+	, error: require('./error')
 };

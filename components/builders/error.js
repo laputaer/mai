@@ -1,8 +1,8 @@
 
 /**
- * custom-error.js (deprecated)
+ * error.js
  *
- * Render custom error page
+ * Render error page
  */
 
 var templates = require('../templates/index');
