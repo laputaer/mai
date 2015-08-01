@@ -53,6 +53,9 @@ module.exports = {
 			, 'joined-clubs': '更多我加入的社团'
 			, 'club-posts': '更多社团分享'
 			, 'user-posts': '更多用户分享'
+			, 'hot-clubs': '更多热门社团'
+			, 'top-clubs': '更多主流社团'
+			, 'recent-clubs': '更多新人社团'
 		}
 	}
 	, 'placeholder': {

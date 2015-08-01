@@ -45,6 +45,14 @@ function *middleware(next) {
 	var limit = 8;
 	var skip = 0;
 
+	if (next) {
+		var result = yield validate(this.request.query, 'query');
+		if (result.valid) {
+			limit = parseInt(this.request.query.limit) || limit;
+			skip = parseInt(this.request.query.skip) || skip;
+		}
+	}
+
 	// STEP 2: get clubs
 	var top_clubs = yield clubsDomain.getTopClubs({
 		db: this.db

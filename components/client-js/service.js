@@ -31,6 +31,11 @@ var api = {
 		user_profile: '/users/:uid/profile'
 		, user_posts: '/users/:uid/posts?skip=0&limit=20'
 	}
+	, ranking: {
+		hot_clubs: '/clubs/hot?skip=0&limit=20'
+		, top_clubs: '/clubs/top?skip=0&limit=20'
+		, recent_clubs: '/clubs/recent?skip=0&limit=20'
+	}
 	, help: {}
 	, featured_posts: {
 		endpoint: '/posts/featured'
@@ -46,6 +51,15 @@ var api = {
 	}
 	, user_posts: {
 		endpoint: '/users/:uid/posts'
+	}
+	, top_clubs: {
+		endpoint: '/clubs/top'
+	}
+	, hot_clubs: {
+		endpoint: '/clubs/hot'
+	}
+	, recent_clubs: {
+		endpoint: '/clubs/recent'
 	}
 };
 
@@ -101,7 +115,7 @@ Service.prototype.send = function(url, opts) {
 /**
  * Fetch backend in parallel
  *
- * @param   String   name    API name or url
+ * @param   String   name    API name
  * @param   Object   opts    Optional parameters
  * @param   Array    params  Params for endpoints
  * @return  Promise

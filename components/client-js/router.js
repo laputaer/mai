@@ -15,6 +15,7 @@ var routes = {
 	, myClubs: createRoute('^/my-clubs$')
 	, clubProfile: createRoute('^/c/:slug$')
 	, userProfile: createRoute('^/u/:uid$')
+	, ranking: createRoute('^/ranking$')
 };
 
 module.exports = router;
