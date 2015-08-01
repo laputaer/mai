@@ -19,7 +19,6 @@ function template(data) {
 	var main = $('div.page', [
 		data.header
 		, data.main
-		, data.placeholder
 		, data.footer
 		, data.discover
 		, data.login

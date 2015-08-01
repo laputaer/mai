@@ -1,8 +1,8 @@
 
 /**
- * custom-error.js
+ * ranking.js
  *
- * Render custom error page
+ * Render ranking page body
  */
 
 var templates = require('../templates/index');
@@ -16,7 +16,7 @@ module.exports = partial;
  * @return  Object
  */
 function partial(data) {
-	data.placeholder = templates.common.placeholder({ content: templates.common.customError(data) });
+	data.main = templates.page.ranking(data);
 
 	return data;
 };

@@ -37,13 +37,15 @@ function App() {
 App.prototype.init = function () {
 	var self = this;
 
-	// init vdom and dom cache
-	self.renderer.init({ container: document.querySelector('.page') });
-
 	// contact backend service
 	return self.service.init().then(function(data) {
 		// init data store, such as asset version and current user
 		self.model.init(data);
+		// init vdom and dom cache
+		self.renderer.init({
+			container: document.querySelector('.page')
+			, production: self.model.get('production')
+		});
 	});
 };
 
@@ -54,11 +56,18 @@ App.prototype.init = function () {
  */
 App.prototype.update = function () {
 	var self = this;
+	var model = self.model.get();
+
+	// error page
+	if (model.error_status && model.error_message) {
+		self.renderer.update(false, model);
+		return Promise.resolve(1);
+	}
 
 	// match current route
-	var route = router(self.model.get());
+	var route = router(model);
 	if (!route) {
-		return Promise.resolve(null);
+		return Promise.resolve(2);
 	}
 
 	// found route, contact backend service
@@ -67,25 +76,35 @@ App.prototype.update = function () {
 		self.model.update(data);
 		// update view using current model
 		self.renderer.update(route.name, self.model.get());
+		// debug purpose
+		return 3;
 	});
 };
 
 /**
  * Refresh app view
  *
- * @return  Void
+ * @return  Promise
  */
 App.prototype.refresh = function () {
 	var self = this;
+	var model = self.model.get();
+
+	// error page
+	if (model.error_status && model.error_message) {
+		self.renderer.update(false, model);
+		return Promise.resolve(1);
+	}
 
 	// match current route
-	var route = router(self.model.get());
+	var route = router(model);
 	if (!route) {
-		return Promise.resolve(false);
+		return Promise.resolve(2);
 	}
 
 	// trigger view update
 	self.renderer.update(route.name, self.model.get());
+	return Promise.resolve(3);
 };
 
 /**
@@ -111,25 +130,6 @@ App.prototype.modify = function (path, data) {
 	var self = this;
 
 	return self.model.set(path, data);
-};
-
-/**
- * Signify app state and view are ready
- *
- * @param   Boolean  state  Ready flag
- * @return  Void
- */
-App.prototype.ready = function (state) {
-	this.ready_flag = state;
-};
-
-/**
- * Check app state and view are ready
- *
- * @return  Boolean
- */
-App.prototype.isReady = function () {
-	return this.ready_flag;
 };
 
 /**

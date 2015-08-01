@@ -8,44 +8,49 @@
 'use strict';
 
 var win = window;
-var noop = function() {};
 
 module.exports = Benchmark;
 
 /**
  * Benchmark class
  *
- * @param   Boolean  active  Whether to run benchmark
  * @return  Void
  */
-function Benchmark(active) {
+function Benchmark() {
 	if (!(this instanceof Benchmark)) {
-		return new Benchmark(active);
+		return new Benchmark();
 	}
 
-	if (!active) {
-		this.start = noop;
-		this.incr = noop;
-		this.patchFilter = noop;
-		return this;
+	this.active = false;
+
+	this.enable = function () {
+		this.active = true;
+		this._debug('benchmark enabled');
 	}
 
-	this.active = active || false;
-
-	this.start = function(name, data) {
+	this.start = function (name, data) {
+		if (!this.active) {
+			return;
+		}
 		this.first = this._now();
 		this.last = this.first;
 		this._debug(name + ': 0ms', data);
 	};
 
-	this.incr = function(name, data) {
+	this.incr = function (name, data) {
+		if (!this.active) {
+			return;
+		}
 		name = name || 'unknown';
 		var current = this._now();
 		this._debug(name + ': +' + Math.round(current - this.last) + 'ms, ' + Math.round(current - this.first) + 'ms', data);
 		this.last = current;
 	};
 
-	this.patchFilter = function(data) {
+	this.patchFilter = function (data) {
+		if (!this.active) {
+			return;
+		}
 		var output = {};
 		for (var p in data) {
 			// filter out prop update and thunk update
@@ -57,7 +62,7 @@ function Benchmark(active) {
 		return output;
 	};
 
-	this._debug = function() {
+	this._debug = function () {
 		var args = [];
 		for (var i = 0; i < arguments.length; i++) {
 			if (!arguments[i]) {
@@ -69,7 +74,7 @@ function Benchmark(active) {
 		console.debug.apply(console, args);
 	};
 
-	this._now = function() {
+	this._now = function () {
 		if (win.performance) {
 			return win.performance.now();
 		} else {
@@ -79,5 +84,4 @@ function Benchmark(active) {
 
 	this.first = this._now();
 	this.last = this.first;
-	return this;
 }

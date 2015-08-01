@@ -1,8 +1,8 @@
 
 /**
- * help.js
+ * error.js
  *
- * Render user manual
+ * Render error page
  */
 
 var templates = require('../templates/index');
@@ -16,7 +16,7 @@ module.exports = partial;
  * @return  Object
  */
 function partial(data) {
-	data.main = templates.page.userManual(data);
+	data.main = templates.page.errorPage(data);
 
 	return data;
 };

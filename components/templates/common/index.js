@@ -12,6 +12,8 @@ module.exports = {
 	, customError: require('./custom-error')
 	, discover: require('./discover')
 	, featuredClub: require('./featured-club')
+	, featuredPost: require('./featured-post')
+	, feedback: require('./feedback')
 	, footer: require('./footer')
 	, formButton: require('./form-button')
 	, formError: require('./form-error')

@@ -43,6 +43,9 @@ module.exports = {
 			, 'my-clubs': '我创建的社团'
 			, 'joined-clubs': '我加入的社团'
 			, 'recent-posts': '近期分享'
+			, 'top-clubs': '主流社团'
+			, 'hot-clubs': '热门社团'
+			, 'recent-clubs': '新人社团'
 		}
 		, 'load': {
 			'featured-posts': '浏览更多精彩内容'
@@ -50,6 +53,9 @@ module.exports = {
 			, 'joined-clubs': '更多我加入的社团'
 			, 'club-posts': '更多社团分享'
 			, 'user-posts': '更多用户分享'
+			, 'hot-clubs': '更多热门社团'
+			, 'top-clubs': '更多主流社团'
+			, 'recent-clubs': '更多新人社团'
 		}
 	}
 	, 'placeholder': {
@@ -86,6 +92,11 @@ module.exports = {
 		, 'opengraph-invalid-profile': '请求远端页面时得到了不正确数据，如重复出现，请联系我们反馈错误。'
 		, 'membership-required-to-post': '你需要先加入社团才能发布分享。'
 		, 'duplicate-action': '你已经执行过这个操作。'
+		, 'feedback': '为什么出现这个错误？'
+		, 'feedback-contact-1': '可联系开发者'
+		, 'feedback-contact-1-name': '@bitinn'
+		, 'feedback-contact-2': '或提交反馈至'
+		, 'feedback-contact-2-name': 'Github'
 	}
 	, 'user': {
 		'oauth-origin': '来自站点'
@@ -178,15 +189,15 @@ module.exports = {
 		, 'user-result': '用户近期更新'
 	}
 	, 'help': {
-		'main-title': '使用帮助'
-		, 'main-title-note': '在这里你可以找到有关「入部么」的功能介绍与常见问题回答。'
-		, 'main-title-suggestion': '未能找到你关心的解答？'
+		'about-question': '使用帮助'
+		, 'about-answer-1': '在这里你可以找到有关「入部么」的功能介绍与常见问题回答。'
+		, 'about-answer-2': '未能找到你关心的解答？'
 		, 'about-us-question': '「入部么」是什么？'
 		, 'about-us-answer-1': '我们是一个连接创作者与消费者的社区。'
-		, 'why-us-question': '为什么创建这个社区？'
-		, 'why-us-answer-1': '我们希望给创作者与消费者一片天地，交换有趣的创意，建立友好的关系。'
-		, 'why-us-answer-2': '对于创作者而言：获得更多读者、观众、用户、同路人的建议反馈。'
-		, 'why-us-answer-3': '对于消费者而言：与作者、其他爱好者直接沟通，分享心得与体验。'
+		, 'about-why-question': '为什么创建这个社区？'
+		, 'about-why-answer-1': '我们希望给创作者与消费者一片天地，交换有趣的创意，建立友好的关系。'
+		, 'about-why-answer-2': '对于创作者而言：获得更多读者、观众、用户、同路人的建议反馈。'
+		, 'about-why-answer-3': '对于消费者而言：与作者、其他爱好者直接沟通，分享心得与体验。'
 		, 'about-club-question': '「社团」是什么？'
 		, 'about-club-answer-1': '我们认为「社团」是文化的集合。'
 		, 'about-club-answer-2': '我们认为「社团」代表开放、互助、激励的精神。'

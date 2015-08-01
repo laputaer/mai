@@ -28,6 +28,7 @@ function myRouter(app) {
 	router.get('/', handlers.pageLanding());
 	router.get('/help', handlers.pageHelp());
 	router.get('/my-clubs', handlers.pageMyClubs());
+	router.get('/ranking', handlers.pageRanking());
 
 	// user login
 	router.get('/login/redirect', handlers.loginRedirect());
@@ -55,9 +56,9 @@ function myRouter(app) {
 	router.post('/c/:slug/p/post-add-2', handlers.clubPostCreate());
 
 	// api routes
-	apiRouter.get('/global', apiHandlers.getGlobalConfig());
-	apiRouter.get('/featured/clubs', apiHandlers.getFeaturedClubs());
-	apiRouter.get('/featured/posts', apiHandlers.getFeaturedPosts());
+	apiRouter.get('/global', apiHandlers.globalConfig());
+	apiRouter.get('/clubs/featured', apiHandlers.featuredClubs());
+	apiRouter.get('/posts/featured', apiHandlers.featuredPosts());
 	apiRouter.put('/posts/:pid/favorite', apiHandlers.favoritePost());
 	apiRouter.del('/posts/:pid/favorite', apiHandlers.unfavoritePost());
 	apiRouter.get('/clubs/owner', apiHandlers.userOwnedClubs());
@@ -66,6 +67,9 @@ function myRouter(app) {
 	apiRouter.get('/clubs/:slug/profile', apiHandlers.clubProfile());
 	apiRouter.get('/users/:uid/posts', apiHandlers.userPosts());
 	apiRouter.get('/users/:uid/profile', apiHandlers.userProfile());
+	apiRouter.get('/clubs/top', apiHandlers.topClubs());
+	apiRouter.get('/clubs/hot', apiHandlers.hotClubs());
+	apiRouter.get('/clubs/recent', apiHandlers.recentClubs());
 
 	// mount api routes to main router
 	router.use('/api/v1', apiRouter.routes());

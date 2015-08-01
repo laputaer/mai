@@ -21,9 +21,11 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
+	var prefix = data.prefix || 'post';
+
 	var postOpts = {
-		id: 'post-' + data.pid
-		, key: 'post-' + data.pid
+		id: prefix + '-' + data.pid
+		, key: prefix + '-' + data.pid
 		, className: 'featured-post'
 	};
 

@@ -6,10 +6,10 @@
  * eg. cache service down, db query failure etc.
  */
 
+var i18n = require('../templates/i18n')();
+var prepareData = require('../builders/prepare-data');
 var getStandardJson = require('../helpers/get-standard-json');
 var builder = require('../builders/index-error');
-var prepareData = require('../builders/prepare-data');
-var i18n = require('../templates/i18n')();
 
 module.exports = factory;
 
@@ -89,7 +89,7 @@ function errorPage(ctx, err) {
 
 	// page error response
 	var data = prepareData(ctx);
-	data.error_status = i18n.t('error.status-code', { code: err.status })
+	data.error_status = err.status;
 	data.error_message = err.message;
 
 	ctx.status = err.status;

@@ -42,6 +42,7 @@ function Model() {
 Model.prototype.init = function(data) {
 	// this is similar to builders/prepare-data but for client-side
 	this.set('client', true);
+	this.set('production', data.global.data.production);
 	this.set('locale', data.global.data.locale);
 	this.set('version', data.global.data.version);
 	this.set('base_url', data.global.data.base_url);
@@ -49,15 +50,23 @@ Model.prototype.init = function(data) {
 	this.set('current_url', win.location.href);
 	this.set('ui', {});
 
+	// retrieve error message
+	var error_status = doc.head.querySelector('meta[name="mai:error"]');
+	if (error_status) {
+		var error = error_status.content.split('_');
+		this.set('error_status', error[0]);
+		this.set('error_message', error[1]);
+	}
+
 	// handle guest user
 	if (!data.global.data.current_user) {
 		return;
 	}
 
-	// login user
+	// current user
 	this.set('current_user', data.global.data.current_user);
 
-	// retrieve crsf token from meta
+	// retrieve user csrf token from meta
 	var crsf_meta = doc.head.querySelector('meta[name="mai:token"]');
 	if (crsf_meta) {
 		this.set(['current_user', 'csrf_token'], crsf_meta.content);

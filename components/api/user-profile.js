@@ -52,8 +52,10 @@ function *middleware(next) {
 		, uid: uid
 	});
 
-	if (next && !user_profile) {
-		this.state.error_json = getStandardJson(null, 404, i18n.t('error.not-found-user'));
+	if (!user_profile) {
+		if (next) {
+			this.state.error_json = getStandardJson(null, 404, i18n.t('error.not-found-user'));
+		}
 		return;
 	}
 

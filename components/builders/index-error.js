@@ -16,7 +16,7 @@ module.exports = builder;
  * @return  VNode
  */
 function builder(data) {
-	data = builders.customError(data);
+	data = builders.error(data);
 
 	return builders.doc(data);
 };

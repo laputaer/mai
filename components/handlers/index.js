@@ -11,6 +11,7 @@ module.exports = {
 	, pageMyClubs: require('./page-my-clubs')
 	, pageClubProfile: require('./page-club-profile')
 	, pageUserProfile: require('./page-user-profile')
+	, pageRanking: require('./page-ranking')
 	// old route
 	, loginRedirect: require('./login-redirect')
 	, loginOauth: require('./oauth')

@@ -373,7 +373,7 @@
 	background-color: @color-white;
 	position: relative;
 	z-index: 10;
-	box-shadow: 0 1px 0 0 fadeout(@color-black, 80%);
+	box-shadow: 0 1px 0 0 fadeout(@color-black, 90%), 0 -1px 0 0 fadeout(@color-black, 90%);
 	clear: both;
 
 	.wrapper {
@@ -413,6 +413,40 @@
 				margin-bottom: 0;
 			}
 		}
+	}
+}
+
+.page-section-help {
+	padding: 0 15px;
+
+	@media @tablet {
+		padding: 0 20px;
+	}
+}
+
+.page-section-feedback {
+	max-width: 500px;
+	margin: 0 auto;
+	padding: 15px;
+	box-sizing: border-box;
+	overflow: hidden;
+
+	.title {
+		margin: 0;
+		font-weight: 100;
+		line-height: 1.5em;
+		.size(24);
+	}
+
+	.subtitle {
+		margin: 0;
+		font-weight: 400;
+		line-height: 1.5em;
+		.size(20);
+	}
+
+	@media @tablet {
+		padding: 20px;
 	}
 }
 

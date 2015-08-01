@@ -16,11 +16,11 @@ var routes = {
 	, myClubs: createRoute('^/my-clubs$')
 	, clubProfile: createRoute('^/c/:slug$')
 	, userProfile: createRoute('^/u/:uid$')
-	// old routes
+	, ranking: createRoute('^/ranking$')
 	, help: createRoute('^/help$')
+	// old routes
 	, login: createRoute('^/login/redirect$')
 	, club: createRoute('^/c/club-home$')
-	, clubRanking: createRoute('^/c/club-ranking$')
 	, clubSearch: createRoute('^/c/club-search$')
 	, clubNew: createRoute('^/c/club-add$')
 	, clubEditor: createRoute('^/c/:slug/edit$')

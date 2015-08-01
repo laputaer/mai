@@ -85,6 +85,30 @@ function handlers(app) {
 		});
 	});
 
+	emitter.on('page:load:hot-clubs', function () {
+		loadContent(app, {
+			name: 'load_hot_clubs'
+			, key: 'slug'
+			, endpoint: 'hot_clubs'
+		});
+	});
+
+	emitter.on('page:load:top-clubs', function () {
+		loadContent(app, {
+			name: 'load_top_clubs'
+			, key: 'slug'
+			, endpoint: 'top_clubs'
+		});
+	});
+
+	emitter.on('page:load:recent-clubs', function () {
+		loadContent(app, {
+			name: 'load_recent_clubs'
+			, key: 'slug'
+			, endpoint: 'recent_clubs'
+		});
+	});
+
 	emitter.on('page:favorite:create', function (data) {
 		createFavorite(app, data);
 		app.json('PUT', '/posts/' + data.id + '/favorite').then(function (res) {

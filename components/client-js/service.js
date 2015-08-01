@@ -16,8 +16,8 @@ var api = {
 		global: '/global'
 	}
 	, home: {
-		featured_clubs: '/featured/clubs'
-		, featured_posts: '/featured/posts?skip=0&limit=20'
+		featured_clubs: '/clubs/featured'
+		, featured_posts: '/posts/featured?skip=0&limit=20'
 	}
 	, myClubs: {
 		my_clubs: '/clubs/owner?skip=0&limit=20'
@@ -31,9 +31,14 @@ var api = {
 		user_profile: '/users/:uid/profile'
 		, user_posts: '/users/:uid/posts?skip=0&limit=20'
 	}
+	, ranking: {
+		hot_clubs: '/clubs/hot?skip=0&limit=20'
+		, top_clubs: '/clubs/top?skip=0&limit=20'
+		, recent_clubs: '/clubs/recent?skip=0&limit=20'
+	}
 	, help: {}
 	, featured_posts: {
-		endpoint: '/featured/posts'
+		endpoint: '/posts/featured'
 	}
 	, my_clubs: {
 		endpoint: '/clubs/owner'
@@ -46,6 +51,15 @@ var api = {
 	}
 	, user_posts: {
 		endpoint: '/users/:uid/posts'
+	}
+	, hot_clubs: {
+		endpoint: '/clubs/hot'
+	}
+	, top_clubs: {
+		endpoint: '/clubs/top'
+	}
+	, recent_clubs: {
+		endpoint: '/clubs/recent'
 	}
 };
 
@@ -101,7 +115,7 @@ Service.prototype.send = function(url, opts) {
 /**
  * Fetch backend in parallel
  *
- * @param   String   name    API name or url
+ * @param   String   name    API name
  * @param   Object   opts    Optional parameters
  * @param   Array    params  Params for endpoints
  * @return  Promise
@@ -173,17 +187,11 @@ function deferFetch(ps, p, results, name) {
 
 	// TODO: better error handling
 	ps.push(p.then(function(res) {
-		// non-2xx response
-		if (!res.ok) {
-			results[name] = null;
-			return null;
-		}
 		return res.json();
 	}).then(function(json) {
-		// invalid json
 		if (!json) {
 			results[name] = null;
-			return null;
+			return;
 		}
 		results[name] = json;
 	}));

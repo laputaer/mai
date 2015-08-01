@@ -36,7 +36,5 @@ domready(init);
 function init() {
 	app.init().then(function () {
 		return app.update();
-	}).then(function () {
-		app.ready(true);
 	});
 };

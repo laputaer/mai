@@ -6,9 +6,9 @@
  */
 
 module.exports = {
-	getGlobalConfig: require('./global-config')
-	, getFeaturedClubs: require('./featured-clubs')
-	, getFeaturedPosts: require('./featured-posts')
+	globalConfig: require('./global-config')
+	, featuredClubs: require('./featured-clubs')
+	, featuredPosts: require('./featured-posts')
 	, favoritePost: require('./favorite-post')
 	, unfavoritePost: require('./unfavorite-post')
 	, userJoinedClubs: require('./current-user-joined-clubs')
@@ -17,4 +17,7 @@ module.exports = {
 	, clubProfile: require('./club-profile')
 	, userPosts: require('./user-posts')
 	, userProfile: require('./user-profile')
+	, topClubs: require('./top-clubs')
+	, hotClubs: require('./hot-clubs')
+	, recentClubs: require('./recent-clubs')
 };
