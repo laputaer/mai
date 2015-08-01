@@ -57,8 +57,10 @@ function *middleware(next) {
 		, slug: this.params.slug
 	});
 
-	if (next && !club_profile) {
-		this.state.error_json = getStandardJson(null, 404, i18n.t('error.not-found-club'));
+	if (!club_profile) {
+		if (next) {
+			this.state.error_json = getStandardJson(null, 404, i18n.t('error.not-found-club'));
+		}
 		return;
 	}
 
