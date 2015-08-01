@@ -54,10 +54,10 @@ Model.prototype.init = function(data) {
 		return;
 	}
 
-	// login user
+	// current user
 	this.set('current_user', data.global.data.current_user);
 
-	// retrieve crsf token from meta
+	// retrieve user csrf token from meta
 	var crsf_meta = doc.head.querySelector('meta[name="mai:token"]');
 	if (crsf_meta) {
 		this.set(['current_user', 'csrf_token'], crsf_meta.content);
