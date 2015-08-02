@@ -25,6 +25,11 @@ function template(data) {
 		, className: data.className || ''
 	};
 
+	// button target
+	if (data.target) {
+		buttonOpts.target = data.target;
+	}
+
 	// button events
 	if (data.eventName && data.eventHandler) {
 		buttonOpt[data.eventName] = data.eventHandler;
@@ -42,10 +47,20 @@ function template(data) {
 	}
 
 	// button image
-	if (data.image && data.version) {
+	if (data.image) {
+		var url = data.image;
+
+		if (data.size) {
+			url += '&size=' + data.size;
+		}
+
+		if (data.version) {
+			url += '?' + data.version;
+		}
+
 		image = $('div.m-icon.m-avatar', {
 			style: {
-				'background-image': 'url(' + data.image + '?' + data.version + ')'
+				'background-image': 'url(' + url + ')'
 			}
 		});
 	}
@@ -53,6 +68,11 @@ function template(data) {
 	// button text
 	if (data.text !== undefined) {
 		text = $('span.m-text', i18n.t(data.text));
+	}
+
+	// button value
+	if (data.value !== undefined) {
+		text = $('span.m-text', data.value.toString());
 	}
 
 	var button = $('a.m-button', buttonOpt, [ icon, image, text ]);

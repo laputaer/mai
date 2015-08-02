@@ -31,41 +31,41 @@ function template(data) {
 		, eventHandler: emitter.capture('page:nav:open')
 	});
 
-	var clubOpt = {
+	var clubOpts = {
 		href: '/my-clubs'
 		, className: 'rounded nav tablet'
 		, text: 'menu.nav.club'
 		, icon: 'share'
 		, version: data.version.asset
 	};
-	if (data.current_path === clubOpt.href) {
-		clubOpt.className += ' active';
+	if (data.current_path === clubOpts.href) {
+		clubOpts.className += ' active';
 	}
-	var clubButton = buttonTemplate(clubOpt);
+	var clubButton = buttonTemplate(clubOpts);
 
-	var rankingOpt = {
+	var rankingOpts = {
 		href: '/ranking'
 		, className: 'rounded nav tablet'
 		, text: 'menu.nav.ranking'
 		, icon: 'graph_rising'
 		, version: data.version.asset
 	};
-	if (data.current_path === rankingOpt.href) {
-		rankingOpt.className += ' active';
+	if (data.current_path === rankingOpts.href) {
+		rankingOpts.className += ' active';
 	}
-	var rankingButton = buttonTemplate(rankingOpt);
+	var rankingButton = buttonTemplate(rankingOpts);
 
-	var helpOpt = {
+	var helpOpts = {
 		href: '/help'
 		, className: 'rounded nav tablet'
 		, text: 'menu.nav.help'
 		, icon: 'life_buoy'
 		, version: data.version.asset
 	};
-	if (data.current_path === helpOpt.href) {
-		helpOpt.className += ' active';
+	if (data.current_path === helpOpts.href) {
+		helpOpts.className += ' active';
 	}
-	var helpButton = buttonTemplate(helpOpt);
+	var helpButton = buttonTemplate(helpOpts);
 
 	var userButton;
 	if (data.current_user) {
@@ -93,19 +93,30 @@ function template(data) {
 		, className: 'page-header'
 	};
 
-	var imageOpts = {
-		attributes: {
-			role: 'presentation'
-			, 'data-srcset': data.base_url + '/images/header-320.jpg?' + data.version.asset + ' 320w, '
-				+ data.base_url + '/images/header-640.jpg?' + data.version.asset + ' 640w, '
-				+ data.base_url + '/images/header-960.jpg?' + data.version.asset + ' 960w, '
-				+ data.base_url + '/images/header-1280.jpg?' + data.version.asset + ' 1280w'
-			, 'data-sizes': 'auto'
-		}
-		, src: data.base_url + '/images/header-320.jpg?' + data.version.asset
-		, alt: ''
-		, className: 'lazyload'
-	};
+	var imageOpts;
+	if (data.club_profile && data.club_profile.image) {
+		imageOpts = {
+			attributes: {
+				role: 'presentation'
+			}
+			, src: data.club_profile.image + '&size=bg-small'
+			, alt: ''
+		};
+	} else {
+		imageOpts = {
+			attributes: {
+				role: 'presentation'
+				, 'data-srcset': data.base_url + '/images/header-320.jpg?' + data.version.asset + ' 320w, '
+					+ data.base_url + '/images/header-640.jpg?' + data.version.asset + ' 640w, '
+					+ data.base_url + '/images/header-960.jpg?' + data.version.asset + ' 960w, '
+					+ data.base_url + '/images/header-1280.jpg?' + data.version.asset + ' 1280w'
+				, 'data-sizes': 'auto'
+			}
+			, src: data.base_url + '/images/header-320.jpg?' + data.version.asset
+			, alt: ''
+			, className: 'lazyload'
+		};
+	}
 
 	var heroImage = $('img', imageOpts);
 	var titleLink = $('a', { href: '/' }, i18n.t('common.domain'));
