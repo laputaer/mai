@@ -37,7 +37,7 @@
 		padding: 0;
 	}
 
-	.m-icon, .m-text {
+	.m-icon, .m-text, .m-hint {
 		display: inline-block;
 		vertical-align: top;
 	}
@@ -52,6 +52,23 @@
 			border-radius: 50%;
 			background-color: @color-gray-light;
 			.background-cover();
+		}
+
+		&.m-hint {
+			fill: fadeout(@color-white, 100%);
+			border-radius: 50%;
+			background-color: @color-yellow-light;
+			animation: hint 1.0s infinite ease-in-out;
+		}
+
+		@keyframes hint {
+			0% { 
+				transform: scale(0);
+			}
+			100% {
+				transform: scale(1.0);
+				opacity: 0;
+			}
 		}
 	}
 

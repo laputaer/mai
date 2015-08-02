@@ -41,6 +41,8 @@ function prepareData(ctx) {
 	data.inline_js = ctx.state.inline_js;
 	// environment
 	data.production = ctx.state.production;
+	// server-side flag
+	data.client = false;
 	// client-side ui state
 	data.ui = {};
 	// doc.head content
