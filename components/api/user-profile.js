@@ -8,6 +8,7 @@
 var getStandardJson = require('../helpers/get-standard-json');
 var filterAttributes = require('../helpers/filter-attributes');
 var getUserOrigin = require('../helpers/get-user-origin');
+var getAvatarVariant = require('../helpers/get-avatar-variant');
 var usersDomain = require('../domains/users');
 var proxyUrl = require('../security/proxy');
 var i18n = require('../templates/i18n')();
@@ -62,7 +63,7 @@ function *middleware(next) {
 	// STEP 3: user data transform
 	if (user_profile.avatar) {
 		user_profile.avatar = proxyUrl({
-			url: user_profile.avatar
+			url: getAvatarVariant(user_profile, 400)
 			, key: config.proxy.key
 			, base: state.image_base_url
 		});
