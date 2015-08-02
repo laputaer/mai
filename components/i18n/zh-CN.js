@@ -71,6 +71,11 @@ module.exports = {
 		, 'avatar-preview': '的预览头像'
 		, 'action-done': '操作完成'
 	}
+	, 'profile': {
+		'club': {
+			'owner': '创始人'
+		}
+	}
 	, 'error': {
 		'status-code': 'Error %{code}'
 		, 'internal-service-down': '非常抱歉，我们的内部服务出了点问题。如果你正在执行操作，请重新尝试。'

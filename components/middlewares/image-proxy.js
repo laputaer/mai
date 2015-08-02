@@ -29,9 +29,9 @@ var sizes = {
 	, 'th-medium': 400
 	, 'th-large': 800
 	, 'th-grand': 1600
-	, 'bg-small': [320, 200]
-	, 'bg-medium': [640, 400]
-	, 'bg-large': [960, 600]
+	, 'bc-small': [320, 200]
+	, 'bc-medium': [640, 400]
+	, 'bc-large': [960, 600]
 	, 'ls-small': [320, 200]
 	, 'ls-medium': [640, 400]
 	, 'ls-large': [960, 600]
@@ -278,10 +278,10 @@ function createImage(input) {
 				.progressive()
 				.toFormat(input.ext);
 		// resize to background cover
-		} else if (input.name.substr(0, 2) === 'bg') {
+		} else if (input.name.substr(0, 2) === 'bc') {
 			s1 = s1.limitInputPixels(input.limit)
 				.resize(size[0], size[1])
-				.blur(50)
+				.blur(size[1] / 4)
 				.quality(95)
 				.progressive()
 				.toFormat(input.ext); 

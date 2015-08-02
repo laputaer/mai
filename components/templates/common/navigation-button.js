@@ -17,10 +17,10 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var icon, image, text, buttonOpt;
+	var icon, image, text, buttonOpts;
 
 	// button options
-	buttonOpt = {
+	buttonOpts = {
 		href: data.href || '#'
 		, className: data.className || ''
 	};
@@ -32,7 +32,7 @@ function template(data) {
 
 	// button events
 	if (data.eventName && data.eventHandler) {
-		buttonOpt[data.eventName] = data.eventHandler;
+		buttonOpts[data.eventName] = data.eventHandler;
 	}
 
 	// button icon
@@ -75,6 +75,6 @@ function template(data) {
 		text = $('span.m-text', data.value.toString());
 	}
 
-	var button = $('a.m-button', buttonOpt, [ icon, image, text ]);
+	var button = $('a.m-button', buttonOpts, [ icon, image, text ]);
 	return button;
 };
