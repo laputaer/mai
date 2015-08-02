@@ -69,15 +69,27 @@ function template(data) {
 	};
 	var clubButton = navButtonTemplate(clubOpts);
 
-	var profileOpts = {
-		href: '#'
-		, className: 'plain discover login'
-		, text: 'menu.nav.login'
-		, icon: 'upload'
-		, version: data.version.asset
-		, eventName: 'ev-click'
-		, eventHandler: emitter.capture('page:login:open')
-	};
+	var profileOpts;
+	if (data.current_user) {
+		profileOpts = {
+			href: '/u/' + data.current_user.uid
+			, className: 'plain discover login'
+			, value: data.current_user.login
+			, image: data.current_user.avatar
+			, size: 'sq-tiny'
+		}
+	} else {
+		profileOpts = {
+			href: '#'
+			, className: 'plain discover login'
+			, text: 'menu.nav.login'
+			, icon: 'upload'
+			, version: data.version.asset
+			, eventName: 'ev-click'
+			, eventHandler: emitter.capture('page:login:open')
+		};
+	}
+
 	var profileButton = navButtonTemplate(profileOpts);
 
 	var rankingOpts = {

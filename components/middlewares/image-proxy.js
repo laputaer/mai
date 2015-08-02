@@ -32,6 +32,7 @@ var sizes = {
 	, 'ls-small': [320, 200]
 	, 'ls-medium': [640, 400]
 	, 'ls-large': [960, 600]
+	, 'bg-small': [320, 200]
 };
 var headers = {
 	'Cache-Control': ['public', 'max-age=604800']
@@ -274,6 +275,14 @@ function createImage(input) {
 				.quality(95)
 				.progressive()
 				.toFormat(input.ext);
+		// resize to background cover
+		} else if (input.name.substr(0, 2) === 'bg') {
+			s1 = s1.limitInputPixels(input.limit)
+				.resize(size[0], size[1])
+				.blur(50)
+				.quality(95)
+				.progressive()
+				.toFormat(input.ext); 
 		// crop to exact rectangle image
 		} else {
 			s1 = s1.limitInputPixels(input.limit)
