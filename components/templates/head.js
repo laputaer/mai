@@ -12,10 +12,24 @@ module.exports = template;
 
 function template(data) {
 	var base_url = data.base_url;
-	var title_text = data.page_title ? data.page_title : i18n.t('common.title');
-	var description_text = data.page_description ? data.page_description : i18n.t('common.description');
+	var image_base_url = data.image_base_url;
+	var current_path = data.current_path;
 	var main_css_file = data.production ? '/assets/app.css' : '/dev/app.css';
 	var main_js_file = data.production ? '/assets/app.js' : '/dev/app.js';
+	var profile = data.club_profile || data.user_profile || null;
+	var title_text = i18n.t('common.title');
+	var description_text = i18n.t('common.description');
+	var profile_image = image_base_url + '/images/header-640.jpg';
+
+	if (profile) {
+		title_text = profile.title || profile.name || title_text;
+		description_text = profile.intro || description_text;
+		if (profile.image) {
+			profile_image = profile.image + '&size=ls-medium';
+		} else if (profile.avatar) {
+			profile_image = profile.avatar + '&size=ls-medium';
+		}
+	}
 
 	var charset = $('meta', {
 		charset: 'UTF-8'
@@ -84,54 +98,60 @@ function template(data) {
 		});
 	}
 
-	var og_title, og_url, og_image, og_type, og_site_name, og_description;
-	var t_title, t_image, t_card, t_site, t_description;
-	if (data.page_opengraph) {
-		og_title = $('meta', {
-			property: 'og:title'
-			, content: data.page_opengraph.title
-		});
-		og_url = $('meta', {
-			property: 'og:url'
-			, content: data.page_opengraph.url
-		});
-		og_image = $('meta', {
-			property: 'og:image'
-			, content: data.page_opengraph.image
-		});
-		og_type = $('meta', {
-			property: 'og:type'
-			, content: 'website'
-		});
-		og_site_name = $('meta', {
-			property: 'og:site_name'
-			, content: i18n.t('common.title')
-		});
-		og_description = $('meta', {
-			property: 'og:description'
-			, content: description_text
-		});
-		t_title = $('meta', {
-			name: 'twitter:title'
-			, content: data.page_opengraph.title
-		});
-		t_image = $('meta', {
-			name: 'twitter:image'
-			, content: data.page_opengraph.image
-		});
-		t_card = $('meta', {
-			name: 'twitter:card'
-			, content: 'summary'
-		});
-		t_site = $('meta', {
-			name: 'twitter:site'
-			, content: '@rubume'
-		});
-		t_description = $('meta', {
-			name: 'twitter:description'
-			, content: description_text
-		});
-	}
+	var og_title = $('meta', {
+		property: 'og:title'
+		, content: title_text
+	});
+
+	var og_url = $('meta', {
+		property: 'og:url'
+		, content: base_url + current_path
+	});
+
+	var og_image = $('meta', {
+		property: 'og:image'
+		, content: profile_image
+	});
+
+	var og_type = $('meta', {
+		property: 'og:type'
+		, content: 'website'
+	});
+
+	var og_site_name = $('meta', {
+		property: 'og:site_name'
+		, content: i18n.t('common.title')
+	});
+
+	var og_description = $('meta', {
+		property: 'og:description'
+		, content: description_text
+	});
+
+	var t_title = $('meta', {
+		name: 'twitter:title'
+		, content: title_text
+	});
+
+	var t_image = $('meta', {
+		name: 'twitter:image'
+		, content: profile_image
+	});
+
+	var t_card = $('meta', {
+		name: 'twitter:card'
+		, content: 'summary'
+	});
+
+	var t_site = $('meta', {
+		name: 'twitter:site'
+		, content: '@rubume'
+	});
+
+	var t_description = $('meta', {
+		name: 'twitter:description'
+		, content: description_text
+	});
 
 	var prefetch_cdn, prefetch_gs, inline_css, vendor;
 	if (data.production) {
@@ -174,7 +194,7 @@ function template(data) {
 		})
 		, $('link', {
 			rel: 'stylesheet'
-			, href: base_url + '/fonts/webfont.css?' + data.version.css
+			, href: base_url + '/fonts/webfont.v1.css?' + data.version.css
 		})
 	]);
 
