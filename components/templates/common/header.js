@@ -89,92 +89,92 @@ function template(data) {
 		});
 	}
 
-	// hero image and profile image
-	var imageOpts, avatarOpts;
-	if (data.club_profile && data.club_profile.image) {
-		imageOpts = {
-			attributes: {
-				role: 'presentation'
-			}
-			, src: data.club_profile.image + '&size=bc-medium'
-			, alt: ''
-		};
+	// default hero image
+	var imageOpts = {
+		attributes: {
+			role: 'presentation'
+			, 'data-srcset': data.base_url + '/images/header-320.jpg?' + data.version.asset + ' 320w, '
+				+ data.base_url + '/images/header-640.jpg?' + data.version.asset + ' 640w, '
+				+ data.base_url + '/images/header-960.jpg?' + data.version.asset + ' 960w, '
+				+ data.base_url + '/images/header-1280.jpg?' + data.version.asset + ' 1280w'
+			, 'data-sizes': 'auto'
+		}
+		, src: data.base_url + '/images/header-320.jpg?' + data.version.asset
+		, alt: ''
+		, className: 'lazyload'
+	};
 
-		avatarOpts = {
-			attributes: {
-				role: 'presentation'
-				, 'data-srcset': data.club_profile.image + '&size=sq-small 80w, '
-					+ data.club_profile.image + '&size=sq-medium 100w, '
-					+ data.club_profile.image + '&size=sq-large 200w'
-				, 'data-sizes': 'auto'
-			}
-			, src: data.club_profile.image + '&size=sq-small'
-			, alt: ''
-			, className: 'lazyload'
-		};
-	} else if (data.user_profile && data.user_profile.avatar) {
-		imageOpts = {
-			attributes: {
-				role: 'presentation'
-			}
-			, src: data.user_profile.avatar + '&size=bc-medium'
-			, alt: ''
-		};
+	// page specific content
+	var avatarOpts, avatarImage, title, tagline;
 
-		avatarOpts = {
-			attributes: {
-				role: 'presentation'
-				, 'data-srcset': data.user_profile.avatar + '&size=sq-small 80w, '
-					+ data.user_profile.avatar + '&size=sq-medium 100w, '
-					+ data.user_profile.avatar + '&size=sq-large 200w'
-				, 'data-sizes': 'auto'
-			}
-			, src: data.user_profile.avatar + '&size=sq-small'
-			, alt: ''
-			, className: 'lazyload'
-		};
-	} else {
-		imageOpts = {
-			attributes: {
-				role: 'presentation'
-				, 'data-srcset': data.base_url + '/images/header-320.jpg?' + data.version.asset + ' 320w, '
-					+ data.base_url + '/images/header-640.jpg?' + data.version.asset + ' 640w, '
-					+ data.base_url + '/images/header-960.jpg?' + data.version.asset + ' 960w, '
-					+ data.base_url + '/images/header-1280.jpg?' + data.version.asset + ' 1280w'
-				, 'data-sizes': 'auto'
-			}
-			, src: data.base_url + '/images/header-320.jpg?' + data.version.asset
-			, alt: ''
-			, className: 'lazyload'
-		};
-	}
-
-	var heroImage = $('img', imageOpts);
-	var avatarImage;
-	if (avatarOpts) {
-		avatarImage = $('img.profile-image', avatarOpts);
-	}
-
-	// title and tagline
-	var title;
 	if (data.club_profile) {
+		if (data.club_profile.image) {
+			imageOpts = {
+				attributes: {
+					role: 'presentation'
+				}
+				, src: data.club_profile.image + '&size=bc-medium'
+				, alt: ''
+			};
+
+			avatarOpts = {
+				attributes: {
+					role: 'presentation'
+					, 'data-srcset': data.club_profile.image + '&size=sq-small 80w, '
+						+ data.club_profile.image + '&size=sq-medium 100w, '
+						+ data.club_profile.image + '&size=sq-large 200w'
+					, 'data-sizes': 'auto'
+				}
+				, src: data.club_profile.image + '&size=sq-small'
+				, alt: ''
+				, className: 'lazyload'
+			};
+
+			avatarImage = $('img.profile-image', avatarOpts);
+		} else {
+			avatarImage = $('div.profile-image', $('span.text', data.club_profile.initials));
+		}
+
 		title = $('h1.profile-title', $('a', {
 			href: '/c/' + data.club_profile.slug
 		}, data.club_profile.title));
-	} else if (data.user_profile) {
-		title = $('h1.profile-title', $('a', {
-			href: '/u/' + data.user_profile.uid
-		}, data.user_profile.name));
-	} else {
-		title = $('h1.title', $('a', { href: '/' }, i18n.t('common.domain')));
-	}
 
-	var tagline;
-	if (data.club_profile) {
 		tagline = $('p.profile-stats', $('a', {
 			href: '/u/' + data.club_profile.owner
 		}, i18n.t('profile.club.owner') + ' ' + data.club_profile.owner_login));
+
 	} else if (data.user_profile) {
+		if (data.user_profile.avatar) {
+			imageOpts = {
+				attributes: {
+					role: 'presentation'
+				}
+				, src: data.user_profile.avatar + '&size=bc-medium'
+				, alt: ''
+			};
+
+			avatarOpts = {
+				attributes: {
+					role: 'presentation'
+					, 'data-srcset': data.user_profile.avatar + '&size=sq-small 80w, '
+						+ data.user_profile.avatar + '&size=sq-medium 100w, '
+						+ data.user_profile.avatar + '&size=sq-large 200w'
+					, 'data-sizes': 'auto'
+				}
+				, src: data.user_profile.avatar + '&size=sq-small'
+				, alt: ''
+				, className: 'lazyload'
+			};
+
+			avatarImage = $('img.profile-image', avatarOpts);
+		} else {
+			avatarImage = $('div.profile-image');
+		}
+
+		title = $('h1.profile-title', $('a', {
+			href: '/u/' + data.user_profile.uid
+		}, data.user_profile.name));
+
 		tagline = $('p.profile-stats', navButtonTemplate({
 			href: data.user_profile.origin
 			, target: '_blank'
@@ -183,9 +183,13 @@ function template(data) {
 			, icon: data.user_profile.provider
 			, version: data.version.asset
 		}));
+
 	} else {
+		title = $('h1.title', $('a', { href: '/' }, i18n.t('common.domain')));
 		tagline = $('p.tagline', $('a', { href: '/' }, i18n.t('common.tagline')));
 	}
+
+	var heroImage = $('img', imageOpts);
 
 	// header
 	var headerOpts = {

@@ -102,6 +102,17 @@
 		height: 80px;
 		border-radius: 50%;
 		display: block;
+		background-color: fadeout(@color-black, 90%);
+
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		.text {
+			font-weight: 100;
+			color: @color-white;
+			.size(32);
+		}
 	}
 
 	.profile-title {
