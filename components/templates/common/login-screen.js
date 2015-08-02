@@ -73,7 +73,7 @@ function template(data) {
 		href: '/connect/weibo'
 		, className: 'plain login weibo'
 		, text: 'menu.login.weibo'
-		, image: '/images/weibo-logo-64.png'
+		, image: data.image_base_url + '/images/weibo-logo-64.png'
 		, version: data.version.asset
 	};
 	var weiboButton = navButtonTemplate(weiboOpts);

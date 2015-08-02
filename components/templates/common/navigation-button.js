@@ -17,7 +17,7 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var icon, image, text, buttonOpts;
+	var hint, icon, image, text, buttonOpts;
 
 	// button options
 	buttonOpts = {
@@ -37,9 +37,17 @@ function template(data) {
 
 	// button icon
 	if (data.icon && data.version) {
-		icon = $('svg', {
-			'class': 'm-icon'
-		}, [
+		var iconOpts = {
+			attributes: {
+				'class': 'm-icon'
+			}
+		};
+
+		if (data.client === false) {
+			iconOpts.attributes.class += ' m-hint';
+		}
+
+		icon = $('svg', iconOpts, [
 			$('use', {
 				'xlink:href': '/assets/icons.svg?' + data.version + '#' + data.icon
 			})
@@ -75,6 +83,6 @@ function template(data) {
 		text = $('span.m-text', data.value.toString());
 	}
 
-	var button = $('a.m-button', buttonOpts, [ icon, image, text ]);
+	var button = $('a.m-button', buttonOpts, [ hint, icon, image, text ]);
 	return button;
 };

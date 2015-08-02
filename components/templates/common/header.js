@@ -23,7 +23,7 @@ module.exports = template;
  */
 function template(data) {
 	// navigation buttons
-	var discoverButton = buttonTemplate({
+	var discoverButton = navButtonTemplate({
 		href: '#'
 		, className: 'rounded nav'
 		, text: 'menu.nav.discover'
@@ -31,6 +31,7 @@ function template(data) {
 		, version: data.version.asset
 		, eventName: 'ev-click'
 		, eventHandler: emitter.capture('page:nav:open')
+		, client: data.client
 	});
 
 	var clubOpts = {

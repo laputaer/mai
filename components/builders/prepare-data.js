@@ -31,14 +31,18 @@ function prepareData(ctx) {
 	data.current_path = removeSlash(ctx.path);
 	// current url
 	data.current_url = ctx.request.href;
-	// asset base url
+	// site base url
 	data.base_url = ctx.state.base_url;
+	// image base url
+	data.image_base_url = ctx.state.image_base_url;
 	// inline css
 	data.inline_css = ctx.state.inline_css;
 	// inline js
 	data.inline_js = ctx.state.inline_js;
 	// environment
 	data.production = ctx.state.production;
+	// server-side flag
+	data.client = false;
 	// client-side ui state
 	data.ui = {};
 	// doc.head content

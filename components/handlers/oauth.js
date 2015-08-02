@@ -147,5 +147,5 @@ function *middleware(next) {
 		return;
 	}
 
-	this.redirect('/u/' + user.local.uid);
+	this.redirect('/');
 };
