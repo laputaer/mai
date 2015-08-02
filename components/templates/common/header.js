@@ -99,7 +99,15 @@ function template(data) {
 			attributes: {
 				role: 'presentation'
 			}
-			, src: data.club_profile.image + '&size=bg-small'
+			, src: data.club_profile.image + '&size=bg-medium'
+			, alt: ''
+		};
+	} else if (data.user_profile && data.user_profile.avatar) {
+		imageOpts = {
+			attributes: {
+				role: 'presentation'
+			}
+			, src: data.user_profile.avatar + '&size=bg-medium'
 			, alt: ''
 		};
 	} else {

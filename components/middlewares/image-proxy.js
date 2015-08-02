@@ -29,10 +29,12 @@ var sizes = {
 	, 'th-medium': 400
 	, 'th-large': 800
 	, 'th-grand': 1600
+	, 'bg-small': [320, 200]
+	, 'bg-medium': [640, 400]
+	, 'bg-large': [960, 600]
 	, 'ls-small': [320, 200]
 	, 'ls-medium': [640, 400]
 	, 'ls-large': [960, 600]
-	, 'bg-small': [320, 200]
 };
 var headers = {
 	'Cache-Control': ['public', 'max-age=604800']
