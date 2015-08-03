@@ -15,8 +15,6 @@ module.exports = {
 	, pageRanking: require('./page-ranking')
 	, pageLogin: require('./page-login')
 	// old route
-	, loginRedirect: require('./login-redirect')
-	, userProfile: require('./user-profile')
 	, clubsFilterUser: require('./club')
 	, clubsFilterRanking: require('./club-ranking')
 	, clubsFilterSearch: require('./club-search')

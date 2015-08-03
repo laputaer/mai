@@ -1,6 +1,6 @@
 
 /**
- * api-global-config.js
+ * favorite-post.js
  *
  * API for creating favorite
  */

@@ -68,6 +68,7 @@ function myRouter(app) {
 	apiRouter.get('/clubs/top', apiHandlers.topClubs());
 	apiRouter.get('/clubs/hot', apiHandlers.hotClubs());
 	apiRouter.get('/clubs/recent', apiHandlers.recentClubs());
+	apiRouter.post('/clubs', apiHandlers.createClub());
 
 	// mount api routes to main router
 	router.use('/api/v1', apiRouter.routes());
