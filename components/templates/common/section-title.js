@@ -34,9 +34,31 @@ function template(data) {
 		sectionOpts.key = data.key;
 	}
 
-	var title = $('div', sectionOpts, $('div.wrapper', [
-		$('h2.title', i18n.t(data.title))
-	]));
+	var wrapperOpts = {
+		className: 'wrapper'
+	};
+
+	var content;
+	if (data.title) {
+		content = $('h2.title', i18n.t(data.title));
+	} else if (data.tabs) {
+		content = data.tabs.map(function (tab, i) {
+			var tabOpts = {
+				href: '#'
+				, className: 'title tab'
+			};
+
+			if (i === data.active || (i === 0 && !data.active)) {
+				tabOpts.className += ' active';
+			}
+
+			return $('a', tabOpts, i18n.t(tab));
+		});
+
+		wrapperOpts.className += ' tabs';
+	}
+
+	var title = $('div', sectionOpts, $('div', wrapperOpts, content));
 
 	return title;
 };

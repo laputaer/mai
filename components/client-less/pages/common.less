@@ -433,6 +433,10 @@
 		overflow: hidden;
 		display: flex;
 		align-items: center;
+
+		&.tabs {
+			justify-content: space-between;
+		}
 	}
 
 	.title {
@@ -440,7 +444,18 @@
 		margin: 0 15px;
 		font-weight: 400;
 		line-height: 1em;
+		.long-text();
 		.size(18);
+
+		&.tab {
+			line-height: 1.25em;
+			text-decoration: none;
+			.link(@color-blue-light);
+
+			&.active {
+				.link(@color-blue);
+			}
+		}
 	}
 
 	@media @tablet {

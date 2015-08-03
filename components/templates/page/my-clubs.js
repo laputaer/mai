@@ -23,7 +23,7 @@ module.exports = template;
  */
 function template(data) {
 	var section_title_1 = sectionTitleTemplate({
-		title: 'section.titles.my-clubs'
+		tabs: ['section.titles.my-clubs', 'section.titles.create-club']
 		, key: 'my-clubs'
 	});
 

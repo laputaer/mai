@@ -46,6 +46,7 @@ module.exports = {
 			, 'top-clubs': '主流社团'
 			, 'hot-clubs': '热门社团'
 			, 'recent-clubs': '新人社团'
+			, 'create-club': '创建新社团'
 		}
 		, 'load': {
 			'featured-posts': '浏览更多精彩内容'
