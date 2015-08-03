@@ -7,6 +7,7 @@
 
 var $ = require('../vdom');
 var i18n = require('../i18n')();
+var emitter = require('../emitter');
 
 module.exports = template;
 
@@ -40,9 +41,15 @@ function template(data) {
 		content = $('h2.title', i18n.t(data.title));
 	} else if (data.tabs) {
 		content = data.tabs.map(function (tab, i) {
+			var tabData = {
+				order: i
+				, view: data.view
+			};
+
 			var tabOpts = {
 				href: '#'
 				, className: 'title tab'
+				, 'ev-click': emitter.capture('page:tab:change', tabData)
 			};
 
 			if (i === data.active || (i === 0 && !data.active)) {

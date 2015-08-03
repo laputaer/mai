@@ -26,6 +26,7 @@ function template(data) {
 	var section_title_1 = sectionTitleTemplate({
 		tabs: ['section.titles.my-clubs', 'section.titles.create-club']
 		, key: 'my-clubs'
+		, view: 'my_clubs_section_1'
 		, active: data.ui.my_clubs_section_1 || 0
 	});
 

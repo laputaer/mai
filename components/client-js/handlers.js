@@ -45,6 +45,11 @@ function handlers(app) {
 		app.refresh();
 	});
 
+	emitter.on('page:tab:change', function (data) {
+		app.modify(['ui', data.view], data.order);
+		app.refresh();
+	});
+
 	emitter.on('page:load:featured-post', function () {
 		loadContent(app, {
 			name: 'load_post'

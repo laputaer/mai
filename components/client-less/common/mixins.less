@@ -25,7 +25,9 @@
 
 // remove .link() underline
 .unlink() {
-	background-image: none;
+	&:hover, &:focus, &:active {
+		box-shadow: none;
+	}
 }
 
 // remove common link styling

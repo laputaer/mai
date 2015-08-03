@@ -74,7 +74,11 @@ function template(data) {
 		});
 	}
 
-	var favoriteOpts = { id: data.pid, order: data.num, view: data.view };
+	var favoriteOpts = {
+		id: data.pid
+		, order: data.num
+		, view: data.view
+	};
 	var favorite = buttonTemplate({
 		href: '#'
 		, className: data.current_user_fav ? 'plain action active' : 'plain action'
