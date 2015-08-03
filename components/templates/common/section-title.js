@@ -18,7 +18,9 @@ module.exports = template;
  */
 function template(data) {
 	var sectionOpts = {
-		className: 'page-section-title'
+		id: data.key
+		, key: data.key
+		, className: 'page-section-title'
 	};
 
 	if (data.top) {
@@ -27,11 +29,6 @@ function template(data) {
 
 	if (!data.bottom) {
 		sectionOpts.className += ' no-bottom';
-	}
-
-	if (data.key) {
-		sectionOpts.id = data.key;
-		sectionOpts.key = data.key;
 	}
 
 	var wrapperOpts = {

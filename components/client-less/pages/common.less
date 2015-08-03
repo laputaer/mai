@@ -941,3 +941,91 @@
 		}
 	}
 }
+
+.standard-form {
+	//margin: 20px 0;
+}
+
+.form-group {
+	display: block;
+	padding: 15px;
+	box-sizing: border-box;
+
+	.form-label {
+		display: block;
+		float: left;
+		cursor: pointer;
+
+		.main {
+			color: @color-black;
+			display: block;
+			font-weight: 100;
+			.size(32);
+		}
+
+		.note {
+			color: @color-gray-dark;
+			display: block;
+			.size(14);
+		}
+	}
+
+	.form-field {
+		display: block;
+		clear: both;
+		-webkit-appearance: none;
+		background-color: transparent;
+		outline: 0;
+		border: 0;
+		border-radius: 0;
+		font-weight: 400;
+		font-family: inherit;
+
+		color: @color-blue-light;
+		width: 100%;
+		padding: 8px 0;
+		box-sizing: border-box;
+		border-bottom: 4px solid @color-blue-pastel;
+		.size(18);
+
+		&::-webkit-input-placeholder {
+			opacity: 0.2;
+			color: inherit;
+		}
+
+		&::-moz-placeholder {
+			opacity: 0.2;
+			color: inherit;
+		}
+
+		&:-ms-input-placeholder {
+			opacity: 0.2;
+			color: inherit;
+		}
+
+		&:focus {
+			color: @color-blue;
+			border-color: @color-blue-light;
+		}
+	}
+
+	@media @tablet {
+		padding: 20px;
+		min-height: 180px;
+		float: left;
+		width: 50%;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+
+		.form-label {
+			.note {
+				.size(16);
+			}
+		}
+
+		.form-field {
+			.size(20);
+		}
+	}
+}

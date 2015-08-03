@@ -59,6 +59,16 @@ module.exports = {
 			, 'recent-clubs': '更多新人社团'
 		}
 	}
+	, 'form': {
+		'label': {
+			'create-club-title': '社团名称'
+			, 'create-club-title-note': '允许2-16个字符'
+			, 'create-club-title-placeholder': '例如：Love Live'
+			, 'create-club-slug': '社团路径'
+			, 'create-club-slug-note': '允许2-16个字符，仅限字母、数字和连字符'
+			, 'create-club-slug-placeholder': '例如：love-live'
+		}
+	}
 	, 'placeholder': {
 		'apology': '抱歉'
 		, 'explanation': '让你看到了我们还没准备好的页面'
