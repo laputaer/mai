@@ -24,26 +24,24 @@ function myRouter(app) {
 		throw new Error('koa instance missing');
 	}
 
-	// standalone
+	// main pages
 	router.get('/', handlers.pageLanding());
-	router.get('/help', handlers.pageHelp());
 	router.get('/my-clubs', handlers.pageMyClubs());
 	router.get('/ranking', handlers.pageRanking());
+	router.get('/help', handlers.pageHelp());
 
 	// user login
-	router.get('/login/redirect', handlers.loginRedirect());
-	router.get('/login/:provider', handlers.loginOauth());
-	// /connect/ namespace is also used to do initial oauth
+	// /connect/ namespace is used to start oauth
+	router.get('/login/:provider', handlers.pageLogin());
 
 	// user profile
 	router.get('/u/:uid', handlers.pageUserProfile());
 
-	// club management
-	router.get('/c/club-home', handlers.clubsFilterUser());
-	router.get('/c/club-ranking', handlers.clubsFilterRanking());
+	// club profile
+	router.get('/c/:slug', handlers.pageClubProfile());
+
 	router.get('/c/club-search', handlers.clubsFilterSearch());
 	router.get('/c/club-add', handlers.clubAddForm());
-	router.get('/c/:slug', handlers.pageClubProfile());
 	router.get('/c/:slug/edit', handlers.clubEditForm());
 	router.post('/c', handlers.clubCreate());
 	router.post('/c/:slug', handlers.clubUpdate());

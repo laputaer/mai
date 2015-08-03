@@ -9,12 +9,13 @@ module.exports = {
 	// new route
 	pageLanding: require('./page-home')
 	, pageMyClubs: require('./page-my-clubs')
+	, pageHelp: require('./page-help')
 	, pageClubProfile: require('./page-club-profile')
 	, pageUserProfile: require('./page-user-profile')
 	, pageRanking: require('./page-ranking')
+	, pageLogin: require('./page-login')
 	// old route
 	, loginRedirect: require('./login-redirect')
-	, loginOauth: require('./oauth')
 	, userProfile: require('./user-profile')
 	, clubsFilterUser: require('./club')
 	, clubsFilterRanking: require('./club-ranking')
@@ -33,5 +34,4 @@ module.exports = {
 	, clubPostStart: require('./club-post-start')
 	, clubPostCreate: require('./club-post-create')
 	, clubPostUpdate: require('./page-placeholder')
-	, pageHelp: require('./page-help')
 };
