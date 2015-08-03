@@ -47,6 +47,7 @@ function *createClub(opts) {
 		, slug: club.slug
 		, created: new Date()
 		, updated: new Date()
+		, type: 'owner'
 	});
 
 	// STEP 4: return new club data
