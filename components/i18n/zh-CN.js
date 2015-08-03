@@ -80,7 +80,7 @@ module.exports = {
 		'status-code': 'Error %{code}'
 		, 'internal-service-down': '非常抱歉，我们的内部服务出了点问题。如果你正在执行操作，请重新尝试。'
 		, 'access-control': '你没有权限执行这个操作'
-		, 'login-required': '你访问的功能需要登录用户账号'
+		, 'login-required': '这个功能需要登录才能使用（见右上角）'
 		, 'invalid-csrf-token': '你提交的内容缺乏验证用的安全Token，请重新提交，同时检查域名是否为 https://mai3.me/'
 		, 'form-input-invalid': '提交内容的格式不符合要求'
 		, 'insufficient-action-point': '看来你的信仰值不足执行动作，需要 %{required} 点信仰，你目前只有 %{current} 点'
