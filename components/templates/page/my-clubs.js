@@ -40,7 +40,6 @@ function template(data) {
 	var section_1, load_button_1;
 
 	if (!data.ui.my_clubs_section_1) {
-		/*
 		if (!data.ui.load_my_clubs) {
 			my_clubs = my_clubs.slice(0, 10);
 		} else if (data.ui.load_my_clubs > 0) {
@@ -63,8 +62,7 @@ function template(data) {
 			, eventName: 'ev-click'
 			, eventHandler: emitter.capture('page:load:my-clubs')
 		});
-		*/
-
+	} else if (data.ui.my_clubs_section_1 === 1) {
 		var field_1 = formGroupTemplate({
 			id: 'create-club-title'
 			, name: 'create-club-title'
