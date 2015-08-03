@@ -8,6 +8,9 @@
 var $ = require('./vdom');
 var i18n = require('./i18n')();
 
+// ref: http://stackoverflow.com/questions/24070515/rendering-or-deleting-emoji
+var re = /([\uD800-\uDBFF][\uDC00-\uDFFF])/g;
+
 module.exports = template;
 
 function template(data) {
@@ -30,6 +33,10 @@ function template(data) {
 			profile_image = profile.avatar + '&size=ls-medium';
 		}
 	}
+
+	var title_text_attribute = title_text.replace(re, '-');
+	var description_text_attribute = description_text.replace(re, '-');
+	var site_name_attribute = i18n.t('common.title').replace(re, '-');
 
 	var charset = $('meta', {
 		charset: 'UTF-8'
@@ -100,7 +107,7 @@ function template(data) {
 
 	var og_title = $('meta', {
 		property: 'og:title'
-		, content: title_text
+		, content: title_text_attribute
 	});
 
 	var og_url = $('meta', {
@@ -120,17 +127,17 @@ function template(data) {
 
 	var og_site_name = $('meta', {
 		property: 'og:site_name'
-		, content: i18n.t('common.title')
+		, content: site_name_attribute
 	});
 
 	var og_description = $('meta', {
 		property: 'og:description'
-		, content: description_text
+		, content: description_text_attribute
 	});
 
 	var t_title = $('meta', {
 		name: 'twitter:title'
-		, content: title_text
+		, content: title_text_attribute
 	});
 
 	var t_image = $('meta', {
@@ -150,7 +157,7 @@ function template(data) {
 
 	var t_description = $('meta', {
 		name: 'twitter:description'
-		, content: description_text
+		, content: description_text_attribute
 	});
 
 	var prefetch_cdn, prefetch_gs, inline_css, vendor;
