@@ -43,6 +43,7 @@ function *middleware(next) {
 
 	// STEP 2: csrf validation
 	var body = this.request.body;
+	console.log(body);
 	var result = yield sessionDomain.verifyCsrfToken({
 		session: this.session
 		, cache: this.cache

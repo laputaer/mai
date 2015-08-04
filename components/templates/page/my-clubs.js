@@ -65,16 +65,21 @@ function template(data) {
 			, eventHandler: emitter.capture('page:load:my-clubs')
 		});
 	} else if (data.ui.my_clubs_section_1 === 1) {
+		var message_1;
+		if (data.ui.form_error) {
+			message_1 = $('div.common-message', data.ui.form_error);
+		}
+
 		var field_1 = formGroupTemplate({
 			id: 'create-club-title'
-			, name: 'create-club-title'
+			, name: 'title'
 			, value: ''
 			, label: 'form.label.create-club-title'
 		});
 
 		var field_2 = formGroupTemplate({
 			id: 'create-club-slug'
-			, name: 'create-club-slug'
+			, name: 'slug'
 			, value: ''
 			, label: 'form.label.create-club-slug'
 		});
@@ -85,7 +90,16 @@ function template(data) {
 			, version: data.version.asset
 		});
 
-		section_1 = $('form', [field_1, field_2, submit_1]);
+		var submitOpts = { id: 'create-club' };
+		var formOpts = {
+			action: '#'
+			, method: 'POST'
+			, id: submitOpts.id
+			, key: submitOpts.id
+			, 'ev-submit': emitter.capture('page:form:submit', submitOpts)
+		};
+
+		section_1 = $('form.common-form', formOpts, [message_1, field_1, field_2, submit_1]);
 	}
 
 	if (!data.ui.load_joined_clubs) {

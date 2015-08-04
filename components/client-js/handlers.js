@@ -5,6 +5,9 @@
  * Manage client-side events and interactions
  */
 
+var serialize = require('form-serialize');
+
+var doc = document;
 var emitter = require('../templates/emitter');
 var toggleScroll = require('./helpers/toggle-body-scroll');
 
@@ -116,8 +119,8 @@ function handlers(app) {
 
 	emitter.on('page:favorite:create', function (data) {
 		createFavorite(app, data);
-		app.json('PUT', '/posts/' + data.id + '/favorite').then(function (res) {
-			if (!res.ok) {
+		app.json('PUT', '/posts/' + data.id + '/favorite').then(function (json) {
+			if (!json.ok) {
 				deleteFavorite(app, data);
 			}
 		});
@@ -125,9 +128,25 @@ function handlers(app) {
 
 	emitter.on('page:favorite:remove', function (data) {
 		deleteFavorite(app, data);
-		app.json('DELETE', '/posts/' + data.id + '/favorite').then(function (res) {
-			if (!res.ok) {
+		app.json('DELETE', '/posts/' + data.id + '/favorite').then(function (json) {
+			if (!json.ok) {
 				createFavorite(app, data);
+			}
+		});
+	});
+
+	emitter.on('page:form:submit', function (data) {
+		var form = doc.getElementById(data.id);
+		var body = 'csrf_token=' + app.read(['current_user', 'csrf_token']) + '&' + serialize(form);
+		app.json('POST', '/clubs', {
+			body: body
+			, headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			}
+		}).then(function (json) {
+			if (!json.ok) {
+				app.modify(['ui', 'form_error'], json.message);
+				app.refresh();
 			}
 		});
 	});

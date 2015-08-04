@@ -174,10 +174,12 @@ App.prototype.json = function (method, url, opts) {
 
 	// contact backend service, get back json result
 	return self.service.send(url, opts).then(function (res) {
-		if (!res.ok) {
-			return {};
+		try {
+			return res.json();
+		} catch(e) {
+			// console.debug(e);
 		}
-		return res.json();
+		return null;
 	}).then(function (json) {
 		if (!json) {
 			return {};
