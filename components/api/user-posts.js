@@ -10,7 +10,6 @@ var parser = require('url').parse;
 var getStandardJson = require('../helpers/get-standard-json');
 var filterAttributes = require('../helpers/filter-attributes');
 var clubsDomain = require('../domains/clubs');
-var usersDomain = require('../domains/users');
 var socialDomain = require('../domains/social');
 var proxyUrl = require('../security/proxy');
 var validate = require('../security/validation');

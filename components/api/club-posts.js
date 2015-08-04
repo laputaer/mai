@@ -101,7 +101,6 @@ function *middleware(next) {
 	// STEP 4: append user info to output
 	club_posts = club_posts.map(function (post) {
 		var user = post.user;
-		var slug = post.club;
 
 		// post related
 		if (post.embed) {

@@ -49,7 +49,7 @@ function Benchmark() {
 
 	this.patchFilter = function (data) {
 		if (!this.active) {
-			return;
+			return null;
 		}
 		var output = {};
 		for (var p in data) {

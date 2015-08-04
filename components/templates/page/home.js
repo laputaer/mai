@@ -44,7 +44,7 @@ function template(data) {
 		featured_posts = featured_posts.slice(0, data.ui.load_post);
 	}
 
-	featured_clubs = featured_clubs.map(function(club, i) {
+	featured_clubs = featured_clubs.map(function(club) {
 		return clubTemplate(club);
 	});
 

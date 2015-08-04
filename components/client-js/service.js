@@ -92,20 +92,23 @@ Service.prototype.fetch = function(name, opts, params) {
 		}
 	}
 
+	var count = 0;
+	var replaceFunc = function () {
+		return params[count++];
+	};
+
 	// make request
 	for (var prop in endpoint) {
 		if (!endpoint.hasOwnProperty(prop)) {
 			continue;
 		}
 
+		count = 0;
 		var path = endpoint[prop];
-		var count = 0;
 
 		// allow optional route params
 		if (params.length > 0) {
-			path = path.replace(/:[^\s\$/]+/g, function () {
-				return params[count++];
-			});
+			path = path.replace(/:[^\s\$/]+/g, replaceFunc);
 		}
 
 		// send cookie

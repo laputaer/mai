@@ -5,7 +5,6 @@
  * API for getting club profile and related information
  */
 
-var resolver = require('url').resolve;
 var parser = require('url').parse;
 
 var getStandardJson = require('../helpers/get-standard-json');
@@ -61,7 +60,7 @@ function *middleware(next) {
 		if (next) {
 			this.state.error_json = getStandardJson(null, 404, i18n.t('error.not-found-club'));
 		}
-		return;
+		return null;
 	}
 
 	// STEP 3: find club owner

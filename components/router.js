@@ -40,6 +40,8 @@ function myRouter(app) {
 	// club profile
 	router.get('/c/:slug', handlers.pageClubProfile());
 
+	/*
+	// old stuffs, for reference
 	router.get('/c/club-search', handlers.clubsFilterSearch());
 	router.get('/c/club-add', handlers.clubAddForm());
 	router.get('/c/:slug/edit', handlers.clubEditForm());
@@ -47,11 +49,11 @@ function myRouter(app) {
 	router.post('/c/:slug', handlers.clubUpdate());
 	router.post('/c/:slug/memberships', handlers.clubUserMembership());
 
-	// club post
 	router.get('/c/:slug/p/post-add', handlers.clubPostAddForm());
 	router.get('/c/:slug/p/post-add-2', handlers.clubPostConfirmForm());
 	router.post('/c/:slug/p/post-add', handlers.clubPostStart());
 	router.post('/c/:slug/p/post-add-2', handlers.clubPostCreate());
+	*/
 
 	// api routes
 	apiRouter.get('/global', apiHandlers.globalConfig());

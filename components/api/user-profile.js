@@ -57,7 +57,7 @@ function *middleware(next) {
 		if (next) {
 			this.state.error_json = getStandardJson(null, 404, i18n.t('error.not-found-user'));
 		}
-		return;
+		return null;
 	}
 
 	// STEP 3: user data transform

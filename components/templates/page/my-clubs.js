@@ -118,15 +118,15 @@ function template(data) {
 		title_field = formGroupTemplate({
 			id: 'create-club-title'
 			, name: 'title'
-			, value: field_data['title'] || ''
-			, error: !!field_error['title']
+			, value: field_data.title || ''
+			, error: !!field_error.title
 		});
 
 		slug_field = formGroupTemplate({
 			id: 'create-club-slug'
 			, name: 'slug'
-			, value: field_data['slug'] || ''
-			, error: !!field_error['slug']
+			, value: field_data.slug || ''
+			, error: !!field_error.slug
 		});
 
 		// submit button
