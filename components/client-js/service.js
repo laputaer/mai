@@ -59,8 +59,6 @@ Service.prototype.send = function(url, opts) {
 		opts.credentials = 'same-origin';
 	}
 
-	console.log(prefix + url);
-	console.log(opts);
 	return fetch(prefix + url, opts);
 };
 

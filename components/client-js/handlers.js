@@ -135,8 +135,8 @@ function handlers(app) {
 	});
 
 	emitter.on('page:form:submit', function (data) {
-		var fetchOpts = getFormData(app, data);
-		app.json('POST', '/clubs', fetchOpts).then(function (json) {
+		var body = getFormData(app, data);
+		app.json('POST', '/clubs', { body: body }).then(function (json) {
 			formResult(app, json);
 		});
 	});

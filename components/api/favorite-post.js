@@ -11,6 +11,7 @@ var i18n = require('../templates/i18n')();
 var clubsDomain = require('../domains/clubs');
 var socialDomain = require('../domains/social');
 var mixpanelDomain = require('../domains/mixpanel');
+var sessionDomain = require('../domains/session');
 
 module.exports = factory;
 
@@ -38,7 +39,19 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 2: prepare common data
+	// STEP 2: csrf validation
+	var body = this.request.body;
+	var result = yield sessionDomain.verifyCsrfToken({
+		session: this.session
+		, cache: this.cache
+		, token: body.csrf_token
+	});
+
+	if (!result) {
+		this.state.error_json = getStandardJson(null, 403, i18n.t('error.invalid-csrf-token'));
+		return;
+	}
+
 	var pid = this.params.pid;
 
 	// STEP 3: make sure post exist
@@ -79,5 +92,5 @@ function *middleware(next) {
 	});
 
 	// STEP 5: output json
-	this.state.json = getStandardJson(null, 200, i18n.t('placeholder.action-done'));
+	this.state.json = getStandardJson(null, 200, i18n.t('message.common.action-done'));
 };

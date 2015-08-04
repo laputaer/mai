@@ -8,6 +8,8 @@
 var $ = require('../vdom');
 var i18n = require('../i18n')();
 
+var feedbackTemplate = require('../common/feedback');
+
 module.exports = template;
 
 /**
@@ -22,25 +24,9 @@ function template(data) {
 		, $('p.subtitle', data.error_message)
 	]);
 
-	var feedback = $('div.page-section-feedback', [
-		$('h1.title', i18n.t('error.feedback'))
-		, $('p.subtitle', [
-			$('span', i18n.t('error.feedback-contact-1'))
-			, $('a.m-link', {
-				href: 'https://twitter.com/bitinn'
-				, target: '_blank'
-			}, [
-				$('span.m-text', i18n.t('error.feedback-contact-1-name'))
-			])
-			, $('span', i18n.t('error.feedback-contact-2'))
-			, $('a.m-link', {
-				href: 'https://github.com/maihq/feedbacks'
-				, target: '_blank'
-			}, [
-				$('span.m-text', i18n.t('error.feedback-contact-2-name'))
-			])
-		])
-	]);
+	var feedback = feedbackTemplate({
+		name: 'page-section-feedback'
+	});
 
 	var errorOpts = {
 		id: 'content'

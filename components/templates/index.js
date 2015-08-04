@@ -11,7 +11,5 @@ module.exports = {
 	, body: require('./body')
 	, main: require('./main')
 	, common: require('./common/index')
-	, user: require('./user/index')
-	, club: require('./club/index')
 	, page: require('./page/index')
 };

@@ -40,7 +40,7 @@ function template(data) {
 				, 'data-sizes': 'auto'
 			}
 			, src: data.image + '&size=sq-small'
-			, alt: data.title + i18n.t('placeholder.image-preview')
+			, alt: data.title + i18n.t('message.common.image-preview')
 		});
 
 		image = $('div.image-column', image);

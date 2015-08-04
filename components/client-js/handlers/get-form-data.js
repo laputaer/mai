@@ -13,7 +13,7 @@ var doc = document;
  *
  * @oaram   Object  app   App instance
  * @oaram   Object  data  Event data
- * @return  Object
+ * @return  String
  */
 module.exports = function getFormData (app, data) {
 	// process form
@@ -23,10 +23,5 @@ module.exports = function getFormData (app, data) {
 
 	// cache form and return fetch options
 	app.modify(['ui', 'field_data'], body_raw || {});
-	return {
-		body: body_str
-		, headers: {
-			'Content-Type': 'application/x-www-form-urlencoded'
-		}
-	};
+	return body_str;
 };
