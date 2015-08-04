@@ -6,6 +6,7 @@
  */
 
 var $ = require('../vdom');
+var i18n = require('../i18n')();
 var emitter = require('../emitter');
 var immutable = require('../immutable');
 
@@ -67,21 +68,33 @@ function template(data) {
 	} else if (data.ui.my_clubs_section_1 === 1) {
 		var message_1;
 		if (data.ui.form_error) {
-			message_1 = $('div.common-message', data.ui.form_error);
+			message_1 = $('div.common-message.error', data.ui.form_error);
+		} else if (data.ui.form_data) {
+			message_1 = $('div.common-message.success', [
+				$('span', i18n.t('message.common.club-create-success'))
+				, $('a', {
+					href: '/c/' + data.ui.form_data.slug
+				}, data.ui.form_data.title)
+			]);
 		}
+
+		var field_error = data.ui.field_error || {};
+		var field_data = data.ui.field_data || {};
 
 		var field_1 = formGroupTemplate({
 			id: 'create-club-title'
 			, name: 'title'
-			, value: ''
+			, value: field_data['title'] || ''
 			, label: 'form.label.create-club-title'
+			, error: !!field_error['title']
 		});
 
 		var field_2 = formGroupTemplate({
 			id: 'create-club-slug'
 			, name: 'slug'
-			, value: ''
+			, value: field_data['slug'] || ''
 			, label: 'form.label.create-club-slug'
+			, error: !!field_error['slug']
 		});
 
 		var submit_1 = formButtonTemplate({

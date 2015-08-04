@@ -72,6 +72,11 @@ module.exports = {
 			'create-club-submit': '创建社团'
 		}
 	}
+	, 'message': {
+		'common': {
+			'club-create-success': '社团创建成功：'
+		}
+	}
 	, 'placeholder': {
 		'apology': '抱歉'
 		, 'explanation': '让你看到了我们还没准备好的页面'

@@ -6,6 +6,7 @@
  */
 
 var getStandardJson = require('../helpers/get-standard-json');
+var filterAttributes = require('../helpers/filter-attributes');
 var i18n = require('../templates/i18n')();
 
 var usersDomain = require('../domains/users');
@@ -14,6 +15,10 @@ var sessionDomain = require('../domains/session');
 var mixpanelDomain = require('../domains/mixpanel');
 
 var validate = require('../security/validation');
+
+var filter_output = [
+	'slug', 'title'
+];
 
 module.exports = factory;
 
@@ -84,7 +89,7 @@ function *middleware(next) {
 	});
 
 	if (exist) {
-		this.state.error_json = getStandardJson(null, 409, i18n.t('error.club-already-exist'));
+		this.state.error_json = getStandardJson({ slug: true }, 409, i18n.t('error.club-already-exist'));
 		return;
 	}
 
@@ -102,5 +107,5 @@ function *middleware(next) {
 	});
 
 	// STEP 7: output json
-	this.state.json = getStandardJson(null, 200, i18n.t('placeholder.action-done'));
+	this.state.json = getStandardJson(filterAttributes(club, filter_output));
 };

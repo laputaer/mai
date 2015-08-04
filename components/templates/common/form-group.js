@@ -23,6 +23,10 @@ function template(data) {
 		, className: 'form-group'
 	};
 
+	if (data.error) {
+		groupOpts.className += ' error';
+	}
+
 	var labelOpts = {
 		attributes: {
 			'for': data.id

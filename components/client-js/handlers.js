@@ -137,17 +137,26 @@ function handlers(app) {
 
 	emitter.on('page:form:submit', function (data) {
 		var form = doc.getElementById(data.id);
-		var body = 'csrf_token=' + app.read(['current_user', 'csrf_token']) + '&' + serialize(form);
+		var body_raw = serialize(form, { hash: true });
+		var body_str = 'csrf_token=' + app.read(['current_user', 'csrf_token']) + '&' + serialize(form);
+		app.modify(['ui', 'field_data'], body_raw || {});
 		app.json('POST', '/clubs', {
-			body: body
+			body: body_str
 			, headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
 			}
 		}).then(function (json) {
 			if (!json.ok) {
-				app.modify(['ui', 'form_error'], json.message);
+				app.modify(['ui', 'form_error'], json.message || '');
+				app.modify(['ui', 'field_error'], json.data || {});
 				app.refresh();
+				return;
 			}
+
+			app.modify(['ui', 'form_error'], '');
+			app.modify(['ui', 'field_error'], {});
+			app.modify(['ui', 'form_data'], json.data || {});
+			app.refresh();
 		});
 	});
 };

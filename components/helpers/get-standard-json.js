@@ -29,7 +29,7 @@ function helper(data, code, message) {
 			if (!data.errors.hasOwnProperty(prop) || data.errors[prop].length === 0) {
 				continue;
 			}
-			error[prop] = false;
+			error[prop] = true;
 		}
 	}
 
