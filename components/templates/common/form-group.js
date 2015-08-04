@@ -27,6 +27,8 @@ function template(data) {
 		groupOpts.className += ' error';
 	}
 
+	var label = 'form.label.' + data.id;
+
 	var labelOpts = {
 		attributes: {
 			'for': data.id
@@ -35,7 +37,7 @@ function template(data) {
 	};
 
 	var inputOpts = {
-		placeholder: i18n.t(data.label + '-placeholder')
+		placeholder: i18n.t(label + '-placeholder')
 		, name: data.name
 		, id: data.id
 		, value: data.value
@@ -44,8 +46,8 @@ function template(data) {
 
 	var group = $('div', groupOpts, [
 		$('label', labelOpts, [
-			$('span.main', i18n.t(data.label))
-			, $('span.note', i18n.t(data.label + '-note'))
+			$('span.main', i18n.t(label))
+			, $('span.note', i18n.t(label + '-note'))
 		])
 		, $('input', inputOpts)
 	]);

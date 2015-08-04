@@ -7,6 +7,7 @@
 
 var $ = require('../vdom');
 var i18n = require('../i18n')();
+var emitter = require('../emitter');
 
 module.exports = template;
 
@@ -26,6 +27,7 @@ function template(data) {
 	var linkOpts = {
 		href: '#'
 		, className: 'wrapper'
+		, 'ev-click': emitter.capture(data.eventName)
 	};
 
 	// button events

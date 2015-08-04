@@ -170,7 +170,14 @@ App.prototype.json = function (method, url, opts) {
 	var self = this;
 
 	opts = opts || {};
+
+	// default to get request
 	opts.method = method || 'GET';
+
+	// auto append csrf token
+	if (opts.method !== 'GET' && typeof opts.body === 'string') {
+		opts.body = 'csrf_token=' + self.model.get(['current_user', 'csrf_token']) + '&' + opts.body;
+	}
 
 	// contact backend service, get back json result
 	return self.service.send(url, opts).then(function (res) {

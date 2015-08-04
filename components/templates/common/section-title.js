@@ -24,6 +24,7 @@ function template(data) {
 		, className: 'page-section-title'
 	};
 
+	// extra margin
 	if (data.top) {
 		sectionOpts.className += ' extra-top';
 	}
@@ -36,22 +37,29 @@ function template(data) {
 		className: 'wrapper'
 	};
 
+	// plain title or tabs
 	var content;
+
 	if (data.title) {
 		content = $('h2.title', i18n.t(data.title));
-	} else if (data.tabs) {
+	}
+
+	if (data.tabs) {
 		content = data.tabs.map(function (tab, i) {
+			// tab data to send
 			var tabData = {
 				order: i
-				, view: data.view
+				, view: data.key + '-section'
 			};
 
+			// tab handler
 			var tabOpts = {
 				href: '#'
 				, className: 'title tab'
 				, 'ev-click': emitter.capture('page:tab:change', tabData)
 			};
 
+			// tab state
 			if (i === data.active || (i === 0 && !data.active)) {
 				tabOpts.className += ' active';
 			}
