@@ -20,4 +20,5 @@ module.exports = {
 	, topClubs: require('./top-clubs')
 	, hotClubs: require('./hot-clubs')
 	, recentClubs: require('./recent-clubs')
+	, createClub: require('./create-club')
 };

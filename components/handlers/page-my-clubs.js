@@ -9,6 +9,8 @@ var builder = require('../builders/index');
 var prepareData = require('../builders/prepare-data');
 var myClubs = require('../api/current-user-owned-clubs')();
 var joinedClubs = require('../api/current-user-joined-clubs')();
+var createError = require('../helpers/create-error-message');
+var i18n = require('../templates/i18n')();
 
 module.exports = factory;
 
@@ -35,7 +37,7 @@ function *middleware(next) {
 
 	// STEP 2: user should be login
 	if (!data.current_user) {
-		this.redirect('/login/redirect?section=c&id=club-home');
+		this.state.error_page = createError(400, i18n.t('error.login-required'));
 		return;
 	}
 

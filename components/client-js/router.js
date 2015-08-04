@@ -18,6 +18,10 @@ var routes = {
 	, ranking: createRoute('^/ranking$')
 };
 
+var isEmptyValue = function (value) {
+	return !!value;
+};
+
 module.exports = router;
 
 /**
@@ -52,9 +56,7 @@ function router(data) {
 			}
 		}
 
-		params = params.filter(function(value) {
-			return !!value;
-		});
+		params = params.filter(isEmptyValue);
 
 		result = {
 			name: route

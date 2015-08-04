@@ -21,8 +21,8 @@ function immutable(fn, data, opts) {
 	data = data || {};
 	opts = opts || {};
 
-	// don't use immutable when list is small or when rendering on server-side
-	if (!opts.client || !opts.count || opts.count < 50) {
+	// don't use immutable when rendering on server-side or when cache is not needed
+	if (!opts.client || !opts.cache) {
 		return fn(extend(data, opts));
 	}
 

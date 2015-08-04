@@ -17,7 +17,7 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var hint, icon, image, text, buttonOpts;
+	var icon, image, text, buttonOpts;
 
 	// button options
 	buttonOpts = {
@@ -83,6 +83,6 @@ function template(data) {
 		text = $('span.m-text', data.value.toString());
 	}
 
-	var button = $('a.m-button', buttonOpts, [ hint, icon, image, text ]);
+	var button = $('a.m-button', buttonOpts, [ icon, image, text ]);
 	return button;
 };

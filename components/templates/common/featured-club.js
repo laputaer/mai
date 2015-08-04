@@ -35,7 +35,7 @@ function template(data) {
 				, 'data-sizes': 'auto'
 			}
 			, src: data.image + '&size=ls-small'
-			, alt: data.title + i18n.t('placeholder.image-preview')
+			, alt: data.title + i18n.t('message.common.image-preview')
 			, className: 'lazyload'
 		};
 

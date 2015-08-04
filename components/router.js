@@ -24,36 +24,36 @@ function myRouter(app) {
 		throw new Error('koa instance missing');
 	}
 
-	// standalone
+	// main pages
 	router.get('/', handlers.pageLanding());
-	router.get('/help', handlers.pageHelp());
 	router.get('/my-clubs', handlers.pageMyClubs());
 	router.get('/ranking', handlers.pageRanking());
+	router.get('/help', handlers.pageHelp());
 
 	// user login
-	router.get('/login/redirect', handlers.loginRedirect());
-	router.get('/login/:provider', handlers.loginOauth());
-	// /connect/ namespace is also used to do initial oauth
+	// /connect/ namespace is used to start oauth
+	router.get('/login/:provider', handlers.pageLogin());
 
 	// user profile
 	router.get('/u/:uid', handlers.pageUserProfile());
 
-	// club management
-	router.get('/c/club-home', handlers.clubsFilterUser());
-	router.get('/c/club-ranking', handlers.clubsFilterRanking());
+	// club profile
+	router.get('/c/:slug', handlers.pageClubProfile());
+
+	/*
+	// old stuffs, for reference
 	router.get('/c/club-search', handlers.clubsFilterSearch());
 	router.get('/c/club-add', handlers.clubAddForm());
-	router.get('/c/:slug', handlers.pageClubProfile());
 	router.get('/c/:slug/edit', handlers.clubEditForm());
 	router.post('/c', handlers.clubCreate());
 	router.post('/c/:slug', handlers.clubUpdate());
 	router.post('/c/:slug/memberships', handlers.clubUserMembership());
 
-	// club post
 	router.get('/c/:slug/p/post-add', handlers.clubPostAddForm());
 	router.get('/c/:slug/p/post-add-2', handlers.clubPostConfirmForm());
 	router.post('/c/:slug/p/post-add', handlers.clubPostStart());
 	router.post('/c/:slug/p/post-add-2', handlers.clubPostCreate());
+	*/
 
 	// api routes
 	apiRouter.get('/global', apiHandlers.globalConfig());
@@ -70,6 +70,7 @@ function myRouter(app) {
 	apiRouter.get('/clubs/top', apiHandlers.topClubs());
 	apiRouter.get('/clubs/hot', apiHandlers.hotClubs());
 	apiRouter.get('/clubs/recent', apiHandlers.recentClubs());
+	apiRouter.post('/clubs', apiHandlers.createClub());
 
 	// mount api routes to main router
 	router.use('/api/v1', apiRouter.routes());

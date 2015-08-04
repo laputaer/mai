@@ -32,21 +32,20 @@ function template() {
 		$('p', i18n.t('help.about-answer-1'))
 		, $('p', i18n.t('help.about-answer-2'))
 		, $('p', [
-			$('span', i18n.t('placeholder.main-feedback'))
+			$('span', i18n.t('error.feedback-contact-1'))
 			, $('a.m-link', {
 				href: 'https://twitter.com/bitinn'
 				, target: '_blank'
 			}, [
-				$('span.m-text', '@bitinn')
+				$('span.m-text', i18n.t('error.feedback-contact-1-name'))
 			])
-			, $('span', i18n.t('placeholder.secondary-feedback'))
+			, $('span', i18n.t('error.feedback-contact-2'))
 			, $('a.m-link', {
 				href: 'https://github.com/maihq/feedbacks'
 				, target: '_blank'
 			}, [
-				$('span.m-text', i18n.t('placeholder.secondary-feedback-name'))
+				$('span.m-text', i18n.t('error.feedback-contact-2-name'))
 			])
-			, $('span', i18n.t('placeholder.secondary-feedback-action'))
 		])
 	]);
 

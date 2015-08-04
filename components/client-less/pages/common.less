@@ -2,7 +2,22 @@
 // common.less - shared component across pages
 
 .page {
+	// standard antialiasing instead of subpixel
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 
+	// high-contrast default color
+	color: @color-black;
+	background-color: @color-gray-pastel;
+
+	// default font stack based on interface language
+	&:lang(en) {
+		font-family: @sans-en;
+	}
+
+	&:lang(zh) {
+		font-family: @sans-cn;
+	}
 }
 
 .page-header {
@@ -433,6 +448,10 @@
 		overflow: hidden;
 		display: flex;
 		align-items: center;
+
+		&.tabs {
+			justify-content: space-between;
+		}
 	}
 
 	.title {
@@ -440,7 +459,20 @@
 		margin: 0 15px;
 		font-weight: 400;
 		line-height: 1em;
+		.long-text();
 		.size(18);
+
+		&.tab {
+			line-height: 1.25em;
+			text-decoration: none;
+			.link(@color-blue-light);
+
+			&.active {
+				cursor: default;
+				.link(@color-blue);
+				.unlink();
+			}
+		}
 	}
 
 	@media @tablet {
@@ -462,351 +494,6 @@
 		&.no-bottom {
 			.title {
 				margin-bottom: 0;
-			}
-		}
-	}
-}
-
-.page-section-help {
-	padding: 0 15px;
-
-	@media @tablet {
-		padding: 0 20px;
-	}
-}
-
-.page-section-feedback {
-	max-width: 500px;
-	margin: 0 auto;
-	padding: 15px;
-	box-sizing: border-box;
-	overflow: hidden;
-
-	.title {
-		margin: 0;
-		font-weight: 100;
-		line-height: 1.5em;
-		.size(24);
-	}
-
-	.subtitle {
-		margin: 0;
-		font-weight: 400;
-		line-height: 1.5em;
-		.size(20);
-	}
-
-	@media @tablet {
-		padding: 20px;
-	}
-}
-
-.featured-club {
-	width: 100%;
-	height: 80px;
-	background-color: @color-yellow-pastel;
-	position: relative;
-	overflow: hidden;
-	box-sizing: border-box;
-
-	.image {
-		.overlay();
-
-		img {
-			position: relative;
-			display: block;
-			width: 100%;
-		}
-
-		@media @supported {
-			img {
-				width: 320px;
-				height: 200px;
-				top: -60px;
-			}
-		}
-
-		@media @mobile {
-			img {
-				width: 100%;
-				height: 62.5vw;
-			}
-		}
-
-		@media @tablet {
-			img {
-				top: -10px;
-				height: ~'calc((50vw - 30px) * 0.625)';
-			}
-		}
-
-		@media @tablet-medium {
-			img {
-				top: -40px;
-			}
-		}
-
-		@media @tablet-large {
-			img {
-				top: -10px;
-				height: ~'calc((33.33vw - 26.67px) * 0.625)';
-			}
-		}
-
-		@media @monitor {
-			img {
-				top: -6px;
-				height: 275px * 0.625;
-			}
-		}
-	}
-
-	.wrapper {
-		width: 100%;
-		height: 100%;
-		position: relative;
-		z-index: 1;
-		color: @color-white;
-		background-color: fadeout(@color-black, 70%);
-	}
-
-	.link {
-		.overlay(8px);
-		.hide-link();
-	}
-
-	.title {
-		position: absolute;
-		left: 0;
-		bottom: 0;
-		line-height: 1em;
-		font-weight: 700;
-		.long-text();
-		.size(24);
-		.link-alt(@color-yellow-light);
-
-		&:first-letter {
-			line-height: 1em;
-			font-weight: 400;
-			.size(36);
-		}
-	}
-
-	@media @tablet {
-		width: ~'calc(50% - 30px)';
-		height: 120px;
-		border-radius: 4px;
-		margin: 20px 0 0 20px;
-		float: left;
-	}
-
-	@media @tablet-large {
-		width: ~'calc(33.33% - 26.67px)';
-		height: 150px;
-	}
-
-	@media @monitor {
-		width: 275px;
-		height: 160px;
-	}
-}
-
-.featured-post {
-	width: 100%;
-	padding: 20px 15px 10px;
-	box-sizing: border-box;
-	box-shadow: inset 0 1px 0 0 fadeout(@color-gray, 60%);
-	overflow: hidden;
-
-	.wrapper {
-		width: 100%;
-		display: flex;
-		position: relative;
-
-		&:after {
-			content: "";
-			position: absolute;
-			z-index: 1;
-			right: 0;
-			bottom: 0;
-			height: 30px;
-			width: 40px;
-			display: block;
-		}
-	}
-
-	.image-column {
-		width: 80px;
-	}
-
-	.text-column {
-		flex: 1;
-		max-height: 80px;
-		overflow: hidden;
-		word-wrap: break-word;
-	}
-
-	.image-column + .text-column {
-		padding-left: 10px;
-	}
-
-	.action-block {
-		position: relative;
-		overflow: hidden;
-		.long-text();
-		.size(14);
-
-		&:after {
-			content: "";
-			position: absolute;
-			z-index: 1;
-			right: 0;
-			bottom: 0;
-			height: 40px;
-			width: 70px;
-			display: block;
-		}
-
-		.internal {
-			margin: 10px 10px 10px 0;
-		}
-
-		.action {
-			margin: 10px 0;
-			position: absolute;
-			right: 0;
-			z-index: 2;
-		}
-	}
-
-	.thumbnail {
-		width: 80px;
-		height: 80px;
-		display: block;
-		border-radius: 10px;
-		background-color: @color-gray-light;
-	}
-
-	.link {
-		margin: 0;
-		font-weight: 700;
-		line-height: 1.6em;
-		.size(14);
-		.long-text();
-
-		a {
-			.link(@color-blue);
-		}
-	}
-
-	.title {
-		margin: 0;
-		font-weight: 300;
-		line-height: 1.4em;
-		.size(20);
-	}
-
-	&:nth-of-type(even) {
-		background-color: @color-gray-pastel;
-
-		.wrapper {
-			&:after {
-				background-image: linear-gradient(to right
-					, fadeout(@color-gray-pastel, 100%)
-					, fadeout(@color-gray-pastel, 0%));
-			}
-		}
-
-		.action-block {
-			&:after {
-				background-image: linear-gradient(to right
-					, fadeout(@color-gray-pastel, 100%)
-					, fadeout(@color-gray-pastel, 0%) 20px);
-			}
-		}
-	}
-
-	&:nth-of-type(odd) {
-		background-color: lighten(@color-gray-pastel, 1%);
-
-		.wrapper {
-			&:after {
-				background-image: linear-gradient(to right
-					, fadeout(lighten(@color-gray-pastel, 1%), 100%)
-					, fadeout(lighten(@color-gray-pastel, 1%), 0%));
-			}
-		}
-
-		.action-block {
-			&:after {
-				background-image: linear-gradient(to right
-					, fadeout(lighten(@color-gray-pastel, 1%), 100%)
-					, fadeout(lighten(@color-gray-pastel, 1%), 0%) 20px);
-			}
-		}
-	}
-
-	@media @tablet {
-		padding: 20px 20px 10px;
-
-		.image-column {
-			width: 100px;
-		}
-
-		.text-column {
-			max-height: 100px;
-		}
-
-		.wrapper:after {
-			height: 40px;
-		}
-
-		.action-block {
-			.size(16);
-		}
-
-		.thumbnail {
-			width: 100px;
-			height: 100px;
-		}
-
-		.title {
-			.size(25);
-		}
-
-		.link {
-			.size(16);
-		}
-	}
-
-	@media @tablet-large {
-		width: 50%;
-		float: left;
-		box-shadow: inset 0 1px 0 0 fadeout(@color-gray, 70%);
-
-		.text-column {
-			max-height: none;
-			height: 100px;
-		}
-
-		&:nth-of-type(odd) {
-			background-color: @color-gray-pastel;
-			box-shadow: inset -1px 1px 0 0 fadeout(@color-gray, 70%);
-
-			.wrapper {
-				&:after {
-					background-image: linear-gradient(to right
-						, fadeout(@color-gray-pastel, 100%)
-						, fadeout(@color-gray-pastel, 0%));
-				}
-			}
-
-			.action-block {
-				&:after {
-					background-image: linear-gradient(to right
-						, fadeout(@color-gray-pastel, 100%)
-						, fadeout(@color-gray-pastel, 0%) 20px);
-				}
 			}
 		}
 	}

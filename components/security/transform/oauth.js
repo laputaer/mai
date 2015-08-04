@@ -37,8 +37,7 @@ function tranform(input) {
 	if (input.avatar) {
 		input.avatar = input.avatar.trim();
 	} else {
-		// TODO: create a default avatar for user
-		input.avatar = 'https://mai3.me/apple-touch-icon.png';
+		input.avatar = 'https://rubu.me/images/header-640.jpg';
 	}
 
 	return input;

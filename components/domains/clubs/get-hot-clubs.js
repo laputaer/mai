@@ -18,7 +18,6 @@ function *getHotClubs(opts) {
 	var members = opts.members;
 	var points = opts.points;
 	var created = opts.created;
-	var updated = opts.updated;
 	var limit = opts.limit;
 	var skip = opts.skip;
 

@@ -1,6 +1,6 @@
 
 /**
- * oauth.js
+ * page-login.js
  *
  * Handle oauth user login
  */
@@ -9,6 +9,7 @@ var oauthDomain = require('../domains/oauth');
 var usersDomain = require('../domains/users');
 var sessionDomain = require('../domains/session');
 var mixpanelDomain = require('../domains/mixpanel');
+
 var validate = require('../security/validation');
 var normalize = require('../security/normalization');
 var createError = require('../helpers/create-error-message');
@@ -42,12 +43,7 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 2: get pending redirection
-	var path = yield sessionDomain.getRedirect({
-		session: this.session
-	});
-
-	// STEP 3: get oauth response
+	// STEP 2: get oauth response
 	var response = yield sessionDomain.getOauthResponse({
 		session: this.session
 	});
@@ -62,7 +58,7 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 4: get oauth profile
+	// STEP 3: get oauth profile
 	try {
 		user.oauth = yield oauthDomain.getUserProfile({
 			provider: provider
@@ -87,7 +83,7 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 5: normalize and validate user profile
+	// STEP 4: normalize and validate user profile
 	user.oauth = normalize(user.oauth, 'oauth');
 
 	var result = yield validate(user.oauth, 'oauth');
@@ -102,7 +98,7 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 6: create/update local profile
+	// STEP 5: create/update local profile
 	user.local = yield usersDomain.matchUser({
 		db: this.db
 		, uid: user.oauth.uid
@@ -132,7 +128,7 @@ function *middleware(next) {
 		});
 	}
 
-	// STEP 7: update user session
+	// STEP 6: upgrade user session
 	yield sessionDomain.loginUser({
 		config: this.config
 		, session: this.session
@@ -140,12 +136,6 @@ function *middleware(next) {
 		, local: user.local
 		, oauth: user.oauth
 	});
-
-	// STEP 8: follow redirect, if any
-	if (path) {
-		this.redirect(path);
-		return;
-	}
 
 	this.redirect('/');
 };

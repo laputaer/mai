@@ -7,6 +7,7 @@
 
 var $ = require('../vdom');
 var i18n = require('../i18n')();
+var emitter = require('../emitter');
 
 module.exports = template;
 
@@ -18,9 +19,12 @@ module.exports = template;
  */
 function template(data) {
 	var sectionOpts = {
-		className: 'page-section-title'
+		id: data.key
+		, key: data.key
+		, className: 'page-section-title'
 	};
 
+	// extra margin
 	if (data.top) {
 		sectionOpts.className += ' extra-top';
 	}
@@ -29,14 +33,44 @@ function template(data) {
 		sectionOpts.className += ' no-bottom';
 	}
 
-	if (data.key) {
-		sectionOpts.id = data.key;
-		sectionOpts.key = data.key;
+	var wrapperOpts = {
+		className: 'wrapper'
+	};
+
+	// plain title or tabs
+	var content;
+
+	if (data.title) {
+		content = $('h2.title', i18n.t(data.title));
 	}
 
-	var title = $('div', sectionOpts, $('div.wrapper', [
-		$('h2.title', i18n.t(data.title))
-	]));
+	if (data.tabs) {
+		content = data.tabs.map(function (tab, i) {
+			// tab data to send
+			var tabData = {
+				order: i
+				, view: data.key + '-section'
+			};
+
+			// tab handler
+			var tabOpts = {
+				href: '#'
+				, className: 'title tab'
+				, 'ev-click': emitter.capture('page:tab:change', tabData)
+			};
+
+			// tab state
+			if (i === data.active || (i === 0 && !data.active)) {
+				tabOpts.className += ' active';
+			}
+
+			return $('a', tabOpts, i18n.t(tab));
+		});
+
+		wrapperOpts.className += ' tabs';
+	}
+
+	var title = $('div', sectionOpts, $('div', wrapperOpts, content));
 
 	return title;
 };

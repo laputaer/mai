@@ -22,11 +22,22 @@ function helper(data, code, message) {
 		code = code || 200;
 	}
 
+	var error;
+	if (data && data.valid === false && typeof data.errors === 'object') {
+		error = {};
+		for (var prop in data.errors) {
+			if (!data.errors.hasOwnProperty(prop) || data.errors[prop].length === 0) {
+				continue;
+			}
+			error[prop] = true;
+		}
+	}
+
 	var output = {
 		ok: code >= 200 && code < 300
 		, code: code
 		, message: message || ''
-		, data: data || {}
+		, data: error || data || {}
 	};
 
 	return output;

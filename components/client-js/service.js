@@ -11,57 +11,7 @@
 var prefix = '/api/v1';
 
 // API group
-var api = {
-	init: {
-		global: '/global'
-	}
-	, home: {
-		featured_clubs: '/clubs/featured'
-		, featured_posts: '/posts/featured?skip=0&limit=20'
-	}
-	, myClubs: {
-		my_clubs: '/clubs/owner?skip=0&limit=20'
-		, joined_clubs: '/clubs/member?skip=0&limit=20'
-	}
-	, clubProfile: {
-		club_profile: '/clubs/:slug/profile'
-		, club_posts: '/clubs/:slug/posts?skip=0&limit=20'
-	}
-	, userProfile: {
-		user_profile: '/users/:uid/profile'
-		, user_posts: '/users/:uid/posts?skip=0&limit=20'
-	}
-	, ranking: {
-		hot_clubs: '/clubs/hot?skip=0&limit=20'
-		, top_clubs: '/clubs/top?skip=0&limit=20'
-		, recent_clubs: '/clubs/recent?skip=0&limit=20'
-	}
-	, help: {}
-	, featured_posts: {
-		endpoint: '/posts/featured'
-	}
-	, my_clubs: {
-		endpoint: '/clubs/owner'
-	}
-	, joined_clubs: {
-		endpoint: '/clubs/member'
-	}
-	, club_posts: {
-		endpoint: '/clubs/:slug/posts'
-	}
-	, user_posts: {
-		endpoint: '/users/:uid/posts'
-	}
-	, hot_clubs: {
-		endpoint: '/clubs/hot'
-	}
-	, top_clubs: {
-		endpoint: '/clubs/top'
-	}
-	, recent_clubs: {
-		endpoint: '/clubs/recent'
-	}
-};
+var api = require('./api');
 
 module.exports = Service;
 
@@ -142,20 +92,23 @@ Service.prototype.fetch = function(name, opts, params) {
 		}
 	}
 
+	var count = 0;
+	var replaceFunc = function () {
+		return params[count++];
+	};
+
 	// make request
 	for (var prop in endpoint) {
 		if (!endpoint.hasOwnProperty(prop)) {
 			continue;
 		}
 
+		count = 0;
 		var path = endpoint[prop];
-		var count = 0;
 
 		// allow optional route params
 		if (params.length > 0) {
-			path = path.replace(/:[^\s\$/]+/g, function () {
-				return params[count++];
-			});
+			path = path.replace(/:[^\s\$/]+/g, replaceFunc);
 		}
 
 		// send cookie
@@ -187,7 +140,12 @@ function deferFetch(ps, p, results, name) {
 
 	// TODO: better error handling
 	ps.push(p.then(function(res) {
-		return res.json();
+		try {
+			return res.json();
+		} catch(e) {
+			// console.debug(e);
+		}
+		return null;
 	}).then(function(json) {
 		if (!json) {
 			results[name] = null;

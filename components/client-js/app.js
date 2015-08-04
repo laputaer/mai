@@ -170,14 +170,39 @@ App.prototype.json = function (method, url, opts) {
 	var self = this;
 
 	opts = opts || {};
+
+	// default to get request
 	opts.method = method || 'GET';
+
+	// auto append csrf token for other requests
+	if (opts.method !== 'GET') {
+		// default to urlencoded body
+		opts.body = opts.body || '';
+	}
+
+	// common setup for urlencoded body
+	if (typeof opts.body === 'string') {
+		// set urlencoded header
+		opts.headers = opts.headers || {};
+		opts.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+
+		// append csrf toekn
+		var csrf = 'csrf_token=' + self.model.get(['current_user', 'csrf_token']);
+		if (!opts.body) {
+			opts.body = csrf;
+		} else {
+			opts.body = csrf + '&' + opts.body;
+		}
+	}
 
 	// contact backend service, get back json result
 	return self.service.send(url, opts).then(function (res) {
-		if (!res.ok) {
-			return {};
+		try {
+			return res.json();
+		} catch(e) {
+			// console.debug(e);
 		}
-		return res.json();
+		return null;
 	}).then(function (json) {
 		if (!json) {
 			return {};

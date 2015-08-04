@@ -1,6 +1,6 @@
 
 /**
- * login-redirect.js
+ * login-redirect.js (deprecated)
  *
  * Set a redirect target when login is completed
  */

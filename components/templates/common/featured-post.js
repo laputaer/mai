@@ -40,7 +40,7 @@ function template(data) {
 				, 'data-sizes': 'auto'
 			}
 			, src: data.image + '&size=sq-small'
-			, alt: data.title + i18n.t('placeholder.image-preview')
+			, alt: data.title + i18n.t('message.common.image-preview')
 		});
 
 		image = $('div.image-column', image);
@@ -74,7 +74,11 @@ function template(data) {
 		});
 	}
 
-	var favoriteOpts = { id: data.pid, order: data.num, view: data.view };
+	var favoriteOpts = {
+		id: data.pid
+		, order: data.num
+		, view: data.view
+	};
 	var favorite = buttonTemplate({
 		href: '#'
 		, className: data.current_user_fav ? 'plain action active' : 'plain action'

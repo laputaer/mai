@@ -11,6 +11,8 @@ var toggleScroll = require('./helpers/toggle-body-scroll');
 var createFavorite = require('./handlers/create-favorite');
 var deleteFavorite = require('./handlers/delete-favorite');
 var loadContent = require('./handlers/load-content');
+var getFormData = require('./handlers/get-form-data');
+var formResult = require('./handlers/form-result');
 
 module.exports = handlers;
 
@@ -45,6 +47,11 @@ function handlers(app) {
 		app.refresh();
 	});
 
+	emitter.on('page:tab:change', function (data) {
+		app.modify(['ui', data.view], data.order);
+		app.refresh();
+	});
+
 	emitter.on('page:load:featured-post', function () {
 		loadContent(app, {
 			name: 'load_post'
@@ -71,7 +78,7 @@ function handlers(app) {
 
 	emitter.on('page:load:my-clubs', function () {
 		loadContent(app, {
-			name: 'load_my_clubs'
+			name: 'load-my-clubs'
 			, key: 'slug'
 			, endpoint: 'my_clubs'
 		});
@@ -79,7 +86,7 @@ function handlers(app) {
 
 	emitter.on('page:load:joined-clubs', function () {
 		loadContent(app, {
-			name: 'load_joined_clubs'
+			name: 'load-joined-clubs'
 			, key: 'slug'
 			, endpoint: 'joined_clubs'
 		});
@@ -111,8 +118,8 @@ function handlers(app) {
 
 	emitter.on('page:favorite:create', function (data) {
 		createFavorite(app, data);
-		app.json('PUT', '/posts/' + data.id + '/favorite').then(function (res) {
-			if (!res.ok) {
+		app.json('PUT', '/posts/' + data.id + '/favorite').then(function (json) {
+			if (!json.ok) {
 				deleteFavorite(app, data);
 			}
 		});
@@ -120,10 +127,17 @@ function handlers(app) {
 
 	emitter.on('page:favorite:remove', function (data) {
 		deleteFavorite(app, data);
-		app.json('DELETE', '/posts/' + data.id + '/favorite').then(function (res) {
-			if (!res.ok) {
+		app.json('DELETE', '/posts/' + data.id + '/favorite').then(function (json) {
+			if (!json.ok) {
 				createFavorite(app, data);
 			}
+		});
+	});
+
+	emitter.on('page:form:submit', function (data) {
+		var body = getFormData(app, data);
+		app.json('POST', '/clubs', { body: body }).then(function (json) {
+			formResult(app, json);
 		});
 	});
 };

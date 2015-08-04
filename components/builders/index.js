@@ -11,21 +11,12 @@ var builders = require('./builders');
 var createRoute = require('../helpers/create-named-route');
 
 var routes = {
-	// new routes
 	home: createRoute('^/$')
 	, myClubs: createRoute('^/my-clubs$')
 	, clubProfile: createRoute('^/c/:slug$')
 	, userProfile: createRoute('^/u/:uid$')
 	, ranking: createRoute('^/ranking$')
 	, help: createRoute('^/help$')
-	// old routes
-	, login: createRoute('^/login/redirect$')
-	, club: createRoute('^/c/club-home$')
-	, clubSearch: createRoute('^/c/club-search$')
-	, clubNew: createRoute('^/c/club-add$')
-	, clubEditor: createRoute('^/c/:slug/edit$')
-	, clubAddPostForm: createRoute('^/c/:slug/p/post-add$')
-	, clubAddConfirmForm: createRoute('^/c/:slug/p/post-add-2$')
 };
 
 module.exports = builder;
