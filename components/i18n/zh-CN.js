@@ -68,6 +68,9 @@ module.exports = {
 			, 'create-club-slug-note': '允许2-16个字符，仅限字母、数字和连字符'
 			, 'create-club-slug-placeholder': '例如：love-live'
 		}
+		, 'button': {
+			'create-club-submit': '创建社团'
+		}
 	}
 	, 'placeholder': {
 		'apology': '抱歉'

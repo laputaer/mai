@@ -944,10 +944,6 @@
 	}
 }
 
-.standard-form {
-	//margin: 20px 0;
-}
-
 .form-group {
 	display: block;
 	padding: 15px;
@@ -1029,5 +1025,42 @@
 		.form-field {
 			.size(20);
 		}
+	}
+}
+
+.form-button {
+	display: block;
+	clear: both;
+	-webkit-appearance: none;
+	background-color: transparent;
+	outline: 0;
+	font-weight: 400;
+	font-family: inherit;
+	line-height: 1em;
+	.size(20);
+
+	margin: 15px;
+	border-radius: 200px;
+	border: 2px solid @color-blue-pastel;
+	color: @color-blue-light;
+
+	.icon, .text {
+		display: inline-block;
+		vertical-align: top;
+	}
+
+	.icon {
+		margin-right: 4px;
+		width: 24px;
+		height: 24px;
+		fill: currentColor;
+	}
+
+	.text {
+
+	}
+
+	@media @tablet {
+		margin: 20px;
 	}
 }

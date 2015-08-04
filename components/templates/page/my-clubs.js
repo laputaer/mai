@@ -13,6 +13,7 @@ var clubTemplate = require('../common/featured-club');
 var sectionTitleTemplate = require('../common/section-title');
 var loadButtonTemplate = require('../common/load-button');
 var formGroupTemplate = require('../common/form-group');
+var formButtonTemplate = require('../common/form-button');
 
 module.exports = template;
 
@@ -78,7 +79,13 @@ function template(data) {
 			, label: 'form.label.create-club-slug'
 		});
 
-		section_1 = [field_1, field_2];
+		var submit_1 = formButtonTemplate({
+			text: 'form.button.create-club-submit'
+			, icon: 'plus'
+			, version: data.version.asset
+		});
+
+		section_1 = $('form', [field_1, field_2, submit_1]);
 	}
 
 	if (!data.ui.load_joined_clubs) {

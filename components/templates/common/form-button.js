@@ -6,6 +6,8 @@
  */
 
 var $ = require('../vdom');
+var i18n = require('../i18n')();
+var emitter = require('../emitter');
 
 module.exports = template;
 
@@ -16,26 +18,19 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	// optional data.type to pass button variant names
-	var button_type = '';
-	if (data.type && data.type.length > 0) {
-		button_type = '.' + data.type.join('.');
+	var icon, text, buttonOpts;
+
+	// button options
+	buttonOpts = {
+		type: 'submit'
+		, 'ev-submit': emitter.capture('page:form:submit')
+	};
+
+	// button text
+	if (data.text !== undefined) {
+		text = $('span.text', i18n.t(data.text));
 	}
 
-	var base_url = '';
-
-	var button = $('button.m-button' + button_type, {
-		'type': 'submit'
-		, 'name': data.name || ''
-		, 'value': data.value || ''
-	}, [
-		$('svg.m-icon', [
-			$('use', {
-				'xlink:href': base_url + '/assets/icons.svg?' + data.version + '#' + data.icon
-			})
-		])
-		, $('span.m-text', data.text)
-	]);
-
+	var button = $('button.form-button', buttonOpts, [ icon, text ]);
 	return button;
 };
