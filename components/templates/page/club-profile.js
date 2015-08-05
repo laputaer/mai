@@ -8,6 +8,7 @@
 var $ = require('../vdom');
 var emitter = require('../emitter');
 var immutable = require('../immutable');
+var partialList = require('../partial-list');
 
 var postTemplate = require('../common/featured-post');
 var sectionTitleTemplate = require('../common/section-title');
@@ -22,39 +23,43 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var section_title_1 = sectionTitleTemplate({
+	// common data
+	var club_posts = data.club_posts;
+	var ui = data.ui;
+	var client = data.client;
+	var version = data.version.asset;
+
+	// 1st section, plain title
+	var club_posts_title = sectionTitleTemplate({
 		title: 'section.titles.recent-posts'
 		, key: 'recent-posts'
 		, bottom: true
 	});
 
-	var club_posts = data.club_posts;
+	// trick to hide loaded post, so 1st load more is always fast
+	club_posts = partialList(club_posts, 8, ui['load-club-posts']);
 
-	if (!data.ui.load_post) {
-		club_posts = club_posts.slice(0, 8);
-	} else if (data.ui.load_post > 0) {
-		club_posts = club_posts.slice(0, data.ui.load_post);
-	}
-
-	club_posts = club_posts.map(function(post, i) {
+	// render posts, use immutable
+	var club_posts_list = club_posts.map(function (post, i) {
 		var opts = {
 			num: i
-			, version: data.version.asset
+			, version: version
 			, view: 'club_posts'
-			, client: data.client
-			, count: data.ui.load_post
+			, client: client
+			, cache: ui['load-club-posts'] > 50
 		};
 
 		return immutable(postTemplate, post, opts);
 	});
 
-	var load_more = loadButtonTemplate({
+	// load more button
+	var club_posts_button = loadButtonTemplate({
 		title: 'section.load.club-posts'
-		, key: 'load-button'
-		, eventName: 'ev-click'
-		, eventHandler: emitter.capture('page:load:club-posts')
+		, key: 'load-club-posts'
+		, eventName: 'page:load:club-posts'
 	});
 
+	// page content
 	var homeOpts = {
 		id: 'content'
 		, key: 'content'
@@ -62,9 +67,9 @@ function template(data) {
 	};
 
 	var home = $('div', homeOpts, [
-		section_title_1
-		, club_posts
-		, load_more
+		club_posts_title
+		, club_posts_list
+		, club_posts_button
 	]);
 
 	return home;

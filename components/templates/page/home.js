@@ -8,6 +8,7 @@
 var $ = require('../vdom');
 var emitter = require('../emitter');
 var immutable = require('../immutable');
+var partialList = require('../partial-list');
 
 var clubTemplate = require('../common/featured-club');
 var postTemplate = require('../common/featured-post');
@@ -23,50 +24,62 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var section_title_1 = sectionTitleTemplate({
+	// common data
+	var featured_clubs = data.featured_clubs;
+	var featured_posts = data.featured_posts;
+	var ui = data.ui;
+	var client = data.client;
+	var version = data.version.asset;
+
+	// 1st section, plain title
+	var featured_clubs_title = sectionTitleTemplate({
 		title: 'section.titles.featured-clubs'
 		, key: 'featured-clubs'
 	});
 
-	var section_title_2 = sectionTitleTemplate({
+	// render clubs, use immutable
+	var featured_clubs_list = featured_clubs.map(function (club) {
+		// club list is static, we only cache it when user load feature posts
+		var opts = {
+			client: client
+			, cache: ui['load-featured-posts'] > 20
+		}
+
+		return immutable(clubTemplate, club, opts);
+	});
+
+	// 2nd section, plain title
+	var featured_posts_title = sectionTitleTemplate({
 		title: 'section.titles.featured-posts'
 		, key: 'featured-posts'
 		, top: true
 		, bottom: true
 	});
 
-	var featured_clubs = data.featured_clubs;
-	var featured_posts = data.featured_posts;
+	// trick to hide loaded post, so 1st load more is always fast
+	featured_posts = partialList(featured_posts, 10, ui['load-featured-posts']);
 
-	if (!data.ui.load_post) {
-		featured_posts = featured_posts.slice(0, 8);
-	} else if (data.ui.load_post > 0) {
-		featured_posts = featured_posts.slice(0, data.ui.load_post);
-	}
-
-	featured_clubs = featured_clubs.map(function(club) {
-		return clubTemplate(club);
-	});
-
-	featured_posts = featured_posts.map(function(post, i) {
+	// render posts, use immutable
+	var featured_posts_list = featured_posts.map(function (post, i) {
 		var opts = {
 			num: i
-			, version: data.version.asset
+			, version: version
 			, view: 'featured_posts'
-			, client: data.client
-			, count: data.ui.load_post
+			, client: client
+			, cache: ui['load-featured-posts'] > 50
 		};
 
 		return immutable(postTemplate, post, opts);
 	});
 
-	var load_more = loadButtonTemplate({
+	// load more button
+	var featured_posts_button = loadButtonTemplate({
 		title: 'section.load.featured-posts'
-		, key: 'load-button'
-		, eventName: 'ev-click'
-		, eventHandler: emitter.capture('page:load:featured-post')
+		, key: 'load-featured-posts'
+		, eventName: 'page:load:featured-post'
 	});
 
+	// page content
 	var homeOpts = {
 		id: 'content'
 		, key: 'content'
@@ -74,11 +87,11 @@ function template(data) {
 	};
 
 	var home = $('div', homeOpts, [
-		section_title_1
-		, featured_clubs
-		, section_title_2
-		, featured_posts
-		, load_more
+		featured_clubs_title
+		, featured_clubs_list
+		, featured_posts_title
+		, featured_posts_list
+		, featured_posts_button
 	]);
 
 	return home;

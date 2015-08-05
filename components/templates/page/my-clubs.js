@@ -31,6 +31,7 @@ function template(data) {
 	var joined_clubs = data.joined_clubs;
 	var ui = data.ui;
 	var client = data.client;
+	var version = data.version.asset;
 
 	// 1st section, tabs, always shown
 	var my_clubs_title = sectionTitleTemplate({
@@ -44,10 +45,10 @@ function template(data) {
 	// scenario 1: defaul tab active
 	if (!ui['my-clubs-section']) {
 		// trick to hide loaded post, so 1st load more is always fast
-		my_clubs = partialList(my_clubs, 10, ui['load-my-clubs']);
+		my_clubs = partialList(my_clubs, 8, ui['load-my-clubs']);
 
-		// render posts, use immutable 
-		my_clubs_list = my_clubs.map(function(club) {
+		// render clubs, use immutable 
+		my_clubs_list = my_clubs.map(function (club) {
 			var opts = {
 				client: client
 				, cache: ui['load-my-clubs'] > 50
@@ -64,17 +65,17 @@ function template(data) {
 			, eventName: 'page:load:my-clubs'
 		});
 
-		// 2st section, plain title
+		// 2nd section, plain title
 		joined_clubs_title = sectionTitleTemplate({
 			title: 'section.titles.joined-clubs'
 			, key: 'joined-clubs'
 			, top: true
 		});
 
-		// render 2st section, same tricks as 1st section
-		joined_clubs = partialList(joined_clubs, 10, ui['load-joined-clubs']);
+		// render 2nd section, same tricks as 1st section
+		joined_clubs = partialList(joined_clubs, 8, ui['load-joined-clubs']);
 
-		joined_clubs_list = joined_clubs.map(function(club) {
+		joined_clubs_list = joined_clubs.map(function (club) {
 			var opts = {
 				client: client
 				, cache: ui['load-joined-clubs'] > 50
@@ -100,17 +101,17 @@ function template(data) {
 			message = $('div.common-message.error', ui.form_error);
 		}
 
-		// success message, assume data object
+		// success message, assume object
 		if (ui.form_data && ui.form_data.title && ui.form_data.slug) {
 			message = $('div.common-message.success', [
 				$('span', i18n.t('message.common.club-create-success'))
 				, $('a', {
-					href: '/c/' + data.ui.form_data.slug
+					href: '/c/' + ui.form_data.slug
 				}, ui.form_data.title)
 			]);
 		}
 
-		// normalize field data
+		// normalize field cache
 		var field_data = ui.field_data || {};
 		var field_error = ui.field_error || {};
 
@@ -133,7 +134,7 @@ function template(data) {
 		submit = formButtonTemplate({
 			text: 'form.button.create-club-submit'
 			, icon: 'plus'
-			, version: data.version.asset
+			, version: version
 		});
 
 		// form id for event handler

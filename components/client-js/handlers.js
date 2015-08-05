@@ -54,7 +54,7 @@ function handlers(app) {
 
 	emitter.on('page:load:featured-post', function () {
 		loadContent(app, {
-			name: 'load_post'
+			name: 'load-featured-posts'
 			, key: 'pid'
 			, endpoint: 'featured_posts'
 		});
@@ -62,7 +62,7 @@ function handlers(app) {
 
 	emitter.on('page:load:club-posts', function () {
 		loadContent(app, {
-			name: 'load_post'
+			name: 'load-club-posts'
 			, key: 'pid'
 			, endpoint: 'club_posts'
 		});
@@ -70,7 +70,7 @@ function handlers(app) {
 
 	emitter.on('page:load:user-posts', function () {
 		loadContent(app, {
-			name: 'load_post'
+			name: 'load-user-posts'
 			, key: 'pid'
 			, endpoint: 'user_posts'
 		});
@@ -94,7 +94,7 @@ function handlers(app) {
 
 	emitter.on('page:load:hot-clubs', function () {
 		loadContent(app, {
-			name: 'load_hot_clubs'
+			name: 'load-hot-clubs'
 			, key: 'slug'
 			, endpoint: 'hot_clubs'
 		});
@@ -102,7 +102,7 @@ function handlers(app) {
 
 	emitter.on('page:load:top-clubs', function () {
 		loadContent(app, {
-			name: 'load_top_clubs'
+			name: 'load-top-clubs'
 			, key: 'slug'
 			, endpoint: 'top_clubs'
 		});
@@ -110,7 +110,7 @@ function handlers(app) {
 
 	emitter.on('page:load:recent-clubs', function () {
 		loadContent(app, {
-			name: 'load_recent_clubs'
+			name: 'load-recent-clubs'
 			, key: 'slug'
 			, endpoint: 'recent_clubs'
 		});
