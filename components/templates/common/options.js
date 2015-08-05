@@ -23,6 +23,7 @@ function template(data) {
 	var current_user = data.current_user;
 	var club_profile = data.club_profile;
 	var version = data.version.asset;
+	var image_base_url = data.image_base_url;
 	var ui = data.ui;
 
 	// buttons
@@ -47,7 +48,7 @@ function template(data) {
 
 	var twitterOpts = {
 		href: '#'
-		, className: 'plain discover home'
+		, className: 'plain login twitter'
 		, text: 'menu.options.twitter'
 		, icon: 'twitter'
 		, version: version
@@ -56,9 +57,9 @@ function template(data) {
 
 	var weiboOpts = {
 		href: '#'
-		, className: 'plain discover club'
+		, className: 'plain login weibo'
 		, text: 'menu.options.weibo'
-		, icon: 'weibo'
+		, image: image_base_url + '/images/weibo-logo-64.png'
 		, version: version
 	};
 	var weiboButton = navButtonTemplate(weiboOpts);
@@ -67,7 +68,7 @@ function template(data) {
 	if (current_user && club_profile && current_user.uid === club_profile.owner) {
 		var manageOpts = {
 			href: '#'
-			, className: 'plain discover login'
+			, className: 'plain options manage'
 			, text: 'menu.options.manage'
 			, icon: 'sinth'
 			, version: version
@@ -78,7 +79,7 @@ function template(data) {
 
 	var statOpts = {
 		href: '#'
-		, className: 'plain discover ranking'
+		, className: 'plain options stats'
 		, text: 'menu.options.stats'
 		, icon: 'graph'
 		, version: version
@@ -89,7 +90,7 @@ function template(data) {
 	if (current_user && club_profile && club_profile.current_user_member && current_user.uid !== club_profile.owner) {
 		var leaveOpts = {
 			href: '#'
-			, className: 'plain discover help'
+			, className: 'plain options leave'
 			, text: 'menu.options.leave'
 			, icon: 'minus'
 			, version: version
