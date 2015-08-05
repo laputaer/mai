@@ -87,25 +87,40 @@ function template(data) {
 	};
 	var weiboButton = navButtonTemplate(weiboOpts);
 
-	var manageButton;
+	var manageButton, eventData;
 	if (current_user && current_user.uid === club_profile.owner) {
+		eventData = {
+			order: 2
+			, view: 'club-posts-section'
+			, menu: true
+		};
+
 		var manageOpts = {
 			href: '#'
 			, className: 'plain options manage'
 			, text: 'menu.options.manage'
 			, icon: 'sinth'
 			, version: version
+			, eventName: 'page:tab:change'
+			, eventData: eventData
 		};
 
 		manageButton = navButtonTemplate(manageOpts);
 	}
 
+	eventData = {
+		order: 3
+		, view: 'club-posts-section'
+		, menu: true
+	};
 	var statOpts = {
 		href: '#'
 		, className: 'plain options stats'
 		, text: 'menu.options.stats'
 		, icon: 'graph'
 		, version: version
+		, eventName: 'page:tab:change'
+		, eventData: eventData
 	};
 	var statButton = navButtonTemplate(statOpts);
 

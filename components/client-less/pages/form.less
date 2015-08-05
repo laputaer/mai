@@ -14,11 +14,11 @@
 	}
 
 	.form-group + .form-group {
-		margin-top: 20px;
+		margin-top: 30px;
 	}
 
 	.form-group + .form-button {
-		margin-top: 20px;
+		margin-top: 30px;
 	}
 
 	.form-label {
@@ -118,9 +118,14 @@
 			min-height: 150px;
 			float: left;
 			width: 50%;
+			margin-bottom: 40px;
 		}
 
 		.form-group + .form-group {
+			margin-top: 0;
+		}
+
+		.form-group + .form-button {
 			margin-top: 0;
 		}
 
@@ -131,6 +136,7 @@
 		}
 
 		.form-field {
+			width: ~'calc(100% - 10px)';
 			.size(20);
 		}
 

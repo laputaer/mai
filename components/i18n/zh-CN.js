@@ -55,6 +55,7 @@ module.exports = {
 			, 'hot-clubs': '热门社团'
 			, 'recent-clubs': '新人社团'
 			, 'create-club': '创建新社团'
+			, 'create-post': '创建新分享'
 		}
 		, 'load': {
 			'featured-posts': '浏览更多精彩内容'
@@ -75,14 +76,28 @@ module.exports = {
 			, 'create-club-slug': '社团路径'
 			, 'create-club-slug-note': '允许2-16个字符，仅限字母、数字和连字符'
 			, 'create-club-slug-placeholder': '例如：love-live'
+			, 'manage-club-title': '社团名称'
+			, 'manage-club-title-note': '允许2-16个字符'
+			, 'manage-club-title-placeholder': '例如：Love Live'
+			, 'manage-club-slug': '社团路径'
+			, 'manage-club-slug-note': '允许2-16个字符，仅限字母、数字和连字符'
+			, 'manage-club-slug-placeholder': '例如：love-live'
+			, 'manage-club-logo': '社团标志'
+			, 'manage-club-logo-note': '支持 Flickr / Pixiv / dA 等网址'
+			, 'manage-club-logo-placeholder': '例如：http://flic.kr/p/...'
+			, 'manage-club-intro': '社团口号'
+			, 'manage-club-intro-note': '允许2-32个字符'
+			, 'manage-club-intro-placeholder': '例如：LL大法好！'
 		}
 		, 'button': {
 			'create-club-submit': '创建社团'
+			, 'manage-club-submit': '更新社团'
 		}
 	}
 	, 'message': {
 		'common': {
-			'club-create-success': '社团创建成功：'
+			'create-club-success': '社团创建成功：'
+			, 'manage-club-success': '社团更新成功：'
 			, 'action-done': '操作完成。'
 			, 'image-preview': '的预览图片'
 		}

@@ -148,7 +148,7 @@ function template(data) {
 					, 'data-sizes': 'auto'
 				}
 				, src: club_profile.image + '&size=sq-small'
-				, alt: ''
+				, alt: club_profile.title + i18n.t('message.common.image-preview')
 				, className: 'lazyload'
 			};
 
@@ -190,7 +190,7 @@ function template(data) {
 					, 'data-sizes': 'auto'
 				}
 				, src: user_profile.avatar + '&size=sq-small'
-				, alt: ''
+				, alt: user_profile.name + i18n.t('message.common.image-preview')
 				, className: 'lazyload'
 			};
 

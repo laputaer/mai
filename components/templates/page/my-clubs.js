@@ -104,7 +104,7 @@ function template(data) {
 		// success message, assume object
 		if (ui.form_data && ui.form_data.title && ui.form_data.slug) {
 			message = $('div.common-message.success', [
-				$('span', i18n.t('message.common.club-create-success'))
+				$('span', i18n.t('message.common.create-club-success'))
 				, $('a', {
 					href: '/c/' + ui.form_data.slug
 				}, ui.form_data.title)
@@ -133,12 +133,10 @@ function template(data) {
 		// submit button
 		submit = formButtonTemplate({
 			text: 'form.button.create-club-submit'
-			, icon: 'plus'
-			, version: version
 		});
 
 		// form id for event handler
-		var submitOpts = { id: 'create-club' };
+		var submitOpts = { id: 'create-club', route: 'create_club', method: 'POST' };
 
 		var formOpts = {
 			action: '#'

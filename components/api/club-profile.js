@@ -17,7 +17,7 @@ var proxyUrl = require('../security/proxy');
 var i18n = require('../templates/i18n')();
 
 var filter_output = [
-	'slug', 'title', 'intro', 'points', 'members'
+	'slug', 'title', 'intro', 'points', 'members', 'logo'
 	, 'initials', 'level', 'image', 'domain', 'url', 'current_user_member'
 	, 'owner', 'owner_name', 'owner_login', 'owner_avatar'
 ];

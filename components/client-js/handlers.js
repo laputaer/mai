@@ -5,6 +5,7 @@
  * Manage client-side events and interactions
  */
 
+var doc = document;
 var emitter = require('../templates/emitter');
 var toggleScroll = require('./helpers/toggle-body-scroll');
 var menuEscape = require('./helpers/menu-escape');
@@ -66,6 +67,9 @@ function handlers(app) {
 
 	emitter.on('page:tab:change', function (data) {
 		app.modify(['ui', data.view], data.order);
+		if (data.menu) {
+			emitter.emit('page:menu:close');
+		}
 		app.refresh();
 	});
 
@@ -135,7 +139,7 @@ function handlers(app) {
 
 	emitter.on('page:favorite:create', function (data) {
 		createFavorite(app, data);
-		app.json('PUT', '/posts/' + data.id + '/favorite').then(function (json) {
+		app.json('PUT', 'favorite_post', null, [data.id]).then(function (json) {
 			if (!json.ok) {
 				deleteFavorite(app, data);
 			}
@@ -144,7 +148,7 @@ function handlers(app) {
 
 	emitter.on('page:favorite:remove', function (data) {
 		deleteFavorite(app, data);
-		app.json('DELETE', '/posts/' + data.id + '/favorite').then(function (json) {
+		app.json('DELETE', 'favorite_post', null, [data.id]).then(function (json) {
 			if (!json.ok) {
 				createFavorite(app, data);
 			}
@@ -152,8 +156,9 @@ function handlers(app) {
 	});
 
 	emitter.on('page:form:submit', function (data) {
-		var body = getFormData(app, data);
-		app.json('POST', '/clubs', { body: body }).then(function (json) {
+		var form = doc.getElementById(data.id);
+		var body = getFormData(app, form);
+		app.json(data.method, data.route, { body: body }, data.params).then(function (json) {
 			formResult(app, json);
 		});
 	});

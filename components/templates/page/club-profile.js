@@ -6,6 +6,7 @@
  */
 
 var $ = require('../vdom');
+var i18n = require('../i18n')();
 var emitter = require('../emitter');
 var immutable = require('../immutable');
 var partialList = require('../partial-list');
@@ -13,6 +14,8 @@ var partialList = require('../partial-list');
 var postTemplate = require('../common/featured-post');
 var sectionTitleTemplate = require('../common/section-title');
 var loadButtonTemplate = require('../common/load-button');
+var formGroupTemplate = require('../common/form-group');
+var formButtonTemplate = require('../common/form-button');
 
 module.exports = template;
 
@@ -24,40 +27,119 @@ module.exports = template;
  */
 function template(data) {
 	// common data
+	var club_profile = data.club_profile;
 	var club_posts = data.club_posts;
 	var ui = data.ui;
 	var client = data.client;
 	var version = data.version.asset;
 
-	// 1st section, plain title
-	var club_posts_title = sectionTitleTemplate({
-		title: 'section.titles.recent-posts'
-		, key: 'recent-posts'
+	var club_posts_title, club_posts_list, club_posts_button, form;
+
+	// 1st section, tabs, always shown
+	club_posts_title = sectionTitleTemplate({
+		tabs: ['section.titles.recent-posts', 'section.titles.create-post']
+		, key: 'club-posts'
+		, active: ui['club-posts-section'] || 0
 		, bottom: true
 	});
 
-	// trick to hide loaded post, so 1st load more is always fast
-	club_posts = partialList(club_posts, 8, ui['load-club-posts']);
+	// scenario 1: defaul tab active
+	if (!ui['club-posts-section']) {
+		// trick to hide loaded post, so 1st load more is always fast
+		club_posts = partialList(club_posts, 8, ui['load-club-posts']);
 
-	// render posts, use immutable
-	var club_posts_list = club_posts.map(function (post, i) {
-		var opts = {
-			num: i
-			, version: version
-			, view: 'club_posts'
-			, client: client
-			, cache: ui['load-club-posts'] > 50
+		// render posts, use immutable
+		club_posts_list = club_posts.map(function (post, i) {
+			var opts = {
+				num: i
+				, version: version
+				, view: 'club_posts'
+				, client: client
+				, cache: ui['load-club-posts'] > 50
+			};
+
+			return immutable(postTemplate, post, opts);
+		});
+
+		// load more button
+		club_posts_button = loadButtonTemplate({
+			title: 'section.load.club-posts'
+			, key: 'load-club-posts'
+			, eventName: 'page:load:club-posts'
+		});
+	}
+
+	// scenario 3: club management
+	if (ui['club-posts-section'] === 2) {
+		var message, title_field, slug_field, logo_field, intro_field, submit;
+
+		// error message, assume plain text
+		if (ui.form_error) {
+			message = $('div.common-message.error', ui.form_error);
+		}
+
+		// success message, assume object
+		if (ui.form_data && ui.form_data.title && ui.form_data.slug) {
+			message = $('div.common-message.success', [
+				$('span', i18n.t('message.common.manage-club-success'))
+				, $('a', {
+					href: '/c/' + ui.form_data.slug
+				}, ui.form_data.title)
+			]);
+		}
+
+		// normalize field cache
+		var field_data = ui.field_data || {};
+		var field_error = ui.field_error || {};
+
+		// fields
+		title_field = formGroupTemplate({
+			id: 'manage-club-title'
+			, name: 'title'
+			, value: field_data.title || club_profile.title || ''
+			, error: !!field_error.title
+		});
+
+		slug_field = formGroupTemplate({
+			id: 'manage-club-slug'
+			, name: 'slug'
+			, value: field_data.slug || club_profile.slug || ''
+			, error: !!field_error.slug
+		});
+
+		logo_field = formGroupTemplate({
+			id: 'manage-club-logo'
+			, name: 'logo'
+			, value: field_data.logo || club_profile.logo || ''
+			, error: !!field_error.logo
+		});
+
+		intro_field = formGroupTemplate({
+			id: 'manage-club-intro'
+			, name: 'intro'
+			, value: field_data.intro || club_profile.intro || ''
+			, error: !!field_error.intro
+		});
+
+		// submit button
+		submit = formButtonTemplate({
+			text: 'form.button.manage-club-submit'
+		});
+
+		// form id for event handler
+		var submitOpts = { id: 'manage-club', route: 'manage_club', params: [club_profile.slug], method: 'PUT' };
+
+		var formOpts = {
+			action: '#'
+			, method: 'POST'
+			, id: submitOpts.id
+			, key: submitOpts.id
+			, className: 'common-form'
+			, 'ev-submit': emitter.capture('page:form:submit', submitOpts)
 		};
 
-		return immutable(postTemplate, post, opts);
-	});
-
-	// load more button
-	var club_posts_button = loadButtonTemplate({
-		title: 'section.load.club-posts'
-		, key: 'load-club-posts'
-		, eventName: 'page:load:club-posts'
-	});
+		form = $('form', formOpts, [message, title_field, slug_field, logo_field, intro_field, submit]);
+	}
 
 	// page content
 	var homeOpts = {
@@ -70,6 +152,7 @@ function template(data) {
 		club_posts_title
 		, club_posts_list
 		, club_posts_button
+		, form
 	]);
 
 	return home;
