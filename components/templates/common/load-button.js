@@ -27,12 +27,16 @@ function template(data) {
 	var linkOpts = {
 		href: '#'
 		, className: 'wrapper'
-		, 'ev-click': emitter.capture(data.eventName)
 	};
 
-	// button events
-	if (data.eventName && data.eventHandler) {
-		linkOpts[data.eventName] = data.eventHandler;
+	// default button event
+	if (data.eventName) {
+		linkOpts['ev-click'] = emitter.capture(data.eventName, data.eventData);
+	}
+
+	// custom button event
+	if (data.eventType && data.eventHandler) {
+		linkOpts[data.eventType] = data.eventHandler;
 	}
 
 	var load = $('div', buttonOpts, $('a', linkOpts, i18n.t(data.title)));

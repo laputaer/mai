@@ -7,6 +7,7 @@
 
 var $ = require('../vdom');
 var i18n = require('../i18n')();
+var emitter = require('../emitter');
 
 module.exports = template;
 
@@ -17,22 +18,37 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var icon, image, text, buttonOpts;
+	var icon, image, text;
 
 	// button options
-	buttonOpts = {
+	var buttonOpts = {
 		href: data.href || '#'
-		, className: data.className || ''
+		, className: 'm-button'
 	};
+
+	// button class
+	if (data.className) {
+		buttonOpts.className += ' ' + data.className;
+	}
+
+	// button title
+	if (data.title) {
+		buttonOpts.title = data.title;
+	}
 
 	// button target
 	if (data.target) {
 		buttonOpts.target = data.target;
 	}
 
-	// button events
-	if (data.eventName && data.eventHandler) {
-		buttonOpts[data.eventName] = data.eventHandler;
+	// button event, click
+	if (data.eventName) {
+		buttonOpts['ev-click'] = emitter.capture(data.eventName, data.eventData);
+	}
+
+	// button event, custom
+	if (data.eventType && data.eventHandler) {
+		buttonOpts[data.eventType] = data.eventHandler;
 	}
 
 	// button icon
@@ -66,11 +82,19 @@ function template(data) {
 			url += '?' + data.version;
 		}
 
-		image = $('div.m-icon.m-avatar', {
-			style: {
+		var imageOpts = {
+			className: 'm-icon m-avatar'
+			, style: {
 				'background-image': 'url(' + url + ')'
 			}
-		});
+		};
+
+		image = $('div', imageOpts);
+	}
+
+	// button fallback
+	if (data.fallback && !image) {
+		image = $('div.m-icon.m-avatar');
 	}
 
 	// button text
@@ -83,6 +107,6 @@ function template(data) {
 		text = $('span.m-text', data.value.toString());
 	}
 
-	var button = $('a.m-button', buttonOpts, [ icon, image, text ]);
+	var button = $('a', buttonOpts, [ icon, image, text ]);
 	return button;
 };

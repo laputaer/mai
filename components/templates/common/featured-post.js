@@ -9,8 +9,7 @@ var $ = require('../vdom');
 var i18n = require('../i18n')();
 var emitter = require('../emitter');
 
-var buttonTemplate = require('./button');
-var postButtonTemplate = require('./post-button');
+var navButtonTemplate = require('./navigation-button');
 
 module.exports = template;
 
@@ -55,22 +54,26 @@ function template(data) {
 	var title = $('p.title', data.title || data.doc_title);
 
 	if (data.user) {
-		user = postButtonTemplate({
+		user = navButtonTemplate({
 			href: '/u/' + data.user
 			, className: 'plain internal'
-			, text: data.user_login
-			, icon: data.user_avatar
 			, title: data.user_name
+			, value: data.user_login
+			, image: data.user_avatar
+			, size: 'sq-tiny'
+			, fallback: true
 		});
 	}
 
 	if (data.club) {
-		club = postButtonTemplate({
+		club = navButtonTemplate({
 			href: '/c/' + data.club
 			, className: 'plain internal'
-			, text: data.club_name
-			, icon: data.club_image
 			, title: data.club_intro
+			, value: data.club_name
+			, image: data.club_image
+			, size: 'sq-tiny'
+			, fallback: true
 		});
 	}
 
@@ -79,16 +82,14 @@ function template(data) {
 		, order: data.num
 		, view: data.view
 	};
-	var favorite = buttonTemplate({
+	var favorite = navButtonTemplate({
 		href: '#'
 		, className: data.current_user_fav ? 'plain action active' : 'plain action'
 		, value: data.fav_point || '0'
 		, icon: 'heart'
 		, version: data.version
-		, eventName: 'ev-click'
-		, eventHandler: data.current_user_fav ?
-			emitter.capture('page:favorite:remove', favoriteOpts)
-			: emitter.capture('page:favorite:create', favoriteOpts)
+		, eventName: data.current_user_fav ? 'page:favorite:remove' : 'page:favorite:create'
+		, eventData: favoriteOpts
 	});
 
 	var post = $('article', postOpts, [

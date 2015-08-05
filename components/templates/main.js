@@ -22,6 +22,7 @@ function template(data) {
 		, data.footer
 		, data.discover
 		, data.login
+		, data.options
 	]);
 
 	return main;
