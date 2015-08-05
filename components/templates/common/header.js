@@ -38,7 +38,7 @@ function template(data) {
 		, text: 'menu.nav.discover'
 		, icon: 'compass'
 		, version: version
-		, eventName: 'page:nav:open'
+		, eventName: 'page:menu:nav'
 		, client: client
 	});
 
@@ -79,22 +79,31 @@ function template(data) {
 	var helpButton = navButtonTemplate(helpOpts);
 
 	var userButton;
-	if (current_user) {
-		userButton = navButtonTemplate({
-			href: '/u/' + current_user.uid
-			, className: 'rounded nav'
-			, value: current_user.login
-			, image: current_user.avatar
-			, size: 'sq-tiny'
-		});
-	} else {
+	if (!current_user) {
 		userButton = navButtonTemplate({
 			href: '#'
 			, className: 'rounded nav'
 			, text: 'menu.nav.login'
 			, icon: 'upload'
 			, version: version
-			, eventName: 'page:login:open'
+			, eventName: 'page:menu:login'
+		});
+	} else if (club_profile && club_profile.current_user_member) {
+		userButton = navButtonTemplate({
+			href: '#'
+			, className: 'rounded nav'
+			, text: 'menu.nav.options'
+			, icon: 'setting_2'
+			, version: version
+			, eventName: 'page:menu:options'
+		});
+	} else {
+		userButton = navButtonTemplate({
+			href: '/u/' + current_user.uid
+			, className: 'rounded nav'
+			, value: current_user.login
+			, image: current_user.avatar
+			, size: 'sq-tiny'
 		});
 	}
 

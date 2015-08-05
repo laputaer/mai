@@ -17,6 +17,7 @@ module.exports = partial;
  */
 function partial(data) {
 	data.main = templates.page.clubProfile(data);
+	data.options = templates.common.options(data);
 
 	return data;
 };

@@ -23,25 +23,25 @@ module.exports = handlers;
  * @return  Void
  */
 function handlers(app) {
-	emitter.on('page:nav:open', function () {
+	emitter.on('page:menu:nav', function () {
 		toggleScroll(false);
 		app.modify(['ui', 'modal'], 'nav');
 		app.refresh();
 	});
 
-	emitter.on('page:nav:close', function () {
-		toggleScroll(true);
-		app.modify(['ui', 'modal'], false);
-		app.refresh();
-	});
-
-	emitter.on('page:login:open', function () {
+	emitter.on('page:menu:login', function () {
 		toggleScroll(false);
 		app.modify(['ui', 'modal'], 'login');
 		app.refresh();
 	});
 
-	emitter.on('page:login:close', function () {
+	emitter.on('page:menu:options', function () {
+		toggleScroll(false);
+		app.modify(['ui', 'modal'], 'options');
+		app.refresh();
+	});
+
+	emitter.on('page:menu:close', function () {
 		toggleScroll(true);
 		app.modify(['ui', 'modal'], false);
 		app.refresh();

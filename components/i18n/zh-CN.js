@@ -23,6 +23,7 @@ module.exports = {
 			, 'discover': '导航'
 			, 'login': '登录'
 			, 'login-alt': '加入我们'
+			, 'options': '选项'
 		}
 		, 'login': {
 			'twitter': 'Twitter账号'
@@ -34,6 +35,13 @@ module.exports = {
 			, 'contact': '联系我们'
 			, 'privacy': '隐私政策'
 			, 'terms': '服务条款'
+		}
+		, 'options': {
+			'twitter': '推特分享'
+			, 'weibo': '微博分享'
+			, 'manage': '管理社团'
+			, 'stats': '社团数据'
+			, 'leave': '退出社团'
 		}
 	}
 	, 'section': {

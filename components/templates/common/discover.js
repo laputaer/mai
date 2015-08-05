@@ -31,7 +31,7 @@ function template(data) {
 		, text: 'menu.nav.discover'
 		, icon: 'compass'
 		, version: version
-		, eventName: 'page:nav:close'
+		, eventName: 'page:menu:close'
 	};
 	var titleButton = navButtonTemplate(titleOpts);
 
@@ -40,7 +40,7 @@ function template(data) {
 		, className: 'plain close'
 		, icon: 'delete'
 		, version: version
-		, eventName: 'page:nav:close'
+		, eventName: 'page:menu:close'
 	};
 	var closeButton = navButtonTemplate(closeOpts);
 
@@ -78,7 +78,7 @@ function template(data) {
 			, text: 'menu.nav.login'
 			, icon: 'upload'
 			, version: version
-			, eventName: 'page:login:open'
+			, eventName: 'page:menu:login'
 		};
 	}
 

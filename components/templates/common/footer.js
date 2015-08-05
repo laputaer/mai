@@ -33,7 +33,7 @@ function template(data) {
 		, icon: 'flag'
 		, version: version
 		, base_url: base_url
-		, eventName: 'page:login:open'
+		, eventName: 'page:menu:login'
 	});
 
 	// links
