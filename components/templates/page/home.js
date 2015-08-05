@@ -57,7 +57,7 @@ function template(data) {
 	});
 
 	// trick to hide loaded post, so 1st load more is always fast
-	featured_posts = partialList(featured_posts, 10, ui['load-featured-posts']);
+	featured_posts = partialList(featured_posts, 8, ui['load-featured-posts']);
 
 	// render posts, use immutable
 	var featured_posts_list = featured_posts.map(function (post, i) {
