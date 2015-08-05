@@ -37,9 +37,9 @@ function toggleScroll(flag) {
  * @return  Void
  */
 function disableScroll() {
-	win.onwheel = preventDefault;
-	win.ontouchmove = preventDefault;
-	doc.onkeydown = preventDefaultForScrollKeys;
+	win.addEventListener('wheel', preventDefault);
+	win.addEventListener('touchmove', preventDefault);
+	doc.addEventListener('keydown', preventDefaultForScrollKeys);
 };
 
 /**
@@ -48,9 +48,9 @@ function disableScroll() {
  * @return  Void
  */
 function enableScroll() {
-	win.onwheel = null;
-	win.ontouchmove = null;
-	doc.onkeydown = null;
+	win.removeEventListener('wheel', preventDefault);
+	win.removeEventListener('touchmove', preventDefault);
+	doc.removeEventListener('keydown', preventDefaultForScrollKeys);
 };
 
 /**

@@ -7,6 +7,7 @@
 
 var emitter = require('../templates/emitter');
 var toggleScroll = require('./helpers/toggle-body-scroll');
+var menuEscape = require('./helpers/menu-escape');
 
 var createFavorite = require('./handlers/create-favorite');
 var deleteFavorite = require('./handlers/delete-favorite');
@@ -25,24 +26,40 @@ module.exports = handlers;
 function handlers(app) {
 	emitter.on('page:menu:nav', function () {
 		toggleScroll(false);
+		menuEscape(emitter, {
+			name: 'page:menu:close'
+			, enable: true
+		});
 		app.modify(['ui', 'modal'], 'nav');
 		app.refresh();
 	});
 
 	emitter.on('page:menu:login', function () {
 		toggleScroll(false);
+		menuEscape(emitter, {
+			name: 'page:menu:close'
+			, enable: true
+		});
 		app.modify(['ui', 'modal'], 'login');
 		app.refresh();
 	});
 
 	emitter.on('page:menu:options', function () {
 		toggleScroll(false);
+		menuEscape(emitter, {
+			name: 'page:menu:close'
+			, enable: true
+		});
 		app.modify(['ui', 'modal'], 'options');
 		app.refresh();
 	});
 
 	emitter.on('page:menu:close', function () {
 		toggleScroll(true);
+		menuEscape(emitter, {
+			name: 'page:menu:close'
+			, enable: false
+		});
 		app.modify(['ui', 'modal'], false);
 		app.refresh();
 	});
