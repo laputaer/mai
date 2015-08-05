@@ -64,7 +64,7 @@ function template(data) {
 	var weiboButton = navButtonTemplate(weiboOpts);
 
 	var manageButton;
-	if (current_user.uid === club_profile.owner) {
+	if (current_user && club_profile && current_user.uid === club_profile.owner) {
 		var manageOpts = {
 			href: '#'
 			, className: 'plain discover login'
@@ -86,7 +86,7 @@ function template(data) {
 	var statButton = navButtonTemplate(statOpts);
 
 	var leaveButton;
-	if (club_profile.current_user_member && current_user.uid !== club_profile.owner) {
+	if (current_user && club_profile && club_profile.current_user_member && current_user.uid !== club_profile.owner) {
 		var leaveOpts = {
 			href: '#'
 			, className: 'plain discover help'
