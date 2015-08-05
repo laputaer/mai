@@ -6,6 +6,7 @@
  */
 
 var $ = require('../vdom');
+var i18n = require('../i18n')();
 var emitter = require('../emitter');
 
 var navButtonTemplate = require('./navigation-button');
@@ -24,6 +25,7 @@ function template(data) {
 	var club_profile = data.club_profile;
 	var version = data.version.asset;
 	var image_base_url = data.image_base_url;
+	var current_url = data.current_url;
 	var ui = data.ui;
 
 	// buttons
@@ -46,26 +48,47 @@ function template(data) {
 	};
 	var closeButton = navButtonTemplate(closeOpts);
 
+	var twitterUrl = 'https://twitter.com/intent/tweet'
+		+ '?url='
+		+ encodeURIComponent(current_url)
+		+ '&text='
+		+ i18n.t('profile.club.share-message', club_profile);
+		+ '&related=rubume'
+
 	var twitterOpts = {
-		href: '#'
+		href: twitterUrl
 		, className: 'plain login twitter'
 		, text: 'menu.options.twitter'
 		, icon: 'twitter'
 		, version: version
+		, target: '_blank'
 	};
 	var twitterButton = navButtonTemplate(twitterOpts);
 
+	var weiboUrl = 'http://service.weibo.com/share/share.php'
+		+ '?url='
+		+ encodeURIComponent(current_url)
+		+ '&title='
+		+ i18n.t('profile.club.share-message', club_profile)
+		+ '&searchPic=true'
+		+ '&appkey=865867638';
+
+	if (club_profile.image) {
+		weiboUrl += '&pic=' + encodeURIComponent(club_profile.image + '&size=ls-medium');
+	}
+
 	var weiboOpts = {
-		href: '#'
+		href: weiboUrl
 		, className: 'plain login weibo'
 		, text: 'menu.options.weibo'
 		, image: image_base_url + '/images/weibo-logo-64.png'
 		, version: version
+		, target: '_blank'
 	};
 	var weiboButton = navButtonTemplate(weiboOpts);
 
 	var manageButton;
-	if (current_user && club_profile && current_user.uid === club_profile.owner) {
+	if (current_user && current_user.uid === club_profile.owner) {
 		var manageOpts = {
 			href: '#'
 			, className: 'plain options manage'
@@ -87,7 +110,7 @@ function template(data) {
 	var statButton = navButtonTemplate(statOpts);
 
 	var leaveButton;
-	if (current_user && club_profile && club_profile.current_user_member && current_user.uid !== club_profile.owner) {
+	if (current_user && club_profile.current_user_member && current_user.uid !== club_profile.owner) {
 		var leaveOpts = {
 			href: '#'
 			, className: 'plain options leave'

@@ -7,7 +7,7 @@
 
 module.exports = {
 	'common': {
-		'title': '入部么 🌏 与世界一同入迷'
+		'title': '入部么 🌏 「与世界一同入迷」'
 		, 'app-title': '入部么'
 		, 'description': '「入部么」是一个尊重原创与内容出处的爱好者社区，在这里你可以轻松创建与加入感兴趣的社团，收藏与分享从大众科技到小众文化的精彩内容。与世界各地的人们一道，发掘不为人知的信息，共享属于你的消费文化。'
 		, 'domain': 'rubu.me'
@@ -90,6 +90,7 @@ module.exports = {
 	, 'profile': {
 		'club': {
 			'owner': '创始人'
+			, 'share-message': '我加入了名为「%{title}」的社团，目前有 %{members} 位成员，它的口号是「%{intro}」。你不想来让它变得更热闹吗？'
 		}
 	}
 	, 'error': {
