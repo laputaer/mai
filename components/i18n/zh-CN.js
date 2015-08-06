@@ -91,16 +91,29 @@ module.exports = {
 			, 'manage-club-intro': '社团口号'
 			, 'manage-club-intro-note': '允许2-32个字符'
 			, 'manage-club-intro-placeholder': '例如：LL大法好！'
+			, 'create-post-link': '分享链接'
+			, 'create-post-link-note': '你要分享内容的网址'
+			, 'create-post-link-placeholder': '例如：http://bitinn.net/...'
+			, 'create-post-title': '自定义标题'
+			, 'create-post-title-note': '替换默认的标题。准确、清晰、有趣的标题会让更多人注意到这篇分享。'
+			, 'create-post-title-placeholder': '例如：一句话介绍文章'
+			, 'create-post-summary': '自定义简介'
+			, 'create-post-summary-note': '进一步说明分享的内容。内容可以是小结或引用。'
+			, 'create-post-summary-placeholder': '例如：概括文章的精彩之处'
 		}
 		, 'button': {
 			'create-club-submit': '创建社团'
 			, 'manage-club-submit': '更新社团'
+			, 'create-post-submit-1': '下一步'
+			, 'create-post-submit-2': '确认发布'
 		}
 	}
 	, 'message': {
 		'common': {
 			'create-club-success': '社团创建成功，点击访问：'
 			, 'manage-club-success': '社团更新成功，点击刷新：'
+			, 'create-post-preview': '页面抓取成功，以下是分享预览。'
+			, 'create-post-success': '分享发布成功，点击刷新：'
 			, 'action-done': '操作完成。'
 			, 'image-preview': '的预览图片'
 		}

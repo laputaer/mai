@@ -69,6 +69,96 @@ function template(data) {
 		});
 	}
 
+	// scenario 2: new post
+	if (ui['club-posts-section'] === 1) {
+		// 1st section, tabs
+		club_posts_title = sectionTitleTemplate({
+			tabs: ['section.titles.recent-posts', 'section.titles.create-post']
+			, key: 'club-posts'
+			, active: ui['club-posts-section']
+			, bottom: true
+		});
+
+		var message, link_field, title_field, summary_field, submitOpts, submit;
+
+		// error message, assume plain text
+		if (ui.form_error) {
+			message = $('div.common-message.error', ui.form_error);
+		}
+
+		// success message, assume object
+		if (ui.form_data) {
+			// multi-step message
+			if (ui.form_step === 1) {
+				message = $('div.common-message.success', i18n.t('message.common.create-post-preview'));
+			} else if (ui.form_step === 2) {
+				message = $('div.common-message.success', [
+					$('span', i18n.t('message.common.create-post-success'))
+					, $('a', {
+						href: '/c/' + ui.form_data.slug
+					}, ui.form_data.title)
+				]);
+			}
+		}
+
+		// normalize field cache
+		var field_data = ui.field_data || {};
+		var field_error = ui.field_error || {};
+
+		// multi-step form
+		if (!ui.form_step) {
+			// fields
+			link_field = formGroupTemplate({
+				id: 'create-post-link'
+				, name: 'link'
+				, value: field_data.link || ''
+				, error: !!field_error.link
+			});
+
+			// submit button
+			submit = formButtonTemplate({
+				text: 'form.button.create-post-submit-1'
+			});
+
+			// form id for event handler
+			submitOpts = { id: 'init-post', route: 'init_post', params: [club_profile.slug], method: 'POST' };
+		} else if (ui.form_step === 1 || ui.form_step === 2) {
+			// fields
+			title_field = formGroupTemplate({
+				id: 'create-post-title'
+				, name: 'title'
+				, value: field_data.title || ''
+				, error: !!field_error.title
+			});
+
+			summary_field = formGroupTemplate({
+				id: 'create-post-summary'
+				, name: 'summary'
+				, value: field_data.summary || ''
+				, error: !!field_error.summary
+			});
+
+			// submit button
+			submit = formButtonTemplate({
+				text: 'form.button.create-post-submit-2'
+			});
+
+			// form id for event handler
+			submitOpts = { id: 'create-post', route: 'create_post', params: [club_profile.slug], method: 'POST' };
+		}
+
+		var formOpts = {
+			action: '#'
+			, method: 'POST'
+			, id: submitOpts.id
+			, key: submitOpts.id
+			, className: 'common-form'
+			, 'ev-submit': emitter.capture('page:form:submit', submitOpts)
+		};
+
+		form = $('form', formOpts, [message, link_field, title_field, summary_field, submit]);
+	}
+
 	// scenario 3: club management
 	if (ui['club-posts-section'] === 2) {
 		// 1st section, tabs

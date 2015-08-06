@@ -67,4 +67,10 @@ module.exports = {
 	, club_membership: {
 		endpoint: '/clubs/:slug/users'
 	}
+	, init_post: {
+		endpoint: '/clubs/:slug/posts'
+	}
+	, create_post: {
+		endpoint: '/clubs/:slug/posts/create'
+	}
 };
