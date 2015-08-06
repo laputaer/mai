@@ -98,8 +98,8 @@ module.exports = {
 	}
 	, 'message': {
 		'common': {
-			'create-club-success': '社团创建成功：'
-			, 'manage-club-success': '社团更新成功：'
+			'create-club-success': '社团创建成功，点击访问：'
+			, 'manage-club-success': '社团更新成功，点击刷新：'
 			, 'action-done': '操作完成。'
 			, 'image-preview': '的预览图片'
 		}
