@@ -22,4 +22,5 @@ module.exports = {
 	, recentClubs: require('./recent-clubs')
 	, createClub: require('./create-club')
 	, manageClub: require('./manage-club')
+	, initPost: require('./init-post')
 };
