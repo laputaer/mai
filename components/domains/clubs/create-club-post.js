@@ -38,6 +38,8 @@ function *createClubPost(opts) {
 		slug: club.slug
 	}, {
 		points: club.points ? club.points + 1 : 1
+		, posts: club.posts ? club.posts + 1 : 1
+		, updated: new Date()
 	});
 
 	// STEP 3: create post

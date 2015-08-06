@@ -51,11 +51,20 @@ function template(data) {
 	});
 
 	// load more button
-	var hot_clubs_button = loadButtonTemplate({
-		title: 'section.load.hot-clubs'
-		, key: 'load-hot-clubs'
-		, eventName: 'page:load:hot-clubs'
-	});
+	var hot_clubs_count = hot_clubs_list.length;
+	var hot_clubs_button;
+	if (!ui['load-hot-clubs'] || hot_clubs_count >= ui['load-hot-clubs']) {
+		hot_clubs_button = loadButtonTemplate({
+			title: 'section.load.hot-clubs'
+			, key: 'load-hot-clubs'
+			, eventName: 'page:load:hot-clubs'
+		});
+	} else {
+		hot_clubs_button = loadButtonTemplate({
+			title: 'section.load.eof-2'
+			, key: 'load-hot-clubs'
+		});
+	}
 
 	// 2nd section, plain title
 	var top_clubs_title = sectionTitleTemplate({
@@ -77,11 +86,20 @@ function template(data) {
 		return immutable(clubTemplate, club, opts);
 	});
 
-	var top_clubs_button = loadButtonTemplate({
-		title: 'section.load.top-clubs'
-		, key: 'load-top-clubs'
-		, eventName: 'page:load:top-clubs'
-	});
+	var top_clubs_count = top_clubs_list.length;
+	var top_clubs_button;
+	if (!ui['load-top-clubs'] || top_clubs_count >= ui['load-top-clubs']) {
+		top_clubs_button = loadButtonTemplate({
+			title: 'section.load.top-clubs'
+			, key: 'load-top-clubs'
+			, eventName: 'page:load:top-clubs'
+		});
+	} else {
+		top_clubs_button = loadButtonTemplate({
+			title: 'section.load.eof-2'
+			, key: 'load-top-clubs'
+		});
+	}
 
 	// 3rd section, plain title
 	var recent_clubs_title = sectionTitleTemplate({
@@ -108,6 +126,21 @@ function template(data) {
 		, key: 'load-recent-clubs'
 		, eventName: 'page:load:recent-clubs'
 	});
+
+	var recent_clubs_count = recent_clubs_list.length;
+	var recent_clubs_button;
+	if (!ui['load-recent-clubs'] || recent_clubs_count >= ui['load-recent-clubs']) {
+		recent_clubs_button = loadButtonTemplate({
+			title: 'section.load.recent-clubs'
+			, key: 'load-recent-clubs'
+			, eventName: 'page:load:recent-clubs'
+		});
+	} else {
+		recent_clubs_button = loadButtonTemplate({
+			title: 'section.load.eof-2'
+			, key: 'load-recent-clubs'
+		});
+	}
 
 	// page content
 	var clubOpts = {

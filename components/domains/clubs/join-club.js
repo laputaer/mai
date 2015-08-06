@@ -25,7 +25,7 @@ function *joinClub(opts) {
 	yield User.update({
 		uid: user.uid
 	}, {
-		action_point: user.action_point - 2
+		action_point: user.action_point - 1
 	});
 
 	// STEP 2: update club stats
@@ -33,7 +33,8 @@ function *joinClub(opts) {
 		slug: club.slug
 	}, {
 		members: club.members ? club.members + 1 : 1
-		, points: club.points ? club.points + 2 : 2
+		, points: club.points ? club.points + 1 : 1
+		, updated: new Date()
 	});
 
 	// STEP 3: register membership

@@ -108,6 +108,8 @@ function template(data) {
 		manageButton = navButtonTemplate(manageOpts);
 	}
 
+	var statButton;
+	/*
 	eventData = {
 		order: 3
 		, view: 'club-posts-section'
@@ -123,6 +125,7 @@ function template(data) {
 		, eventData: eventData
 	};
 	var statButton = navButtonTemplate(statOpts);
+	*/
 
 	var leaveButton;
 	if (current_user && club_profile.current_user_member && current_user.uid !== club_profile.owner) {

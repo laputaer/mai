@@ -1,6 +1,6 @@
 
 /**
- * club-search.js
+ * club-search.js (deprecated)
  *
  * Koa route handler for club search page
  */

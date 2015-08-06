@@ -179,7 +179,10 @@ function handlers(app) {
 	emitter.on('page:form:submit', function (data) {
 		var form = doc.getElementById(data.id);
 		var body = getFormData(app, form);
+		app.modify(['ui', 'form_loading'], true);
+		app.refresh();
 		app.json(data.method, data.route, { body: body }, data.params).then(function (json) {
+			app.modify(['ui', 'form_loading'], false);
 			formResult(app, json);
 		});
 	});

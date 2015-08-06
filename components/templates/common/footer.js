@@ -23,18 +23,22 @@ function template(data) {
 	// common data
 	var version = data.version.asset;
 	var base_url = data.base_url;
+	var current_user = data.current_user;
 
 	var tagline = $('p.tagline', i18n.t('common.tagline-alt'));
 
-	var loginButton = navButtonTemplate({
-		href: '#'
-		, className: 'rounded nav signup'
-		, text: 'menu.nav.login-alt'
-		, icon: 'flag'
-		, version: version
-		, base_url: base_url
-		, eventName: 'page:menu:login'
-	});
+	var loginButton;
+	if (!current_user) {
+		loginButton = navButtonTemplate({
+			href: '#'
+			, className: 'rounded nav signup'
+			, text: 'menu.nav.login-alt'
+			, icon: 'flag'
+			, version: version
+			, base_url: base_url
+			, eventName: 'page:menu:login'
+		});
+	}
 
 	// links
 	var copyrightLink = $('a', {
@@ -43,15 +47,16 @@ function template(data) {
 	}, i18n.t('menu.footer.copyright'));
 
 	var contactLink = $('a', {
-		href: '/contact'
+		href: 'https://twitter.com/rubume'
+		, target: '_blank'
 	}, i18n.t('menu.footer.contact'));
 
 	var privacyLink = $('a', {
-		href: '/privacy'
+		href: '#'
 	}, i18n.t('menu.footer.privacy'));
 
 	var termsLink = $('a', {
-		href: '/terms'
+		href: '#'
 	}, i18n.t('menu.footer.terms'));
 
 	// footer

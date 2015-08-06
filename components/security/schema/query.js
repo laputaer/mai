@@ -58,5 +58,10 @@ function factory() {
 
 				return true;
 			}, 'range invalid')
+		.validates('share')
+			.optional()
+			.using(function(value) {
+				return validator.testUrl(value)
+			}, 'share invalid')
 		.build();
 };

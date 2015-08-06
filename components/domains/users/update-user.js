@@ -24,12 +24,10 @@ function *updateUser(opts) {
 		, updated: new Date()
 	};
 
-	// may throw error
 	yield User.update({
 		uid: opts.profile.uid
 	}, profile);
 
-	// null if user not found
 	return yield User.findOne({
 		uid: opts.profile.uid
 	});

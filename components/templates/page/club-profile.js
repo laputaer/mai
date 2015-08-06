@@ -16,6 +16,7 @@ var sectionTitleTemplate = require('../common/section-title');
 var loadButtonTemplate = require('../common/load-button');
 var formGroupTemplate = require('../common/form-group');
 var formButtonTemplate = require('../common/form-button');
+var navButtonTemplate = require('../common/navigation-button');
 
 module.exports = template;
 
@@ -32,6 +33,7 @@ function template(data) {
 	var ui = data.ui;
 	var client = data.client;
 	var version = data.version.asset;
+	var base_url = data.base_url;
 
 	var club_posts_title, club_posts_list, club_posts_button, form;
 
@@ -62,11 +64,20 @@ function template(data) {
 		});
 
 		// load more button
-		club_posts_button = loadButtonTemplate({
-			title: 'section.load.club-posts'
-			, key: 'load-club-posts'
-			, eventName: 'page:load:club-posts'
-		});
+		var club_posts_count = club_posts_list.length;
+		var club_posts_button;
+		if (!ui['load-club-posts'] || club_posts_count >= ui['load-club-posts']) {
+			club_posts_button = loadButtonTemplate({
+				title: 'section.load.club-posts'
+				, key: 'load-club-posts'
+				, eventName: 'page:load:club-posts'
+			});
+		} else {
+			club_posts_button = loadButtonTemplate({
+				title: 'section.load.eof-2'
+				, key: 'load-club-posts'
+			});
+		}
 	}
 
 	// scenario 2: new post
@@ -79,7 +90,7 @@ function template(data) {
 			, bottom: true
 		});
 
-		var message, link_field, title_field, summary_field, submitOpts, submit;
+		var message, post_preview, link_field, title_field, summary_field, submitOpts, submit, bookmarklet;
 
 		// error message, assume plain text
 		if (ui.form_error) {
@@ -118,11 +129,35 @@ function template(data) {
 			// submit button
 			submit = formButtonTemplate({
 				text: 'form.button.create-post-submit-1'
+				, icon: 'music_play'
+				, version: version
+				, loading: ui.form_loading
 			});
 
 			// form id for event handler
 			submitOpts = { id: 'init-post', route: 'init_post', params: [club_profile.slug], method: 'POST' };
+
+			// bookmarklet
+			/*
+			bookmarklet = $('div.common-bookmark', [
+				$('span.intro', i18n.t('form.bookmarklet.intro'))
+				, navButtonTemplate({
+					href: 'javascript:(function(){ window.open(\''
+						+ base_url
+						+ '/c/'
+						+ club_profile.slug
+						+ '?share=\'+encodeURIComponent(location.href)); })();'
+					, className: 'rounded'
+					, value: i18n.t('form.bookmarklet.share-to') + club_profile.title
+				})
+			]);
+			*/
 		} else if (ui.form_step === 1 || ui.form_step === 2) {
+			// post preview
+			if (ui.form_data) {
+				post_preview = $('div.form-preview', postTemplate(ui.form_data));
+			}
+
 			// fields
 			title_field = formGroupTemplate({
 				id: 'create-post-title'
@@ -156,7 +191,7 @@ function template(data) {
 			, 'ev-submit': emitter.capture('page:form:submit', submitOpts)
 		};
 
-		form = $('form', formOpts, [message, link_field, title_field, summary_field, submit]);
+		form = $('form', formOpts, [message, post_preview, link_field, title_field, summary_field, submit, bookmarklet]);
 	}
 
 	// scenario 3: club management

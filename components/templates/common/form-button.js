@@ -21,9 +21,30 @@ function template(data) {
 
 	// button options
 	buttonOpts = {
-		type: 'submit'
+		id: 'form-submit-button'
+		, key: 'form-submit-button'
+		, type: 'submit'
 		, className: 'm-button rounded form-button'
 	};
+
+	// button icon
+	if (data.icon && data.version) {
+		var iconOpts = {
+			attributes: {
+				'class': 'm-icon'
+			}
+		};
+
+		if (data.loading) {
+			iconOpts.attributes.class += ' m-hint';
+		}
+
+		icon = $('svg', iconOpts, [
+			$('use', {
+				'xlink:href': '/assets/icons.svg?' + data.version + '#' + data.icon
+			})
+		]);
+	}
 
 	// button text
 	if (data.text !== undefined) {

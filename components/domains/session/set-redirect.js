@@ -1,6 +1,6 @@
 
 /**
- * set-redirect.js
+ * set-redirect.js (deprecated)
  *
  * Set a redirect path to be followed on login
  */

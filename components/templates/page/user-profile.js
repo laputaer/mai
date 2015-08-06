@@ -52,11 +52,21 @@ function template(data) {
 		return immutable(postTemplate, post, opts);
 	});
 
-	var user_posts_button = loadButtonTemplate({
-		title: 'section.load.user-posts'
-		, key: 'load-user-posts'
-		, eventName: 'page:load:user-posts'
-	});
+	// load more button
+	var user_posts_count = user_posts_list.length;
+	var user_posts_button;
+	if (!ui['load-user-posts'] || user_posts_count >= ui['load-user-posts']) {
+		user_posts_button = loadButtonTemplate({
+			title: 'section.load.user-posts'
+			, key: 'load-user-posts'
+			, eventName: 'page:load:user-posts'
+		});
+	} else {
+		user_posts_button = loadButtonTemplate({
+			title: 'section.load.eof-2'
+			, key: 'load-user-posts'
+		});
+	}
 
 	// page content
 	var homeOpts = {

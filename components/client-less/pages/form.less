@@ -101,6 +101,17 @@
 		}
 	}
 
+	.form-preview {
+		display: block;
+		clear: both;
+		overflow: hidden;
+		margin: 0 0 20px;
+
+		.featured-post {
+			box-shadow: none;
+		}
+	}
+
 	.form-group.error {
 		.form-label {
 			color: @color-red;
@@ -145,7 +156,13 @@
 		}
 
 		.form-button {
+			line-height: 24px;
 			.size(24);
+
+			.m-icon {
+				width: 24px;
+				height: 24px;
+			}
 		}
 	}
 }
@@ -176,5 +193,20 @@
 	&.info {
 		color: @color-blue;
 		background-color: @color-blue-pastel;
+	}
+}
+
+.common-bookmark {
+	clear: both;
+	overflow: hidden;
+
+	.intro {
+		display: block;
+		margin: 30px 0 10px;
+		.size(18);
+	}
+
+	a {
+		.size(20);
 	}
 }

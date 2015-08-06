@@ -60,7 +60,6 @@ function *updateClub(opts) {
 			club: slug
 		}, {
 			club: club.slug
-			, club_name: club.title
 		}, {
 			multi: true
 		});
