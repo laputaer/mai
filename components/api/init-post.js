@@ -201,7 +201,7 @@ function *middleware(next) {
 		&& Array.isArray(club.embed.image)
 		&& club.embed.image.length > 0
 	) {
-		image = club.embed.image[0];
+		var image = club.embed.image[0];
 		output.club_image = proxyUrl({
 			url: image.secure_url || image.url
 			, key: config.proxy.key
