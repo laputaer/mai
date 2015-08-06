@@ -64,4 +64,7 @@ module.exports = {
 	, favorite_post: {
 		endpoint: '/posts/:pid/favorite'
 	}
+	, club_membership: {
+		endpoint: '/clubs/:slug/users'
+	}
 };

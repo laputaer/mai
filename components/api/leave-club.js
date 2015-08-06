@@ -66,6 +66,11 @@ function *middleware(next) {
 		return;
 	}
 
+	if (!club) {
+		this.state.error_json = getStandardJson(null, 404, i18n.t('error.not-found-club'));
+		return;
+	}
+
 	// STEP 5: check membership
 	var membership = yield clubsDomain.matchMembership({
 		db: this.db
@@ -75,6 +80,11 @@ function *middleware(next) {
 
 	if (!membership) {
 		this.state.error_json = getStandardJson(null, 409, i18n.t('error.duplicate-action'));
+		return;
+	}
+
+	if (membership.type === 'owner') {
+		this.state.error_json = getStandardJson(null, 403, i18n.t('error.owner-cannot-leave-club'));
 		return;
 	}
 

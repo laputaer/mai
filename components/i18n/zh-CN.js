@@ -24,6 +24,7 @@ module.exports = {
 			, 'login': '登录'
 			, 'login-alt': '加入我们'
 			, 'options': '选项'
+			, 'join': '加入'
 		}
 		, 'login': {
 			'twitter': 'Twitter账号'
@@ -130,6 +131,7 @@ module.exports = {
 		, 'opengraph-error-response': '请求远端页面时出现了网络错误，可能理由：(1) 该页面不支持站外引用 (2) 暂时的网络错误'
 		, 'opengraph-invalid-profile': '请求远端页面时得到了不正确数据，如重复出现，请联系我们反馈错误。'
 		, 'membership-required-to-post': '你需要先加入社团才能发布分享。'
+		, 'owner-cannot-leave-club': '社团创始人不能离开社团。'
 		, 'duplicate-action': '你已经执行过这个操作。'
 		, 'feedback': '为什么出现这个错误？'
 		, 'feedback-contact-1': '可联系开发者'

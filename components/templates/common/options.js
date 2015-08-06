@@ -132,6 +132,8 @@ function template(data) {
 			, text: 'menu.options.leave'
 			, icon: 'minus'
 			, version: version
+			, eventName: 'page:club:leave'
+			, eventData: { slug: club_profile.slug }
 		};
 
 		leaveButton = navButtonTemplate(leaveOpts);

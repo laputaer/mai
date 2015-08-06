@@ -15,6 +15,8 @@ var deleteFavorite = require('./handlers/delete-favorite');
 var loadContent = require('./handlers/load-content');
 var getFormData = require('./handlers/get-form-data');
 var formResult = require('./handlers/form-result');
+var joinClub = require('./handlers/join-club');
+var leaveClub = require('./handlers/leave-club');
 
 module.exports = handlers;
 
@@ -151,6 +153,25 @@ function handlers(app) {
 		app.json('DELETE', 'favorite_post', null, [data.id]).then(function (json) {
 			if (!json.ok) {
 				createFavorite(app, data);
+			}
+		});
+	});
+
+	emitter.on('page:club:join', function (data) {
+		joinClub(app, data);
+		app.json('PUT', 'club_membership', null, [data.slug]).then(function (json) {
+			if (!json.ok) {
+				leaveClub(app, data);
+			}
+		});
+	});
+
+	emitter.on('page:club:leave', function (data) {
+		leaveClub(app, data);
+		emitter.emit('page:menu:close');
+		app.json('DELETE', 'club_membership', null, [data.slug]).then(function (json) {
+			if (!json.ok) {
+				joinClub(app, data);
 			}
 		});
 	});
