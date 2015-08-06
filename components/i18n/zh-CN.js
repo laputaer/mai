@@ -109,6 +109,10 @@ module.exports = {
 			, 'create-post-submit-1': '下一步'
 			, 'create-post-submit-2': '确认发布'
 		}
+		, 'bookmarklet': {
+			'share-to': '分享到'
+			, 'intro': '想要更简单的分享方式？将这个按钮拉动到你的书签栏。'
+		}
 	}
 	, 'message': {
 		'common': {

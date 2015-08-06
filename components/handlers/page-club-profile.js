@@ -13,6 +13,7 @@ var createError = require('../helpers/create-error-message');
 var i18n = require('../templates/i18n')();
 var clubProfile = require('../api/club-profile')();
 var clubPosts = require('../api/club-posts')();
+var validate = require('../security/validation');
 
 module.exports = factory;
 
@@ -38,7 +39,15 @@ function *middleware(next) {
 	var data = prepareData(this);
 	data.canonical_url = resolver(data.current_url, data.current_path);
 
-	// STEP 2: find club
+	// STEP 2: handle share url
+	/*
+	var result = yield validate(this.request.query, 'query');
+	if (result.valid) {
+		data.share_url = this.request.query.share || ''
+	}
+	*/
+
+	// STEP 3: find club
 	data.club_profile = yield clubProfile;
 
 	if (!data.club_profile) {
@@ -46,9 +55,9 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 3: find posts
+	// STEP 4: find posts
 	data.club_posts = yield clubPosts;
 
-	// STEP 4: render page
+	// STEP 5: render page
 	this.state.vdoc = builder(data);
 };
