@@ -35,16 +35,16 @@ function template(data) {
 
 	var club_posts_title, club_posts_list, club_posts_button, form;
 
-	// 1st section, tabs, always shown
-	club_posts_title = sectionTitleTemplate({
-		tabs: ['section.titles.recent-posts', 'section.titles.create-post']
-		, key: 'club-posts'
-		, active: ui['club-posts-section'] || 0
-		, bottom: true
-	});
-
 	// scenario 1: defaul tab active
 	if (!ui['club-posts-section']) {
+		// 1st section, tabs
+		club_posts_title = sectionTitleTemplate({
+			tabs: ['section.titles.recent-posts', 'section.titles.create-post']
+			, key: 'club-posts'
+			, active: ui['club-posts-section'] || 0
+			, bottom: true
+		});
+
 		// trick to hide loaded post, so 1st load more is always fast
 		club_posts = partialList(club_posts, 8, ui['load-club-posts']);
 
@@ -71,6 +71,15 @@ function template(data) {
 
 	// scenario 3: club management
 	if (ui['club-posts-section'] === 2) {
+		// 1st section, tabs
+		club_posts_title = sectionTitleTemplate({
+			tabs: ['section.titles.recent-posts', 'section.titles.manage-club']
+			, orders: [0, 2]
+			, key: 'club-posts'
+			, active: ui['club-posts-section']
+			, bottom: true
+		});
+
 		var message, title_field, slug_field, logo_field, intro_field, submit;
 
 		// error message, assume plain text

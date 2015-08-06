@@ -48,7 +48,7 @@ function template(data) {
 		content = data.tabs.map(function (tab, i) {
 			// tab data to send
 			var tabData = {
-				order: i
+				order: data.orders ? data.orders[i] : i
 				, view: data.key + '-section'
 			};
 
@@ -60,7 +60,7 @@ function template(data) {
 			};
 
 			// tab state
-			if (i === data.active || (i === 0 && !data.active)) {
+			if (tabData.order === data.active) {
 				tabOpts.className += ' active';
 			}
 

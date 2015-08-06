@@ -56,6 +56,8 @@ module.exports = {
 			, 'recent-clubs': '新人社团'
 			, 'create-club': '创建新社团'
 			, 'create-post': '创建新分享'
+			, 'manage-club': '管理社团'
+			, 'club-stats': '社团数据'
 		}
 		, 'load': {
 			'featured-posts': '浏览更多精彩内容'
