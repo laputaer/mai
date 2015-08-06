@@ -14,8 +14,10 @@ module.exports = helper;
  * @return  String
  */
 function helper(user) {
-	if (user.provider === 'twitter' || user.provider === 'github' || user.provider === 'weibo') {
+	if (user.provider === 'twitter' || user.provider === 'github') {
 		return 'https://' + user.provider + '.com/' + user.login;
+	} else if (user.provider === 'weibo') {
+		return 'http://' + user.provider + '.com/' + user.login;
 	} else {
 		return 'https://' + user.provider + '.com/';
 	}

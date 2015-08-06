@@ -8,6 +8,7 @@
 var $ = require('../vdom');
 var emitter = require('../emitter');
 var immutable = require('../immutable');
+var partialList = require('../partial-list');
 
 var clubTemplate = require('../common/featured-club');
 var sectionTitleTemplate = require('../common/section-title');
@@ -22,96 +23,93 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var section_title_1 = sectionTitleTemplate({
+	// common data
+	var hot_clubs = data.hot_clubs;
+	var top_clubs = data.top_clubs;
+	var recent_clubs = data.recent_clubs;
+	var ui = data.ui;
+	var client = data.client;
+
+	// 1st section, plain title
+	var hot_clubs_title = sectionTitleTemplate({
 		title: 'section.titles.hot-clubs'
 		, key: 'hot-clubs'
 	});
 
-	var section_title_2 = sectionTitleTemplate({
-		title: 'section.titles.top-clubs'
-		, key: 'top-clubs'
-		, top: true
-	});
+	// trick to hide loaded post, so 1st load more is always fast
+	hot_clubs = partialList(hot_clubs, 8, ui['load-hot-clubs']);
 
-	var section_title_3 = sectionTitleTemplate({
-		title: 'section.titles.recent-clubs'
-		, key: 'recent-clubs'
-		, top: true
-	});
-
-	var hot_clubs = data.hot_clubs;
-	var top_clubs = data.top_clubs;
-	var recent_clubs = data.recent_clubs;
-
-	if (!data.ui.load_hot_clubs) {
-		hot_clubs = hot_clubs.slice(0, 10);
-	} else if (data.ui.load_hot_clubs > 0) {
-		hot_clubs = hot_clubs.slice(0, data.ui.load_hot_clubs);
-	}
-
-	if (!data.ui.load_top_clubs) {
-		top_clubs = top_clubs.slice(0, 10);
-	} else if (data.ui.load_top_clubs > 0) {
-		top_clubs = top_clubs.slice(0, data.ui.load_top_clubs);
-	}
-
-	if (!data.ui.load_recent_clubs) {
-		recent_clubs = recent_clubs.slice(0, 10);
-	} else if (data.ui.load_recent_clubs > 0) {
-		recent_clubs = recent_clubs.slice(0, data.ui.load_recent_clubs);
-	}
-
-	hot_clubs = hot_clubs.map(function(club) {
+	// render clubs, use immutable
+	var hot_clubs_list = hot_clubs.map(function (club) {
 		var opts = {
-			client: data.client
-			, count: data.ui.load_hot_clubs
+			client: client
+			, cache: ui['load-hot-clubs'] > 50
 			, prefix: 'hot-club'
 		};
 
 		return immutable(clubTemplate, club, opts);
 	});
 
-	top_clubs = top_clubs.map(function(club) {
+	// load more button
+	var hot_clubs_button = loadButtonTemplate({
+		title: 'section.load.hot-clubs'
+		, key: 'load-hot-clubs'
+		, eventName: 'page:load:hot-clubs'
+	});
+
+	// 2nd section, plain title
+	var top_clubs_title = sectionTitleTemplate({
+		title: 'section.titles.top-clubs'
+		, key: 'top-clubs'
+		, top: true
+	});
+
+	// same trick as section 1
+	top_clubs = partialList(top_clubs, 8, ui['load-top-clubs']);
+
+	var top_clubs_list = top_clubs.map(function (club) {
 		var opts = {
-			client: data.client
-			, count: data.ui.load_top_clubs
+			client: client
+			, cache: ui['load-top-clubs'] > 50
 			, prefix: 'top-club'
 		};
 
 		return immutable(clubTemplate, club, opts);
 	});
 
-	recent_clubs = recent_clubs.map(function(club) {
+	var top_clubs_button = loadButtonTemplate({
+		title: 'section.load.top-clubs'
+		, key: 'load-top-clubs'
+		, eventName: 'page:load:top-clubs'
+	});
+
+	// 3rd section, plain title
+	var recent_clubs_title = sectionTitleTemplate({
+		title: 'section.titles.recent-clubs'
+		, key: 'recent-clubs'
+		, top: true
+	});
+
+	// same trick as section 1
+	recent_clubs = partialList(recent_clubs, 8, ui['load-recent-clubs']);
+
+	var recent_clubs_list = recent_clubs.map(function (club) {
 		var opts = {
-			client: data.client
-			, count: data.ui.load_recent_clubs
+			client: client
+			, cache: ui['load-recent-clubs'] > 50
 			, prefix: 'recent-club'
 		};
 
 		return immutable(clubTemplate, club, opts);
 	});
 
-	var load_hot_clubs_button = loadButtonTemplate({
-		title: 'section.load.hot-clubs'
-		, key: 'load-hot-clubs'
-		, eventName: 'ev-click'
-		, eventHandler: emitter.capture('page:load:hot-clubs')
-	});
-
-	var load_top_clubs_button = loadButtonTemplate({
-		title: 'section.load.top-clubs'
-		, key: 'load-top-clubs'
-		, eventName: 'ev-click'
-		, eventHandler: emitter.capture('page:load:top-clubs')
-	});
-
-	var load_recent_clubs_button = loadButtonTemplate({
+	var recent_clubs_button = loadButtonTemplate({
 		title: 'section.load.recent-clubs'
 		, key: 'load-recent-clubs'
-		, eventName: 'ev-click'
-		, eventHandler: emitter.capture('page:load:recent-clubs')
+		, eventName: 'page:load:recent-clubs'
 	});
 
+	// page content
 	var clubOpts = {
 		id: 'content'
 		, key: 'content'
@@ -119,15 +117,15 @@ function template(data) {
 	};
 
 	var ranking = $('div', clubOpts, [
-		section_title_1
-		, hot_clubs
-		, load_hot_clubs_button
-		, section_title_2
-		, top_clubs
-		, load_top_clubs_button
-		, section_title_3
-		, recent_clubs
-		, load_recent_clubs_button
+		hot_clubs_title
+		, hot_clubs_list
+		, hot_clubs_button
+		, top_clubs_title
+		, top_clubs_list
+		, top_clubs_button
+		, recent_clubs_title
+		, recent_clubs_list
+		, recent_clubs_button
 	]);
 
 	return ranking;

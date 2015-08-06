@@ -19,15 +19,18 @@ module.exports = template;
  * @return  VNode
  */
 function template() {
+	// common answer section
 	var sectionOpts = {
 		className: 'page-section-help'
 	};
 
+	// question
 	var section_title_1 = sectionTitleTemplate({
 		title: 'help.about-question'
 		, key: 'about'
 	});
 
+	// answer
 	var section_1 = $('div', sectionOpts, [
 		$('p', i18n.t('help.about-answer-1'))
 		, $('p', i18n.t('help.about-answer-2'))
@@ -49,6 +52,7 @@ function template() {
 		])
 	]);
 
+	// ditto
 	var section_title_2 = sectionTitleTemplate({
 		title: 'help.about-us-question'
 		, key: 'about-us'
@@ -182,6 +186,7 @@ function template() {
 		, $('p', i18n.t('help.game-rule-club-answer-5'))
 	]);
 
+	// page content
 	var manualOpts = {
 		id: 'content'
 		, key: 'content'

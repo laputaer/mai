@@ -13,6 +13,9 @@ var prefix = '/api/v1';
 // API group
 var api = require('./api');
 
+// Route replace regex
+var re = /:[^\s\$\/]+/g;
+
 module.exports = Service;
 
 /**
@@ -48,15 +51,27 @@ Service.prototype.sync = function(route) {
 /**
  * Fetch backend, raw request
  *
- * @param   String   url   Backend service endpoint
- * @param   Object   opts  Optional parameters
+ * @param   String   url     Backend service endpoint or API name
+ * @param   Object   opts    Optional parameters
+ * @param   Array    params  Params for endpoints
  * @return  Promise
  */
-Service.prototype.send = function(url, opts) {
+Service.prototype.send = function(url, opts, params) {
 	opts = opts || {};
 
-	if (!opts.credentials) {
-		opts.credentials = 'same-origin';
+	// allow api name to be used
+	if (url.indexOf('/') !== 0) {
+		url = api[url].endpoint
+
+		// allow optional route params
+		if (params && params.length > 0) {
+			var count = 0;
+			var replaceFunc = function () {
+				return params[count++];
+			};
+
+			url = url.replace(re, replaceFunc);
+		}
 	}
 
 	return fetch(prefix + url, opts);
@@ -108,7 +123,7 @@ Service.prototype.fetch = function(name, opts, params) {
 
 		// allow optional route params
 		if (params.length > 0) {
-			path = path.replace(/:[^\s\$/]+/g, replaceFunc);
+			path = path.replace(re, replaceFunc);
 		}
 
 		// send cookie

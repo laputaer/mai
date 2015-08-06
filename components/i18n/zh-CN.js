@@ -7,7 +7,7 @@
 
 module.exports = {
 	'common': {
-		'title': '入部么 🌏 与世界一同入迷'
+		'title': '入部么 🌏 「与世界一同入迷」'
 		, 'app-title': '入部么'
 		, 'description': '「入部么」是一个尊重原创与内容出处的爱好者社区，在这里你可以轻松创建与加入感兴趣的社团，收藏与分享从大众科技到小众文化的精彩内容。与世界各地的人们一道，发掘不为人知的信息，共享属于你的消费文化。'
 		, 'domain': 'rubu.me'
@@ -23,6 +23,8 @@ module.exports = {
 			, 'discover': '导航'
 			, 'login': '登录'
 			, 'login-alt': '加入我们'
+			, 'options': '选项'
+			, 'join': '加入'
 		}
 		, 'login': {
 			'twitter': 'Twitter账号'
@@ -34,6 +36,13 @@ module.exports = {
 			, 'contact': '联系我们'
 			, 'privacy': '隐私政策'
 			, 'terms': '服务条款'
+		}
+		, 'options': {
+			'twitter': '推特分享'
+			, 'weibo': '微博分享'
+			, 'manage': '管理社团'
+			, 'stats': '社团数据'
+			, 'leave': '退出社团'
 		}
 	}
 	, 'section': {
@@ -47,6 +56,9 @@ module.exports = {
 			, 'hot-clubs': '热门社团'
 			, 'recent-clubs': '新人社团'
 			, 'create-club': '创建新社团'
+			, 'create-post': '创建新分享'
+			, 'manage-club': '管理社团'
+			, 'club-stats': '社团数据'
 		}
 		, 'load': {
 			'featured-posts': '浏览更多精彩内容'
@@ -67,14 +79,41 @@ module.exports = {
 			, 'create-club-slug': '社团路径'
 			, 'create-club-slug-note': '允许2-16个字符，仅限字母、数字和连字符'
 			, 'create-club-slug-placeholder': '例如：love-live'
+			, 'manage-club-title': '社团名称'
+			, 'manage-club-title-note': '允许2-16个字符'
+			, 'manage-club-title-placeholder': '例如：Love Live'
+			, 'manage-club-slug': '社团路径'
+			, 'manage-club-slug-note': '允许2-16个字符，仅限字母、数字和连字符'
+			, 'manage-club-slug-placeholder': '例如：love-live'
+			, 'manage-club-logo': '社团标志'
+			, 'manage-club-logo-note': '支持 Flickr / Pixiv / dA 等网址'
+			, 'manage-club-logo-placeholder': '例如：http://flic.kr/p/...'
+			, 'manage-club-intro': '社团口号'
+			, 'manage-club-intro-note': '允许2-32个字符'
+			, 'manage-club-intro-placeholder': '例如：LL大法好！'
+			, 'create-post-link': '分享链接'
+			, 'create-post-link-note': '你要分享内容的网址'
+			, 'create-post-link-placeholder': '例如：http://bitinn.net/...'
+			, 'create-post-title': '自定义标题'
+			, 'create-post-title-note': '替换默认的标题。准确、清晰、有趣的标题会让更多人注意到这篇分享。'
+			, 'create-post-title-placeholder': '例如：一句话介绍文章'
+			, 'create-post-summary': '自定义简介'
+			, 'create-post-summary-note': '进一步说明分享的内容。内容可以是小结或引用。'
+			, 'create-post-summary-placeholder': '例如：概括文章的精彩之处'
 		}
 		, 'button': {
 			'create-club-submit': '创建社团'
+			, 'manage-club-submit': '更新社团'
+			, 'create-post-submit-1': '下一步'
+			, 'create-post-submit-2': '确认发布'
 		}
 	}
 	, 'message': {
 		'common': {
-			'club-create-success': '社团创建成功：'
+			'create-club-success': '社团创建成功，点击访问：'
+			, 'manage-club-success': '社团更新成功，点击刷新：'
+			, 'create-post-preview': '页面抓取成功，以下是分享预览。'
+			, 'create-post-success': '分享发布成功，点击刷新：'
 			, 'action-done': '操作完成。'
 			, 'image-preview': '的预览图片'
 		}
@@ -82,6 +121,7 @@ module.exports = {
 	, 'profile': {
 		'club': {
 			'owner': '创始人'
+			, 'share-message': '我加入了名为「%{title}」的社团，目前有 %{members} 位成员，它的口号是「%{intro}」。你不想来让它变得更热闹吗？'
 		}
 	}
 	, 'error': {
@@ -104,6 +144,7 @@ module.exports = {
 		, 'opengraph-error-response': '请求远端页面时出现了网络错误，可能理由：(1) 该页面不支持站外引用 (2) 暂时的网络错误'
 		, 'opengraph-invalid-profile': '请求远端页面时得到了不正确数据，如重复出现，请联系我们反馈错误。'
 		, 'membership-required-to-post': '你需要先加入社团才能发布分享。'
+		, 'owner-cannot-leave-club': '社团创始人不能离开社团。'
 		, 'duplicate-action': '你已经执行过这个操作。'
 		, 'feedback': '为什么出现这个错误？'
 		, 'feedback-contact-1': '可联系开发者'

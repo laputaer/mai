@@ -8,7 +8,6 @@
 var $ = require('../vdom');
 var emitter = require('../emitter');
 
-var buttonTemplate = require('./button');
 var navButtonTemplate = require('./navigation-button');
 
 module.exports = template;
@@ -20,43 +19,37 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var discoverOpts = {
-		key: 'discover'
-		, id: 'discover'
-		, className: 'page-menu'
-	};
+	// common data
+	var current_user = data.current_user;
+	var version = data.version.asset;
+	var ui = data.ui;
 
-	if (data.ui.modal === 'nav') {
-		discoverOpts.className += ' active';
-	}
-
+	// buttons
 	var titleOpts = {
 		href: '#'
 		, className: 'plain title'
 		, text: 'menu.nav.discover'
 		, icon: 'compass'
-		, version: data.version.asset
-		, eventName: 'ev-click'
-		, eventHandler: emitter.capture('page:nav:close')
+		, version: version
+		, eventName: 'page:menu:close'
 	};
-	var titleButton = buttonTemplate(titleOpts);
+	var titleButton = navButtonTemplate(titleOpts);
 
 	var closeOpts = {
 		href: '#'
 		, className: 'plain close'
 		, icon: 'delete'
-		, version: data.version.asset
-		, eventName: 'ev-click'
-		, eventHandler: emitter.capture('page:nav:close')
+		, version: version
+		, eventName: 'page:menu:close'
 	};
-	var closeButton = buttonTemplate(closeOpts);
+	var closeButton = navButtonTemplate(closeOpts);
 
 	var homeOpts = {
 		href: '/'
 		, className: 'plain discover home'
 		, text: 'menu.nav.home'
 		, icon: 'home'
-		, version: data.version.asset
+		, version: version
 	};
 	var homeButton = navButtonTemplate(homeOpts);
 
@@ -65,17 +58,17 @@ function template(data) {
 		, className: 'plain discover club'
 		, text: 'menu.nav.club'
 		, icon: 'share'
-		, version: data.version.asset
+		, version: version
 	};
 	var clubButton = navButtonTemplate(clubOpts);
 
 	var profileOpts;
-	if (data.current_user) {
+	if (current_user) {
 		profileOpts = {
-			href: '/u/' + data.current_user.uid
+			href: '/u/' + current_user.uid
 			, className: 'plain discover login'
-			, value: data.current_user.login
-			, image: data.current_user.avatar
+			, value: current_user.login
+			, image: current_user.avatar
 			, size: 'sq-tiny'
 		}
 	} else {
@@ -84,9 +77,8 @@ function template(data) {
 			, className: 'plain discover login'
 			, text: 'menu.nav.login'
 			, icon: 'upload'
-			, version: data.version.asset
-			, eventName: 'ev-click'
-			, eventHandler: emitter.capture('page:login:open')
+			, version: version
+			, eventName: 'page:menu:login'
 		};
 	}
 
@@ -97,7 +89,7 @@ function template(data) {
 		, className: 'plain discover ranking'
 		, text: 'menu.nav.ranking'
 		, icon: 'graph_rising'
-		, version: data.version.asset
+		, version: version
 	};
 	var rankingButton = navButtonTemplate(rankingOpts);
 
@@ -106,11 +98,22 @@ function template(data) {
 		, className: 'plain discover help'
 		, text: 'menu.nav.help'
 		, icon: 'life_buoy'
-		, version: data.version.asset
+		, version: version
 	};
 	var helpButton = navButtonTemplate(helpOpts);
 
-	var discover = $('div', discoverOpts, $('div.wrapper', [
+	// menu
+	var menuOpts = {
+		key: 'discover'
+		, id: 'discover'
+		, className: 'page-menu'
+	};
+
+	if (ui.modal === 'nav') {
+		menuOpts.className += ' active';
+	}
+
+	var menu = $('div', menuOpts, $('div.wrapper', [
 		titleButton
 		, closeButton
 		, $('ul.navigation', [
@@ -122,5 +125,5 @@ function template(data) {
 		])
 	]));
 
-	return discover;
+	return menu;
 };

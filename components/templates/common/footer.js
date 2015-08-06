@@ -9,7 +9,7 @@ var $ = require('../vdom');
 var i18n = require('../i18n')();
 var emitter = require('../emitter');
 
-var buttonTemplate = require('./button');
+var navButtonTemplate = require('./navigation-button');
 
 module.exports = template;
 
@@ -20,32 +20,23 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var footerOpts = {
-		id: 'footer'
-		, key: 'footer'
-		, className: 'page-footer lazyload'
-		, attributes: {
-			'data-bgset': data.base_url + '/images/footer-320.jpg?' + data.version.asset + ' 320w, '
-				+ data.base_url + '/images/footer-640.jpg?' + data.version.asset + ' 640w, '
-				+ data.base_url + '/images/footer-960.jpg?' + data.version.asset + ' 960w, '
-				+ data.base_url + '/images/footer-1280.jpg?' + data.version.asset + ' 1280w'
-			, 'data-sizes': 'auto'
-		}
-	}
+	// common data
+	var version = data.version.asset;
+	var base_url = data.base_url;
 
 	var tagline = $('p.tagline', i18n.t('common.tagline-alt'));
 
-	var loginButton = buttonTemplate({
+	var loginButton = navButtonTemplate({
 		href: '#'
 		, className: 'rounded nav signup'
 		, text: 'menu.nav.login-alt'
 		, icon: 'flag'
-		, version: data.version.asset
-		, base_url: data.base_url
-		, eventName: 'ev-click'
-		, eventHandler: emitter.capture('page:login:open')
+		, version: version
+		, base_url: base_url
+		, eventName: 'page:menu:login'
 	});
 
+	// links
 	var copyrightLink = $('a', {
 		href: 'https://github.com/maihq'
 		, target: '_blank'
@@ -62,6 +53,20 @@ function template(data) {
 	var termsLink = $('a', {
 		href: '/terms'
 	}, i18n.t('menu.footer.terms'));
+
+	// footer
+	var footerOpts = {
+		id: 'footer'
+		, key: 'footer'
+		, className: 'page-footer lazyload'
+		, attributes: {
+			'data-bgset': base_url + '/images/footer-320.jpg?' + version + ' 320w, '
+				+ base_url + '/images/footer-640.jpg?' + version + ' 640w, '
+				+ base_url + '/images/footer-960.jpg?' + version + ' 960w, '
+				+ base_url + '/images/footer-1280.jpg?' + version + ' 1280w'
+			, 'data-sizes': 'auto'
+		}
+	}
 
 	var footer = $('div', footerOpts, $('div.wrapper', [
 			tagline

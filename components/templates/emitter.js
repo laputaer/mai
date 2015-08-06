@@ -10,15 +10,7 @@
 var Emitter = require('tiny-emitter');
 var emitter = new Emitter();
 
-// create an event handler that emit a custon event when fired
-emitter.fire = function(name, data) {
-	var self = this;
-	return function() {
-		self.emit(name, data);
-	};
-};
-
-// similar to fire, but actually prevent default action
+// capture event and prevent default
 emitter.capture = function(name, data) {
 	var self = this;
 	return function(ev) {

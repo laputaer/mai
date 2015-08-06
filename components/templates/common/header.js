@@ -9,8 +9,6 @@ var $ = require('../vdom');
 var i18n = require('../i18n')();
 var emitter = require('../emitter');
 
-var buttonTemplate = require('./button');
-var userButtonTemplate = require('./user-button');
 var navButtonTemplate = require('./navigation-button');
 
 module.exports = template;
@@ -22,16 +20,26 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
+	// common data
+	var current_path = data.current_path;
+	var version = data.version.asset;
+	var base_url = data.base_url;
+	var client = data.client;
+
+	var current_user = data.current_user;
+	var club_profile = data.club_profile;
+	var user_profile = data.user_profile;
+	var ui = data.ui;
+
 	// navigation buttons
 	var discoverButton = navButtonTemplate({
 		href: '#'
 		, className: 'rounded nav'
 		, text: 'menu.nav.discover'
 		, icon: 'compass'
-		, version: data.version.asset
-		, eventName: 'ev-click'
-		, eventHandler: emitter.capture('page:nav:open')
-		, client: data.client
+		, version: version
+		, eventName: 'page:menu:nav'
+		, client: client
 	});
 
 	var clubOpts = {
@@ -39,54 +47,73 @@ function template(data) {
 		, className: 'rounded nav tablet'
 		, text: 'menu.nav.club'
 		, icon: 'share'
-		, version: data.version.asset
+		, version: version
 	};
-	if (data.current_path === clubOpts.href) {
+	if (current_path === clubOpts.href) {
 		clubOpts.className += ' active';
 	}
-	var clubButton = buttonTemplate(clubOpts);
+	var clubButton = navButtonTemplate(clubOpts);
 
 	var rankingOpts = {
 		href: '/ranking'
 		, className: 'rounded nav tablet'
 		, text: 'menu.nav.ranking'
 		, icon: 'graph_rising'
-		, version: data.version.asset
+		, version: version
 	};
-	if (data.current_path === rankingOpts.href) {
+	if (current_path === rankingOpts.href) {
 		rankingOpts.className += ' active';
 	}
-	var rankingButton = buttonTemplate(rankingOpts);
+	var rankingButton = navButtonTemplate(rankingOpts);
 
 	var helpOpts = {
 		href: '/help'
 		, className: 'rounded nav tablet'
 		, text: 'menu.nav.help'
 		, icon: 'life_buoy'
-		, version: data.version.asset
+		, version: version
 	};
-	if (data.current_path === helpOpts.href) {
+	if (current_path === helpOpts.href) {
 		helpOpts.className += ' active';
 	}
-	var helpButton = buttonTemplate(helpOpts);
+	var helpButton = navButtonTemplate(helpOpts);
 
 	var userButton;
-	if (data.current_user) {
-		userButton = userButtonTemplate({
-			href: '/u/' + data.current_user.uid
-			, className: 'rounded nav'
-			, text: data.current_user.login
-			, icon: data.current_user.avatar
-		});
-	} else {
-		userButton = buttonTemplate({
+	if (!current_user) {
+		userButton = navButtonTemplate({
 			href: '#'
 			, className: 'rounded nav'
 			, text: 'menu.nav.login'
 			, icon: 'upload'
-			, version: data.version.asset
-			, eventName: 'ev-click'
-			, eventHandler: emitter.capture('page:login:open')
+			, version: version
+			, eventName: 'page:menu:login'
+		});
+	} else if (club_profile && club_profile.current_user_member) {
+		userButton = navButtonTemplate({
+			href: '#'
+			, className: 'rounded nav'
+			, text: 'menu.nav.options'
+			, icon: 'setting_2'
+			, version: version
+			, eventName: 'page:menu:options'
+		});
+	} else if (club_profile && !club_profile.current_user_member) {
+		userButton = navButtonTemplate({
+			href: '#'
+			, className: 'rounded nav'
+			, text: 'menu.nav.join'
+			, icon: 'plus'
+			, version: version
+			, eventName: 'page:club:join'
+			, eventData: { slug: club_profile.slug }
+		});
+	} else {
+		userButton = navButtonTemplate({
+			href: '/u/' + current_user.uid
+			, className: 'rounded nav'
+			, value: current_user.login
+			, image: current_user.avatar
+			, size: 'sq-tiny'
 		});
 	}
 
@@ -94,102 +121,118 @@ function template(data) {
 	var imageOpts = {
 		attributes: {
 			role: 'presentation'
-			, 'data-srcset': data.base_url + '/images/header-320.jpg?' + data.version.asset + ' 320w, '
-				+ data.base_url + '/images/header-640.jpg?' + data.version.asset + ' 640w, '
-				+ data.base_url + '/images/header-960.jpg?' + data.version.asset + ' 960w, '
-				+ data.base_url + '/images/header-1280.jpg?' + data.version.asset + ' 1280w'
+			, 'data-srcset': base_url + '/images/header-320.jpg?' + version + ' 320w, '
+				+ base_url + '/images/header-640.jpg?' + version + ' 640w, '
+				+ base_url + '/images/header-960.jpg?' + version + ' 960w, '
+				+ base_url + '/images/header-1280.jpg?' + version + ' 1280w'
 			, 'data-sizes': 'auto'
 		}
-		, src: data.base_url + '/images/header-320.jpg?' + data.version.asset
+		, src: base_url + '/images/header-320.jpg?' + version
 		, alt: ''
 		, className: 'lazyload'
 	};
 
 	// page specific content
+	// TODO: refactor this part
 	var avatarOpts, avatarImage, title, tagline;
 
-	if (data.club_profile) {
-		if (data.club_profile.image) {
+	// club
+	if (club_profile) {
+		if (club_profile.image) {
+			// background cover
 			imageOpts = {
 				attributes: {
 					role: 'presentation'
 				}
-				, src: data.club_profile.image + '&size=bc-medium'
+				, src: club_profile.image + '&size=bc-medium'
 				, alt: ''
 			};
 
+			// profile avatar
 			avatarOpts = {
 				attributes: {
 					role: 'presentation'
-					, 'data-srcset': data.club_profile.image + '&size=sq-small 80w, '
-						+ data.club_profile.image + '&size=sq-medium 100w, '
-						+ data.club_profile.image + '&size=sq-large 200w'
+					, 'data-srcset': club_profile.image + '&size=sq-small 80w, '
+						+ club_profile.image + '&size=sq-medium 100w, '
+						+ club_profile.image + '&size=sq-large 200w'
 					, 'data-sizes': 'auto'
 				}
-				, src: data.club_profile.image + '&size=sq-small'
-				, alt: ''
+				, src: club_profile.image + '&size=sq-small'
+				, alt: club_profile.title + i18n.t('message.common.image-preview')
 				, className: 'lazyload'
 			};
 
 			avatarImage = $('img.profile-image', avatarOpts);
 		} else {
-			avatarImage = $('div.profile-image', $('span.text', data.club_profile.initials));
+			// no avatar found
+			avatarImage = $('div.profile-image', $('span.text', club_profile.initials));
 		}
 
+		// title
 		title = $('h1.profile-title', $('a', {
-			href: '/c/' + data.club_profile.slug
-		}, data.club_profile.title));
+			href: '/c/' + club_profile.slug
+		}, club_profile.title));
 
+		// tagline
 		tagline = $('p.profile-stats', $('a', {
-			href: '/u/' + data.club_profile.owner
-		}, i18n.t('profile.club.owner') + ' ' + data.club_profile.owner_login));
+			href: '/u/' + club_profile.owner
+		}, i18n.t('profile.club.owner') + ' ' + club_profile.owner_login));
 
-	} else if (data.user_profile) {
-		if (data.user_profile.avatar) {
+	// user
+	} else if (user_profile) {
+		if (user_profile.avatar) {
+			// background cover
 			imageOpts = {
 				attributes: {
 					role: 'presentation'
 				}
-				, src: data.user_profile.avatar + '&size=bc-medium'
+				, src: user_profile.avatar + '&size=bc-medium'
 				, alt: ''
 			};
 
+			// profile avatar
 			avatarOpts = {
 				attributes: {
 					role: 'presentation'
-					, 'data-srcset': data.user_profile.avatar + '&size=sq-small 80w, '
-						+ data.user_profile.avatar + '&size=sq-medium 100w, '
-						+ data.user_profile.avatar + '&size=sq-large 200w'
+					, 'data-srcset': user_profile.avatar + '&size=sq-small 80w, '
+						+ user_profile.avatar + '&size=sq-medium 100w, '
+						+ user_profile.avatar + '&size=sq-large 200w'
 					, 'data-sizes': 'auto'
 				}
-				, src: data.user_profile.avatar + '&size=sq-small'
-				, alt: ''
+				, src: user_profile.avatar + '&size=sq-small'
+				, alt: user_profile.name + i18n.t('message.common.image-preview')
 				, className: 'lazyload'
 			};
 
 			avatarImage = $('img.profile-image', avatarOpts);
 		} else {
+			// no avatar found
 			avatarImage = $('div.profile-image');
 		}
 
+		// title
 		title = $('h1.profile-title', $('a', {
-			href: '/u/' + data.user_profile.uid
-		}, data.user_profile.name));
+			href: '/u/' + user_profile.uid
+		}, user_profile.name));
 
+		// tagline
 		tagline = $('p.profile-stats', navButtonTemplate({
-			href: data.user_profile.origin
+			href: user_profile.origin
 			, target: '_blank'
 			, className: 'plain source'
-			, value: data.user_profile.provider
-			, icon: data.user_profile.provider
-			, version: data.version.asset
+			, value: user_profile.provider
+			, icon: user_profile.provider
+			, version: version
 		}));
 
+	// others
 	} else {
+		// default title and tagline
 		title = $('h1.title', $('a', { href: '/' }, i18n.t('common.domain')));
 		tagline = $('p.tagline', $('a', { href: '/' }, i18n.t('common.tagline')));
 	}
 
+	// background image
 	var heroImage = $('img', imageOpts);
 
 	// header
@@ -199,7 +242,8 @@ function template(data) {
 		, className: 'page-header'
 	};
 
-	if (data.club_profile || data.user_profile) {
+	// profile header
+	if (club_profile || user_profile) {
 		headerOpts.className += ' profile';
 	}
 

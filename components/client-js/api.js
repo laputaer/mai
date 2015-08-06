@@ -55,4 +55,22 @@ module.exports = {
 	, recent_clubs: {
 		endpoint: '/clubs/recent'
 	}
+	, create_club: {
+		endpoint: '/clubs'
+	}
+	, manage_club: {
+		endpoint: '/clubs/:slug'
+	}
+	, favorite_post: {
+		endpoint: '/posts/:pid/favorite'
+	}
+	, club_membership: {
+		endpoint: '/clubs/:slug/users'
+	}
+	, init_post: {
+		endpoint: '/clubs/:slug/posts'
+	}
+	, create_post: {
+		endpoint: '/clubs/:slug/posts/create'
+	}
 };

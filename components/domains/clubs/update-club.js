@@ -25,8 +25,8 @@ function *updateClub(opts) {
 	// STEP 1: update club
 	var club = {
 		title: data.title
-		, intro: data.intro
-		, logo: data.logo
+		, intro: data.intro || ''
+		, logo: data.logo || ''
 		, updated: new Date()
 	}
 

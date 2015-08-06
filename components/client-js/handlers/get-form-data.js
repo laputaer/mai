@@ -6,18 +6,16 @@
  */
 
 var serialize = require('form-serialize');
-var doc = document;
 
 /**
  * FormData api alternative
  *
  * @oaram   Object  app   App instance
- * @oaram   Object  data  Event data
+ * @oaram   Object  form  Form element
  * @return  String
  */
-module.exports = function getFormData (app, data) {
+module.exports = function getFormData (app, form) {
 	// process form
-	var form = doc.getElementById(data.id);
 	var body_raw = serialize(form, { hash: true });
 	var body_str = serialize(form);
 

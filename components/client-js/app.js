@@ -164,15 +164,21 @@ App.prototype.load = function (name, opts) {
  * @param   String   method  Request method
  * @param   String   url     Backend service endpoint
  * @param   Object   opts    Optional parameters
+ * @param   Array    params  Optional route parameters
  * @return  Promise
  */
-App.prototype.json = function (method, url, opts) {
+App.prototype.json = function (method, url, opts, params) {
 	var self = this;
 
 	opts = opts || {};
 
 	// default to get request
-	opts.method = method || 'GET';
+	opts.method = opts.method || method || 'GET';
+
+	// send cookie by default
+	if (!opts.credentials) {
+		opts.credentials = 'same-origin';
+	}
 
 	// auto append csrf token for other requests
 	if (opts.method !== 'GET') {
@@ -196,7 +202,7 @@ App.prototype.json = function (method, url, opts) {
 	}
 
 	// contact backend service, get back json result
-	return self.service.send(url, opts).then(function (res) {
+	return self.service.send(url, opts, params).then(function (res) {
 		try {
 			return res.json();
 		} catch(e) {

@@ -42,7 +42,7 @@ function *middleware(next) {
 	// STEP 1: prepare common data
 	var config = this.config;
 	var state = this.state;
-	var limit = 10;
+	var limit = 8;
 	var range = 0;
 	var skip = 0;
 

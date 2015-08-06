@@ -8,7 +8,6 @@
 var $ = require('../vdom');
 var emitter = require('../emitter');
 
-var buttonTemplate = require('./button');
 var navButtonTemplate = require('./navigation-button');
 
 module.exports = template;
@@ -20,43 +19,37 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var loginOpts = {
-		id: 'login-screen'
-		, key: 'login-screen'
-		, className: 'page-menu'
-	};
+	// common data
+	var version = data.version.asset;
+	var image_base_url = data.image_base_url;
+	var ui = data.ui;
 
-	if (data.ui.modal === 'login') {
-		loginOpts.className += ' active';
-	}
-
+	// buttons
 	var titleOpts = {
 		href: '#'
 		, className: 'plain title'
 		, text: 'menu.nav.login'
 		, icon: 'compass'
-		, version: data.version.asset
-		, eventName: 'ev-click'
-		, eventHandler: emitter.capture('page:login:close')
+		, version: version
+		, eventName: 'page:menu:close'
 	};
-	var titleButton = buttonTemplate(titleOpts);
+	var titleButton = navButtonTemplate(titleOpts);
 
 	var closeOpts = {
 		href: '#'
 		, className: 'plain close'
 		, icon: 'delete'
-		, version: data.version.asset
-		, eventName: 'ev-click'
-		, eventHandler: emitter.capture('page:login:close')
+		, version: version
+		, eventName: 'page:menu:close'
 	};
-	var closeButton = buttonTemplate(closeOpts);
+	var closeButton = navButtonTemplate(closeOpts);
 
 	var twitterOpts = {
 		href: '/connect/twitter'
 		, className: 'plain login twitter'
 		, text: 'menu.login.twitter'
 		, icon: 'twitter'
-		, version: data.version.asset
+		, version: version
 	};
 	var twitterButton = navButtonTemplate(twitterOpts);
 
@@ -65,7 +58,7 @@ function template(data) {
 		, className: 'plain login github'
 		, text: 'menu.login.github'
 		, icon: 'github'
-		, version: data.version.asset
+		, version: version
 	};
 	var githubButton = navButtonTemplate(githubOpts);
 
@@ -73,12 +66,23 @@ function template(data) {
 		href: '/connect/weibo'
 		, className: 'plain login weibo'
 		, text: 'menu.login.weibo'
-		, image: data.image_base_url + '/images/weibo-logo-64.png'
-		, version: data.version.asset
+		, image: image_base_url + '/images/weibo-logo-64.png'
+		, version: version
 	};
 	var weiboButton = navButtonTemplate(weiboOpts);
 
-	var login = $('div', loginOpts, $('div.wrapper', [
+	// menu
+	var menuOpts = {
+		id: 'login-screen'
+		, key: 'login-screen'
+		, className: 'page-menu'
+	};
+
+	if (ui.modal === 'login') {
+		menuOpts.className += ' active';
+	}
+
+	var menu = $('div', menuOpts, $('div.wrapper', [
 		titleButton
 		, closeButton
 		, $('ul.navigation', [
@@ -88,5 +92,5 @@ function template(data) {
 		])
 	]));
 
-	return login;
+	return menu;
 };

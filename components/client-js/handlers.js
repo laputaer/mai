@@ -5,14 +5,18 @@
  * Manage client-side events and interactions
  */
 
+var doc = document;
 var emitter = require('../templates/emitter');
 var toggleScroll = require('./helpers/toggle-body-scroll');
+var menuEscape = require('./helpers/menu-escape');
 
 var createFavorite = require('./handlers/create-favorite');
 var deleteFavorite = require('./handlers/delete-favorite');
 var loadContent = require('./handlers/load-content');
 var getFormData = require('./handlers/get-form-data');
 var formResult = require('./handlers/form-result');
+var joinClub = require('./handlers/join-club');
+var leaveClub = require('./handlers/leave-club');
 
 module.exports = handlers;
 
@@ -23,38 +27,57 @@ module.exports = handlers;
  * @return  Void
  */
 function handlers(app) {
-	emitter.on('page:nav:open', function () {
+	emitter.on('page:menu:nav', function () {
 		toggleScroll(false);
+		menuEscape(emitter, {
+			name: 'page:menu:close'
+			, enable: true
+		});
 		app.modify(['ui', 'modal'], 'nav');
 		app.refresh();
 	});
 
-	emitter.on('page:nav:close', function () {
-		toggleScroll(true);
-		app.modify(['ui', 'modal'], false);
-		app.refresh();
-	});
-
-	emitter.on('page:login:open', function () {
+	emitter.on('page:menu:login', function () {
 		toggleScroll(false);
+		menuEscape(emitter, {
+			name: 'page:menu:close'
+			, enable: true
+		});
 		app.modify(['ui', 'modal'], 'login');
 		app.refresh();
 	});
 
-	emitter.on('page:login:close', function () {
+	emitter.on('page:menu:options', function () {
+		toggleScroll(false);
+		menuEscape(emitter, {
+			name: 'page:menu:close'
+			, enable: true
+		});
+		app.modify(['ui', 'modal'], 'options');
+		app.refresh();
+	});
+
+	emitter.on('page:menu:close', function () {
 		toggleScroll(true);
+		menuEscape(emitter, {
+			name: 'page:menu:close'
+			, enable: false
+		});
 		app.modify(['ui', 'modal'], false);
 		app.refresh();
 	});
 
 	emitter.on('page:tab:change', function (data) {
 		app.modify(['ui', data.view], data.order);
+		if (data.menu) {
+			emitter.emit('page:menu:close');
+		}
 		app.refresh();
 	});
 
 	emitter.on('page:load:featured-post', function () {
 		loadContent(app, {
-			name: 'load_post'
+			name: 'load-featured-posts'
 			, key: 'pid'
 			, endpoint: 'featured_posts'
 		});
@@ -62,7 +85,7 @@ function handlers(app) {
 
 	emitter.on('page:load:club-posts', function () {
 		loadContent(app, {
-			name: 'load_post'
+			name: 'load-club-posts'
 			, key: 'pid'
 			, endpoint: 'club_posts'
 		});
@@ -70,7 +93,7 @@ function handlers(app) {
 
 	emitter.on('page:load:user-posts', function () {
 		loadContent(app, {
-			name: 'load_post'
+			name: 'load-user-posts'
 			, key: 'pid'
 			, endpoint: 'user_posts'
 		});
@@ -94,7 +117,7 @@ function handlers(app) {
 
 	emitter.on('page:load:hot-clubs', function () {
 		loadContent(app, {
-			name: 'load_hot_clubs'
+			name: 'load-hot-clubs'
 			, key: 'slug'
 			, endpoint: 'hot_clubs'
 		});
@@ -102,7 +125,7 @@ function handlers(app) {
 
 	emitter.on('page:load:top-clubs', function () {
 		loadContent(app, {
-			name: 'load_top_clubs'
+			name: 'load-top-clubs'
 			, key: 'slug'
 			, endpoint: 'top_clubs'
 		});
@@ -110,7 +133,7 @@ function handlers(app) {
 
 	emitter.on('page:load:recent-clubs', function () {
 		loadContent(app, {
-			name: 'load_recent_clubs'
+			name: 'load-recent-clubs'
 			, key: 'slug'
 			, endpoint: 'recent_clubs'
 		});
@@ -118,7 +141,7 @@ function handlers(app) {
 
 	emitter.on('page:favorite:create', function (data) {
 		createFavorite(app, data);
-		app.json('PUT', '/posts/' + data.id + '/favorite').then(function (json) {
+		app.json('PUT', 'favorite_post', null, [data.id]).then(function (json) {
 			if (!json.ok) {
 				deleteFavorite(app, data);
 			}
@@ -127,16 +150,36 @@ function handlers(app) {
 
 	emitter.on('page:favorite:remove', function (data) {
 		deleteFavorite(app, data);
-		app.json('DELETE', '/posts/' + data.id + '/favorite').then(function (json) {
+		app.json('DELETE', 'favorite_post', null, [data.id]).then(function (json) {
 			if (!json.ok) {
 				createFavorite(app, data);
 			}
 		});
 	});
 
+	emitter.on('page:club:join', function (data) {
+		joinClub(app, data);
+		app.json('PUT', 'club_membership', null, [data.slug]).then(function (json) {
+			if (!json.ok) {
+				leaveClub(app, data);
+			}
+		});
+	});
+
+	emitter.on('page:club:leave', function (data) {
+		leaveClub(app, data);
+		emitter.emit('page:menu:close');
+		app.json('DELETE', 'club_membership', null, [data.slug]).then(function (json) {
+			if (!json.ok) {
+				joinClub(app, data);
+			}
+		});
+	});
+
 	emitter.on('page:form:submit', function (data) {
-		var body = getFormData(app, data);
-		app.json('POST', '/clubs', { body: body }).then(function (json) {
+		var form = doc.getElementById(data.id);
+		var body = getFormData(app, form);
+		app.json(data.method, data.route, { body: body }, data.params).then(function (json) {
 			formResult(app, json);
 		});
 	});

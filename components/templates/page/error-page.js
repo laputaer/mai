@@ -19,15 +19,18 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
+	// server error
 	var error = $('div.page-section-feedback', [
 		$('h1.title', i18n.t('error.status-code', { code: data.error_status }))
 		, $('p.subtitle', data.error_message)
 	]);
 
+	// general feedback message
 	var feedback = feedbackTemplate({
 		name: 'page-section-feedback'
 	});
 
+	// page content
 	var errorOpts = {
 		id: 'content'
 		, key: 'content'

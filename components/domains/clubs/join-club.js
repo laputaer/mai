@@ -40,6 +40,7 @@ function *joinClub(opts) {
 	yield Membership.insert({
 		uid: user.uid
 		, slug: club.slug
+		, type: 'member'
 		, created: new Date()
 		, updated: new Date()
 	});

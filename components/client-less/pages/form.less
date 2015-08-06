@@ -3,6 +3,7 @@
 
 .common-form {
 	margin: 30px 15px;
+	overflow: hidden;
 
 	.form-group {
 		display: block;
@@ -14,11 +15,11 @@
 	}
 
 	.form-group + .form-group {
-		margin-top: 20px;
+		margin-top: 30px;
 	}
 
 	.form-group + .form-button {
-		margin-top: 20px;
+		margin-top: 30px;
 	}
 
 	.form-label {
@@ -83,6 +84,9 @@
 	}
 
 	.form-button {
+		display: block;
+		float: left;
+		clear: both;
 		color: @color-blue-light;
 		padding: 8px 12px;
 		.size(20);
@@ -118,9 +122,14 @@
 			min-height: 150px;
 			float: left;
 			width: 50%;
+			margin-bottom: 40px;
 		}
 
 		.form-group + .form-group {
+			margin-top: 0;
+		}
+
+		.form-group + .form-button {
 			margin-top: 0;
 		}
 
@@ -131,6 +140,7 @@
 		}
 
 		.form-field {
+			width: ~'calc(100% - 10px)';
 			.size(20);
 		}
 
@@ -143,10 +153,9 @@
 .common-message {
 	border-radius: 4px;
 	color: @color-black;
-	border: 1px solid @color-gray-dark;
 	background-color: @color-gray-light;
 	padding: 8px;
-	margin: 20px 0;
+	margin: 0 0 20px;
 
 	a {
 		color: inherit;
@@ -156,19 +165,16 @@
 
 	&.error {
 		color: @color-red;
-		border-color: @color-red-light;
 		background-color: @color-red-pastel;
 	}
 
 	&.success {
 		color: @color-green;
-		border-color: @color-green-light;
 		background-color: @color-green-pastel;
 	}
 
 	&.info {
 		color: @color-blue;
-		border-color: @color-blue-light;
 		background-color: @color-blue-pastel;
 	}
 }

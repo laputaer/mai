@@ -6,9 +6,7 @@
  */
 
 module.exports = {
-	button: require('./button')
-	, csrfField: require('./csrf-field')
-	, discover: require('./discover')
+	discover: require('./discover')
 	, featuredClub: require('./featured-club')
 	, featuredPost: require('./featured-post')
 	, feedback: require('./feedback')
@@ -19,7 +17,6 @@ module.exports = {
 	, loadButton: require('./load-button')
 	, loginScreen: require('./login-screen')
 	, navigationButton: require('./navigation-button')
-	, postButton: require('./post-button')
+	, options: require('./options')
 	, sectionTitle: require('./section-title')
-	, userButton: require('./user-button')
 };
