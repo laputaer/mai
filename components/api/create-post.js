@@ -5,13 +5,20 @@
  * API for second step of post creation
  */
 
+var getStandardJson = require('../helpers/get-standard-json');
+var filterAttributes = require('../helpers/filter-attributes');
+var i18n = require('../templates/i18n')();
+
 var usersDomain = require('../domains/users');
 var clubsDomain = require('../domains/clubs');
 var sessionDomain = require('../domains/session');
 var mixpanelDomain = require('../domains/mixpanel');
+
 var validate = require('../security/validation');
-var formError = require('../helpers/create-form-message');
-var i18n = require('../templates/i18n')();
+
+var filter_output = [
+	'slug', 'title'
+];
 
 module.exports = factory;
 
@@ -33,61 +40,13 @@ function factory() {
 function *middleware(next) {
 	yield next;
 
-	// STEP 1: prepare common data
-	var user = this.state.user;
-	var slug = this.params.slug;
-
-	// STEP 2: find existing club
-	var club = yield clubsDomain.matchClub({
-		db: this.db
-		, slug: slug
-	});
-
-	if (!club) {
-		this.redirect('/');
+	// STEP 1: handle guest user
+	if (!this.session.uid) {
+		this.state.error_json = getStandardJson(null, 400, i18n.t('error.login-required'));
 		return;
 	}
 
-	// STEP 3: user should be login
-	if (!user) {
-		this.redirect('/login/redirect?section=c&id=' + slug);
-		return;
-	}
-
-	// STEP 4: check membership
-	var membership = yield clubsDomain.matchMembership({
-		db: this.db
-		, uid: user.uid
-		, slug: slug
-	});
-
-	if (!membership) {
-		this.flash = formError(
-			i18n.t('error.membership-required-to-post')
-		);
-		this.redirect('/c/' + slug);
-		return;
-	}
-
-	// STEP 5: check user action point
-	user = yield usersDomain.matchUser({
-		db: this.db
-		, uid: user.uid
-	});
-
-	if (user.action_point < 1) {
-		this.flash = formError(
-			i18n.t('error.insufficient-action-point', {
-				required: 1
-				, current: user.action_point
-			})
-			, body
-		);
-		this.redirect('/c/' + slug);
-		return;
-	}
-
-	// STEP 6: csrf validation
+	// STEP 2: csrf validation
 	var body = this.request.body;
 	var result = yield sessionDomain.verifyCsrfToken({
 		session: this.session
@@ -96,42 +55,67 @@ function *middleware(next) {
 	});
 
 	if (!result) {
-		this.flash = formError(
-			i18n.t('error.invalid-csrf-token')
-			, body
-		);
-		this.redirect('/c/' + slug + '/p/post-add-2');
+		this.state.error_json = getStandardJson(null, 403, i18n.t('error.invalid-csrf-token'));
 		return;
 	}
 
-	// STEP 7: input validation
+	// STEP 3: input validation
 	result = yield validate(body, 'postConfirm');
 
 	if (!result.valid) {
-		this.flash = formError(
-			i18n.t('error.form-input-invalid')
-			, body
-			, result.errors
-		);
-		this.redirect('/c/' + slug + '/p/post-add-2');
+		this.state.error_json = getStandardJson(result, 400, i18n.t('error.form-input-invalid'));
 		return;
 	}
 
-	// STEP 8: get opengraph cache
+	// STEP 4: check user action point
+	var user = yield usersDomain.matchUser({
+		db: this.db
+		, uid: this.session.uid
+	});
+
+	if (user.action_point < 1) {
+		this.state.error_json = getStandardJson(null, 400, i18n.t('error.insufficient-action-point', {
+			required: 1
+			, current: user.action_point
+		}));
+		return;
+	}
+
+	// STEP 5: find existing club
+	var club = yield clubsDomain.matchClub({
+		db: this.db
+		, slug: this.params.slug
+	});
+
+	if (!club) {
+		this.state.error_json = getStandardJson(null, 404, i18n.t('error.not-found-club'));
+		return;
+	}
+
+	// STEP 6: check membership
+	var membership = yield clubsDomain.matchMembership({
+		db: this.db
+		, uid: user.uid
+		, slug: club.slug
+	});
+
+	if (!membership) {
+		this.state.error_json = getStandardJson(null, 400, i18n.t('error.membership-required-to-post'));
+		return;
+	}
+
+	// STEP 7: get opengraph cache
 	var embed = yield sessionDomain.getOpenGraphCache({
 		session: this.session
 		, cache: this.cache
 	});
 
 	if (!embed) {
-		this.flash = formError(
-			i18n.t('error.opengraph-invalid-profile')
-		);
-		this.redirect('/c/' + slug);
+		this.state.error_json = getStandardJson(null, 500, i18n.t('error.opengraph-invalid-profile'));
 		return;
 	}
 
-	// STEP 9: create post
+	// STEP 8: create post
 	yield clubsDomain.createClubPost({
 		db: this.db
 		, user: user
@@ -154,5 +138,6 @@ function *middleware(next) {
 		, body: body
 	});
 
-	this.redirect('/c/' + slug);
+	// STEP 9: output json
+	this.state.json = getStandardJson(filterAttributes(club, filter_output));
 };
