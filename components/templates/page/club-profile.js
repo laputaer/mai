@@ -16,6 +16,7 @@ var sectionTitleTemplate = require('../common/section-title');
 var loadButtonTemplate = require('../common/load-button');
 var formGroupTemplate = require('../common/form-group');
 var formButtonTemplate = require('../common/form-button');
+var postTemplate = require('../common/featured-post');
 
 module.exports = template;
 
@@ -88,7 +89,7 @@ function template(data) {
 			, bottom: true
 		});
 
-		var message, link_field, title_field, summary_field, submitOpts, submit;
+		var message, post_preview, link_field, title_field, summary_field, submitOpts, submit;
 
 		// error message, assume plain text
 		if (ui.form_error) {
@@ -132,6 +133,11 @@ function template(data) {
 			// form id for event handler
 			submitOpts = { id: 'init-post', route: 'init_post', params: [club_profile.slug], method: 'POST' };
 		} else if (ui.form_step === 1 || ui.form_step === 2) {
+			// post preview
+			if (ui.form_data) {
+				post_preview = $('div.form-preview', postTemplate(ui.form_data));
+			}
+
 			// fields
 			title_field = formGroupTemplate({
 				id: 'create-post-title'
@@ -165,7 +171,7 @@ function template(data) {
 			, 'ev-submit': emitter.capture('page:form:submit', submitOpts)
 		};
 
-		form = $('form', formOpts, [message, link_field, title_field, summary_field, submit]);
+		form = $('form', formOpts, [message, post_preview, link_field, title_field, summary_field, submit]);
 	}
 
 	// scenario 3: club management

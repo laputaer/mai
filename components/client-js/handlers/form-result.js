@@ -20,7 +20,6 @@ module.exports = function formResult (app, json) {
 	if (!json.ok) {
 		app.modify(['ui', 'form_error'], json.message || '');
 		app.modify(['ui', 'field_error'], json.data || {});
-		app.modify(['ui', 'form_data'], {});
 		app.modify(['ui', 'form_step'], step);
 		app.refresh();
 		return;

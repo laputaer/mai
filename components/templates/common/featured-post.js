@@ -51,7 +51,9 @@ function template(data) {
 		, title: data.doc_title
 	}, data.domain));
 
-	var title = $('p.title', data.title || data.doc_title);
+	var title = $('p.title', {
+		title: data.summary || data.doc_summary
+	}, data.title || data.doc_title);
 
 	if (data.user) {
 		user = navButtonTemplate({
@@ -77,20 +79,23 @@ function template(data) {
 		});
 	}
 
-	var favoriteOpts = {
-		id: data.pid
-		, order: data.num
-		, view: data.view
-	};
-	var favorite = navButtonTemplate({
-		href: '#'
-		, className: data.current_user_fav ? 'plain action active' : 'plain action'
-		, value: data.fav_point || '0'
-		, icon: 'heart'
-		, version: data.version
-		, eventName: data.current_user_fav ? 'page:favorite:remove' : 'page:favorite:create'
-		, eventData: favoriteOpts
-	});
+	var favorite;
+	if (data.pid !== 'club-post-preview') {
+		var favoriteOpts = {
+			id: data.pid
+			, order: data.num
+			, view: data.view
+		};
+		favorite = navButtonTemplate({
+			href: '#'
+			, className: data.current_user_fav ? 'plain action active' : 'plain action'
+			, value: data.fav_point || '0'
+			, icon: 'heart'
+			, version: data.version
+			, eventName: data.current_user_fav ? 'page:favorite:remove' : 'page:favorite:create'
+			, eventData: favoriteOpts
+		});
+	}
 
 	var post = $('article', postOpts, [
 		$('div.wrapper', [
