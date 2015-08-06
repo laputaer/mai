@@ -24,18 +24,16 @@ function *createUser(opts) {
 		, avatar: opts.profile.avatar
 		, provider: opts.profile.provider
 		, uid: opts.profile.uid
-		, action_point: 15
-		, action_base: 15
+		, action_point: 20
+		, action_base: 20
 		, fav_count: 0
 		, fav_point: 0
 		, created: new Date()
 		, updated: new Date()
 	};
 
-	// may throw error
 	yield User.insert(profile);
 
-	// null if user not found
 	return yield User.findOne({
 		uid: profile.uid
 	});

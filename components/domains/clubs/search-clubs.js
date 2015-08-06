@@ -1,6 +1,6 @@
 
 /**
- * search-clubs.js
+ * search-clubs.js (deprecated)
  *
  * Search clubs by title and slug
  */

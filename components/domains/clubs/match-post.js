@@ -17,7 +17,6 @@ function *matchPost(opts) {
 	var db = opts.db;
 	var Post = db.col('posts');
 
-	// null if post not found
 	return yield Post.findOne({
 		pid: opts.pid
 	});

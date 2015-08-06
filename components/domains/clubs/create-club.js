@@ -36,6 +36,7 @@ function *createClub(opts) {
 		, owner: user.uid
 		, members: 1
 		, points: 10
+		, posts: 0
 		, created: new Date()
 		, updated: new Date()
 	}

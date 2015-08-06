@@ -22,7 +22,7 @@ function *createFavoritePost(opts) {
 	var User = db.col('users');
 	var Post = db.col('posts');
 
-	// STEP 1: update user stats
+	// STEP 1: update fav-er stats
 	yield User.update({
 		uid: user.uid
 	}, {
@@ -32,6 +32,7 @@ function *createFavoritePost(opts) {
 		}
 	});
 
+	// STEP 2: update post-er stats
 	yield User.update({
 		uid: post.user
 	}, {
@@ -40,7 +41,7 @@ function *createFavoritePost(opts) {
 		}
 	});
 
-	// STEP 2: update post stats
+	// STEP 3: update post stats
 	yield Post.update({
 		pid: post.pid
 	}, {
@@ -49,7 +50,7 @@ function *createFavoritePost(opts) {
 		}
 	});
 
-	// STEP 3: create social action
+	// STEP 4: create social action
 	var fav = {
 		post: post.pid
 		, user: user.uid

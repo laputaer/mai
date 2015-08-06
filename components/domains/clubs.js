@@ -17,10 +17,6 @@ var leaveClub = require('./clubs/leave-club');
 var createClubPost = require('./clubs/create-club-post');
 var getClubPosts = require('./clubs/get-club-posts');
 var getUserPosts = require('./clubs/get-user-posts');
-var getPosts = require('./clubs/get-posts');
-var getRankedClubs = require('./clubs/get-ranked-clubs');
-var getRecentlyUpdatedClubs = require('./clubs/get-recently-updated-clubs');
-var getRecentlyCreatedClubs = require('./clubs/get-recently-created-clubs');
 var getFeaturedClubs = require('./clubs/get-featured-clubs');
 var getFeaturedPosts = require('./clubs/get-featured-posts');
 var getClubsByIds = require('./clubs/get-clubs-by-ids');
@@ -42,10 +38,6 @@ module.exports = {
 	, createClubPost: createClubPost
 	, getClubPosts: getClubPosts
 	, getUserPosts: getUserPosts
-	, getPosts: getPosts
-	, getRankedClubs: getRankedClubs
-	, getRecentlyUpdatedClubs: getRecentlyUpdatedClubs
-	, getRecentlyCreatedClubs: getRecentlyCreatedClubs
 	, getFeaturedClubs: getFeaturedClubs
 	, getFeaturedPosts: getFeaturedPosts
 	, getClubsByIds: getClubsByIds

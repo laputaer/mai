@@ -17,7 +17,6 @@ function *matchUser(opts) {
 	var db = opts.db;
 	var User = db.col('users');
 
-	// null if user not found
 	return yield User.findOne({
 		uid: opts.uid
 	});

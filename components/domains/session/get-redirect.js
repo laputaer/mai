@@ -1,6 +1,6 @@
 
 /**
- * get-redirect.js
+ * get-redirect.js (deprecated)
  *
  * Get stored redirect after login is done
  */
