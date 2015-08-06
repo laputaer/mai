@@ -25,7 +25,7 @@ function template(data) {
 	};
 
 	var linkOpts = {
-		href: '#'
+		href: data.link || '#'
 		, className: 'wrapper'
 	};
 

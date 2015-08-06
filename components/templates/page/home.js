@@ -72,12 +72,23 @@ function template(data) {
 		return immutable(postTemplate, post, opts);
 	});
 
+	var featured_posts_count = featured_posts_list.length;
+
 	// load more button
-	var featured_posts_button = loadButtonTemplate({
-		title: 'section.load.featured-posts'
-		, key: 'load-featured-posts'
-		, eventName: 'page:load:featured-post'
-	});
+	var featured_posts_button;
+	if (!ui['load-featured-posts'] || featured_posts_count >= ui['load-featured-posts']) {
+		featured_posts_button = loadButtonTemplate({
+			title: 'section.load.featured-posts'
+			, key: 'load-featured-posts'
+			, eventName: 'page:load:featured-post'
+		});
+	} else {
+		featured_posts_button = loadButtonTemplate({
+			title: 'section.load.eof-1'
+			, key: 'load-featured-posts'
+			, link: '/ranking'
+		});
+	}
 
 	// page content
 	var homeOpts = {

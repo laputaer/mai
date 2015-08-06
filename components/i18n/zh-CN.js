@@ -69,6 +69,8 @@ module.exports = {
 			, 'hot-clubs': '更多热门社团'
 			, 'top-clubs': '更多主流社团'
 			, 'recent-clubs': '更多新人社团'
+			, 'eof-1': '查看其他有趣社团'
+			, 'eof-2': '到头啦 😂'
 		}
 	}
 	, 'form': {

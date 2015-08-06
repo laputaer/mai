@@ -62,11 +62,20 @@ function template(data) {
 		});
 
 		// load more button
-		club_posts_button = loadButtonTemplate({
-			title: 'section.load.club-posts'
-			, key: 'load-club-posts'
-			, eventName: 'page:load:club-posts'
-		});
+		var club_posts_count = club_posts_list.length;
+		var club_posts_button;
+		if (!ui['load-club-posts'] || club_posts_count >= ui['load-club-posts']) {
+			club_posts_button = loadButtonTemplate({
+				title: 'section.load.club-posts'
+				, key: 'load-club-posts'
+				, eventName: 'page:load:club-posts'
+			});
+		} else {
+			club_posts_button = loadButtonTemplate({
+				title: 'section.load.eof-2'
+				, key: 'load-club-posts'
+			});
+		}
 	}
 
 	// scenario 2: new post

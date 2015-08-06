@@ -58,12 +58,22 @@ function template(data) {
 			return immutable(clubTemplate, club, opts);
 		}); 
 
+		var my_clubs_count = my_clubs_list.length;
+
 		// load more button
-		my_clubs_button = loadButtonTemplate({
-			title: 'section.load.my-clubs'
-			, key: 'load-my-clubs'
-			, eventName: 'page:load:my-clubs'
-		});
+		if (!ui['load-my-clubs'] || my_clubs_count >= ui['load-my-clubs']) {
+			my_clubs_button = loadButtonTemplate({
+				title: 'section.load.my-clubs'
+				, key: 'load-my-clubs'
+				, eventName: 'page:load:my-clubs'
+			});
+		} else {
+			my_clubs_button = loadButtonTemplate({
+				title: 'section.load.eof-1'
+				, key: 'load-my-clubs'
+				, link: '/ranking'
+			});
+		}
 
 		// 2nd section, plain title
 		joined_clubs_title = sectionTitleTemplate({
@@ -85,11 +95,22 @@ function template(data) {
 			return immutable(clubTemplate, club, opts);
 		});
 
-		joined_clubs_button = loadButtonTemplate({
-			title: 'section.load.joined-clubs'
-			, key: 'load-joined-clubs'
-			, eventName: 'page:load:joined-clubs'
-		});
+		var joined_clubs_count = joined_clubs_list.length;
+
+		// load more button
+		if (!ui['load-joined-clubs'] || joined_clubs_count >= ui['load-joined-clubs']) {
+			joined_clubs_button = loadButtonTemplate({
+				title: 'section.load.joined-clubs'
+				, key: 'load-joined-clubs'
+				, eventName: 'page:load:joined-clubs'
+			});
+		} else {
+			joined_clubs_button = loadButtonTemplate({
+				title: 'section.load.eof-1'
+				, key: 'load-joined-clubs'
+				, link: '/ranking'
+			});
+		}
 	}
 
 	// scenario 2: form tab active
