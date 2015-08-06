@@ -192,3 +192,12 @@
 		}
 	}
 }
+
+// IE10+ hack, not sure how to fix this one just yet
+@media screen and (-ms-high-contrast:active), (-ms-high-contrast:none) {
+	.m-button {
+		.m-icon, .m-text, .m-hint {
+			vertical-align: text-top;
+		}
+	}
+}

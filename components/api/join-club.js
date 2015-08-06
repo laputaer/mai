@@ -58,9 +58,9 @@ function *middleware(next) {
 		, uid: this.session.uid
 	});
 
-	if (user.action_point < 2) {
+	if (user.action_point < 1) {
 		this.state.error_json = getStandardJson(null, 400, i18n.t('error.insufficient-action-point', {
-			required: 2
+			required: 1
 			, current: user.action_point
 		}));
 		return;

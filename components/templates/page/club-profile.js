@@ -128,6 +128,9 @@ function template(data) {
 			// submit button
 			submit = formButtonTemplate({
 				text: 'form.button.create-post-submit-1'
+				, icon: 'music_play'
+				, version: version
+				, loading: ui.form_loading
 			});
 
 			// form id for event handler
