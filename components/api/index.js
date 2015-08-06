@@ -24,4 +24,6 @@ module.exports = {
 	, manageClub: require('./manage-club')
 	, initPost: require('./init-post')
 	, createPost: require('./create-post')
+	, joinClub: require('./join-club')
+	, leaveClub: require('./leave-club')
 };
