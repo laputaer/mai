@@ -36,7 +36,7 @@ app.proxy = config.server.proxy;
 
 app.use(logger()); // logging
 app.use(configFactory(true)); // this.config
-environment(app); // livereload, static fileserver, base url
+environment(app); // livereload, static fileserver, base url, inline asset
 app.use(imageProxy()); // image proxy
 
 app.use(bodyparser()); // this.request.body

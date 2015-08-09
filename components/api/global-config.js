@@ -37,6 +37,7 @@ function *middleware(next) {
 		version: this.config.version
 		, locale: this.locale
 		, base_url: this.state.base_url
+		, site_url: this.state.site_url
 		, production: this.state.production
 	};
 

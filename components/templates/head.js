@@ -15,7 +15,8 @@ module.exports = template;
 
 function template(data) {
 	var base_url = data.base_url;
-	var current_url = data.current_url;
+	var current_path = data.current_path;
+	var site_url = data.site_url;
 	var main_css_file = data.production ? '/assets/app.css' : '/dev/app.css';
 	var main_js_file = data.production ? '/assets/app.js' : '/dev/app.js';
 	var profile = data.club_profile || data.user_profile || null;
@@ -111,7 +112,7 @@ function template(data) {
 
 	var og_url = $('meta', {
 		property: 'og:url'
-		, content: current_url
+		, content: site_url + current_path
 	});
 
 	var og_image = $('meta', {
