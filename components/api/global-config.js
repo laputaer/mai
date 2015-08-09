@@ -1,6 +1,6 @@
 
 /**
- * api-global-config.js
+ * global-config.js
  *
  * API for getting current user profile
  */
@@ -37,7 +37,7 @@ function *middleware(next) {
 		version: this.config.version
 		, locale: this.locale
 		, base_url: this.state.base_url
-		, image_base_url: this.state.image_base_url
+		, site_url: this.state.site_url
 		, production: this.state.production
 	};
 

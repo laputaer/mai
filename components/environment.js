@@ -52,6 +52,8 @@ function factory(app) {
 			this.state.image_base_url = this.state.base_url;
 		}
 
+		this.state.site_url = this.config.server.base_url;
+
 		if (inline_css) {
 			this.state.inline_css = inline_css;
 		} else {

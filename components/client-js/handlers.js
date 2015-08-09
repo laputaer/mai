@@ -83,6 +83,14 @@ function handlers(app) {
 		});
 	});
 
+	emitter.on('page:load:recent-post', function () {
+		loadContent(app, {
+			name: 'load-recent-posts'
+			, key: 'pid'
+			, endpoint: 'recent_posts'
+		});
+	});
+
 	emitter.on('page:load:club-posts', function () {
 		loadContent(app, {
 			name: 'load-club-posts'

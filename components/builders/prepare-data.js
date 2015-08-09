@@ -31,10 +31,10 @@ function prepareData(ctx) {
 	data.current_path = removeSlash(ctx.path);
 	// current url
 	data.current_url = ctx.request.href;
-	// site base url
+	// cdn base url
 	data.base_url = ctx.state.base_url;
-	// image base url
-	data.image_base_url = ctx.state.image_base_url;
+	// site base url
+	data.site_url = ctx.state.site_url;
 	// inline css
 	data.inline_css = ctx.state.inline_css;
 	// inline js

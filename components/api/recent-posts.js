@@ -1,8 +1,8 @@
 
 /**
- * featured-posts.js
+ * recent-posts.js
  *
- * API for getting featured posts
+ * API for getting recent posts
  */
 
 var parser = require('url').parse;
@@ -12,7 +12,6 @@ var filterAttributes = require('../helpers/filter-attributes');
 var clubsDomain = require('../domains/clubs');
 var usersDomain = require('../domains/users');
 var socialDomain = require('../domains/social');
-var showcaseDomain = require('../domains/showcase');
 var proxyUrl = require('../security/proxy');
 var validate = require('../security/validation');
 
@@ -62,28 +61,18 @@ function *middleware(next) {
 		}
 	}
 
-	var post_pids = this.state.featured_post_ids;
-
-	if (!post_pids) {
-		post_pids = yield showcaseDomain.getFeaturedIds({
-			db: this.db
-			, type: 'featured-post-ids'
-		});
-	}
-
-	post_pids = post_pids.slice(skip, skip + limit);
-
-	// STEP 2: get featured posts
-	var featured_posts = yield clubsDomain.getFeaturedPosts({
+	// STEP 2: get recent posts
+	var recent_posts = yield clubsDomain.getRecentPosts({
 		db: this.db
-		, pids: post_pids
+		, limit: limit
+		, skip: skip
 	});
 
 	// STEP 3: get complementary user and club info
 	var temp_slugs = []
 	var temp_uids = [];
 	var temp_favs = [];
-	featured_posts.forEach(function (post) {
+	recent_posts.forEach(function (post) {
 		temp_slugs.push(post.club);
 		temp_uids.push(post.user);
 		temp_favs.push({
@@ -112,7 +101,7 @@ function *middleware(next) {
 	}
 
 	// STEP 4: append user and club info to output
-	featured_posts = featured_posts.map(function (post) {
+	recent_posts = recent_posts.map(function (post) {
 		var user = post.user;
 		var slug = post.club;
 
@@ -182,9 +171,9 @@ function *middleware(next) {
 	});
 
 	if (!next) {
-		return featured_posts;
+		return recent_posts;
 	}
 
 	// STEP 5: output json
-	this.state.json = getStandardJson(featured_posts);
+	this.state.json = getStandardJson(recent_posts);
 };

@@ -33,7 +33,6 @@ function template(data) {
 	var ui = data.ui;
 	var client = data.client;
 	var version = data.version.asset;
-	var base_url = data.base_url;
 
 	var club_posts_title, club_posts_list, club_posts_button, form;
 
@@ -95,10 +94,9 @@ function template(data) {
 		// error message, assume plain text
 		if (ui.form_error) {
 			message = $('div.common-message.error', ui.form_error);
-		}
 
 		// success message, assume object
-		if (ui.form_data) {
+		} else if (ui.form_data && ui.form_data.club && ui.form_data.club_name) {
 			// multi-step message
 			if (ui.form_step === 1) {
 				message = $('div.common-message.success', i18n.t('message.common.create-post-preview'));
@@ -106,8 +104,8 @@ function template(data) {
 				message = $('div.common-message.success', [
 					$('span', i18n.t('message.common.create-post-success'))
 					, $('a', {
-						href: '/c/' + ui.form_data.slug
-					}, ui.form_data.title)
+						href: '/c/' + ui.form_data.club
+					}, ui.form_data.club_name)
 				]);
 			}
 		}
@@ -137,21 +135,7 @@ function template(data) {
 			// form id for event handler
 			submitOpts = { id: 'init-post', route: 'init_post', params: [club_profile.slug], method: 'POST' };
 
-			// bookmarklet
-			/*
-			bookmarklet = $('div.common-bookmark', [
-				$('span.intro', i18n.t('form.bookmarklet.intro'))
-				, navButtonTemplate({
-					href: 'javascript:(function(){ window.open(\''
-						+ base_url
-						+ '/c/'
-						+ club_profile.slug
-						+ '?share=\'+encodeURIComponent(location.href)); })();'
-					, className: 'rounded'
-					, value: i18n.t('form.bookmarklet.share-to') + club_profile.title
-				})
-			]);
-			*/
+			// TODO: bookmarklet
 		} else if (ui.form_step === 1 || ui.form_step === 2) {
 			// post preview
 			if (ui.form_data) {
@@ -210,10 +194,9 @@ function template(data) {
 		// error message, assume plain text
 		if (ui.form_error) {
 			message = $('div.common-message.error', ui.form_error);
-		}
 
 		// success message, assume object
-		if (ui.form_data && ui.form_data.title && ui.form_data.slug) {
+		} else if (ui.form_data && ui.form_data.title && ui.form_data.slug) {
 			message = $('div.common-message.success', [
 				$('span', i18n.t('message.common.manage-club-success'))
 				, $('a', {

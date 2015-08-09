@@ -26,4 +26,5 @@ module.exports = {
 	, createPost: require('./create-post')
 	, joinClub: require('./join-club')
 	, leaveClub: require('./leave-club')
+	, recentPosts: require('./recent-posts')
 };

@@ -15,14 +15,14 @@ module.exports = template;
 
 function template(data) {
 	var base_url = data.base_url;
-	var image_base_url = data.image_base_url;
 	var current_path = data.current_path;
+	var site_url = data.site_url;
 	var main_css_file = data.production ? '/assets/app.css' : '/dev/app.css';
 	var main_js_file = data.production ? '/assets/app.js' : '/dev/app.js';
 	var profile = data.club_profile || data.user_profile || null;
 	var title_text = i18n.t('common.title');
 	var description_text = i18n.t('common.description');
-	var profile_image = image_base_url + '/images/header-640.jpg';
+	var profile_image = base_url + '/images/header-640.jpg';
 
 	if (profile) {
 		title_text = profile.title || profile.name || title_text;
@@ -112,7 +112,7 @@ function template(data) {
 
 	var og_url = $('meta', {
 		property: 'og:url'
-		, content: base_url + current_path
+		, content: site_url + current_path
 	});
 
 	var og_image = $('meta', {

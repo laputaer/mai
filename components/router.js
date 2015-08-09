@@ -43,16 +43,6 @@ function myRouter(app) {
 	/*
 	// old stuffs, for reference
 	router.get('/c/club-search', handlers.clubsFilterSearch());
-	router.get('/c/club-add', handlers.clubAddForm());
-	router.get('/c/:slug/edit', handlers.clubEditForm());
-	router.post('/c', handlers.clubCreate());
-	router.post('/c/:slug', handlers.clubUpdate());
-	router.post('/c/:slug/memberships', handlers.clubUserMembership());
-
-	router.get('/c/:slug/p/post-add', handlers.clubPostAddForm());
-	router.get('/c/:slug/p/post-add-2', handlers.clubPostConfirmForm());
-	router.post('/c/:slug/p/post-add', handlers.clubPostStart());
-	router.post('/c/:slug/p/post-add-2', handlers.clubPostCreate());
 	*/
 
 	// api routes
@@ -76,6 +66,7 @@ function myRouter(app) {
 	apiRouter.post('/clubs/:slug/posts/create', apiHandlers.createPost());
 	apiRouter.put('/clubs/:slug/users', apiHandlers.joinClub());
 	apiRouter.del('/clubs/:slug/users', apiHandlers.leaveClub());
+	apiRouter.get('/posts/recent', apiHandlers.recentPosts());
 
 	// mount api routes to main router
 	router.use('/api/v1', apiRouter.routes());

@@ -21,7 +21,7 @@ module.exports = template;
 function template(data) {
 	// common data
 	var version = data.version.asset;
-	var image_base_url = data.image_base_url;
+	var base_url = data.base_url;
 	var ui = data.ui;
 
 	// buttons
@@ -66,7 +66,7 @@ function template(data) {
 		href: '/connect/weibo'
 		, className: 'plain login weibo'
 		, text: 'menu.login.weibo'
-		, image: image_base_url + '/images/weibo-logo-64.png'
+		, image: base_url + '/images/weibo-logo-64.png'
 		, version: version
 	};
 	var weiboButton = navButtonTemplate(weiboOpts);

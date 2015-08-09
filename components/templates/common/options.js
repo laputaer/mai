@@ -24,7 +24,7 @@ function template(data) {
 	var current_user = data.current_user;
 	var club_profile = data.club_profile;
 	var version = data.version.asset;
-	var image_base_url = data.image_base_url;
+	var base_url = data.base_url;
 	var current_url = data.current_url;
 	var ui = data.ui;
 
@@ -81,7 +81,7 @@ function template(data) {
 		href: weiboUrl
 		, className: 'plain login weibo'
 		, text: 'menu.options.weibo'
-		, image: image_base_url + '/images/weibo-logo-64.png'
+		, image: base_url + '/images/weibo-logo-64.png'
 		, version: version
 		, target: '_blank'
 	};

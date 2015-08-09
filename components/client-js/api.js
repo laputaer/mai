@@ -12,6 +12,7 @@ module.exports = {
 	, home: {
 		featured_clubs: '/clubs/featured'
 		, featured_posts: '/posts/featured?skip=0&limit=20'
+		, recent_posts: '/posts/recent?skip=0&limit=20'
 	}
 	, myClubs: {
 		my_clubs: '/clubs/owner?skip=0&limit=20'
@@ -33,6 +34,9 @@ module.exports = {
 	, help: {}
 	, featured_posts: {
 		endpoint: '/posts/featured'
+	}
+	, recent_posts: {
+		endpoint: '/posts/recent'
 	}
 	, my_clubs: {
 		endpoint: '/clubs/owner'
