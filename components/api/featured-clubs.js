@@ -1,6 +1,6 @@
 
 /**
- * api-featured-clubs.js
+ * featured-clubs.js
  *
  * API for getting featured clubs
  */

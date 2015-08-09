@@ -1,6 +1,6 @@
 
 /**
- * api-global-config.js
+ * global-config.js
  *
  * API for getting current user profile
  */
