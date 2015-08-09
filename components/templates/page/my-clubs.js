@@ -120,10 +120,9 @@ function template(data) {
 		// error message, assume plain text
 		if (ui.form_error) {
 			message = $('div.common-message.error', ui.form_error);
-		}
 
 		// success message, assume object
-		if (ui.form_data && ui.form_data.title && ui.form_data.slug) {
+		} else if (ui.form_data && ui.form_data.title && ui.form_data.slug) {
 			message = $('div.common-message.success', [
 				$('span', i18n.t('message.common.create-club-success'))
 				, $('a', {

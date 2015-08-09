@@ -13,7 +13,7 @@ module.exports = createClubPost;
  * Create a post
  *
  * @param   Object  opts  Options { db, user, club, body, embed }
- * @return  Void
+ * @return  Object        The new post
  */
 function *createClubPost(opts) {
 	var db = opts.db;
@@ -25,6 +25,7 @@ function *createClubPost(opts) {
 	var User = db.col('users');
 	var Club = db.col('clubs');
 	var Post = db.col('posts');
+	var pid = cuid();
 
 	// STEP 1: update user action point
 	yield User.update({
@@ -44,7 +45,7 @@ function *createClubPost(opts) {
 
 	// STEP 3: create post
 	var post = {
-		pid: cuid()
+		pid: pid
 		, club: club.slug
 		, user: user.uid
 		, title: body.title
@@ -54,4 +55,9 @@ function *createClubPost(opts) {
 		, updated: new Date()
 	}
 	yield Post.insert(post);
+
+	// STEP 4: get the post
+	return yield Post.findOne({
+		pid: pid
+	});
 };
