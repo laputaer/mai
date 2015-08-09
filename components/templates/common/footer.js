@@ -35,7 +35,6 @@ function template(data) {
 			, text: 'menu.nav.login-alt'
 			, icon: 'flag'
 			, version: version
-			, base_url: base_url
 			, eventName: 'page:menu:login'
 		});
 	}

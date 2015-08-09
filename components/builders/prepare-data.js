@@ -33,8 +33,6 @@ function prepareData(ctx) {
 	data.current_url = ctx.request.href;
 	// site base url
 	data.base_url = ctx.state.base_url;
-	// image base url
-	data.image_base_url = ctx.state.image_base_url;
 	// inline css
 	data.inline_css = ctx.state.inline_css;
 	// inline js

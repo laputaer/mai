@@ -33,7 +33,6 @@ function template(data) {
 	var ui = data.ui;
 	var client = data.client;
 	var version = data.version.asset;
-	var base_url = data.base_url;
 
 	var club_posts_title, club_posts_list, club_posts_button, form;
 
@@ -136,21 +135,7 @@ function template(data) {
 			// form id for event handler
 			submitOpts = { id: 'init-post', route: 'init_post', params: [club_profile.slug], method: 'POST' };
 
-			// bookmarklet
-			/*
-			bookmarklet = $('div.common-bookmark', [
-				$('span.intro', i18n.t('form.bookmarklet.intro'))
-				, navButtonTemplate({
-					href: 'javascript:(function(){ window.open(\''
-						+ base_url
-						+ '/c/'
-						+ club_profile.slug
-						+ '?share=\'+encodeURIComponent(location.href)); })();'
-					, className: 'rounded'
-					, value: i18n.t('form.bookmarklet.share-to') + club_profile.title
-				})
-			]);
-			*/
+			// TODO: bookmarklet
 		} else if (ui.form_step === 1 || ui.form_step === 2) {
 			// post preview
 			if (ui.form_data) {
