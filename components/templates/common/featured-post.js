@@ -88,7 +88,7 @@ function template(data) {
 		};
 		favorite = navButtonTemplate({
 			href: '#'
-			, className: data.current_user_fav ? 'plain action active' : 'plain action'
+			, className: data.current_user_fav ? 'plain heart active' : 'plain heart'
 			, value: data.fav_point || '0'
 			, icon: 'heart'
 			, version: data.version

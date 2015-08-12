@@ -23,6 +23,15 @@
 	}
 }
 
+// another alternative highlight link
+.link-alt-2(@c1, @c2) {
+	color: @c1;
+
+	&:hover, &:focus, &:active {
+		color: @c2;
+	}
+}
+
 // remove .link() underline
 .unlink() {
 	&:hover, &:focus, &:active {

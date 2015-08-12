@@ -14,7 +14,8 @@ require('lazysizes/plugins/progressive/ls.progressive.js');
 require('lazysizes');
 
 // polyfills
-require('./vendor/svg4everybody');
+var enableFastClick = require('fastclick');
+var svgPolyfill = require('svg4everybody');
 require('whatwg-fetch');
 require('native-promise-only');
 
@@ -34,6 +35,9 @@ var domready = require('domready');
 domready(init);
 
 function init() {
+	svgPolyfill();
+	enableFastClick(document.body);
+
 	app.init().then(function () {
 		return app.update();
 	});

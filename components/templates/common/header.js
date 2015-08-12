@@ -34,13 +34,25 @@ function template(data) {
 	// navigation buttons
 	var discoverButton = navButtonTemplate({
 		href: '#'
-		, className: 'rounded nav'
+		, className: 'rounded nav mobile'
 		, text: 'menu.nav.discover'
 		, icon: 'compass'
 		, version: version
 		, eventName: 'page:menu:nav'
 		, client: client
 	});
+
+	var homeOpts = {
+		href: '/'
+		, className: 'rounded nav tablet'
+		, text: 'menu.nav.home'
+		, icon: 'home'
+		, version: version
+	};
+	if (current_path === homeOpts.href) {
+		homeOpts.className += ' active';
+	}
+	var homeButton = navButtonTemplate(homeOpts);
 
 	var clubOpts = {
 		href: '/my-clubs'
@@ -255,6 +267,7 @@ function template(data) {
 			, tagline
 			, $('ul.navigation', [
 				$('li.item', discoverButton)
+				, $('li.item', homeButton)
 				, $('li.item', clubButton)
 				, $('li.item', rankingButton)
 				, $('li.item', helpButton)

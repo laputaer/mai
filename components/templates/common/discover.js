@@ -27,7 +27,7 @@ function template(data) {
 	// buttons
 	var titleOpts = {
 		href: '#'
-		, className: 'plain title'
+		, className: 'plain title exit'
 		, text: 'menu.nav.discover'
 		, icon: 'compass'
 		, version: version
@@ -37,7 +37,7 @@ function template(data) {
 
 	var closeOpts = {
 		href: '#'
-		, className: 'plain close'
+		, className: 'plain close exit'
 		, icon: 'delete'
 		, version: version
 		, eventName: 'page:menu:close'
