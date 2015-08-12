@@ -21,6 +21,9 @@ require('native-promise-only');
 // event delegator (capture user input)
 require('dom-delegator')();
 
+// fast click module
+var enableFastClick = require('fastclick');
+
 // app lifecycle
 var App = require('./app');
 var app = new App();
@@ -34,6 +37,8 @@ var domready = require('domready');
 domready(init);
 
 function init() {
+	enableFastClick(document.body);
+
 	app.init().then(function () {
 		return app.update();
 	});

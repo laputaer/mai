@@ -4345,6 +4345,11 @@
         }
       }
     },
+    "fastclick": {
+      "version": "1.0.6",
+      "from": "fastclick@*",
+      "resolved": "https://registry.npmjs.org/fastclick/-/fastclick-1.0.6.tgz"
+    },
     "form-serialize": {
       "version": "0.6.0",
       "from": "form-serialize@*",
