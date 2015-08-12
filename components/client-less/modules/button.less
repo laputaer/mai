@@ -59,11 +59,11 @@
 		&.m-hint {
 			fill: fadeout(@color-white, 100%);
 			border-radius: 50%;
-			background-color: @color-yellow-light;
-			animation: hint 1.0s infinite ease-in-out;
+			background-color: currentColor;
+			animation: hintWave 1.0s infinite ease-in-out;
 		}
 
-		@keyframes hint {
+		@keyframes hintWave {
 			0% { 
 				transform: scale(0);
 			}

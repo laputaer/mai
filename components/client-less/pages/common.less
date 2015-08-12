@@ -212,6 +212,44 @@
 			margin-top: 70px;
 		}
 
+		.mobile {
+			padding: 4px;
+
+			&:hover {
+				animation: discoverTurn 1.0s 1 ease;
+			}
+
+			.m-icon {
+				margin-right: 0;
+				backface-visibility: hidden;
+			}
+
+			.m-text {
+				display: none;
+			}
+
+			@keyframes discoverTurn {
+				0% { 
+					transform: rotate(0);
+				}
+				20% {
+					transform: rotate(75deg);
+				}
+				40% {
+					transform: rotate(30deg);
+				}
+				60% {
+					transform: rotate(45deg);
+				}
+				80% {
+					transform: rotate(-15deg);
+				}
+				100% {
+					transform: rotate(0);
+				}
+			}
+		}
+
 		.tablet {
 			display: inline-block;
 		}
@@ -274,6 +312,18 @@
 
 	&.active {
 		display: block;
+		animation: menuFade 0.5s 1 ease;
+	}
+
+	@keyframes menuFade {
+		0% { 
+			transform: scale(1.2);
+			opacity: 0;
+		}
+		100% {
+			transform: scale(1.0);
+			opacity: 1;
+		}
 	}
 
 	.wrapper {
