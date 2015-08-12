@@ -14,15 +14,13 @@ require('lazysizes/plugins/progressive/ls.progressive.js');
 require('lazysizes');
 
 // polyfills
-require('./vendor/svg4everybody');
+var enableFastClick = require('fastclick');
+var svgPolyfill = require('svg4everybody');
 require('whatwg-fetch');
 require('native-promise-only');
 
 // event delegator (capture user input)
 require('dom-delegator')();
-
-// fast click module
-var enableFastClick = require('fastclick');
 
 // app lifecycle
 var App = require('./app');
@@ -37,6 +35,7 @@ var domready = require('domready');
 domready(init);
 
 function init() {
+	svgPolyfill();
 	enableFastClick(document.body);
 
 	app.init().then(function () {
