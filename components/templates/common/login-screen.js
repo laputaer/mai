@@ -27,7 +27,7 @@ function template(data) {
 	// buttons
 	var titleOpts = {
 		href: '#'
-		, className: 'plain title'
+		, className: 'plain title exit'
 		, text: 'menu.nav.login'
 		, icon: 'compass'
 		, version: version
@@ -37,7 +37,7 @@ function template(data) {
 
 	var closeOpts = {
 		href: '#'
-		, className: 'plain close'
+		, className: 'plain close exit'
 		, icon: 'delete'
 		, version: version
 		, eventName: 'page:menu:close'
@@ -46,7 +46,7 @@ function template(data) {
 
 	var twitterOpts = {
 		href: '/connect/twitter'
-		, className: 'plain login twitter'
+		, className: 'plain login twitter action'
 		, text: 'menu.login.twitter'
 		, icon: 'twitter'
 		, version: version
@@ -55,7 +55,7 @@ function template(data) {
 
 	var githubOpts = {
 		href: '/connect/github'
-		, className: 'plain login github'
+		, className: 'plain login github action'
 		, text: 'menu.login.github'
 		, icon: 'github'
 		, version: version
@@ -64,7 +64,7 @@ function template(data) {
 
 	var weiboOpts = {
 		href: '/connect/weibo'
-		, className: 'plain login weibo'
+		, className: 'plain login weibo action'
 		, text: 'menu.login.weibo'
 		, image: base_url + '/images/weibo-logo-64.png'
 		, version: version

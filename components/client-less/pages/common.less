@@ -5,6 +5,7 @@
 	// standard antialiasing instead of subpixel
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	-webkit-text-size-adjust: 100%;
 
 	// high-contrast default color
 	color: @color-black;
@@ -292,31 +293,28 @@
 		margin-top: 20px;
 	}
 
-	.item {
-		margin: 10px 20px;
-
-		.m-button {
-			color: @color-white;
-		}
-
+	.item, .title, .close {
 		.m-text {
-			font-weight: 700;
-			line-height: 20px;
-			.size(16);
+			font-weight: 300;
+			line-height: 24px;
+			.size(22);
 		}
 
 		.m-icon {
-			width: 20px;
-			height: 20px;
+			width: 24px;
+			height: 24px;
 			margin-right: 8px;
 		}
+	}
+
+	.item {
+		margin: 10px 20px;
 	}
 
 	.title {
 		position: absolute;
 		top: 20px;
 		left: 20px;
-		.size(20);
 	}
 
 	.close {
@@ -325,79 +323,33 @@
 		right: 20px;
 	}
 
-	@media screen and (min-height: 300px) {
-		.item {
-			margin: 15px 20px;
-
-			.m-text {
-				.size(20);
-			}
-		}
-	}
-
 	@media screen and (min-height: 350px) {
 		.item {
-			margin: 20px;
-
-			.m-text {
-				line-height: 24px;
-				.size(28);
-			}
-
-			.m-icon {
-				width: 24px;
-				height: 24px;
-			}
+			margin: 15px 20px;
 		}
 	}
 
 	@media screen and (min-height: 400px) {
 		.item {
-			.m-text {
-				line-height: 32px;
-				.size(36);
-			}
-
-			.m-icon {
-				width: 32px;
-				height: 32px;
-			}
-		}
-	}
-
-	@media @tablet {
-		.wrapper {
 			margin: 20px;
-			width: ~'calc(100% - 40px)';
-			height: ~'calc(100% - 40px)';
 		}
+	}
 
-		.title {
+	@media screen and (min-height: 450px) {
+		.item {
 			.m-text {
-				line-height: 24px;
-				.size(20);
+				line-height: 30px;
+				.size(28);
 			}
 
 			.m-icon {
-				width: 24px;
-				height: 24px;
-			}
-		}
-
-		.close {
-			.m-text {
-				line-height: 24px;
-				.size(24);
-			}
-
-			.m-icon {
-				width: 24px;
-				height: 24px;
+				width: 30px;
+				height: 30px;
 			}
 		}
 	}
 
-	@media @monitor {
+	@media @mobile-large {
 		.wrapper {
 			align-items: center;
 		}

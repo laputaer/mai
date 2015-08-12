@@ -83,6 +83,12 @@
 		}
 	}
 
+	&.exit {
+		&:hover, &:focus, &:active {
+			color: @color-yellow-light;
+		}
+	}
+
 	&.nav {
 		color: @color-white;
 		border-color: transparent;
@@ -111,14 +117,20 @@
 		}
 	}
 
-	&.action {
+	&.heart {
+		color: @color-red-pastel;
+
 		&:hover, &:focus, &:active {
-			color: @color-black-light;
+			color: @color-red-light;
 		}
 
 		&.active {
 			color: @color-red;
 		}
+	}
+
+	&.action {
+		.link-alt-2(@color-white, @color-yellow-light);
 	}
 
 	&.login {
@@ -144,30 +156,35 @@
 
 	&.discover {
 		&.home {
+			.link-alt-2(@color-white, @color-blue-light);
 			.m-icon {
 				fill: @color-blue-light;
 			}
 		}
 
 		&.club {
+			.link-alt-2(@color-white, @color-yellow-light);
 			.m-icon {
 				fill: @color-yellow-light;
 			}
 		}
 
 		&.login {
+			.link-alt-2(@color-white, @color-red-light);
 			.m-icon {
 				fill: @color-red-light;
 			}
 		}
 
 		&.ranking {
+			.link-alt-2(@color-white, @color-green-light);
 			.m-icon {
 				fill: @color-green-light;
 			}
 		}
 
 		&.help{
+			.link-alt-2(@color-white, @color-gray-dark);
 			.m-icon {
 				fill: @color-gray-dark;
 			}
@@ -175,19 +192,37 @@
 	}
 
 	&.options {
+		&.twitter {
+			.link-alt-2(@color-white, @color-twitter);
+			.m-icon {
+				fill: @color-twitter;
+			}
+		}
+
+		&.weibo {
+			.link-alt-2(@color-white, @color-weibo);
+			.m-avatar {
+				background-color: transparent;
+				border-radius: 0;
+			}
+		}
+
 		&.manage {
+			.link-alt-2(@color-white, @color-yellow-light);
 			.m-icon {
 				fill: @color-yellow-light;
 			}
 		}
 
 		&.stats {
+			.link-alt-2(@color-white, @color-green-light);
 			.m-icon {
 				fill: @color-green-light;
 			}
 		}
 
 		&.leave {
+			.link-alt-2(@color-white, @color-gray-dark);
 			.m-icon {
 				fill: @color-gray-dark;
 			}
