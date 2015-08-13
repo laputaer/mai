@@ -1,6 +1,6 @@
 
 /**
- * weibo-config.js
+ * weibo-config.js (deprecated)
  *
  * Custom oauth provider: weibo
  */
