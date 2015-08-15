@@ -16492,9 +16492,9 @@
       }
     },
     "penthouse": {
-      "version": "0.3.5",
-      "from": "penthouse@0.3.5",
-      "resolved": "https://registry.npmjs.org/penthouse/-/penthouse-0.3.5.tgz",
+      "version": "0.3.6",
+      "from": "penthouse@0.3.6",
+      "resolved": "https://registry.npmjs.org/penthouse/-/penthouse-0.3.6.tgz",
       "dependencies": {
         "nopt": {
           "version": "3.0.3",
@@ -18024,9 +18024,9 @@
       }
     },
     "validator": {
-      "version": "4.0.2",
-      "from": "validator@4.0.2",
-      "resolved": "https://registry.npmjs.org/validator/-/validator-4.0.2.tgz"
+      "version": "4.0.3",
+      "from": "validator@4.0.3",
+      "resolved": "https://registry.npmjs.org/validator/-/validator-4.0.3.tgz"
     },
     "vdom-parser": {
       "version": "1.2.1",
@@ -18568,9 +18568,9 @@
       "resolved": "https://registry.npmjs.org/xtend/-/xtend-4.0.0.tgz"
     },
     "yieldb": {
-      "version": "2.6.0",
-      "from": "bitinn/yieldb#local",
-      "resolved": "git://github.com/bitinn/yieldb.git#fdb022fd6a5ac91cc886123570bdfc08e8b0eea5",
+      "version": "2.7.0",
+      "from": "yieldb@2.7.0",
+      "resolved": "https://registry.npmjs.org/yieldb/-/yieldb-2.7.0.tgz",
       "dependencies": {
         "debug": {
           "version": "0.8.1",
@@ -18588,9 +18588,9 @@
           "resolved": "https://registry.npmjs.org/is-object/-/is-object-1.0.1.tgz"
         },
         "mongodb": {
-          "version": "1.4.38",
-          "from": "mongodb@1.4.38",
-          "resolved": "https://registry.npmjs.org/mongodb/-/mongodb-1.4.38.tgz",
+          "version": "1.4.39",
+          "from": "mongodb@1.4.39",
+          "resolved": "https://registry.npmjs.org/mongodb/-/mongodb-1.4.39.tgz",
           "dependencies": {
             "bson": {
               "version": "0.2.22",
@@ -18656,9 +18656,9 @@
           }
         },
         "mquery": {
-          "version": "1.6.0",
-          "from": "mquery@1.6.0",
-          "resolved": "https://registry.npmjs.org/mquery/-/mquery-1.6.0.tgz",
+          "version": "1.6.2",
+          "from": "mquery@1.6.2",
+          "resolved": "https://registry.npmjs.org/mquery/-/mquery-1.6.2.tgz",
           "dependencies": {
             "bluebird": {
               "version": "2.9.26",
