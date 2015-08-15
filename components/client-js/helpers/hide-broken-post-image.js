@@ -28,19 +28,15 @@ function hideImage(ev) {
 	}
 
 	if (!img.onerror) {
-		console.log('attach');
-
 		img.onerror = function () {
 			div.classList.add('hidden');
 			img.onerror = null;
 			img.onload = null;
-			console.log('error');
 		};
 
 		img.onload = function () {
 			img.onerror = null;
 			img.onload = null;
-			console.log('load');
 		};
 	}
 };
