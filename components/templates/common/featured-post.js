@@ -28,21 +28,27 @@ function template(data) {
 		, className: 'featured-post'
 	};
 
-	var image, user, club;
+	var image, imageOpts, user, club, favorite, favoriteOpts;
 
 	if (data.image) {
-		image = $('img.thumbnail.lazyload', {
-			attributes: {
+		imageOpts = {
+			src: data.image + '&size=sq-small'
+			, alt: data.title + i18n.t('message.common.image-preview')
+			, className: 'thumbnail'
+		};
+
+		if (data.pid !== 'club-post-preview') {
+			imageOpts.attributes = {
 				'data-srcset': data.image + '&size=sq-small 80w, '
 					+ data.image + '&size=sq-medium 100w, '
 					+ data.image + '&size=sq-large 200w'
 				, 'data-sizes': 'auto'
-			}
-			, src: data.image + '&size=sq-small'
-			, alt: data.title + i18n.t('message.common.image-preview')
-		});
+			};
 
-		image = $('div.image-column', image);
+			imageOpts.className += ' lazyload';
+		}
+
+		image = $('div.image-column', $('img', imageOpts));
 	}
 
 	var link = $('p.link', $('a', {
@@ -79,13 +85,13 @@ function template(data) {
 		});
 	}
 
-	var favorite;
 	if (data.pid !== 'club-post-preview') {
-		var favoriteOpts = {
+		favoriteOpts = {
 			id: data.pid
 			, order: data.num
 			, view: data.view
 		};
+
 		favorite = navButtonTemplate({
 			href: '#'
 			, className: data.current_user_fav ? 'plain heart active' : 'plain heart'

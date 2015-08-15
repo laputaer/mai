@@ -138,6 +138,10 @@
 
 	.image-column {
 		width: 80px;
+
+		&.hidden {
+			display: none;
+		}
 	}
 
 	.text-column {
@@ -149,6 +153,10 @@
 
 	.image-column + .text-column {
 		padding-left: 10px;
+	}
+
+	.image-column.hidden + .text-column {
+		padding-left: 0;
 	}
 
 	.action-block {

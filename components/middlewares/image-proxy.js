@@ -113,7 +113,7 @@ function *middleware(next) {
 		yield sendfile.call(this, path + '-' + input.size + '.' + ext);
 	} catch(err) {
 		// cache miss
-		debug(err);
+		debug('find image', err);
 	}
 
 	if (this.status === 200 || this.status === 304) {
@@ -134,7 +134,7 @@ function *middleware(next) {
 			yield sendfile.call(this, path + '-' + input.size + '.' + ext);
 		} catch(err) {
 			// raw cache miss
-			debug(err);
+			debug('find cache', err);
 		}
 	}
 
@@ -180,7 +180,7 @@ function *middleware(next) {
 		});
 	} catch(err) {
 		// fetch error
-		debug(err);
+		debug('send request', err);
 	}
 
 	debug('response started');
@@ -209,27 +209,38 @@ function *middleware(next) {
 	debug('process started');
 
 	// STEP 9: image processing
+	var has_raw;
 	try {
-		// raw image
-		yield saveImage({
-			file: result.body
-			, path: path
+		// check raw image
+		has_raw = yield hasRawImage({
+			path: path
 			, ext: ext
-			, limit: config.size
 		});
-		yield fs.writeFile(path + '.metadata', ext);
 
-		// process raw image
+		if (!has_raw) {
+			// save raw image
+			yield saveImage({
+				file: result.body
+				, path: path
+				, ext: ext
+				, limit: config.size
+			});
+			yield fs.writeFile(path + '.metadata', ext);
+		}
+
+		// create thumbnail
 		yield createImage({
 			name: input.size
 			, path: path
 			, ext: ext
 			, limit: config.size
 		});
+
+		// serve thumbnail
 		yield sendfile.call(this, path + '-' + input.size + '.' + ext);
 	} catch(err) {
 		// processing error
-		debug(err);
+		debug('create thumbnail', err);
 	}
 
 	if (this.status === 200 || this.status === 304) {
@@ -356,5 +367,24 @@ function saveImage(input) {
 		p.on('finish', function () {
 			resolve(1);
 		});
+	});
+};
+
+/**
+ * Check raw image and metadata exist
+ *
+ * @param   Object   input  { path, ext }
+ * @return  Promise
+ */
+function hasRawImage(input) {
+	return fs.access(input.path + '.' + input.ext).then(function (code) {
+		// raw image exists, check metadata as well
+		return fs.access(input.path + '.metadata').then(function (code) {
+			// metadata exists
+			return true;
+		});
+	}).catch(function () {
+		// raw image doesn't exist
+		return false;
 	});
 };
