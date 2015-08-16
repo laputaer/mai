@@ -18568,9 +18568,9 @@
       "resolved": "https://registry.npmjs.org/xtend/-/xtend-4.0.0.tgz"
     },
     "yieldb": {
-      "version": "2.7.0",
-      "from": "yieldb@2.7.0",
-      "resolved": "https://registry.npmjs.org/yieldb/-/yieldb-2.7.0.tgz",
+      "version": "2.7.1",
+      "from": "yieldb@2.7.1",
+      "resolved": "https://registry.npmjs.org/yieldb/-/yieldb-2.7.1.tgz",
       "dependencies": {
         "debug": {
           "version": "0.8.1",

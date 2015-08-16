@@ -125,7 +125,7 @@
     "whatwg-fetch": "0.9.0",
     "xss-filters": "1.2.6",
     "xtend": "4.0.0",
-    "yieldb": "2.7.0"
+    "yieldb": "2.7.1"
   },
   "engines": {
     "iojs": ">= 2.0.0",
