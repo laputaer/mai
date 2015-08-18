@@ -29,4 +29,5 @@ module.exports = {
 	, recentPosts: require('./recent-posts')
 	, createStashItem: require('./create-stash-item')
 	, deleteStashItem: require('./delete-stash-item')
+	, userStashItems: require('./user-stash-items')
 };
