@@ -48,23 +48,7 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 2: find user
-	var user = yield usersDomain.matchUser({
-		db: this.db
-		, uid: this.params.uid
-	});
-
-	if (!user) {
-		this.state.error_json = getStandardJson(null, 404, i18n.t('error.not-found-user'));
-		return null;
-	}
-
-	if (user.uid !== this.session.uid) {
-		this.state.error_json = getStandardJson(null, 400, i18n.t('error.access-control'));
-		return;
-	}
-
-	// STEP 3: prepare common data
+	// STEP 2: prepare common data
 	var limit = 8;
 	var range = 0;
 
@@ -74,7 +58,7 @@ function *middleware(next) {
 		range = parseInt(this.request.query.range) || range;
 	}
 
-	// STEP 4: find stash items
+	// STEP 3: find stash items
 	var items = yield stashDomain.getUserItems({
 		db: this.db
 		, uid: this.session.uid
@@ -82,7 +66,7 @@ function *middleware(next) {
 		, range: range
 	});
 
-	// STEP 5: prepare output
+	// STEP 4: prepare output
 	var config = this.config;
 	var state = this.state;
 
@@ -107,6 +91,6 @@ function *middleware(next) {
 		return filterAttributes(item, filter_output);
 	});
 
-	// STEP 6: output json
+	// STEP 5: output json
 	this.state.json = getStandardJson(items);
 };

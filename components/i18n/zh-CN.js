@@ -59,6 +59,7 @@ module.exports = {
 			, 'create-post': '创建新分享'
 			, 'manage-club': '管理社团'
 			, 'club-stats': '社团数据'
+			, 'user-stash': '个人收藏'
 		}
 		, 'load': {
 			'featured-posts': '浏览更多精彩内容'

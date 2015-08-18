@@ -29,43 +29,49 @@ function template(data) {
 	var client = data.client;
 	var version = data.version.asset;
 
-	// 1st section, plain title
+	// 1st section, tabs, always shown
 	var user_posts_title = sectionTitleTemplate({
-		title: 'section.titles.recent-posts'
+		tabs: ['section.titles.recent-posts', 'section.titles.user-stash']
 		, key: 'recent-posts'
+		, active: ui['recent-posts-section'] || 0
 		, bottom: true
 	});
 
-	// trick to hide loaded post, so 1st load more is always fast
-	user_posts = partialList(user_posts, 8, ui['load-user-posts']);
+	var user_posts_list, user_posts_button;
 
-	// render posts, use immutable
-	var user_posts_list = user_posts.map(function(post, i) {
-		var opts = {
-			num: i
-			, version: version
-			, view: 'user_posts'
-			, client: client
-			, cache: ui['load-user-posts'] > 50
-		};
+	// scenario 1: defaul tab active
+	if (!ui['recent-posts-section']) {
+		// trick to hide loaded post, so 1st load more is always fast
+		user_posts = partialList(user_posts, 8, ui['load-user-posts']);
 
-		return immutable(postTemplate, post, opts);
-	});
+		// render posts, use immutable
+		user_posts_list = user_posts.map(function(post, i) {
+			var opts = {
+				num: i
+				, version: version
+				, view: 'user_posts'
+				, client: client
+				, cache: ui['load-user-posts'] > 50
+			};
 
-	// load more button
-	var user_posts_count = user_posts_list.length;
-	var user_posts_button;
-	if (!ui['load-user-posts'] || user_posts_count >= ui['load-user-posts']) {
-		user_posts_button = loadButtonTemplate({
-			title: 'section.load.user-posts'
-			, key: 'load-user-posts'
-			, eventName: 'page:load:user-posts'
+			return immutable(postTemplate, post, opts);
 		});
-	} else {
-		user_posts_button = loadButtonTemplate({
-			title: 'section.load.eof-2'
-			, key: 'load-user-posts'
-		});
+
+		// load more button
+		var user_posts_count = user_posts_list.length;
+
+		if (!ui['load-user-posts'] || user_posts_count >= ui['load-user-posts']) {
+			user_posts_button = loadButtonTemplate({
+				title: 'section.load.user-posts'
+				, key: 'load-user-posts'
+				, eventName: 'page:load:user-posts'
+			});
+		} else {
+			user_posts_button = loadButtonTemplate({
+				title: 'section.load.eof-2'
+				, key: 'load-user-posts'
+			});
+		}
 	}
 
 	// page content
