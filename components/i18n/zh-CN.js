@@ -98,10 +98,10 @@ module.exports = {
 			, 'create-post-link-note': '你要分享内容的网址'
 			, 'create-post-link-placeholder': '例如：http://bitinn.net/...'
 			, 'create-post-title': '自定义标题'
-			, 'create-post-title-note': '替换默认的标题。准确、清晰、有趣的标题会让更多人注意到这篇分享。'
+			, 'create-post-title-note': '替换默认的标题。准确、清晰、有趣的标题会让更多人注意到这篇分享。最多32字符。'
 			, 'create-post-title-placeholder': '例如：一句话介绍文章'
 			, 'create-post-summary': '自定义简介'
-			, 'create-post-summary-note': '进一步说明分享的内容。内容可以是小结或引用。'
+			, 'create-post-summary-note': '进一步说明分享的内容。内容可以是小结或引用。最多64字符。'
 			, 'create-post-summary-placeholder': '例如：概括文章的精彩之处'
 		}
 		, 'button': {
