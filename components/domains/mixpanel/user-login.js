@@ -27,7 +27,6 @@ function userLogin(opts) {
 	mixpanel.people.set(user.uid, {
 		'$name': user.login
 		, '$first_name': user.name
-		, '$created': user.created.toISOString()
 		, updated: user.updated.toISOString()
 		, provider: user.provider
 		, action_base: user.action_base
