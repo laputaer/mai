@@ -16,6 +16,7 @@ var opengraph = require('./schema/opengraph');
 var postStart = require('./schema/post-start');
 var postConfirm = require('./schema/post-confirm');
 var query = require('./schema/query');
+var stashItem = require('./schema/stash-item');
 
 module.exports = {
 	club: club
@@ -29,4 +30,5 @@ module.exports = {
 	, postStart: postStart
 	, postConfirm: postConfirm
 	, query: query
+	, stashItem: stashItem
 };

@@ -26,18 +26,20 @@ function *createItem(opts) {
 
 	// STEP 1: update user stash count
 	yield User.update({
-		uid: user.uid
+		uid: user
 	}, {
-		stash_count: user.stash_count ? user.stash_count + 1 : 1;
+		$inc: {
+			stash_count: 1
+		}
 	});
 
 	// STEP 2: create item
 	var item = {
 		sid: sid
-		, user: user.uid
+		, user: user
 		, url: body.url
 		, title: body.title
-		, summary: body.summary
+		, favicon: body.favicon
 		, created: new Date()
 		, updated: new Date()
 	}
