@@ -68,6 +68,7 @@ function myRouter(app) {
 	apiRouter.del('/clubs/:slug/users', apiHandlers.leaveClub());
 	apiRouter.get('/posts/recent', apiHandlers.recentPosts());
 	apiRouter.post('/stash', apiHandlers.createStashItem());
+	apiRouter.del('/stash/:sid', apiHandlers.deleteStashItem());
 
 	// mount api routes to main router
 	router.use('/api/v1', apiRouter.routes());

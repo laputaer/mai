@@ -5,8 +5,6 @@
  * API for stash item creation
  */
 
-var parser = require('url').parse;
-
 var getStandardJson = require('../helpers/get-standard-json');
 var filterAttributes = require('../helpers/filter-attributes');
 var i18n = require('../templates/i18n')();
@@ -86,7 +84,7 @@ function *middleware(next) {
 		mixpanel: this.mixpanel
 		, request: this.request
 		, user: this.session.user
-		, item: item
+		, item: item.sid
 	});
 
 	// STEP 5: prepare output

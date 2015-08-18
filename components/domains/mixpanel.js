@@ -16,6 +16,7 @@ var postCreate = require('./mixpanel/post-create');
 var postFavorite = require('./mixpanel/post-favorite');
 var postUnfavorite = require('./mixpanel/post-unfavorite');
 var stashAdd = require('./mixpanel/stash-add');
+var stashRemove = require('./mixpanel/stash-remove');
 
 module.exports = {
 	userLogin: userLogin
@@ -29,4 +30,5 @@ module.exports = {
 	, postFavorite: postFavorite
 	, postUnfavorite: postUnfavorite
 	, stashAdd: stashAdd
+	, stashRemove: stashRemove
 };

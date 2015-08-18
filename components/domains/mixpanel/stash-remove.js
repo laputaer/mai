@@ -1,11 +1,11 @@
 
 /**
- * stash-add.js
+ * stash-remove.js
  *
  * Report user stash item action
  */
 
-module.exports = stashAdd;
+module.exports = stashRemove;
 
 /**
  * Send the stash item for reporting
@@ -13,14 +13,14 @@ module.exports = stashAdd;
  * @param   Object  opts  { mixpanel, user, item, request }
  * @return  Void
  */
-function stashAdd(opts) {
+function stashRemove(opts) {
 	var mixpanel = opts.mixpanel;
 	var user = opts.user;
 	var item = opts.item;
 	var request = opts.request;
 	var now = new Date();
 
-	mixpanel.track('Stash add', {
+	mixpanel.track('Stash remove', {
 		distinct_id: user
 		, user: user
 		, item: item
@@ -30,13 +30,13 @@ function stashAdd(opts) {
 
 	mixpanel.people.set(user, {
 		last_action: now.toISOString()
-		, last_stash_add: now.toISOString()
+		, last_stash_remove: now.toISOString()
 		, ip: request.ip
 	});
 
 	mixpanel.people.increment(
 		user
 		, 'stash_item_count'
-		, 1
+		, -1
 	);
 };
