@@ -19,7 +19,7 @@ var validate = require('../security/validation');
 
 var filter_output = [
 	'sid', 'user', 'url', 'title', 'favicon'
-	, 'domain'
+	, 'domain', 'created', 'updated'
 ];
 
 module.exports = factory;
@@ -87,19 +87,20 @@ function *middleware(next) {
 	var state = this.state;
 
 	items = items.map(function (item) {
+		// domain
+		if (item.url) {
+			var url = parser(item.url);
+			item.domain = url.hostname;
+		}
+
 		// favicon
+		// TODO: test https://www.google.com/s2/favicons?domain=
 		if (item.favicon) {
 			item.favicon = proxyUrl({
 				url: item.favicon
 				, key: config.proxy.key
 				, base: state.image_base_url
 			});
-		}
-
-		// domain
-		if (item.url) {
-			var url = parser(item.url);
-			item.domain = url.hostname;
 		}
 
 		// filter output
