@@ -81,13 +81,13 @@ function *middleware(next) {
 	yield socialDomain.createFavoritePost({
 		db: this.db
 		, post: post
-		, user: this.state.user
+		, user: this.session.uid
 	});
 
 	mixpanelDomain.postFavorite({
 		mixpanel: this.mixpanel
 		, post: post
-		, user: this.state.user
+		, user: this.session.uid
 		, request: this.request
 	});
 

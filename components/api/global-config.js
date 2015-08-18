@@ -41,7 +41,7 @@ function *middleware(next) {
 		, production: this.state.production
 	};
 
-	if (this.session.uid) {
+	if (this.state.user) {
 		data.current_user = filterAttributes(this.state.user, filter_output);
 	}
 

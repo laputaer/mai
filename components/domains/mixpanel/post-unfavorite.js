@@ -20,15 +20,15 @@ function postUnfavorite(opts) {
 	var request = opts.request;
 
 	mixpanel.track('Post Unfavorite', {
-		distinct_id: user.uid
-		, user: user.uid
+		distinct_id: user
+		, user: user
 		, post: post.pid
 		, source: 'server'
 		, ip: request.ip
 	});
 
 	mixpanel.people.increment(
-		user.uid
+		user
 		, 'post_unfavorite_count'
 		, 1
 	);

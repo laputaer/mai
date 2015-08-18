@@ -81,13 +81,13 @@ function *middleware(next) {
 	yield socialDomain.removeFavoritePost({
 		db: this.db
 		, post: post
-		, user: this.state.user
+		, user: this.session.uid
 	});
 
 	mixpanelDomain.postUnfavorite({
 		mixpanel: this.mixpanel
 		, post: post
-		, user: this.state.user
+		, user: this.session.uid
 		, request: this.request
 	});
 

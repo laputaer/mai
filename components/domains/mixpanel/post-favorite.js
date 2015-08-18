@@ -20,15 +20,15 @@ function postFavorite(opts) {
 	var request = opts.request;
 
 	mixpanel.track('Post Favorite', {
-		distinct_id: user.uid
-		, user: user.uid
+		distinct_id: user
+		, user: user
 		, post: post.pid
 		, source: 'server'
 		, ip: request.ip
 	});
 
 	mixpanel.people.increment(
-		user.uid
+		user
 		, 'post_favorite_count'
 		, 1
 	);

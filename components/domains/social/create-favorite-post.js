@@ -24,7 +24,7 @@ function *createFavoritePost(opts) {
 
 	// STEP 1: update fav-er stats
 	yield User.update({
-		uid: user.uid
+		uid: user
 	}, {
 		$inc: {
 			action_point: -1
@@ -53,7 +53,7 @@ function *createFavoritePost(opts) {
 	// STEP 4: create social action
 	var fav = {
 		post: post.pid
-		, user: user.uid
+		, user: user
 		, created: new Date()
 		, updated: new Date()
 	}
