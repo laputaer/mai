@@ -11,8 +11,8 @@ var getStandardJson = require('../helpers/get-standard-json');
 var filterAttributes = require('../helpers/filter-attributes');
 var i18n = require('../templates/i18n')();
 
-var usersDomain = require('../domains/users');
 var stashDomain = require('../domains/stash');
+var sessionDomain = require('../domains/session');
 var mixpanelDomain = require('../domains/mixpanel');
 
 var validate = require('../security/validation');

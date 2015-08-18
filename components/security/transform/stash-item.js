@@ -49,6 +49,8 @@ function tranform(input) {
 		input.favicon = he.decode(input.favicon, {
 			isAttributeValue: true
 		});
+	} else {
+		input.favicon = '';
 	}
 
 	return input;

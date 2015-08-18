@@ -23,6 +23,7 @@ function factory() {
 					&& validator.isLength(value, 1, 128)
 			}, 'title invalid')
 		.validates('favicon')
+			.optional()
 			.using(function(value) {
 				return validator.testUrl(value)
 			}, 'favicon invalid')

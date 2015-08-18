@@ -27,4 +27,5 @@ module.exports = {
 	, joinClub: require('./join-club')
 	, leaveClub: require('./leave-club')
 	, recentPosts: require('./recent-posts')
+	, createStashItem: require('./create-stash-item')
 };
