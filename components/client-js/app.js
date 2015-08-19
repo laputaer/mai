@@ -37,47 +37,37 @@ function App() {
 App.prototype.init = function () {
 	var self = this;
 
-	// contact backend service
-	return self.service.init().then(function(data) {
-		// init data store, such as asset version and current user
+	// get page global data from backend
+	return self.service.init().then(function (data) {
+		// init data store
 		self.model.init(data);
+
 		// init vdom and dom cache
 		self.renderer.init({
 			container: document.querySelector('.page')
 			, production: self.model.get('production')
 		});
-	});
-};
 
-/**
- * Update app state and view
- *
- * @return  Promise
- */
-App.prototype.update = function () {
-	var self = this;
-	var model = self.model.get();
+		// error page
+		if (self.model.get('error_status')) {
+			self.renderer.update(false, self.model.get());
+			return;
+		}
 
-	// error page
-	if (model.error_status && model.error_message) {
-		self.renderer.update(false, model);
-		return Promise.resolve(1);
-	}
+		// match route
+		var route = router(self.model.get());
+		if (!route) {
+			return;
+		}
 
-	// match current route
-	var route = router(model);
-	if (!route) {
-		return Promise.resolve(2);
-	}
+		// found route, get page-specific data from backend
+		return self.service.sync(route).then(function (data) {
+			// update data store
+			self.model.update(data);
 
-	// found route, contact backend service
-	return self.service.sync(route).then(function(data) {
-		// update data store, such as page-specific content
-		self.model.update(data);
-		// update view using current model
-		self.renderer.update(route.name, self.model.get());
-		// debug purpose
-		return 3;
+			// update view
+			self.renderer.update(route.name, self.model.get());
+		});
 	});
 };
 

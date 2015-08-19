@@ -9,7 +9,6 @@ var doc = document;
 var emitter = require('../templates/emitter');
 var toggleScroll = require('./helpers/toggle-body-scroll');
 var menuEscape = require('./helpers/menu-escape');
-var hideImage = require('./helpers/hide-broken-post-image');
 
 var createFavorite = require('./handlers/create-favorite');
 var deleteFavorite = require('./handlers/delete-favorite');
@@ -195,6 +194,4 @@ function handlers(app) {
 			formResult(app, json);
 		});
 	});
-
-	doc.addEventListener('lazybeforeunveil', hideImage);
 };
