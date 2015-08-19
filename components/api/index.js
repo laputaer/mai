@@ -31,4 +31,5 @@ module.exports = {
 	, deleteStashItem: require('./delete-stash-item')
 	, userStashItems: require('./user-stash-items')
 	, generateAppPassword: require('./generate-app-password')
+	, deleteAppPassword: require('./delete-app-password')
 };

@@ -146,6 +146,7 @@ module.exports = {
 		, 'not-found-post': '你要找的文章不存在'
 		, 'not-found-favorite': '你要找的回礼不存在'
 		, 'not-found-stash-item': '你要找的收藏不存在'
+		, 'not-found-app-password': '你要找的App密码不存在'
 		, 'oauth-error-response': '请求 %{provider} 访问权限时发生错误，你允许了我们的请求吗？请再次尝试登陆。'
 		, 'oauth-error-profile': '请求 %{provider} 用户数据时发生错误，如重复出现，请联系我们反馈错误。'
 		, 'oauth-invalid-profile': '请求 %{provider} 时得到了不正确的用户数据，如重复出现，请联系我们反馈错误。'

@@ -12,6 +12,7 @@ var getUsersByIds = require('./users/get-users-by-ids');
 var createAppPassword = require('./users/create-app-password');
 var matchAppPassword = require('./users/match-app-password');
 var matchAppName = require('./users/match-app-name');
+var removeAppPassword = require('./users/remove-app-password');
 
 module.exports = {
 	matchUser: matchUser
@@ -21,4 +22,5 @@ module.exports = {
 	, createAppPassword: createAppPassword
 	, matchAppPassword: matchAppPassword
 	, matchAppName: matchAppName
+	, removeAppPassword: removeAppPassword
 };
