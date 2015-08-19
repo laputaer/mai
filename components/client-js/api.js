@@ -6,7 +6,8 @@
  */
 
 module.exports = {
-	init: {
+	prefix: '/api/v1'
+	, init: {
 		global: '/global'
 	}
 	, home: {
@@ -76,5 +77,8 @@ module.exports = {
 	}
 	, create_post: {
 		endpoint: '/clubs/:slug/posts/create'
+	}
+	, user_stash: {
+		endpoint: '/stash'
 	}
 };

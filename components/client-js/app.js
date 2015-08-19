@@ -67,8 +67,37 @@ App.prototype.init = function () {
 
 			// update view
 			self.renderer.update(route.name, self.model.get());
+
+			// user-specific data
+			self.widget();
 		});
 	});
+};
+
+/**
+ * Some pages need additional data to function, widget handles it
+ *
+ * @return  Void
+ */
+App.prototype.widget = function () {
+	var self = this;
+	var model = self.model.get();
+
+	// match route
+	var route = router(model);
+	if (!route) {
+		return;
+	}
+
+	// user profile need stash data
+	if (route.name === 'userProfile' && route.params[0] === model.current_user.uid) {
+		self.load('user_stash', {
+			query: {
+				limit: 20
+			}
+			, key: 'pid'
+		});
+	}
 };
 
 /**

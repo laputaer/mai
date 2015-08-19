@@ -40,11 +40,6 @@ function myRouter(app) {
 	// club profile
 	router.get('/c/:slug', handlers.pageClubProfile());
 
-	/*
-	// old stuffs, for reference
-	router.get('/c/club-search', handlers.clubsFilterSearch());
-	*/
-
 	// api routes
 	apiRouter.get('/global', apiHandlers.globalConfig());
 	apiRouter.get('/clubs/featured', apiHandlers.featuredClubs());

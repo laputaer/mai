@@ -7,11 +7,9 @@
 
 'use strict';
 
-// API prefix
-var prefix = '/api/v1';
-
 // API group
 var api = require('./api');
+var prefix = api.prefix;
 
 // Route replace regex
 var re = /:[^\s\$\/]+/g;
