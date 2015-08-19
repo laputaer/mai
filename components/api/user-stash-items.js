@@ -71,17 +71,13 @@ function *middleware(next) {
 	var state = this.state;
 
 	items = items.map(function (item) {
-		// domain
+		// domain, favicon
 		if (item.url) {
 			var url = parser(item.url);
 			item.domain = url.hostname;
-		}
 
-		// favicon
-		// TODO: test https://www.google.com/s2/favicons?domain=
-		if (item.favicon) {
 			item.favicon = proxyUrl({
-				url: item.favicon
+				url: 'https://www.google.com/s2/favicons?domain=' + item.domain
 				, key: config.proxy.key
 				, base: state.image_base_url
 			});

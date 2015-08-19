@@ -38,6 +38,7 @@ function template(data) {
 			, value: data.title
 			, image: data.favicon
 			, size: 'sq-tiny'
+			, target: '_blank'
 			, fallback: true
 		});
 	}
