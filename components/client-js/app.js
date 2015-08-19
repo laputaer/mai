@@ -74,7 +74,7 @@ App.prototype.init = function () {
 /**
  * Refresh app view
  *
- * @return  Promise
+ * @return  Void
  */
 App.prototype.refresh = function () {
 	var self = this;
@@ -83,18 +83,17 @@ App.prototype.refresh = function () {
 	// error page
 	if (model.error_status && model.error_message) {
 		self.renderer.update(false, model);
-		return Promise.resolve(1);
+		return;
 	}
 
 	// match current route
 	var route = router(model);
 	if (!route) {
-		return Promise.resolve(2);
+		return;
 	}
 
 	// trigger view update
 	self.renderer.update(route.name, self.model.get());
-	return Promise.resolve(3);
 };
 
 /**
