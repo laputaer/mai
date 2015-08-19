@@ -10,13 +10,14 @@ module.exports = stashAdd;
 /**
  * Send the stash item for reporting
  *
- * @param   Object  opts  { mixpanel, user, item, request }
+ * @param   Object  opts  { mixpanel, user, item, request, type }
  * @return  Void
  */
 function stashAdd(opts) {
 	var mixpanel = opts.mixpanel;
 	var user = opts.user;
 	var item = opts.item;
+	var type = opts.type;
 	var request = opts.request;
 	var now = new Date();
 
@@ -24,6 +25,7 @@ function stashAdd(opts) {
 		distinct_id: user
 		, user: user
 		, item: item
+		, type: type
 		, source: 'server'
 		, ip: request.ip
 	});

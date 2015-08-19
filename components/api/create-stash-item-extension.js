@@ -1,16 +1,16 @@
 
 /**
- * create-stash-item.js
+ * create-stash-item-extension.js
  *
- * API for stash item creation
+ * API for stash item creation, for browser extensions
  */
 
 var getStandardJson = require('../helpers/get-standard-json');
 var filterAttributes = require('../helpers/filter-attributes');
 var i18n = require('../templates/i18n')();
 
+var usersDomain = require('../domains/users');
 var stashDomain = require('../domains/stash');
-var sessionDomain = require('../domains/session');
 var mixpanelDomain = require('../domains/mixpanel');
 
 var validate = require('../security/validation');
@@ -42,22 +42,23 @@ function factory() {
 function *middleware(next) {
 	yield next;
 
-	// STEP 1: handle guest user
-	if (!this.state.user) {
-		this.state.error_json = getStandardJson(null, 400, i18n.t('error.login-required'));
+	// STEP 1: check request type
+	var type = this.request.type;
+	if (type !== 'application/json') {
+		this.state.error_json = getStandardJson(result, 400, i18n.t('error.form-input-type-invalid'));
 		return;
 	}
 
-	// STEP 2: csrf validation
+	// STEP 2: check auth token
 	var body = this.request.body;
-	var result = yield sessionDomain.verifyCsrfToken({
-		session: this.session
-		, cache: this.cache
-		, token: body.csrf_token
+	var valid = yield usersDomain.matchAppPassword({
+		db: this.db
+		, user: body.user
+		, name: body.name
+		, pass: body.pass
 	});
-
-	if (!result) {
-		this.state.error_json = getStandardJson(null, 403, i18n.t('error.invalid-csrf-token'));
+	if (!valid) {
+		this.state.error_json = getStandardJson(null, 400, i18n.t('error.access-control'));
 		return;
 	}
 
@@ -65,7 +66,7 @@ function *middleware(next) {
 	debug(body);
 	body = normalize(body, 'stashItem');
 	debug(body);
-	result = yield validate(body, 'stashItem');
+	var result = yield validate(body, 'stashItem');
 	debug(result);
 
 	if (!result.valid) {
@@ -85,7 +86,7 @@ function *middleware(next) {
 		, request: this.request
 		, user: this.session.user
 		, item: item.sid
-		, type: 'web'
+		, type: 'extension'
 	});
 
 	// STEP 5: prepare output
