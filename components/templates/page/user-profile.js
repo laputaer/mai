@@ -28,19 +28,28 @@ function template(data) {
 	var ui = data.ui;
 	var client = data.client;
 	var version = data.version.asset;
+	var my_profile = !!data.current_user && data.user_profile.uid === data.current_user.uid;
 
 	// 1st section, tabs, always shown
-	var user_posts_title = sectionTitleTemplate({
-		tabs: ['section.titles.recent-posts', 'section.titles.user-stash']
-		, key: 'recent-posts'
-		, active: ui['recent-posts-section'] || 0
-		, bottom: true
-	});
+	var user_posts_title, user_posts_list, user_posts_button;
 
-	var user_posts_list, user_posts_button;
-
-	// scenario 1: defaul tab active
+	// scenario 1: default tab active
 	if (!ui['recent-posts-section']) {
+		if (my_profile) {
+			user_posts_title = sectionTitleTemplate({
+				tabs: ['section.titles.recent-posts', 'section.titles.user-stash']
+				, key: 'recent-posts'
+				, active: ui['recent-posts-section'] || 0
+				, bottom: true
+			});
+		} else {
+			user_posts_title = sectionTitleTemplate({
+				title: 'section.titles.recent-posts'
+				, key: 'recent-posts'
+				, bottom: true
+			});
+		}
+
 		// trick to hide loaded post, so 1st load more is always fast
 		user_posts = partialList(user_posts, 8, ui['load-user-posts']);
 
@@ -72,6 +81,15 @@ function template(data) {
 				, key: 'load-user-posts'
 			});
 		}
+
+	// scenario 2: user stash
+	} else if (ui['recent-posts-section'] === 1) {
+		user_posts_title = sectionTitleTemplate({
+			tabs: ['section.titles.recent-posts', 'section.titles.user-stash']
+			, key: 'recent-posts'
+			, active: ui['recent-posts-section'] || 0
+			, bottom: true
+		});
 	}
 
 	// page content
