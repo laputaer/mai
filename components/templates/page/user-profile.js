@@ -11,6 +11,7 @@ var immutable = require('../immutable');
 var partialList = require('../partial-list');
 
 var postTemplate = require('../common/featured-post');
+var stashItemTemplate = require('../common/stash-item');
 var sectionTitleTemplate = require('../common/section-title');
 var loadButtonTemplate = require('../common/load-button');
 
@@ -25,6 +26,7 @@ module.exports = template;
 function template(data) {
 	// common data
 	var user_posts = data.user_posts;
+	var user_stash = data.user_stash;
 	var ui = data.ui;
 	var client = data.client;
 	var version = data.version.asset;
@@ -84,12 +86,43 @@ function template(data) {
 
 	// scenario 2: user stash
 	} else if (ui['recent-posts-section'] === 1) {
+		// same tricks as scenario 1
 		user_posts_title = sectionTitleTemplate({
 			tabs: ['section.titles.recent-posts', 'section.titles.user-stash']
 			, key: 'recent-posts'
 			, active: ui['recent-posts-section'] || 0
 			, bottom: true
 		});
+
+		user_stash = partialList(user_stash, 20, ui['load-user-stash']);
+
+		user_posts_list = user_stash.map(function(item, i) {
+			var opts = {
+				num: i
+				, version: version
+				, view: 'user_stash'
+				, client: client
+				, cache: ui['load-user-stash'] > 50
+			};
+
+			return immutable(stashItemTemplate, item, opts);
+		});
+
+		// load more button
+		var user_stash_count = user_posts_list.length;
+
+		if (!ui['load-user-stash'] || user_stash_count >= ui['load-user-stash']) {
+			user_posts_button = loadButtonTemplate({
+				title: 'section.load.user-stash'
+				, key: 'load-user-stash'
+				, eventName: 'page:load:user-stash'
+			});
+		} else {
+			user_posts_button = loadButtonTemplate({
+				title: 'section.load.eof-2'
+				, key: 'load-user-stash'
+			});
+		}
 	}
 
 	// page content
