@@ -65,6 +65,7 @@ function myRouter(app) {
 	apiRouter.post('/stash', apiHandlers.createStashItem());
 	apiRouter.del('/stash/:sid', apiHandlers.deleteStashItem());
 	apiRouter.get('/stash', apiHandlers.userStashItems());
+	apiRouter.put('/app/password', apiHandlers.generateAppPassword());
 
 	// mount api routes to main router
 	router.use('/api/v1', apiRouter.routes());
