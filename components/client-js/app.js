@@ -97,6 +97,13 @@ App.prototype.widget = function () {
 			}
 			, key: 'pid'
 		});
+
+		self.load('user_apps', {
+			query: {
+				limit: 20
+			}
+			, key: 'aid'
+		});
 	}
 };
 

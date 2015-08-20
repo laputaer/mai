@@ -13,6 +13,7 @@ var partialList = require('../partial-list');
 
 var postTemplate = require('../common/featured-post');
 var stashItemTemplate = require('../common/stash-item');
+var userAppTemplate = require('../common/user-app');
 var sectionTitleTemplate = require('../common/section-title');
 var loadButtonTemplate = require('../common/load-button');
 var formGroupTemplate = require('../common/form-group');
@@ -30,13 +31,14 @@ function template(data) {
 	// common data
 	var user_posts = data.user_posts;
 	var user_stash = data.user_stash;
+	var user_apps = data.user_apps;
 	var user_profile = data.user_profile;
 	var ui = data.ui;
 	var client = data.client;
 	var version = data.version.asset;
 
 	// 1st section, tabs, always shown
-	var user_posts_title, user_posts_list, user_posts_button, form;
+	var user_posts_title, user_posts_list, user_posts_button, form, user_apps_title, user_apps_list, user_apps_button;
 
 	// scenario 1: default tab active
 	if (!ui['recent-posts-section']) {
@@ -133,7 +135,7 @@ function template(data) {
 	if (ui['recent-posts-section'] === 2) {
 		// same tricks as scenario 1
 		user_posts_title = sectionTitleTemplate({
-			tabs: ['section.titles.recent-posts', 'section.titles.app-password']
+			tabs: ['section.titles.recent-posts', 'section.titles.create-app']
 			, orders: [0, 2]
 			, key: 'recent-posts'
 			, active: ui['recent-posts-section']
@@ -141,8 +143,6 @@ function template(data) {
 		});
 
 		var message, name_field, submit;
-
-		console.log(ui.form_data);
 
 		// error message, assume plain text
 		if (ui.form_error) {
@@ -162,7 +162,7 @@ function template(data) {
 
 		// fields
 		name_field = formGroupTemplate({
-			id: 'app-password-name'
+			id: 'create-app-name'
 			, name: 'name'
 			, value: field_data.name || ''
 			, error: !!field_error.name
@@ -170,14 +170,14 @@ function template(data) {
 
 		// submit button
 		submit = formButtonTemplate({
-			text: 'form.button.app-password-submit'
+			text: 'form.button.create-app-submit'
 			, icon: 'music_play'
 			, version: version
 			, loading: ui.form_loading
 		});
 
 		// form id for event handler
-		var submitOpts = { id: 'app-password', route: 'app_password', method: 'POST' };
+		var submitOpts = { id: 'create-app', route: 'create_app', method: 'POST' };
 
 		var formOpts = {
 			action: '#'
@@ -189,6 +189,43 @@ function template(data) {
 		};
 
 		form = $('form', formOpts, [message, name_field, submit]);
+
+		// list app password section
+		user_apps_title = sectionTitleTemplate({
+			title: 'section.titles.user-apps'
+			, key: 'user-apps'
+			, bottom: true
+		});
+
+		user_apps = partialList(user_apps, 20, ui['load-user-apps']);
+
+		user_apps_list = user_apps.map(function(item, i) {
+			var opts = {
+				num: i
+				, version: version
+				, view: 'user_apps'
+				, client: client
+				, cache: ui['load-user-apps'] > 50
+			};
+
+			return immutable(userAppTemplate, item, opts);
+		});
+
+		// load more button
+		var user_apps_count = user_apps_list.length;
+
+		if (!ui['load-user-apps'] || user_apps_count >= ui['load-user-apps']) {
+			user_apps_button = loadButtonTemplate({
+				title: 'section.load.user-apps'
+				, key: 'load-user-apps'
+				, eventName: 'page:load:user-apps'
+			});
+		} else {
+			user_apps_button = loadButtonTemplate({
+				title: 'section.load.eof-2'
+				, key: 'load-user-apps'
+			});
+		}
 	}
 
 	// page content
@@ -203,6 +240,9 @@ function template(data) {
 		, user_posts_list
 		, user_posts_button
 		, form
+		, user_apps_title
+		, user_apps_list
+		, user_apps_button
 	]);
 
 	return home;

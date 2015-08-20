@@ -65,8 +65,9 @@ function myRouter(app) {
 	apiRouter.post('/stash', apiHandlers.createStashItem());
 	apiRouter.del('/stash/:sid', apiHandlers.deleteStashItem());
 	apiRouter.get('/stash', apiHandlers.userStashItems());
-	apiRouter.post('/app/password', apiHandlers.generateAppPassword());
-	apiRouter.del('/app/password/:name', apiHandlers.deleteAppPassword());
+	apiRouter.post('/apps', apiHandlers.generateAppPassword());
+	apiRouter.del('/apps/:name', apiHandlers.deleteAppPassword());
+	apiRouter.get('/apps', apiHandlers.userApps());
 	apiRouter.post('/stash/extension', apiHandlers.createStashItemExtension());
 
 	// mount api routes to main router

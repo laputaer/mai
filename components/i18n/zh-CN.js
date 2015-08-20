@@ -61,7 +61,8 @@ module.exports = {
 			, 'manage-club': '管理社团'
 			, 'club-stats': '社团数据'
 			, 'user-stash': '个人收藏'
-			, 'app-password': 'App密码'
+			, 'create-app': '创建App密码'
+			, 'user-apps': '现有App'
 		}
 		, 'load': {
 			'featured-posts': '浏览更多精彩内容'
@@ -74,6 +75,7 @@ module.exports = {
 			, 'recent-clubs': '更多新人社团'
 			, 'recent-posts': '更多近期分享'
 			, 'user-stash': '更多个人收藏'
+			, 'user-apps': '更多App'
 			, 'eof-1': '查看其他有趣社团'
 			, 'eof-2': '到头啦 😂'
 		}
@@ -107,16 +109,16 @@ module.exports = {
 			, 'create-post-summary': '自定义简介'
 			, 'create-post-summary-note': '进一步说明分享的内容。内容可以是小结或引用。最多64字符。'
 			, 'create-post-summary-placeholder': '例如：概括文章的精彩之处'
-			, 'app-password-name': 'App名称'
-			, 'app-password-name-note': '描述App密码的用途。允许2-16个字符，仅限小写英文字母、数字和连字符'
-			, 'app-password-name-placeholder': '例如：chrome'
+			, 'create-app-name': 'App名称'
+			, 'create-app-name-note': '描述App密码的用途。允许2-16个字符，仅限小写英文字母、数字和连字符'
+			, 'create-app-name-placeholder': '例如：chrome'
 		}
 		, 'button': {
 			'create-club-submit': '创建社团'
 			, 'manage-club-submit': '更新社团'
 			, 'create-post-submit-1': '下一步'
 			, 'create-post-submit-2': '确认发布'
-			, 'app-password-submit': '生成密码'
+			, 'create-app-submit': '生成密码'
 		}
 		, 'bookmarklet': {
 			'share-to': '分享到'

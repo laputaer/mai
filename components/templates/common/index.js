@@ -20,4 +20,6 @@ module.exports = {
 	, clubOptions: require('./club-options')
 	, sectionTitle: require('./section-title')
 	, userOptions: require('./user-options')
+	, stashItem: require('./stash-item')
+	, userApp: require('./user-app')
 };
