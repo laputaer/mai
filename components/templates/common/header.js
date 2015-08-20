@@ -119,6 +119,15 @@ function template(data) {
 			, eventName: 'page:club:join'
 			, eventData: { slug: club_profile.slug }
 		});
+	} else if (user_profile && user_profile.current_user) {
+		userButton = navButtonTemplate({
+			href: '#'
+			, className: 'rounded nav'
+			, text: 'menu.nav.options'
+			, icon: 'setting_2'
+			, version: version
+			, eventName: 'page:menu:options'
+		});
 	} else {
 		userButton = navButtonTemplate({
 			href: '/u/' + current_user.uid

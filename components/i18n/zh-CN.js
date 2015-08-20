@@ -130,7 +130,10 @@ module.exports = {
 	, 'profile': {
 		'club': {
 			'owner': '创始人'
-			, 'share-message': '我加入了名为「%{title}」的社团，目前有 %{members} 位成员，它的口号是「%{intro}」。你不想来让它变得更热闹吗？'
+			, 'share-message': '分享我加入的「%{title}」社团'
+		}
+		, 'user': {
+			'share-message': '分享我在「入部么」上的个人账号'
 		}
 	}
 	, 'error': {

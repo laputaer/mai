@@ -17,6 +17,7 @@ module.exports = {
 	, loadButton: require('./load-button')
 	, loginScreen: require('./login-screen')
 	, navigationButton: require('./navigation-button')
-	, options: require('./options')
+	, clubOptions: require('./club-options')
 	, sectionTitle: require('./section-title')
+	, userOptions: require('./user-options')
 };

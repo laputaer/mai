@@ -1,6 +1,6 @@
 
 /**
- * options.js
+ * club-options.js
  *
  * Template for options menu
  */

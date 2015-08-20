@@ -27,17 +27,17 @@ function template(data) {
 	// common data
 	var user_posts = data.user_posts;
 	var user_stash = data.user_stash;
+	var user_profile = data.user_profile;
 	var ui = data.ui;
 	var client = data.client;
 	var version = data.version.asset;
-	var my_profile = !!data.current_user && data.user_profile.uid === data.current_user.uid;
 
 	// 1st section, tabs, always shown
 	var user_posts_title, user_posts_list, user_posts_button;
 
 	// scenario 1: default tab active
 	if (!ui['recent-posts-section']) {
-		if (my_profile) {
+		if (user_profile.current_user) {
 			user_posts_title = sectionTitleTemplate({
 				tabs: ['section.titles.recent-posts', 'section.titles.user-stash']
 				, key: 'recent-posts'
