@@ -27,4 +27,11 @@ module.exports = {
 	, joinClub: require('./join-club')
 	, leaveClub: require('./leave-club')
 	, recentPosts: require('./recent-posts')
+	, createStashItem: require('./create-stash-item')
+	, deleteStashItem: require('./delete-stash-item')
+	, userStashItems: require('./user-stash-items')
+	, generateAppPassword: require('./generate-app-password')
+	, deleteAppPassword: require('./delete-app-password')
+	, createStashItemExtension: require('./create-stash-item-extension')
+	, userApps: require('./user-apps')
 };

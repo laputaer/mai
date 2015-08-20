@@ -40,11 +40,6 @@ function myRouter(app) {
 	// club profile
 	router.get('/c/:slug', handlers.pageClubProfile());
 
-	/*
-	// old stuffs, for reference
-	router.get('/c/club-search', handlers.clubsFilterSearch());
-	*/
-
 	// api routes
 	apiRouter.get('/global', apiHandlers.globalConfig());
 	apiRouter.get('/clubs/featured', apiHandlers.featuredClubs());
@@ -67,6 +62,13 @@ function myRouter(app) {
 	apiRouter.put('/clubs/:slug/users', apiHandlers.joinClub());
 	apiRouter.del('/clubs/:slug/users', apiHandlers.leaveClub());
 	apiRouter.get('/posts/recent', apiHandlers.recentPosts());
+	apiRouter.post('/stash', apiHandlers.createStashItem());
+	apiRouter.del('/stash/:sid', apiHandlers.deleteStashItem());
+	apiRouter.get('/stash', apiHandlers.userStashItems());
+	apiRouter.post('/apps', apiHandlers.generateAppPassword());
+	apiRouter.del('/apps/:name', apiHandlers.deleteAppPassword());
+	apiRouter.get('/apps', apiHandlers.userApps());
+	apiRouter.post('/stash/extension', apiHandlers.createStashItemExtension());
 
 	// mount api routes to main router
 	router.use('/api/v1', apiRouter.routes());

@@ -48,7 +48,7 @@ function *middleware(next) {
 	yield next;
 
 	// STEP 1: handle guest user
-	if (!this.session.uid) {
+	if (!this.state.user) {
 		this.state.error_json = getStandardJson(null, 400, i18n.t('error.login-required'));
 		return;
 	}

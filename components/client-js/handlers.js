@@ -9,7 +9,6 @@ var doc = document;
 var emitter = require('../templates/emitter');
 var toggleScroll = require('./helpers/toggle-body-scroll');
 var menuEscape = require('./helpers/menu-escape');
-var hideImage = require('./helpers/hide-broken-post-image');
 
 var createFavorite = require('./handlers/create-favorite');
 var deleteFavorite = require('./handlers/delete-favorite');
@@ -148,6 +147,15 @@ function handlers(app) {
 		});
 	});
 
+	emitter.on('page:load:user-stash', function () {
+		loadContent(app, {
+			name: 'load-user-stash'
+			, key: 'sid'
+			, endpoint: 'user_stash'
+			, range: 'user_stash'
+		});
+	});
+
 	emitter.on('page:favorite:create', function (data) {
 		createFavorite(app, data);
 		app.json('PUT', 'favorite_post', null, [data.id]).then(function (json) {
@@ -163,6 +171,22 @@ function handlers(app) {
 			if (!json.ok) {
 				createFavorite(app, data);
 			}
+		});
+	});
+
+	emitter.on('page:app:remove', function (data) {
+		app.json('DELETE', 'delete_app', null, [data.name]).then(function (json) {
+			// TODO: handle error
+			if (!json.ok) {
+				return;
+			}
+
+			app.reload('user_apps', {
+				query: {
+					limit: 20
+				}
+				, key: 'aid'
+			});
 		});
 	});
 
@@ -195,6 +219,4 @@ function handlers(app) {
 			formResult(app, json);
 		});
 	});
-
-	doc.addEventListener('lazybeforeunveil', hideImage);
 };

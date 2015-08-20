@@ -16,7 +16,7 @@ var i18n = require('../templates/i18n')();
 var filter_output = [
 	'uid', 'id', 'provider', 'login', 'name', 'avatar'
 	, 'action_point', 'action_base', 'fav_count', 'fav_point'
-	, 'origin'
+	, 'origin', 'current_user'
 ];
 
 module.exports = factory;
@@ -71,6 +71,12 @@ function *middleware(next) {
 
 	if (user_profile.provider && user_profile.login) {
 		user_profile.origin = getUserOrigin(user_profile);
+	}
+
+	if (this.state.user) {
+		user_profile.current_user = this.session.uid === user_profile.uid;
+	} else {
+		user_profile.current_user = false;
 	}
 
 	user_profile = filterAttributes(user_profile, filter_output);

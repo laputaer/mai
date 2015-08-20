@@ -144,12 +144,16 @@ Model.prototype.get = function(path) {
 Model.prototype.append = function(path, data, key) {
 	// make existing data array
 	var arr;
-	if (getVarType(path) === 'String') {
-		arr = this.store[path];
-	} else if (getVarType(path) === 'Array') {
-		arr = I.getIn(this.store, path);
-	} else {
+	try {
+		arr = this.get(path);
+	} catch(err) {
 		throw new Error('append: invalid path');
+	}
+
+	// append should init the array
+	if (arr === undefined) {
+		this.set(path, []);
+		arr = this.get(path);
 	}
 
 	if (!Array.isArray(arr)) {

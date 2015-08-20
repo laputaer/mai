@@ -34,7 +34,7 @@ function *middleware(next) {
 	yield next;
 
 	// STEP 1: handle guest user
-	if (!this.session.uid) {
+	if (!this.state.user) {
 		this.state.error_json = getStandardJson(null, 400, i18n.t('error.login-required'));
 		return;
 	}
@@ -73,7 +73,7 @@ function *middleware(next) {
 	});
 
 	if (exist) {
-		this.state.error_json = getStandardJson(null, 400, i18n.t('error.duplicate-action'));
+		this.state.error_json = getStandardJson(null, 400, i18n.t('error.duplicate-post-favorite'));
 		return;
 	}
 
@@ -81,13 +81,13 @@ function *middleware(next) {
 	yield socialDomain.createFavoritePost({
 		db: this.db
 		, post: post
-		, user: this.state.user
+		, user: this.session.uid
 	});
 
 	mixpanelDomain.postFavorite({
 		mixpanel: this.mixpanel
 		, post: post
-		, user: this.state.user
+		, user: this.session.uid
 		, request: this.request
 	});
 

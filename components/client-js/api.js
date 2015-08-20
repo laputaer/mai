@@ -6,7 +6,8 @@
  */
 
 module.exports = {
-	init: {
+	prefix: '/api/v1'
+	, init: {
 		global: '/global'
 	}
 	, home: {
@@ -76,5 +77,17 @@ module.exports = {
 	}
 	, create_post: {
 		endpoint: '/clubs/:slug/posts/create'
+	}
+	, user_stash: {
+		endpoint: '/stash'
+	}
+	, create_app: {
+		endpoint: '/apps'
+	}
+	, delete_app: {
+		endpoint: '/apps/:name'
+	}
+	, user_apps: {
+		endpoint: '/apps'
 	}
 };

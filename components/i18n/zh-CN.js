@@ -43,6 +43,7 @@ module.exports = {
 			, 'manage': '管理社团'
 			, 'stats': '社团数据'
 			, 'leave': '退出社团'
+			, 'app': 'App密码'
 		}
 	}
 	, 'section': {
@@ -59,6 +60,9 @@ module.exports = {
 			, 'create-post': '创建新分享'
 			, 'manage-club': '管理社团'
 			, 'club-stats': '社团数据'
+			, 'user-stash': '个人收藏'
+			, 'create-app': '创建App密码'
+			, 'user-apps': '现有App'
 		}
 		, 'load': {
 			'featured-posts': '浏览更多精彩内容'
@@ -70,6 +74,8 @@ module.exports = {
 			, 'top-clubs': '更多主流社团'
 			, 'recent-clubs': '更多新人社团'
 			, 'recent-posts': '更多近期分享'
+			, 'user-stash': '更多个人收藏'
+			, 'user-apps': '更多App'
 			, 'eof-1': '查看其他有趣社团'
 			, 'eof-2': '到头啦 😂'
 		}
@@ -80,16 +86,16 @@ module.exports = {
 			, 'create-club-title-note': '允许2-16个字符'
 			, 'create-club-title-placeholder': '例如：Love Live'
 			, 'create-club-slug': '社团路径'
-			, 'create-club-slug-note': '允许2-16个字符，仅限字母、数字和连字符'
+			, 'create-club-slug-note': '允许2-16个字符，仅限小写英文字母、数字和连字符'
 			, 'create-club-slug-placeholder': '例如：love-live'
 			, 'manage-club-title': '社团名称'
 			, 'manage-club-title-note': '允许2-16个字符'
 			, 'manage-club-title-placeholder': '例如：Love Live'
 			, 'manage-club-slug': '社团路径'
-			, 'manage-club-slug-note': '允许2-16个字符，仅限字母、数字和连字符'
+			, 'manage-club-slug-note': '允许2-16个字符，仅限小写英文字母、数字和连字符'
 			, 'manage-club-slug-placeholder': '例如：love-live'
 			, 'manage-club-logo': '社团标志'
-			, 'manage-club-logo-note': '支持 Flickr / Pixiv / dA 等网址'
+			, 'manage-club-logo-note': '输入网页地址，不是图片地址，支持例如Flickr、Pixiv等站点'
 			, 'manage-club-logo-placeholder': '例如：http://flic.kr/p/...'
 			, 'manage-club-intro': '社团口号'
 			, 'manage-club-intro-note': '允许2-32个字符'
@@ -98,17 +104,21 @@ module.exports = {
 			, 'create-post-link-note': '你要分享内容的网址'
 			, 'create-post-link-placeholder': '例如：http://bitinn.net/...'
 			, 'create-post-title': '自定义标题'
-			, 'create-post-title-note': '替换默认的标题。准确、清晰、有趣的标题会让更多人注意到这篇分享。'
+			, 'create-post-title-note': '替换默认的标题。准确、清晰、有趣的标题会让更多人注意到这篇分享。最多32字符。'
 			, 'create-post-title-placeholder': '例如：一句话介绍文章'
 			, 'create-post-summary': '自定义简介'
-			, 'create-post-summary-note': '进一步说明分享的内容。内容可以是小结或引用。'
+			, 'create-post-summary-note': '进一步说明分享的内容。内容可以是小结或引用。最多64字符。'
 			, 'create-post-summary-placeholder': '例如：概括文章的精彩之处'
+			, 'create-app-name': 'App名称'
+			, 'create-app-name-note': '描述App密码的用途。允许2-16个字符，仅限小写英文字母、数字和连字符'
+			, 'create-app-name-placeholder': '例如：chrome'
 		}
 		, 'button': {
 			'create-club-submit': '创建社团'
 			, 'manage-club-submit': '更新社团'
 			, 'create-post-submit-1': '下一步'
 			, 'create-post-submit-2': '确认发布'
+			, 'create-app-submit': '生成密码'
 		}
 		, 'bookmarklet': {
 			'share-to': '分享到'
@@ -121,6 +131,7 @@ module.exports = {
 			, 'manage-club-success': '社团更新成功，点击刷新：'
 			, 'create-post-preview': '页面抓取成功，以下是分享预览。'
 			, 'create-post-success': '分享发布成功，点击刷新：'
+			, 'create-app-password': '成功创建App密码（只显示一次，请复制到App中）：'
 			, 'action-done': '操作完成。'
 			, 'image-preview': '的预览图片'
 		}
@@ -128,7 +139,10 @@ module.exports = {
 	, 'profile': {
 		'club': {
 			'owner': '创始人'
-			, 'share-message': '我加入了名为「%{title}」的社团，目前有 %{members} 位成员，它的口号是「%{intro}」。你不想来让它变得更热闹吗？'
+			, 'share-message': '分享我加入的「%{title}」社团'
+		}
+		, 'user': {
+			'share-message': '分享我在「入部么」上的个人账号'
 		}
 	}
 	, 'error': {
@@ -138,12 +152,15 @@ module.exports = {
 		, 'login-required': '这个功能需要登录才能使用（见右上角）'
 		, 'invalid-csrf-token': '你提交的内容缺乏验证用的安全Token，请重新提交，同时检查域名是否为 https://rubu.me/'
 		, 'form-input-invalid': '提交内容的格式不符合要求'
+		, 'form-input-type-invalid': '请求的类型不符合要求'
 		, 'insufficient-action-point': '看来你的信仰值不足执行动作，需要 %{required} 点信仰，你目前只有 %{current} 点'
 		, 'not-found-page': '你要找的页面不存在'
 		, 'not-found-user': '你要找的团员不存在'
 		, 'not-found-club': '你要找的社团不存在'
 		, 'not-found-post': '你要找的文章不存在'
-		, 'not-found-favorite': '你要找的收藏不存在'
+		, 'not-found-favorite': '你要找的感谢信不存在'
+		, 'not-found-stash-item': '你要找的收藏不存在'
+		, 'not-found-app-password': '你要找的App密码不存在'
 		, 'oauth-error-response': '请求 %{provider} 访问权限时发生错误，你允许了我们的请求吗？请再次尝试登陆。'
 		, 'oauth-error-profile': '请求 %{provider} 用户数据时发生错误，如重复出现，请联系我们反馈错误。'
 		, 'oauth-invalid-profile': '请求 %{provider} 时得到了不正确的用户数据，如重复出现，请联系我们反馈错误。'
@@ -153,6 +170,9 @@ module.exports = {
 		, 'membership-required-to-post': '你需要先加入社团才能发布分享。'
 		, 'owner-cannot-leave-club': '社团创始人不能离开社团。'
 		, 'duplicate-action': '你已经执行过这个操作。'
+		, 'duplicate-app-name': '你已经使用过这个App名称。'
+		, 'duplicate-club-join': '你已经加入了这个社团。'
+		, 'duplicate-post-favorite': '你已经感谢过这个分享。'
 		, 'feedback': '为什么出现这个错误？'
 		, 'feedback-contact-1': '可联系开发者'
 		, 'feedback-contact-1-name': '@bitinn'

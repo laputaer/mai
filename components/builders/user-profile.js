@@ -17,6 +17,7 @@ module.exports = renderer;
  */
 function renderer(data) {
 	data.main = templates.page.userProfile(data);
+	data.options = templates.common.userOptions(data);
 
 	return data;
 };

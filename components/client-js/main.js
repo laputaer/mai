@@ -7,38 +7,47 @@
 
 'use strict';
 
-// third-party modules
+// helpers
+var hideImage = require('./helpers/hide-broken-post-image');
+
+// adapative images
 require('lazysizes/plugins/respimg/ls.respimg.js');
 require('lazysizes/plugins/bgset/ls.bgset.js');
 require('lazysizes/plugins/progressive/ls.progressive.js');
 require('lazysizes');
 
-// polyfills
+// click polyfill
 var enableFastClick = require('fastclick');
+
+// svg polyfill
 var svgPolyfill = require('svg4everybody');
+
+// fetch and promise polyfills
 require('whatwg-fetch');
 require('native-promise-only');
 
-// event delegator (capture user input)
-require('dom-delegator')();
-
-// app lifecycle
+// our app
 var App = require('./app');
-var app = new App();
 
-// app handlers
+// capture user input
+var delegator = require('dom-delegator');
+
+// setup event handlers
 var handlers = require('./handlers');
-handlers(app);
 
 // app kick-off
 var domready = require('domready');
 domready(init);
 
 function init() {
-	svgPolyfill();
-	enableFastClick(document.body);
+	var app = new App();
+	var doc = document;
 
-	app.init().then(function () {
-		return app.update();
-	});
+	doc.body.addEventListener('lazybeforeunveil', hideImage);
+	enableFastClick(doc.body);
+	svgPolyfill();
+	delegator();
+	handlers(app);
+
+	app.init();
 };

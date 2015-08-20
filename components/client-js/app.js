@@ -37,54 +37,80 @@ function App() {
 App.prototype.init = function () {
 	var self = this;
 
-	// contact backend service
-	return self.service.init().then(function(data) {
-		// init data store, such as asset version and current user
+	// get page global data from backend
+	return self.service.init().then(function (data) {
+		// init data store
 		self.model.init(data);
+
 		// init vdom and dom cache
 		self.renderer.init({
 			container: document.querySelector('.page')
 			, production: self.model.get('production')
 		});
+
+		// error page
+		if (self.model.get('error_status')) {
+			self.renderer.update(false, self.model.get());
+			return;
+		}
+
+		// match route
+		var route = router(self.model.get());
+		if (!route) {
+			return;
+		}
+
+		// found route, get page-specific data from backend
+		return self.service.sync(route).then(function (data) {
+			// update data store
+			self.model.update(data);
+
+			// update view
+			self.renderer.update(route.name, self.model.get());
+
+			// user-specific data
+			self.widget();
+		});
 	});
 };
 
 /**
- * Update app state and view
+ * Some pages need additional data to function, widget handles it
  *
- * @return  Promise
+ * @return  Void
  */
-App.prototype.update = function () {
+App.prototype.widget = function () {
 	var self = this;
 	var model = self.model.get();
 
-	// error page
-	if (model.error_status && model.error_message) {
-		self.renderer.update(false, model);
-		return Promise.resolve(1);
-	}
-
-	// match current route
+	// match route
 	var route = router(model);
 	if (!route) {
-		return Promise.resolve(2);
+		return;
 	}
 
-	// found route, contact backend service
-	return self.service.sync(route).then(function(data) {
-		// update data store, such as page-specific content
-		self.model.update(data);
-		// update view using current model
-		self.renderer.update(route.name, self.model.get());
-		// debug purpose
-		return 3;
-	});
+	// user profile need stash data
+	if (route.name === 'userProfile' && route.params[0] === model.current_user.uid) {
+		self.load('user_stash', {
+			query: {
+				limit: 20
+			}
+			, key: 'pid'
+		});
+
+		self.load('user_apps', {
+			query: {
+				limit: 20
+			}
+			, key: 'aid'
+		});
+	}
 };
 
 /**
  * Refresh app view
  *
- * @return  Promise
+ * @return  Void
  */
 App.prototype.refresh = function () {
 	var self = this;
@@ -93,18 +119,17 @@ App.prototype.refresh = function () {
 	// error page
 	if (model.error_status && model.error_message) {
 		self.renderer.update(false, model);
-		return Promise.resolve(1);
+		return;
 	}
 
 	// match current route
 	var route = router(model);
 	if (!route) {
-		return Promise.resolve(2);
+		return;
 	}
 
 	// trigger view update
 	self.renderer.update(route.name, self.model.get());
-	return Promise.resolve(3);
 };
 
 /**
@@ -151,9 +176,42 @@ App.prototype.load = function (name, opts) {
 	// contact backend service
 	return self.service.fetch(name, opts.query, route.params).then(function (data) {
 		if (data.endpoint.ok && Array.isArray(data.endpoint.data)) {
+			// make sure empty array init the array
+			if (data.endpoint.data.length === 0 && self.model.get(name) === undefined) {
+				self.model.set(name, []);
+				return;
+			}
+
+			// otherwise append data
 			data.endpoint.data.forEach(function (item) {
 				self.model.append(name, item, opts.key);
 			});
+		}
+	});
+};
+
+/**
+ * Reload data from backend and refresh view
+ *
+ * @param   String   name  Backend service
+ * @param   Object   opts  Optional parameters
+ * @return  Promise
+ */
+App.prototype.reload = function (name, opts) {
+	var self = this;
+
+	// match current route
+	var route = router(self.model.get());
+	if (!route) {
+		return Promise.resolve(null);
+	}
+
+	// contact backend service
+	return self.service.fetch(name, opts.query, route.params).then(function (data) {
+		if (data.endpoint.ok && Array.isArray(data.endpoint.data)) {
+			// overwrite existing data and re-render view
+			self.model.set(name, data.endpoint.data);
+			self.renderer.update(route.name, self.model.get());
 		}
 	});
 };

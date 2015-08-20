@@ -24,7 +24,7 @@ function *removeFavoritePost(opts) {
 
 	// STEP 1: update fav-er stats
 	yield User.update({
-		uid: user.uid
+		uid: user
 	}, {
 		$inc: {
 			fav_count: -1
@@ -52,6 +52,6 @@ function *removeFavoritePost(opts) {
 	// STEP 4: remove social action
 	yield Social.remove({
 		post: post.pid
-		, user: user.uid
+		, user: user
 	});
 };
