@@ -87,67 +87,29 @@ function template(data) {
 	};
 	var weiboButton = navButtonTemplate(weiboOpts);
 
-	var manageButton, eventData;
-	/*
+	var appPasswordButton, appPasswordOpts, appPasswordEvent;
 	if (user_profile.current_user) {
-		eventData = {
+		appPasswordEvent = {
 			order: 2
 			, view: 'recent-posts-section'
 			, menu: true
 		};
 
-		var manageOpts = {
+		appPasswordOpts = {
 			href: '#'
 			, className: 'plain options manage'
-			, text: 'menu.options.manage'
-			, icon: 'sinth'
+			, text: 'menu.options.app'
+			, icon: 'lock_open'
 			, version: version
 			, eventName: 'page:tab:change'
-			, eventData: eventData
+			, eventData: appPasswordEvent
 		};
 
-		manageButton = navButtonTemplate(manageOpts);
+		appPasswordButton = navButtonTemplate(appPasswordOpts);
 	}
-	*/
-
-	var statButton;
-	/*
-	eventData = {
-		order: 3
-		, view: 'recent-posts-section'
-		, menu: true
-	};
-	var statOpts = {
-		href: '#'
-		, className: 'plain options stats'
-		, text: 'menu.options.stats'
-		, icon: 'graph'
-		, version: version
-		, eventName: 'page:tab:change'
-		, eventData: eventData
-	};
-	var statButton = navButtonTemplate(statOpts);
-	*/
-
-	var leaveButton;
-	/*
-	if (user_profile.current_user_watch) {
-		var leaveOpts = {
-			href: '#'
-			, className: 'plain options leave'
-			, text: 'menu.options.leave'
-			, icon: 'minus'
-			, version: version
-			, eventName: 'page:user:unwatch'
-			, eventData: { uid: user_profile.uid }
-		};
-
-		leaveButton = navButtonTemplate(leaveOpts);
-	}
-	*/
 
 	// list
-	var buttons = [twitterButton, weiboButton, manageButton, statButton, leaveButton];
+	var buttons = [twitterButton, weiboButton, appPasswordButton];
 
 	buttons = buttons.filter(function (button) {
 		return !!button;

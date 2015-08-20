@@ -6,6 +6,7 @@
  */
 
 var $ = require('../vdom');
+var i18n = require('../i18n')();
 var emitter = require('../emitter');
 var immutable = require('../immutable');
 var partialList = require('../partial-list');
@@ -14,6 +15,8 @@ var postTemplate = require('../common/featured-post');
 var stashItemTemplate = require('../common/stash-item');
 var sectionTitleTemplate = require('../common/section-title');
 var loadButtonTemplate = require('../common/load-button');
+var formGroupTemplate = require('../common/form-group');
+var formButtonTemplate = require('../common/form-button');
 
 module.exports = template;
 
@@ -33,7 +36,7 @@ function template(data) {
 	var version = data.version.asset;
 
 	// 1st section, tabs, always shown
-	var user_posts_title, user_posts_list, user_posts_button;
+	var user_posts_title, user_posts_list, user_posts_button, form;
 
 	// scenario 1: default tab active
 	if (!ui['recent-posts-section']) {
@@ -83,9 +86,10 @@ function template(data) {
 				, key: 'load-user-posts'
 			});
 		}
+	}
 
 	// scenario 2: user stash
-	} else if (ui['recent-posts-section'] === 1) {
+	if (ui['recent-posts-section'] === 1) {
 		// same tricks as scenario 1
 		user_posts_title = sectionTitleTemplate({
 			tabs: ['section.titles.recent-posts', 'section.titles.user-stash']
@@ -125,6 +129,68 @@ function template(data) {
 		}
 	}
 
+	// scenario 3: app password
+	if (ui['recent-posts-section'] === 2) {
+		// same tricks as scenario 1
+		user_posts_title = sectionTitleTemplate({
+			tabs: ['section.titles.recent-posts', 'section.titles.app-password']
+			, orders: [0, 2]
+			, key: 'recent-posts'
+			, active: ui['recent-posts-section']
+			, bottom: true
+		});
+
+		var message, name_field, submit;
+
+		console.log(ui.form_data);
+
+		// error message, assume plain text
+		if (ui.form_error) {
+			message = $('div.common-message.error', ui.form_error);
+
+		// success message, assume object
+		} else if (ui.form_data && ui.form_data.user && ui.form_data.name && ui.form_data.pass) {
+			message = $('div.common-message.success', [
+				$('span', i18n.t('message.common.create-app-password'))
+				, $('span', ui.form_data.user + ':' + ui.form_data.name + ':' + ui.form_data.pass)
+			]);
+		}
+
+		// normalize field cache
+		var field_data = ui.field_data || {};
+		var field_error = ui.field_error || {};
+
+		// fields
+		name_field = formGroupTemplate({
+			id: 'app-password-name'
+			, name: 'name'
+			, value: field_data.name || ''
+			, error: !!field_error.name
+		});
+
+		// submit button
+		submit = formButtonTemplate({
+			text: 'form.button.app-password-submit'
+			, icon: 'music_play'
+			, version: version
+			, loading: ui.form_loading
+		});
+
+		// form id for event handler
+		var submitOpts = { id: 'app-password', route: 'app_password', method: 'POST' };
+
+		var formOpts = {
+			action: '#'
+			, method: 'POST'
+			, id: submitOpts.id
+			, key: submitOpts.id
+			, className: 'common-form'
+			, 'ev-submit': emitter.capture('page:form:submit', submitOpts)
+		};
+
+		form = $('form', formOpts, [message, name_field, submit]);
+	}
+
 	// page content
 	var homeOpts = {
 		id: 'content'
@@ -136,6 +202,7 @@ function template(data) {
 		user_posts_title
 		, user_posts_list
 		, user_posts_button
+		, form
 	]);
 
 	return home;

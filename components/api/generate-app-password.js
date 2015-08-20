@@ -69,7 +69,7 @@ function *middleware(next) {
 	});
 
 	if (exist) {
-		this.state.error_json = getStandardJson(null, 400, i18n.t('error.duplicate-action'));
+		this.state.error_json = getStandardJson(null, 400, i18n.t('error.duplicate-app-name'));
 		return;
 	}
 

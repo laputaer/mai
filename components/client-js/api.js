@@ -81,4 +81,7 @@ module.exports = {
 	, user_stash: {
 		endpoint: '/stash'
 	}
+	, app_password: {
+		endpoint: '/app/password'
+	}
 };

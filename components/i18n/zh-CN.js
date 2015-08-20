@@ -43,6 +43,7 @@ module.exports = {
 			, 'manage': '管理社团'
 			, 'stats': '社团数据'
 			, 'leave': '退出社团'
+			, 'app': 'App密码'
 		}
 	}
 	, 'section': {
@@ -60,6 +61,7 @@ module.exports = {
 			, 'manage-club': '管理社团'
 			, 'club-stats': '社团数据'
 			, 'user-stash': '个人收藏'
+			, 'app-password': 'App密码'
 		}
 		, 'load': {
 			'featured-posts': '浏览更多精彩内容'
@@ -105,12 +107,16 @@ module.exports = {
 			, 'create-post-summary': '自定义简介'
 			, 'create-post-summary-note': '进一步说明分享的内容。内容可以是小结或引用。最多64字符。'
 			, 'create-post-summary-placeholder': '例如：概括文章的精彩之处'
+			, 'app-password-name': 'App名称'
+			, 'app-password-name-note': '描述App密码的用途。允许2-16个字符，仅限小写英文字母、数字和连字符'
+			, 'app-password-name-placeholder': '例如：chrome'
 		}
 		, 'button': {
 			'create-club-submit': '创建社团'
 			, 'manage-club-submit': '更新社团'
 			, 'create-post-submit-1': '下一步'
 			, 'create-post-submit-2': '确认发布'
+			, 'app-password-submit': '生成密码'
 		}
 		, 'bookmarklet': {
 			'share-to': '分享到'
@@ -123,6 +129,7 @@ module.exports = {
 			, 'manage-club-success': '社团更新成功，点击刷新：'
 			, 'create-post-preview': '页面抓取成功，以下是分享预览。'
 			, 'create-post-success': '分享发布成功，点击刷新：'
+			, 'create-app-password': '成功创建App密码（只显示一次，请复制到App中）：'
 			, 'action-done': '操作完成。'
 			, 'image-preview': '的预览图片'
 		}
@@ -161,6 +168,7 @@ module.exports = {
 		, 'membership-required-to-post': '你需要先加入社团才能发布分享。'
 		, 'owner-cannot-leave-club': '社团创始人不能离开社团。'
 		, 'duplicate-action': '你已经执行过这个操作。'
+		, 'duplicate-app-name': '你已经使用过这个App名称。'
 		, 'feedback': '为什么出现这个错误？'
 		, 'feedback-contact-1': '可联系开发者'
 		, 'feedback-contact-1-name': '@bitinn'
