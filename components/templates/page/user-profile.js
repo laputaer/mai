@@ -30,8 +30,8 @@ module.exports = template;
 function template(data) {
 	// common data
 	var user_posts = data.user_posts;
-	var user_stash = data.user_stash;
-	var user_apps = data.user_apps;
+	var user_stash = data.user_stash || [];
+	var user_apps = data.user_apps || [];
 	var user_profile = data.user_profile;
 	var ui = data.ui;
 	var client = data.client;
@@ -197,13 +197,9 @@ function template(data) {
 			, bottom: true
 		});
 
-		user_apps = partialList(user_apps, 20, ui['load-user-apps']);
-
 		user_apps_list = user_apps.map(function(item, i) {
 			var opts = {
-				num: i
-				, version: version
-				, view: 'user_apps'
+				version: version
 				, client: client
 				, cache: ui['load-user-apps'] > 50
 			};

@@ -184,6 +184,31 @@ App.prototype.load = function (name, opts) {
 };
 
 /**
+ * Reload data from backend and refresh view
+ *
+ * @param   String   name  Backend service
+ * @param   Object   opts  Optional parameters
+ * @return  Promise
+ */
+App.prototype.reload = function (name, opts) {
+	var self = this;
+
+	// match current route
+	var route = router(self.model.get());
+	if (!route) {
+		return Promise.resolve(null);
+	}
+
+	// contact backend service
+	return self.service.fetch(name, opts.query, route.params).then(function (data) {
+		if (data.endpoint.ok && Array.isArray(data.endpoint.data)) {
+			self.model.set(name, data.endpoint.data);
+			self.renderer.update(route.name, self.model.get());
+		}
+	});
+};
+
+/**
  * Send request to backend and retrieve data
  *
  * @param   String   method  Request method

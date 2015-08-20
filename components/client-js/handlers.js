@@ -165,6 +165,22 @@ function handlers(app) {
 		});
 	});
 
+	emitter.on('page:app:remove', function (data) {
+		app.json('DELETE', 'delete_app', null, [data.name]).then(function (json) {
+			// TODO: handle error
+			if (!json.ok) {
+				return;
+			}
+
+			app.reload('user_apps', {
+				query: {
+					limit: 20
+				}
+				, key: 'aid'
+			});
+		});
+	});
+
 	emitter.on('page:club:join', function (data) {
 		joinClub(app, data);
 		app.json('PUT', 'club_membership', null, [data.slug]).then(function (json) {

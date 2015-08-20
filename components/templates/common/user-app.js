@@ -20,7 +20,7 @@ module.exports = template;
  * @return  VNode
  */
 function template(data) {
-	var prefix = data.prefix || 'stash';
+	var prefix = data.prefix || 'app';
 
 	var postOpts = {
 		id: prefix + '-' + data.aid
@@ -29,15 +29,12 @@ function template(data) {
 	};
 
 	var favoriteOpts = {
-		id: data.name
-		, order: data.num
-		, view: data.view
+		name: data.name
 	};
 
 	var favorite = navButtonTemplate({
 		href: '#'
-		, className: data.current_user_fav ? 'plain heart active' : 'plain heart'
-		, value: data.fav_point || '0'
+		, className: 'plain delete'
 		, icon: 'delete'
 		, version: data.version
 		, eventName: 'page:app:remove'
