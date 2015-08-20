@@ -85,7 +85,7 @@ function *middleware(next) {
 	});
 
 	if (membership) {
-		this.state.error_json = getStandardJson(null, 409, i18n.t('error.duplicate-action'));
+		this.state.error_json = getStandardJson(null, 409, i18n.t('error.duplicate-club-join'));
 		return;
 	}
 
