@@ -27,7 +27,7 @@ function *getUserItems(opts) {
 
 	if (range > 0) {
 		query.created = {
-			'$lt': range
+			'$lt': new Date(range)
 		};
 	}
 

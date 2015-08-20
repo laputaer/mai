@@ -100,7 +100,7 @@ function template(data) {
 			, bottom: true
 		});
 
-		user_stash = partialList(user_stash, 20, ui['load-user-stash']);
+		user_stash = partialList(user_stash, 8, ui['load-user-stash']);
 
 		user_posts_list = user_stash.map(function(item, i) {
 			var opts = {
@@ -206,22 +206,6 @@ function template(data) {
 
 			return immutable(userAppTemplate, item, opts);
 		});
-
-		// load more button
-		var user_apps_count = user_apps_list.length;
-
-		if (!ui['load-user-apps'] || user_apps_count >= ui['load-user-apps']) {
-			user_apps_button = loadButtonTemplate({
-				title: 'section.load.user-apps'
-				, key: 'load-user-apps'
-				, eventName: 'page:load:user-apps'
-			});
-		} else {
-			user_apps_button = loadButtonTemplate({
-				title: 'section.load.eof-2'
-				, key: 'load-user-apps'
-			});
-		}
 	}
 
 	// page content
@@ -238,7 +222,6 @@ function template(data) {
 		, form
 		, user_apps_title
 		, user_apps_list
-		, user_apps_button
 	]);
 
 	return home;

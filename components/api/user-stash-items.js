@@ -19,7 +19,7 @@ var validate = require('../security/validation');
 
 var filter_output = [
 	'sid', 'user', 'url', 'title', 'favicon'
-	, 'domain', 'created', 'updated'
+	, 'domain', 'ts'
 ];
 
 module.exports = factory;
@@ -71,7 +71,7 @@ function *middleware(next) {
 	var state = this.state;
 
 	items = items.map(function (item) {
-		// domain, favicon
+		// domain, favicon, created
 		if (item.url) {
 			var url = parser(item.url);
 			item.domain = url.hostname;
@@ -81,6 +81,8 @@ function *middleware(next) {
 				, key: config.proxy.key
 				, base: state.image_base_url
 			});
+
+			item.ts = item.created.getTime().toString();
 		}
 
 		// filter output

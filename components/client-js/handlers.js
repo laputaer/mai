@@ -147,6 +147,15 @@ function handlers(app) {
 		});
 	});
 
+	emitter.on('page:load:user-stash', function () {
+		loadContent(app, {
+			name: 'load-user-stash'
+			, key: 'sid'
+			, endpoint: 'user_stash'
+			, range: 'user_stash'
+		});
+	});
+
 	emitter.on('page:favorite:create', function (data) {
 		createFavorite(app, data);
 		app.json('PUT', 'favorite_post', null, [data.id]).then(function (json) {
