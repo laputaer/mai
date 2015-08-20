@@ -30,8 +30,8 @@ module.exports = template;
 function template(data) {
 	// common data
 	var user_posts = data.user_posts;
-	var user_stash = data.user_stash || [];
-	var user_apps = data.user_apps || [];
+	var user_stash = data.user_stash;
+	var user_apps = data.user_apps;
 	var user_profile = data.user_profile;
 	var ui = data.ui;
 	var client = data.client;

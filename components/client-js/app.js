@@ -176,6 +176,13 @@ App.prototype.load = function (name, opts) {
 	// contact backend service
 	return self.service.fetch(name, opts.query, route.params).then(function (data) {
 		if (data.endpoint.ok && Array.isArray(data.endpoint.data)) {
+			// make sure empty array init the array
+			if (data.endpoint.data.length === 0 && self.model.get(name) === undefined) {
+				self.model.set(name, []);
+				return;
+			}
+
+			// otherwise append data
 			data.endpoint.data.forEach(function (item) {
 				self.model.append(name, item, opts.key);
 			});
@@ -202,6 +209,7 @@ App.prototype.reload = function (name, opts) {
 	// contact backend service
 	return self.service.fetch(name, opts.query, route.params).then(function (data) {
 		if (data.endpoint.ok && Array.isArray(data.endpoint.data)) {
+			// overwrite existing data and re-render view
 			self.model.set(name, data.endpoint.data);
 			self.renderer.update(route.name, self.model.get());
 		}
