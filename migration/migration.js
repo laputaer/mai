@@ -34,6 +34,7 @@ var socialV1 = require('./social-v1');
 var socialV2 = require('./social-v2');
 var showcaseV1 = require('./showcase-v1');
 var stashV1 = require('./stash-v1');
+var appsV1 = require('./apps-v1');
 
 function *migration() {
 	console.log('migration started');
@@ -68,6 +69,7 @@ function *migration() {
 	yield usersV4(db);
 	yield clubsV7(db);
 	yield stashV1(db);
+	yield appsV1(db);
 };
 
 co(migration).then(function() {

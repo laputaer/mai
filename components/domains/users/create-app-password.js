@@ -27,7 +27,7 @@ function *createAppPassword(opts) {
 	var pass = crypto.randomBytes(8).toString('hex');
 	
 	// step 2: hash it
-	var hash = yield bcrypt.hash(pass, 12);
+	var hash = yield bcrypt.hash(pass, 10);
 
 	// step 3: app profile
 	var profile = {

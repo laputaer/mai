@@ -49,20 +49,8 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 2: check auth token
+	// STEP 2: input transform and validation
 	var body = this.request.body;
-	var valid = yield usersDomain.matchAppPassword({
-		db: this.db
-		, user: body.user
-		, name: body.name
-		, pass: body.pass
-	});
-	if (!valid) {
-		this.state.error_json = getStandardJson(null, 400, i18n.t('error.access-control'));
-		return;
-	}
-
-	// STEP 3: input transform and validation
 	debug(body);
 	body = normalize(body, 'stashItem');
 	debug(body);
@@ -74,17 +62,29 @@ function *middleware(next) {
 		return;
 	}
 
+	// STEP 3: check auth token
+	var valid = yield usersDomain.matchAppPassword({
+		db: this.db
+		, user: body.user || ''
+		, name: body.name || ''
+		, pass: body.pass || ''
+	});
+	if (!valid) {
+		this.state.error_json = getStandardJson(null, 400, i18n.t('error.access-control'));
+		return;
+	}
+
 	// STEP 4: create item
 	var item = yield stashDomain.createItem({
 		db: this.db
-		, user: this.session.uid
+		, user: body.user
 		, body: body
 	});
 
 	mixpanelDomain.stashAdd({
 		mixpanel: this.mixpanel
 		, request: this.request
-		, user: this.session.user
+		, user: body.user
 		, item: item.sid
 		, type: 'extension'
 	});
