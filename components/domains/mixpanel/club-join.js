@@ -18,6 +18,7 @@ function clubJoin(opts) {
 	var user = opts.user;
 	var club = opts.club;
 	var request = opts.request;
+	var now = new Date();
 
 	mixpanel.track('Club Join', {
 		distinct_id: user.uid
@@ -28,15 +29,15 @@ function clubJoin(opts) {
 		, ip: request.ip
 	});
 
+	mixpanel.people.set(user.uid, {
+		last_action: now.toISOString()
+		, last_club_join: now.toISOString()
+		, ip: request.ip
+	});
+
 	mixpanel.people.increment(
 		user.uid
 		, 'club_join_count'
-		, 1
-	);
-
-	mixpanel.people.increment(
-		club.owner
-		, 'total_member_count'
 		, 1
 	);
 };

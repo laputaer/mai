@@ -17,6 +17,7 @@ function clubCreate(opts) {
 	var mixpanel = opts.mixpanel;
 	var club = opts.club;
 	var request = opts.request;
+	var now = new Date();
 
 	mixpanel.track('Club Create', {
 		distinct_id: club.owner
@@ -27,15 +28,15 @@ function clubCreate(opts) {
 		, ip: request.ip
 	});
 
-	mixpanel.people.increment(
-		club.owner
-		, 'club_create_count'
-		, 1
-	);
+	mixpanel.people.set(club.owner, {
+		last_action: now.toISOString()
+		, last_club_create: now.toISOString()
+		, ip: request.ip
+	});
 
 	mixpanel.people.increment(
 		club.owner
-		, 'club_join_count'
+		, 'club_create_count'
 		, 1
 	);
 };

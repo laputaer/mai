@@ -20,7 +20,8 @@ module.exports = function loadContent (app, opts) {
 	app.modify(['ui', opts.name], skip);
 	app.refresh();
 
-	var range;
+	// range support
+	var range = 0;
 	if (opts.range) {
 		var arr = app.read(opts.range);
 		range = arr[arr.length - 1]['ts'];

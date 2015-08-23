@@ -83,7 +83,7 @@ function *middleware(next) {
 	mixpanelDomain.appConnect({
 		mixpanel: this.mixpanel
 		, request: this.request
-		, user: this.session.user
+		, user: this.session.uid
 	});
 
 	// STEP 6: prepare output

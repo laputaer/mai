@@ -18,6 +18,7 @@ function postUnfavorite(opts) {
 	var user = opts.user;
 	var post = opts.post;
 	var request = opts.request;
+	var now = new Date();
 
 	mixpanel.track('Post Unfavorite', {
 		distinct_id: user
@@ -27,10 +28,16 @@ function postUnfavorite(opts) {
 		, ip: request.ip
 	});
 
+	mixpanel.people.set(user, {
+		last_action: now.toISOString()
+		, last_post_unfavorite: now.toISOString()
+		, ip: request.ip
+	});
+
 	mixpanel.people.increment(
 		user
-		, 'post_unfavorite_count'
-		, 1
+		, 'post_favorite_count'
+		, -1
 	);
 
 	mixpanel.people.increment(

@@ -34,7 +34,7 @@ function template(data) {
 		imageOpts = {
 			src: data.image + '&size=sq-small'
 			, alt: data.title + i18n.t('message.common.image-preview')
-			, className: 'thumbnail'
+			, className: 'thumbnail lazyload'
 		};
 
 		if (data.pid !== 'club-post-preview') {
@@ -44,8 +44,11 @@ function template(data) {
 					+ data.image + '&size=sq-large 200w'
 				, 'data-sizes': 'auto'
 			};
-
-			imageOpts.className += ' lazyload';
+		} else {
+			imageOpts.attributes = {
+				'data-srcset': data.image + '&size=sq-small 80w'
+				, 'data-sizes': 'auto'
+			};
 		}
 
 		image = $('div.image-column', $('img', imageOpts));

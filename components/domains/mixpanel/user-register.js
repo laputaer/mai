@@ -17,6 +17,7 @@ function userRegister(opts) {
 	var mixpanel = opts.mixpanel;
 	var user = opts.user;
 	var request = opts.request;
+	var now = new Date();
 
 	mixpanel.track('User Register', {
 		distinct_id: user.uid
@@ -30,7 +31,8 @@ function userRegister(opts) {
 		, '$created': user.created.toISOString()
 		, updated: user.updated.toISOString()
 		, provider: user.provider
-		, action_base: user.action_base
+		, last_action: now.toISOString()
+		, last_user_register: now.toISOString()
 		, ip: request.ip
 	});
 };

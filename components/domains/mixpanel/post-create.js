@@ -20,6 +20,7 @@ function postCreate(opts) {
 	var embed = opts.embed;
 	var body = opts.body;
 	var request = opts.request;
+	var now = new Date();
 
 	mixpanel.track('Post Create', {
 		distinct_id: user.uid
@@ -29,20 +30,19 @@ function postCreate(opts) {
 		, summary: body.summary
 		, embed_url: embed.url
 		, embed_title: embed.title
-		, embed_type: embed.type
 		, source: 'server'
+		, ip: request.ip
+	});
+
+	mixpanel.people.set(user.uid, {
+		last_action: now.toISOString()
+		, last_post_create: now.toISOString()
 		, ip: request.ip
 	});
 
 	mixpanel.people.increment(
 		user.uid
 		, 'post_create_count'
-		, 1
-	);
-
-	mixpanel.people.increment(
-		club.owner
-		, 'total_post_count'
 		, 1
 	);
 };
