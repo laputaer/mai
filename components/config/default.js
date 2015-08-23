@@ -47,7 +47,7 @@ module.exports = {
 	}
 	, version: {
 		css: 'r2015082001'
-		, js: 'r2015082001'
+		, js: 'r2015082401'
 		, asset: 'r2015082001'
 	}
 	, output: {
