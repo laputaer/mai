@@ -17,6 +17,7 @@ function userLogin(opts) {
 	var mixpanel = opts.mixpanel;
 	var user = opts.user;
 	var request = opts.request;
+	var now = new Date();
 
 	mixpanel.track('User Login', {
 		distinct_id: user.uid
@@ -29,7 +30,8 @@ function userLogin(opts) {
 		, '$first_name': user.name
 		, updated: user.updated.toISOString()
 		, provider: user.provider
-		, action_base: user.action_base
+		, last_action: now.toISOString()
+		, last_user_login: now.toISOString()
 		, ip: request.ip
 	});
 };

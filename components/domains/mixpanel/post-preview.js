@@ -19,6 +19,7 @@ function postPreview(opts) {
 	var club = opts.club;
 	var embed = opts.embed;
 	var request = opts.request;
+	var now = new Date();
 
 	mixpanel.track('Post Preview', {
 		distinct_id: user.uid
@@ -26,14 +27,13 @@ function postPreview(opts) {
 		, club: club.slug
 		, embed_url: embed.url
 		, embed_title: embed.title
-		, embed_type: embed.type
 		, source: 'server'
 		, ip: request.ip
 	});
 
-	mixpanel.people.increment(
-		user.uid
-		, 'post_preview_count'
-		, 1
-	);
+	mixpanel.people.set(user.uid, {
+		last_action: now.toISOString()
+		, last_post_preview: now.toISOString()
+		, ip: request.ip
+	});
 };
