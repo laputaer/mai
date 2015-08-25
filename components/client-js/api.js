@@ -84,10 +84,13 @@ module.exports = {
 	, create_app: {
 		endpoint: '/apps'
 	}
-	, delete_app: {
-		endpoint: '/apps/:name'
-	}
 	, user_apps: {
 		endpoint: '/apps'
+	}
+	, delete_app: {
+		endpoint: '/apps/:aid'
+	}
+	, restore_app: {
+		endpoint: '/apps/:aid'
 	}
 };

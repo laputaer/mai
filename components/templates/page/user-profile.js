@@ -202,6 +202,8 @@ function template(data) {
 				version: version
 				, client: client
 				, cache: ui['load-user-apps'] > 50
+				, view: 'user_apps'
+				, num: i
 			};
 
 			return immutable(userAppTemplate, item, opts);

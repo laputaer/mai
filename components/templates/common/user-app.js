@@ -22,31 +22,33 @@ module.exports = template;
 function template(data) {
 	var prefix = data.prefix || 'app';
 
-	var postOpts = {
+	var appOpts = {
 		id: prefix + '-' + data.aid
 		, key: prefix + '-' + data.aid
 		, className: 'featured-post'
 	};
 
-	var favoriteOpts = {
-		name: data.name
+	var appEvent = {
+		aid: data.aid
+		, view: data.view
+		, order: data.num
 	};
 
-	var favorite = navButtonTemplate({
+	var appAction = navButtonTemplate({
 		href: '#'
-		, className: 'plain delete'
-		, icon: 'delete'
+		, className: data.deleted ? 'plain restore' : 'plain delete'
+		, icon: data.deleted ? 'music_repeat' : 'trash_bin'
 		, version: data.version
-		, eventName: 'page:app:remove'
-		, eventData: favoriteOpts
+		, eventName: data.deleted ? 'page:app:restore' : 'page:app:delete'
+		, eventData: appEvent
 	});
 
-	var post = $('article', postOpts, [
+	var appProfile = $('article', appOpts, [
 		$('div.action-block', [
 			$('p.internal', data.name)
-			, favorite
+			, appAction
 		])
 	]);
 
-	return post;
+	return appProfile;
 };

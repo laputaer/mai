@@ -14,6 +14,8 @@ var matchAppPassword = require('./users/match-app-password');
 var matchAppName = require('./users/match-app-name');
 var removeAppPassword = require('./users/remove-app-password');
 var getUserApps = require('./users/get-user-apps');
+var restoreAppPassword = require('./users/restore-app-password');
+var matchApp = require('./users/match-app');
 
 module.exports = {
 	matchUser: matchUser
@@ -25,4 +27,6 @@ module.exports = {
 	, matchAppName: matchAppName
 	, removeAppPassword: removeAppPassword
 	, getUserApps: getUserApps
+	, restoreAppPassword: restoreAppPassword
+	, matchApp: matchApp
 };

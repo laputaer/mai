@@ -1,8 +1,8 @@
 
 /**
- * delete-app-password.js
+ * restore-app-password.js
  *
- * API for stash item removal
+ * API for stash item restore
  */
 
 var getStandardJson = require('../helpers/get-standard-json');
@@ -66,13 +66,13 @@ function *middleware(next) {
 		return;
 	}
 
-	if (profile.deleted) {
+	if (!profile.deleted) {
 		this.state.error_json = getStandardJson(null, 400, i18n.t('error.duplicate-action'));
 		return;
 	}
 
 	// STEP 4: remove item
-	yield usersDomain.removeAppPassword({
+	yield usersDomain.restoreAppPassword({
 		db: this.db
 		, aid: profile.aid
 	});

@@ -70,7 +70,8 @@ function myRouter(app) {
 	// app tokens
 	apiRouter.get('/apps', apiHandlers.userApps());
 	apiRouter.post('/apps', apiHandlers.generateAppPassword());
-	apiRouter.del('/apps/:name', apiHandlers.deleteAppPassword());
+	apiRouter.del('/apps/:aid', apiHandlers.deleteAppPassword());
+	apiRouter.put('/apps/:aid', apiHandlers.restoreAppPassword());
 
 	// mount api routes to main router
 	router.use('/api/v1', apiRouter.routes());

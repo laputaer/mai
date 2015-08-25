@@ -5,7 +5,7 @@
  * Match app name
  */
 
-module.exports = matchAppPassword;
+module.exports = matchAppName;
 
 /**
  * Match an app profile
@@ -13,7 +13,7 @@ module.exports = matchAppPassword;
  * @param   Object  opts  Options { db, user, name }
  * @return  Object        Profile
  */
-function *matchAppPassword(opts) {
+function *matchAppName(opts) {
 	var db = opts.db;
 	var App = db.col('apps');
 
