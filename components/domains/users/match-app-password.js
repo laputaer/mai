@@ -28,5 +28,9 @@ function *matchAppPassword(opts) {
 		return false;
 	}
 
+	if (profile.deleted) {
+		return false;
+	}
+
 	return yield bcrypt.compare(opts.pass, profile.hash);
 };
