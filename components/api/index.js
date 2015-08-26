@@ -32,8 +32,8 @@ module.exports = {
 	, userStashItems: require('./user-stash-items')
 	, generateAppPassword: require('./generate-app-password')
 	, deleteAppPassword: require('./delete-app-password')
-	, createStashItemExtension: require('./create-stash-item-extension')
 	, userApps: require('./user-apps')
 	, restoreAppPassword: require('./restore-app-password')
 	, appTokenRefresh: require('./app-token-refresh')
+	, appCreateStashItem: require('./app-create-stash-item')
 };

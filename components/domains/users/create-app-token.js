@@ -33,5 +33,7 @@ function *createAppToken(opts) {
 	return {
 		token: token
 		, expire: expire
+		, user: uid
+		, app: aid 
 	};
 };

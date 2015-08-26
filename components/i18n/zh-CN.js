@@ -145,6 +145,11 @@ module.exports = {
 			'share-message': '分享我在「入部么」上的个人账号'
 		}
 	}
+	, 'fallback': {
+		'stash': {
+			'title': '无标题文档'
+		}
+	}
 	, 'error': {
 		'status-code': 'Error %{code}'
 		, 'internal-service-down': '非常抱歉，我们的内部服务出了点问题。如果你正在执行操作，请重新尝试。'

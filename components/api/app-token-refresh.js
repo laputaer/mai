@@ -10,13 +10,10 @@ var filterAttributes = require('../helpers/filter-attributes');
 var i18n = require('../templates/i18n')();
 
 var usersDomain = require('../domains/users');
-
 var validate = require('../security/validation');
-var normalize = require('../security/normalization');
-var debug = require('debug')('mai:app:refresh');
 
 var filter_output = [
-	'token', 'expire'
+	'user', 'app', 'token', 'expire'
 ];
 
 module.exports = factory;

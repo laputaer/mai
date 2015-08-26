@@ -18,6 +18,7 @@ function factory() {
 				return validator.testUrl(value)
 			}, 'url invalid')
 		.validates('title')
+			.optional()
 			.using(function(value) {
 				return validator.supported(value)
 					&& validator.isLength(value, 1, 128)
@@ -27,22 +28,5 @@ function factory() {
 			.using(function(value) {
 				return validator.testUrl(value)
 			}, 'favicon invalid')
-		.validates('user')
-			.optional()
-			.using(function(value) {
-				return validator.supported(value)
-			}, 'user invalid')
-		.validates('name')
-			.optional()
-			.using(function(value) {
-				return validator.supported(value)
-					&& validator.isLength(value, 1, 32)
-			}, 'name invalid')
-		.validates('pass')
-			.optional()
-			.using(function(value) {
-				return validator.supported(value)
-					&& validator.isLength(value, 1, 32)
-			}, 'pass invalid')
 		.build();
 };

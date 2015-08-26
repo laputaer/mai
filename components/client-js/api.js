@@ -6,7 +6,7 @@
  */
 
 module.exports = {
-	prefix: '/api/v1'
+	prefix: '/web/v1'
 	, init: {
 		global: '/global'
 	}

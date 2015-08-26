@@ -9,9 +9,8 @@ var router = require('koa-router')();
 var handlers = require('./handlers/index');
 
 var apiRouter = require('koa-router')();
+var webRouter = require('koa-router')();
 var apiHandlers = require('./api/index');
-
-var appRouter = require('koa-router')();
 
 module.exports = myRouter;
 
@@ -43,46 +42,46 @@ function myRouter(app) {
 	router.get('/c/:slug', handlers.pageClubProfile());
 
 	// api routes
-	apiRouter.get('/global', apiHandlers.globalConfig());
-	apiRouter.get('/clubs/featured', apiHandlers.featuredClubs());
-	apiRouter.get('/posts/featured', apiHandlers.featuredPosts());
-	apiRouter.put('/posts/:pid/favorite', apiHandlers.favoritePost());
-	apiRouter.del('/posts/:pid/favorite', apiHandlers.unfavoritePost());
-	apiRouter.get('/clubs/owner', apiHandlers.userOwnedClubs());
-	apiRouter.get('/clubs/member', apiHandlers.userJoinedClubs());
-	apiRouter.get('/clubs/:slug/posts', apiHandlers.clubPosts());
-	apiRouter.get('/clubs/:slug/profile', apiHandlers.clubProfile());
-	apiRouter.get('/users/:uid/posts', apiHandlers.userPosts());
-	apiRouter.get('/users/:uid/profile', apiHandlers.userProfile());
-	apiRouter.get('/clubs/top', apiHandlers.topClubs());
-	apiRouter.get('/clubs/hot', apiHandlers.hotClubs());
-	apiRouter.get('/clubs/recent', apiHandlers.recentClubs());
-	apiRouter.post('/clubs', apiHandlers.createClub());
-	apiRouter.put('/clubs/:slug', apiHandlers.manageClub());
-	apiRouter.post('/clubs/:slug/posts', apiHandlers.initPost());
-	apiRouter.post('/clubs/:slug/posts/create', apiHandlers.createPost());
-	apiRouter.put('/clubs/:slug/users', apiHandlers.joinClub());
-	apiRouter.del('/clubs/:slug/users', apiHandlers.leaveClub());
-	apiRouter.get('/posts/recent', apiHandlers.recentPosts());
-	apiRouter.post('/stash', apiHandlers.createStashItem());
-	apiRouter.del('/stash/:sid', apiHandlers.deleteStashItem());
-	apiRouter.get('/stash', apiHandlers.userStashItems());
+	webRouter.get('/global', apiHandlers.globalConfig());
+	webRouter.get('/clubs/featured', apiHandlers.featuredClubs());
+	webRouter.get('/posts/featured', apiHandlers.featuredPosts());
+	webRouter.put('/posts/:pid/favorite', apiHandlers.favoritePost());
+	webRouter.del('/posts/:pid/favorite', apiHandlers.unfavoritePost());
+	webRouter.get('/clubs/owner', apiHandlers.userOwnedClubs());
+	webRouter.get('/clubs/member', apiHandlers.userJoinedClubs());
+	webRouter.get('/clubs/:slug/posts', apiHandlers.clubPosts());
+	webRouter.get('/clubs/:slug/profile', apiHandlers.clubProfile());
+	webRouter.get('/users/:uid/posts', apiHandlers.userPosts());
+	webRouter.get('/users/:uid/profile', apiHandlers.userProfile());
+	webRouter.get('/clubs/top', apiHandlers.topClubs());
+	webRouter.get('/clubs/hot', apiHandlers.hotClubs());
+	webRouter.get('/clubs/recent', apiHandlers.recentClubs());
+	webRouter.post('/clubs', apiHandlers.createClub());
+	webRouter.put('/clubs/:slug', apiHandlers.manageClub());
+	webRouter.post('/clubs/:slug/posts', apiHandlers.initPost());
+	webRouter.post('/clubs/:slug/posts/create', apiHandlers.createPost());
+	webRouter.put('/clubs/:slug/users', apiHandlers.joinClub());
+	webRouter.del('/clubs/:slug/users', apiHandlers.leaveClub());
+	webRouter.get('/posts/recent', apiHandlers.recentPosts());
+	webRouter.post('/stash', apiHandlers.createStashItem());
+	webRouter.del('/stash/:sid', apiHandlers.deleteStashItem());
+	webRouter.get('/stash', apiHandlers.userStashItems());
 
 	// app tokens
-	apiRouter.get('/apps', apiHandlers.userApps());
-	apiRouter.post('/apps', apiHandlers.generateAppPassword());
-	apiRouter.del('/apps/:aid', apiHandlers.deleteAppPassword());
-	apiRouter.put('/apps/:aid', apiHandlers.restoreAppPassword());
+	webRouter.get('/apps', apiHandlers.userApps());
+	webRouter.post('/apps', apiHandlers.generateAppPassword());
+	webRouter.del('/apps/:aid', apiHandlers.deleteAppPassword());
+	webRouter.put('/apps/:aid', apiHandlers.restoreAppPassword());
 
 	// extension api
-	appRouter.post('/refresh', apiHandlers.appTokenRefresh());
-	//appRouter.post('/extension/stash', apiHandlers.createStashItemExtension());
+	apiRouter.post('/refresh', apiHandlers.appTokenRefresh());
+	apiRouter.post('/stash', apiHandlers.appCreateStashItem());
 	// legacy support
-	//apiRouter.post('/stash/extension', apiHandlers.createStashItemExtension());
+	//webRouter.post('/stash/extension', apiHandlers.createStashItemExtension());
 
 	// mount api routes to main router
+	router.use('/web/v1', webRouter.routes());
 	router.use('/api/v1', apiRouter.routes());
-	router.use('/app/v1', appRouter.routes());
 
 	// register router to koa app
 	app.use(router.routes());

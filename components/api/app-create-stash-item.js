@@ -1,8 +1,8 @@
 
 /**
- * create-stash-item-extension.js
+ * app-create-stash-item.js
  *
- * API for stash item creation, for browser extensions
+ * API for stash item creation, for app api
  */
 
 var getStandardJson = require('../helpers/get-standard-json');
@@ -19,7 +19,7 @@ var proxyUrl = require('../security/proxy');
 var debug = require('debug')('mai:stash');
 
 var filter_output = [
-	'sid', 'user', 'url', 'title', 'favicon'
+	'sid', 'user', 'url', 'title'
 ];
 
 module.exports = factory;
@@ -45,16 +45,38 @@ function *middleware(next) {
 	// STEP 1: check request type
 	var type = this.request.type;
 	if (type !== 'application/json') {
-		this.state.error_json = getStandardJson(result, 400, i18n.t('error.form-input-type-invalid'));
+		this.state.error_json = getStandardJson(null, 400, i18n.t('error.request-type-invalid'));
 		return;
 	}
 
-	// STEP 2: input transform and validation
+	// STEP 2: check request body
 	var body = this.request.body;
+	var result = yield validate(body, 'appToken');
+	if (!result.valid) {
+		this.state.error_json = getStandardJson(result, 400, i18n.t('error.form-input-invalid'));
+		return;
+	}
+
+	var token = body.token.split(':');
+
+	// STEP 3: check app token
+	var valid = yield usersDomain.matchAppToken({
+		cache: this.cache
+		, uid: token[0] || ''
+		, aid: token[1] || ''
+		, token: token[2] || ''
+	});
+
+	if (!valid) {
+		this.state.error_json = getStandardJson(null, 400, i18n.t('error.app-token-invalid'));
+		return;
+	}
+
+	// STEP 4: input transform and validation
 	debug(body);
 	body = normalize(body, 'stashItem');
 	debug(body);
-	var result = yield validate(body, 'stashItem');
+	result = yield validate(body, 'stashItem');
 	debug(result);
 
 	if (!result.valid) {
@@ -62,51 +84,21 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 3: check auth token
-	var valid = yield usersDomain.matchAppPassword({
-		db: this.db
-		, user: body.user || ''
-		, name: body.name || ''
-		, pass: body.pass || ''
-	});
-	if (!valid) {
-		this.state.error_json = getStandardJson(null, 400, i18n.t('error.access-control'));
-		return;
-	}
-
-	// STEP 4: create item
+	// STEP 5: create item
 	var item = yield stashDomain.createItem({
 		db: this.db
-		, user: body.user
+		, user: token[0]
 		, body: body
 	});
 
 	mixpanelDomain.stashAdd({
 		mixpanel: this.mixpanel
 		, request: this.request
-		, user: body.user
+		, user: item.user
 		, item: item.sid
 		, type: 'extension'
 	});
 
-	// STEP 5: prepare output
-	var config = this.config;
-	var state = this.state;
-	var output = {
-		sid: item.sid
-		, user: item.user
-		, url: item.url
-		, title: item.title
-	};
-
-	if (item.favicon) {
-		output.favicon = proxyUrl({
-			url: item.favicon
-			, key: config.proxy.key
-			, base: state.image_base_url
-		});
-	}
-
 	// STEP 6: output json
-	this.state.json = getStandardJson(filterAttributes(output, filter_output));
+	this.state.json = getStandardJson(filterAttributes(item, filter_output));
 };

@@ -35,7 +35,7 @@ function template(data) {
 			href: data.url
 			, className: 'plain internal'
 			, title: data.domain
-			, value: data.title
+			, value: data.title || i18n.t('fallback.stash.title')
 			, image: data.favicon
 			, size: 'sq-tiny'
 			, target: '_blank'
