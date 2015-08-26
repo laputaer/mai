@@ -68,7 +68,7 @@ function *middleware(next) {
 	});
 
 	if (!valid) {
-		this.state.error_json = getStandardJson(null, 400, i18n.t('error.app-token-invalid'));
+		this.state.error_json = getStandardJson(null, 403, i18n.t('error.app-token-invalid'));
 		return;
 	}
 
@@ -84,12 +84,35 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 5: create item
-	var item = yield stashDomain.createItem({
+	// STEP 5: check for duplicate url
+	var exist = yield stashDomain.matchItemUrl({
 		db: this.db
 		, user: token[0]
-		, body: body
+		, url: body.url
 	});
+
+	if (exist && !exist.deleted) {
+		this.state.error_json = getStandardJson(result, 409, i18n.t('error.stash-item-already-exist'));
+		return;
+	}
+
+	// STEP 6: refresh item or create item
+	var item;
+	if (exist && exist.deleted) {
+		// refresh deleted item
+		item = yield stashDomain.refreshItem({
+			db: this.db
+			, sid: exist.sid
+			, uid: exist.user
+		});
+	} else {
+		// create new item
+		item = yield stashDomain.createItem({
+			db: this.db
+			, user: token[0]
+			, body: body
+		});
+	}
 
 	mixpanelDomain.stashAdd({
 		mixpanel: this.mixpanel
@@ -99,6 +122,6 @@ function *middleware(next) {
 		, type: 'extension'
 	});
 
-	// STEP 6: output json
+	// STEP 7: output json
 	this.state.json = getStandardJson(filterAttributes(item, filter_output));
 };

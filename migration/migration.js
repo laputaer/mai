@@ -36,6 +36,7 @@ var showcaseV1 = require('./showcase-v1');
 var stashV1 = require('./stash-v1');
 var appsV1 = require('./apps-v1');
 var appsV2 = require('./apps-v2');
+var stashV2 = require('./stash-v2');
 
 function *migration() {
 	console.log('migration started');
@@ -72,6 +73,7 @@ function *migration() {
 	yield stashV1(db);
 	yield appsV1(db);
 	yield appsV2(db);
+	yield stashV2(db);
 };
 
 co(migration).then(function() {
