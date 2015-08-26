@@ -131,7 +131,7 @@ module.exports = {
 			, 'manage-club-success': '社团更新成功，点击刷新：'
 			, 'create-post-preview': '页面抓取成功，以下是分享预览。'
 			, 'create-post-success': '分享发布成功，点击刷新：'
-			, 'create-app-password': '成功创建App密码（只显示一次，请复制到App中）：'
+			, 'create-app-password': '成功创建App密码（只显示一次，请复制到App设置中）：'
 			, 'action-done': '操作完成。'
 			, 'image-preview': '的预览图片'
 		}
