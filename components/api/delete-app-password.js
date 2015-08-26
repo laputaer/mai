@@ -10,7 +10,6 @@ var i18n = require('../templates/i18n')();
 
 var usersDomain = require('../domains/users');
 var sessionDomain = require('../domains/session');
-var mixpanelDomain = require('../domains/mixpanel');
 
 module.exports = factory;
 
@@ -52,14 +51,23 @@ function *middleware(next) {
 	}
 
 	// STEP 3: make sure item exist
-	var profile = yield usersDomain.matchAppName({
+	var profile = yield usersDomain.matchApp({
 		db: this.db
-		, user: this.session.uid
-		, name: this.params.name
+		, aid: this.params.aid
 	});
 
 	if (!profile) {
 		this.state.error_json = getStandardJson(null, 404, i18n.t('error.not-found-app-password'));
+		return;
+	}
+
+	if (profile.user !== this.session.uid) {
+		this.state.error_json = getStandardJson(null, 400, i18n.t('error.access-control'));
+		return;
+	}
+
+	if (profile.deleted) {
+		this.state.error_json = getStandardJson(null, 409, i18n.t('error.duplicate-action'));
 		return;
 	}
 

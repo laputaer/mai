@@ -1,19 +1,19 @@
 
 /**
- * remove-app-password.js
+ * restore-app-password.js
  *
- * Soft delete an app password profile
+ * Restore an app password profile
  */
 
-module.exports = removeAppPassword;
+module.exports = restoreAppPassword;
 
 /**
- * Soft delete an app profile
+ * Restore an app profile
  *
  * @param   Object  opts  Options { db, aid }
  * @return  Void
  */
-function *removeAppPassword(opts) {
+function *restoreAppPassword(opts) {
 	var db = opts.db;
 	var aid = opts.aid;
 
@@ -22,7 +22,7 @@ function *removeAppPassword(opts) {
 	yield App.update({
 		aid: aid
 	}, {
-		deleted: true
+		deleted: false
 		, updated: new Date()
 	});
 };

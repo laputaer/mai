@@ -63,6 +63,7 @@ function *middleware(next) {
 		, user: this.session.uid
 		, limit: limit
 		, skip: skip
+		, active: true
 	});
 
 	// STEP 4: prepare output

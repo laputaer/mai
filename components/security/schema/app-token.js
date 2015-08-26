@@ -13,7 +13,7 @@ module.exports = ruleset;
 
 function factory() {
 	return LGTM.validator()
-		.validates('password')
+		.validates('token')
 			.using(function(value) {
 				if (!validator.supported(value)) {
 					return false;
@@ -23,12 +23,12 @@ function factory() {
 					return false;
 				}
 
-				var pass = value.split(':');
-				if (pass.length !== 2) {
+				var token = value.split(':');
+				if (token.length !== 3) {
 					return false;
 				}
 
 				return true;
-			}, 'password invalid')
+			}, 'token invalid')
 		.build();
 };

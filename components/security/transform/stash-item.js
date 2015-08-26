@@ -38,8 +38,6 @@ function tranform(input) {
 		if (input.title.length > 128) {
 			input.title = input.title.substr(0, 120) + '...';
 		}
-	} else {
-		input.title = 'unknown title';
 	}
 
 	// favicon: trim, decode
@@ -49,8 +47,6 @@ function tranform(input) {
 		input.favicon = he.decode(input.favicon, {
 			isAttributeValue: true
 		});
-	} else {
-		input.favicon = '';
 	}
 
 	return input;

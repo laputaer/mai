@@ -1,16 +1,15 @@
 
 /**
- * delete-stash-item.js
+ * restore-app-password.js
  *
- * API for stash item removal
+ * API for stash item restore
  */
 
 var getStandardJson = require('../helpers/get-standard-json');
 var i18n = require('../templates/i18n')();
 
-var stashDomain = require('../domains/stash');
+var usersDomain = require('../domains/users');
 var sessionDomain = require('../domains/session');
-var mixpanelDomain = require('../domains/mixpanel');
 
 module.exports = factory;
 
@@ -52,38 +51,30 @@ function *middleware(next) {
 	}
 
 	// STEP 3: make sure item exist
-	var item = yield stashDomain.matchItem({
+	var profile = yield usersDomain.matchApp({
 		db: this.db
-		, sid: this.params.sid
+		, aid: this.params.aid
 	});
 
-	if (!item) {
-		this.state.error_json = getStandardJson(null, 404, i18n.t('error.not-found-stash-item'));
+	if (!profile) {
+		this.state.error_json = getStandardJson(null, 404, i18n.t('error.not-found-app-password'));
 		return;
 	}
 
-	if (item.user !== this.session.uid) {
+	if (profile.user !== this.session.uid) {
 		this.state.error_json = getStandardJson(null, 400, i18n.t('error.access-control'));
 		return;
 	}
 
-	if (item.deleted) {
+	if (!profile.deleted) {
 		this.state.error_json = getStandardJson(null, 409, i18n.t('error.duplicate-action'));
 		return;
 	}
 
 	// STEP 4: remove item
-	yield stashDomain.deleteItem({
+	yield usersDomain.restoreAppPassword({
 		db: this.db
-		, sid: item.sid
-		, uid: item.user
-	});
-
-	mixpanelDomain.stashRemove({
-		mixpanel: this.mixpanel
-		, request: this.request
-		, user: this.session.user
-		, item: item.sid
+		, aid: profile.aid
 	});
 
 	// STEP 5: output json

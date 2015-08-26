@@ -38,14 +38,22 @@ function *createItem(opts) {
 		sid: sid
 		, user: user
 		, url: body.url
-		, title: body.title
-		, favicon: body.favicon
 		, created: new Date()
 		, updated: new Date()
 	}
+
+	if (body.title) {
+		item.title = body.title;
+	}
+
+	if (body.favicon) {
+		item.favicon = body.favicon;
+	}
+
+	// STEP 3: insert item
 	yield Stash.insert(item);
 
-	// STEP 3: get item
+	// STEP 4: get new item
 	return yield Stash.findOne({
 		sid: sid
 	});

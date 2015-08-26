@@ -17,6 +17,8 @@ var getFormData = require('./handlers/get-form-data');
 var formResult = require('./handlers/form-result');
 var joinClub = require('./handlers/join-club');
 var leaveClub = require('./handlers/leave-club');
+var restoreItem = require('./handlers/restore-item');
+var deleteItem = require('./handlers/delete-item');
 
 module.exports = handlers;
 
@@ -174,19 +176,21 @@ function handlers(app) {
 		});
 	});
 
-	emitter.on('page:app:remove', function (data) {
-		app.json('DELETE', 'delete_app', null, [data.name]).then(function (json) {
-			// TODO: handle error
+	emitter.on('page:item:restore', function (data) {
+		restoreItem(app, data);
+		app.json('PUT', data.route, null, [data.id]).then(function (json) {
 			if (!json.ok) {
-				return;
+				deleteItem(app, data);
 			}
+		});
+	});
 
-			app.reload('user_apps', {
-				query: {
-					limit: 20
-				}
-				, key: 'aid'
-			});
+	emitter.on('page:item:delete', function (data) {
+		deleteItem(app, data);
+		app.json('DELETE', data.route, null, [data.id]).then(function (json) {
+			if (!json.ok) {
+				restoreItem(app, data);
+			}
 		});
 	});
 

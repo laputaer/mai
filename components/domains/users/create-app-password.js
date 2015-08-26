@@ -15,7 +15,7 @@ module.exports = createAppPassword;
  * Create an app password
  *
  * @param   Object  opts  Options { db, user, name }
- * @return  String        Password
+ * @return  Object        App password profile
  */
 function *createAppPassword(opts) {
 	var db = opts.db;
@@ -23,13 +23,13 @@ function *createAppPassword(opts) {
 	var name = opts.name;
 	var App = db.col('apps');
 
-	// step 1: generate password
+	// STEP 1: generate password
 	var pass = crypto.randomBytes(8).toString('hex');
 	
-	// step 2: hash it
-	var hash = yield bcrypt.hash(pass, 10);
+	// STEP 2: hash it
+	var hash = yield bcrypt.hash(pass, 12);
 
-	// step 3: app profile
+	// STEP 3: app profile
 	var profile = {
 		aid: cuid()
 		, user: user
@@ -39,8 +39,17 @@ function *createAppPassword(opts) {
 		, updated: new Date()
 	};
 
-	// step 4: create app password
+	// STEP 4: create app password
 	yield App.insert(profile);
 
-	return pass;
+	// STEP 5: get new profile
+	profile = yield App.findOne({
+		aid: profile.aid
+	});
+
+	// STEP 6: append password and remove hash
+	profile.pass = pass;
+	delete profile.hash;
+
+	return profile;
 };

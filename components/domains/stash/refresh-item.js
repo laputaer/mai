@@ -1,19 +1,19 @@
 
 /**
- * delete-item.js
+ * refresh-item.js
  *
- * Remove a stash item given sid
+ * Restore a deleted item, modify its creation time
  */
 
-module.exports = deleteItem;
+module.exports = refreshItem;
 
 /**
- * Remove an item from stash
+ * Restore an item, modify create date
  *
  * @param   Object  opts  Options { db, sid, uid }
- * @return  Void
+ * @return  Object
  */
-function *deleteItem(opts) {
+function *refreshItem(opts) {
 	var db = opts.db;
 	var sid = opts.sid;
 	var uid = opts.uid;
@@ -25,7 +25,7 @@ function *deleteItem(opts) {
 		uid: uid
 	}, {
 		$inc: {
-			stash_count: -1
+			stash_count: 1
 		}
 	});
 
@@ -33,7 +33,13 @@ function *deleteItem(opts) {
 	yield Stash.update({
 		sid: sid
 	}, {
-		deleted: true
+		deleted: false
+		, created: new Date()
 		, updated: new Date()
+	});
+
+	// STEP 3: get the item
+	return yield Stash.findOne({
+		sid: sid
 	});
 };

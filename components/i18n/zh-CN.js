@@ -131,7 +131,7 @@ module.exports = {
 			, 'manage-club-success': '社团更新成功，点击刷新：'
 			, 'create-post-preview': '页面抓取成功，以下是分享预览。'
 			, 'create-post-success': '分享发布成功，点击刷新：'
-			, 'create-app-password': '成功创建App密码（只显示一次，请复制到App中）：'
+			, 'create-app-password': '成功创建App密码（只显示一次，请复制到App设置中）：'
 			, 'action-done': '操作完成。'
 			, 'image-preview': '的预览图片'
 		}
@@ -145,6 +145,11 @@ module.exports = {
 			'share-message': '分享我在「入部么」上的个人账号'
 		}
 	}
+	, 'fallback': {
+		'stash': {
+			'title': '无标题文档'
+		}
+	}
 	, 'error': {
 		'status-code': 'Error %{code}'
 		, 'internal-service-down': '非常抱歉，我们的内部服务出了点问题。如果你正在执行操作，请重新尝试。'
@@ -152,7 +157,9 @@ module.exports = {
 		, 'login-required': '这个功能需要登录才能使用（见右上角）'
 		, 'invalid-csrf-token': '你提交的内容缺乏验证用的安全Token，请重新提交，同时检查域名是否为 https://rubu.me/'
 		, 'form-input-invalid': '提交内容的格式不符合要求'
-		, 'form-input-type-invalid': '请求的类型不符合要求'
+		, 'request-type-invalid': '请求的类型不符合要求'
+		, 'app-password-invalid': 'App密码不正确'
+		, 'app-token-invalid': 'App令牌不正确'
 		, 'insufficient-action-point': '看来你的信仰值不足执行动作，需要 %{required} 点信仰，你目前只有 %{current} 点'
 		, 'not-found-page': '你要找的页面不存在'
 		, 'not-found-user': '你要找的团员不存在'
@@ -165,12 +172,13 @@ module.exports = {
 		, 'oauth-error-profile': '请求 %{provider} 用户数据时发生错误，如重复出现，请联系我们反馈错误。'
 		, 'oauth-invalid-profile': '请求 %{provider} 时得到了不正确的用户数据，如重复出现，请联系我们反馈错误。'
 		, 'club-already-exist': '同路径的社团已存在，请选择另一个路径。'
+		, 'stash-item-already-exist': '同地址的收藏已存在。'
+		, 'app-name-already-exist': '同名称的App密码已存在。'
 		, 'opengraph-error-response': '请求远端页面时出现了网络错误，可能理由：(1) 该页面不支持站外引用 (2) 暂时的网络错误'
 		, 'opengraph-invalid-profile': '请求远端页面时得到了不正确数据，如重复出现，请联系我们反馈错误。'
 		, 'membership-required-to-post': '你需要先加入社团才能发布分享。'
 		, 'owner-cannot-leave-club': '社团创始人不能离开社团。'
 		, 'duplicate-action': '你已经执行过这个操作。'
-		, 'duplicate-app-name': '你已经使用过这个App名称。'
 		, 'duplicate-club-join': '你已经加入了这个社团。'
 		, 'duplicate-post-favorite': '你已经感谢过这个分享。'
 		, 'feedback': '为什么出现这个错误？'

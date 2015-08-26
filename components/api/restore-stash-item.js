@@ -1,8 +1,8 @@
 
 /**
- * delete-stash-item.js
+ * restore-stash-item.js
  *
- * API for stash item removal
+ * API for stash item restore
  */
 
 var getStandardJson = require('../helpers/get-standard-json');
@@ -10,7 +10,6 @@ var i18n = require('../templates/i18n')();
 
 var stashDomain = require('../domains/stash');
 var sessionDomain = require('../domains/session');
-var mixpanelDomain = require('../domains/mixpanel');
 
 module.exports = factory;
 
@@ -67,23 +66,16 @@ function *middleware(next) {
 		return;
 	}
 
-	if (item.deleted) {
+	if (!item.deleted) {
 		this.state.error_json = getStandardJson(null, 409, i18n.t('error.duplicate-action'));
 		return;
 	}
 
-	// STEP 4: remove item
-	yield stashDomain.deleteItem({
+	// STEP 4: restore item
+	yield stashDomain.restoreItem({
 		db: this.db
 		, sid: item.sid
 		, uid: item.user
-	});
-
-	mixpanelDomain.stashRemove({
-		mixpanel: this.mixpanel
-		, request: this.request
-		, user: this.session.user
-		, item: item.sid
 	});
 
 	// STEP 5: output json
