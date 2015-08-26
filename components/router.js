@@ -11,6 +11,8 @@ var handlers = require('./handlers/index');
 var apiRouter = require('koa-router')();
 var apiHandlers = require('./api/index');
 
+var appRouter = require('koa-router')();
+
 module.exports = myRouter;
 
 /**
@@ -65,7 +67,6 @@ function myRouter(app) {
 	apiRouter.post('/stash', apiHandlers.createStashItem());
 	apiRouter.del('/stash/:sid', apiHandlers.deleteStashItem());
 	apiRouter.get('/stash', apiHandlers.userStashItems());
-	apiRouter.post('/stash/extension', apiHandlers.createStashItemExtension());
 
 	// app tokens
 	apiRouter.get('/apps', apiHandlers.userApps());
@@ -73,8 +74,15 @@ function myRouter(app) {
 	apiRouter.del('/apps/:aid', apiHandlers.deleteAppPassword());
 	apiRouter.put('/apps/:aid', apiHandlers.restoreAppPassword());
 
+	// extension api
+	appRouter.post('/refresh', apiHandlers.appTokenRefresh());
+	//appRouter.post('/extension/stash', apiHandlers.createStashItemExtension());
+	// legacy support
+	//apiRouter.post('/stash/extension', apiHandlers.createStashItemExtension());
+
 	// mount api routes to main router
 	router.use('/api/v1', apiRouter.routes());
+	router.use('/app/v1', appRouter.routes());
 
 	// register router to koa app
 	app.use(router.routes());

@@ -18,6 +18,8 @@ var postConfirm = require('./schema/post-confirm');
 var query = require('./schema/query');
 var stashItem = require('./schema/stash-item');
 var appPassword = require('./schema/app-password');
+var appToken = require('./schema/app-token');
+var appName = require('./schema/app-name');
 
 module.exports = {
 	club: club
@@ -33,4 +35,6 @@ module.exports = {
 	, query: query
 	, stashItem: stashItem
 	, appPassword: appPassword
+	, appToken: appToken
+	, appName: appName
 };

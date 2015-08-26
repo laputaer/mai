@@ -16,6 +16,7 @@ var removeAppPassword = require('./users/remove-app-password');
 var getUserApps = require('./users/get-user-apps');
 var restoreAppPassword = require('./users/restore-app-password');
 var matchApp = require('./users/match-app');
+var createAppToken = require('./users/create-app-token');
 
 module.exports = {
 	matchUser: matchUser
@@ -29,4 +30,5 @@ module.exports = {
 	, getUserApps: getUserApps
 	, restoreAppPassword: restoreAppPassword
 	, matchApp: matchApp
+	, createAppToken: createAppToken
 };

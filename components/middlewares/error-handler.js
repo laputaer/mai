@@ -81,7 +81,8 @@ function errorPage(ctx, err) {
 	};
 
 	// api error response
-	if (ctx.path.substr(0, 5) === '/api/') {
+	var path = ctx.path;
+	if (path.indexOf('/api/') !== -1 || path.indexOf('/app/') !== -1) {
 		ctx.status = err.code || err.status;
 		ctx.state.json = err.code ? err : getStandardJson(null, err.status, err.message);
 		return;

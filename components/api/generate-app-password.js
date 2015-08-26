@@ -6,6 +6,7 @@
  */
 
 var getStandardJson = require('../helpers/get-standard-json');
+var filterAttributes = require('../helpers/filter-attributes');
 var i18n = require('../templates/i18n')();
 
 var usersDomain = require('../domains/users');
@@ -13,6 +14,10 @@ var sessionDomain = require('../domains/session');
 var mixpanelDomain = require('../domains/mixpanel');
 
 var validate = require('../security/validation');
+
+var filter_output = [
+	'aid', 'user', 'name', 'pass'
+];
 
 module.exports = factory;
 
@@ -54,7 +59,7 @@ function *middleware(next) {
 	}
 
 	// STEP 3: input transform and validation
-	result = yield validate(body, 'appPassword');
+	result = yield validate(body, 'appName');
 
 	if (!result.valid) {
 		this.state.error_json = getStandardJson(result, 400, i18n.t('error.form-input-invalid'));
@@ -74,7 +79,7 @@ function *middleware(next) {
 	}
 
 	// STEP 5: create password
-	var pass = yield usersDomain.createAppPassword({
+	var profile = yield usersDomain.createAppPassword({
 		db: this.db
 		, user: this.session.uid
 		, name: body.name
@@ -86,13 +91,6 @@ function *middleware(next) {
 		, user: this.session.uid
 	});
 
-	// STEP 6: prepare output
-	var output = {
-		user: this.session.uid
-		, name: body.name
-		, pass: pass
-	};
-
-	// STEP 7: output json
-	this.state.json = getStandardJson(output);
+	// STEP 6: output json
+	this.state.json = getStandardJson(filterAttributes(profile, filter_output));
 };

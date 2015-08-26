@@ -149,10 +149,10 @@ function template(data) {
 			message = $('div.common-message.error', ui.form_error);
 
 		// success message, assume object
-		} else if (ui.form_data && ui.form_data.user && ui.form_data.name && ui.form_data.pass) {
+		} else if (ui.form_data && ui.form_data.aid && ui.form_data.pass) {
 			message = $('div.common-message.success', [
 				$('span', i18n.t('message.common.create-app-password'))
-				, $('span', ui.form_data.user + ':' + ui.form_data.name + ':' + ui.form_data.pass)
+				, $('span', ui.form_data.aid + ':' + ui.form_data.pass)
 			]);
 		}
 

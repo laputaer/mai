@@ -1,8 +1,8 @@
 
 /**
- * app-password.js
+ * app-token.js
  *
- * App password object validation schema
+ * App token object validation schema
  */
 
 var LGTM = require('lgtm');
@@ -13,14 +13,22 @@ module.exports = ruleset;
 
 function factory() {
 	return LGTM.validator()
-		.validates('name')
+		.validates('password')
 			.using(function(value) {
-				return validator.supported(value)
-					&& validator.isLength(value, 2, 16)
-					&& validator.matches(value, '^[a-z0-9-]+$')
-					&& value.indexOf('--') === -1
-					&& value.substr(0, 1) !== '-'
-					&& value.substr(-1) !== '-'
-			}, 'name invalid')
+				if (!validator.supported(value)) {
+					return false;
+				}
+
+				if (value.indexOf(':') === -1) {
+					return false;
+				}
+
+				var pass = value.split(':');
+				if (pass.length !== 2) {
+					return false;
+				}
+
+				return true;
+			}, 'password invalid')
 		.build();
 };
