@@ -1,6 +1,6 @@
 
 /**
- * generate-app-password.js
+ * create-app-password.js
  *
  * API for generating app password
  */
@@ -73,22 +73,32 @@ function *middleware(next) {
 		, name: body.name
 	});
 
-	if (exist) {
-		this.state.error_json = getStandardJson(null, 400, i18n.t('error.duplicate-app-name'));
+	if (exist && !exist.deleted) {
+		this.state.error_json = getStandardJson(null, 400, i18n.t('error.app-name-already-exist'));
 		return;
 	}
 
-	// STEP 5: create password
-	var profile = yield usersDomain.createAppPassword({
-		db: this.db
-		, user: this.session.uid
-		, name: body.name
-	});
+	// STEP 5: refresh app or create app
+	var profile;
+	if (exist && exist.deleted) {
+		// refresh deleted app
+		profile = yield usersDomain.refreshAppPassword({
+			db: this.db
+			, aid: exist.aid
+		});
+	} else {
+		// create new app
+		profile = yield usersDomain.createAppPassword({
+			db: this.db
+			, user: this.session.uid
+			, name: body.name
+		});
+	}
 
 	mixpanelDomain.appConnect({
 		mixpanel: this.mixpanel
 		, request: this.request
-		, user: this.session.uid
+		, user: profile.user
 	});
 
 	// STEP 6: output json

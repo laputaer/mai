@@ -30,7 +30,7 @@ module.exports = {
 	, createStashItem: require('./create-stash-item')
 	, deleteStashItem: require('./delete-stash-item')
 	, userStashItems: require('./user-stash-items')
-	, generateAppPassword: require('./generate-app-password')
+	, createAppPassword: require('./create-app-password')
 	, deleteAppPassword: require('./delete-app-password')
 	, userApps: require('./user-apps')
 	, restoreAppPassword: require('./restore-app-password')

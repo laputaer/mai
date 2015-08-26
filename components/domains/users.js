@@ -18,6 +18,7 @@ var restoreAppPassword = require('./users/restore-app-password');
 var matchApp = require('./users/match-app');
 var createAppToken = require('./users/create-app-token');
 var matchAppToken = require('./users/match-app-token');
+var refreshAppPassword = require('./users/refresh-app-password');
 
 module.exports = {
 	matchUser: matchUser
@@ -33,4 +34,5 @@ module.exports = {
 	, matchApp: matchApp
 	, createAppToken: createAppToken
 	, matchAppToken: matchAppToken
+	, refreshAppPassword: refreshAppPassword
 };

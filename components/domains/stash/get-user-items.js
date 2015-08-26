@@ -10,7 +10,7 @@ module.exports = getUserItems;
 /**
  * Find items by user id
  *
- * @param   Object  opts  Options { db, uid, limit, range }
+ * @param   Object  opts  Options { db, uid, limit, range, active }
  * @return  Array         A list of items
  */
 function *getUserItems(opts) {
@@ -18,6 +18,7 @@ function *getUserItems(opts) {
 	var uid = opts.uid;
 	var limit = opts.limit;
 	var range = opts.range;
+	var active = opts.active;
 
 	var Stash = db.col('stash');
 
@@ -28,6 +29,12 @@ function *getUserItems(opts) {
 	if (range > 0) {
 		query.created = {
 			'$lt': new Date(range)
+		};
+	}
+
+	if (active) {
+		query.deleted = {
+			'$ne': true
 		};
 	}
 

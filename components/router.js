@@ -72,7 +72,7 @@ function myRouter(app) {
 
 	// app tokens
 	webRouter.get('/apps', apiHandlers.userApps());
-	webRouter.post('/apps', apiHandlers.generateAppPassword());
+	webRouter.post('/apps', apiHandlers.createAppPassword());
 	webRouter.del('/apps/:aid', apiHandlers.deleteAppPassword());
 	webRouter.put('/apps/:aid', apiHandlers.restoreAppPassword());
 
