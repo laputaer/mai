@@ -67,11 +67,16 @@ function *middleware(next) {
 		return;
 	}
 
+	if (item.deleted) {
+		this.state.error_json = getStandardJson(null, 409, i18n.t('error.duplicate-action'));
+		return;
+	}
+
 	// STEP 4: remove item
 	yield stashDomain.deleteItem({
 		db: this.db
-		, sid: this.params.sid
-		, uid: this.session.uid
+		, sid: item.sid
+		, uid: item.user
 	});
 
 	mixpanelDomain.stashRemove({

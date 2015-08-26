@@ -36,4 +36,5 @@ module.exports = {
 	, restoreAppPassword: require('./restore-app-password')
 	, appTokenRefresh: require('./app-token-refresh')
 	, appCreateStashItem: require('./app-create-stash-item')
+	, restoreStashItem: require('./restore-stash-item')
 };

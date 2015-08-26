@@ -1,19 +1,19 @@
 
 /**
- * delete-app.js
+ * restore-item.js
  *
- * Delete app profile
+ * Restore item from a list
  */
 
 /**
- * Delete app profile
+ * Restore item
  *
  * @oaram   Object  app   App instance
  * @oaram   Object  data  Event data
  * @return  Void
  */
-module.exports = function deleteApp (app, data) {
+module.exports = function restoreItem (app, data) {
 	var deleted_path = [data.view, data.order, 'deleted'];
-	app.modify(deleted_path, true);
+	app.modify(deleted_path, false);
 	app.refresh();
 };

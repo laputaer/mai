@@ -78,8 +78,17 @@ module.exports = {
 	, create_post: {
 		endpoint: '/clubs/:slug/posts/create'
 	}
+	, create_stash: {
+		endpoint: '/apps'
+	}
 	, user_stash: {
 		endpoint: '/stash'
+	}
+	, delete_stash: {
+		endpoint: '/stash/:sid'
+	}
+	, restore_stash: {
+		endpoint: '/stash/:sid'
 	}
 	, create_app: {
 		endpoint: '/apps'

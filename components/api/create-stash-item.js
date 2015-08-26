@@ -19,7 +19,7 @@ var proxyUrl = require('../security/proxy');
 var debug = require('debug')('mai:stash');
 
 var filter_output = [
-	'sid', 'user', 'url', 'title', 'favicon'
+	'sid', 'user', 'url', 'title'
 ];
 
 module.exports = factory;
@@ -73,39 +73,44 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 4: create item
-	var item = yield stashDomain.createItem({
+	// STEP 4: check for duplicate url
+	var exist = yield stashDomain.matchItemUrl({
 		db: this.db
 		, user: this.session.uid
-		, body: body
+		, url: body.url
 	});
+
+	if (exist && !exist.deleted) {
+		this.state.error_json = getStandardJson(result, 409, i18n.t('error.stash-item-already-exist'));
+		return;
+	}
+
+	// STEP 5: refresh item or create item
+	var item;
+	if (exist && exist.deleted) {
+		// refresh deleted item
+		item = yield stashDomain.refreshItem({
+			db: this.db
+			, sid: exist.sid
+			, uid: exist.user
+		});
+	} else {
+		// create new item
+		item = yield stashDomain.createItem({
+			db: this.db
+			, user: this.session.uid
+			, body: body
+		});
+	}
 
 	mixpanelDomain.stashAdd({
 		mixpanel: this.mixpanel
 		, request: this.request
-		, user: this.session.user
+		, user: item.user
 		, item: item.sid
 		, type: 'web'
 	});
 
-	// STEP 5: prepare output
-	var config = this.config;
-	var state = this.state;
-	var output = {
-		sid: item.sid
-		, user: item.user
-		, url: item.url
-		, title: item.title
-	};
-
-	if (item.favicon) {
-		output.favicon = proxyUrl({
-			url: item.favicon
-			, key: config.proxy.key
-			, base: state.image_base_url
-		});
-	}
-
 	// STEP 6: output json
-	this.state.json = getStandardJson(filterAttributes(output, filter_output));
+	this.state.json = getStandardJson(filterAttributes(item, filter_output));
 };

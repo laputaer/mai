@@ -62,12 +62,12 @@ function *middleware(next) {
 	}
 
 	if (profile.user !== this.session.uid) {
-		this.state.error_json = getStandardJson(null, 404, i18n.t('error.access-control'));
+		this.state.error_json = getStandardJson(null, 400, i18n.t('error.access-control'));
 		return;
 	}
 
 	if (profile.deleted) {
-		this.state.error_json = getStandardJson(null, 400, i18n.t('error.duplicate-action'));
+		this.state.error_json = getStandardJson(null, 409, i18n.t('error.duplicate-action'));
 		return;
 	}
 

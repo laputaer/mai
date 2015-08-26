@@ -17,8 +17,8 @@ var getFormData = require('./handlers/get-form-data');
 var formResult = require('./handlers/form-result');
 var joinClub = require('./handlers/join-club');
 var leaveClub = require('./handlers/leave-club');
-var restoreApp = require('./handlers/restore-app');
-var deleteApp = require('./handlers/delete-app');
+var restoreItem = require('./handlers/restore-item');
+var deleteItem = require('./handlers/delete-item');
 
 module.exports = handlers;
 
@@ -176,20 +176,20 @@ function handlers(app) {
 		});
 	});
 
-	emitter.on('page:app:restore', function (data) {
-		restoreApp(app, data);
-		app.json('PUT', 'restore_app', null, [data.aid]).then(function (json) {
+	emitter.on('page:item:restore', function (data) {
+		restoreItem(app, data);
+		app.json('PUT', data.route, null, [data.id]).then(function (json) {
 			if (!json.ok) {
-				deleteApp(app, data);
+				deleteItem(app, data);
 			}
 		});
 	});
 
-	emitter.on('page:app:delete', function (data) {
-		deleteApp(app, data);
-		app.json('DELETE', 'delete_app', null, [data.aid]).then(function (json) {
+	emitter.on('page:item:delete', function (data) {
+		deleteItem(app, data);
+		app.json('DELETE', data.route, null, [data.id]).then(function (json) {
 			if (!json.ok) {
-				restoreApp(app, data);
+				restoreItem(app, data);
 			}
 		});
 	});

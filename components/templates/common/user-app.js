@@ -29,9 +29,10 @@ function template(data) {
 	};
 
 	var appEvent = {
-		aid: data.aid
+		id: data.aid
 		, view: data.view
 		, order: data.num
+		, route: data.deleted ? 'restore_app' : 'delete_app'
 	};
 
 	var appAction = navButtonTemplate({
@@ -39,7 +40,7 @@ function template(data) {
 		, className: data.deleted ? 'plain restore' : 'plain delete'
 		, icon: data.deleted ? 'music_repeat' : 'trash_bin'
 		, version: data.version
-		, eventName: data.deleted ? 'page:app:restore' : 'page:app:delete'
+		, eventName: data.deleted ? 'page:item:restore' : 'page:item:delete'
 		, eventData: appEvent
 	});
 

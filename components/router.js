@@ -63,9 +63,12 @@ function myRouter(app) {
 	webRouter.put('/clubs/:slug/users', apiHandlers.joinClub());
 	webRouter.del('/clubs/:slug/users', apiHandlers.leaveClub());
 	webRouter.get('/posts/recent', apiHandlers.recentPosts());
+
+	// user stash
+	webRouter.get('/stash', apiHandlers.userStashItems());
 	webRouter.post('/stash', apiHandlers.createStashItem());
 	webRouter.del('/stash/:sid', apiHandlers.deleteStashItem());
-	webRouter.get('/stash', apiHandlers.userStashItems());
+	webRouter.put('/stash/:sid', apiHandlers.restoreStashItem());
 
 	// app tokens
 	webRouter.get('/apps', apiHandlers.userApps());
@@ -76,8 +79,6 @@ function myRouter(app) {
 	// extension api
 	apiRouter.post('/refresh', apiHandlers.appTokenRefresh());
 	apiRouter.post('/stash', apiHandlers.appCreateStashItem());
-	// legacy support
-	//webRouter.post('/stash/extension', apiHandlers.createStashItemExtension());
 
 	// mount api routes to main router
 	router.use('/web/v1', webRouter.routes());

@@ -43,9 +43,26 @@ function template(data) {
 		});
 	}
 
+	var actionEvent = {
+		id: data.sid
+		, view: data.view
+		, order: data.num
+		, route: data.deleted ? 'restore_stash' : 'delete_stash'
+	};
+
+	var action = navButtonTemplate({
+		href: '#'
+		, className: data.deleted ? 'plain restore' : 'plain delete'
+		, icon: data.deleted ? 'music_repeat' : 'trash_bin'
+		, version: data.version
+		, eventName: data.deleted ? 'page:item:restore' : 'page:item:delete'
+		, eventData: actionEvent
+	});
+
 	var post = $('article', postOpts, [
 		$('div.action-block', [
 			link
+			, action
 		])
 	]);
 
