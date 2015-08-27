@@ -7,12 +7,12 @@
 
 'use strict';
 
+// helpers
+var extend = require('xtend');
+
 // API group
 var api = require('./api');
 var prefix = api.prefix;
-
-// Route replace regex
-var re = /:[^\s\$\/]+/g;
 
 module.exports = Service;
 
@@ -85,30 +85,11 @@ Service.prototype.send = function(url, opts, params) {
  */
 Service.prototype.fetch = function(name, opts, params) {
 	opts = opts || {};
-	params = params || [];
+	params = params || {};
 
 	var endpoint = api[name];
 	var results = {};
 	var fetches = [];
-	var queries = '';
-
-	// build query string
-	for (var query in opts) {
-		if (!opts.hasOwnProperty(query)) {
-			continue;
-		}
-
-		if (!queries) {
-			queries += '?' + query + '=' + opts[query];
-		} else {
-			queries += '&' + query + '=' + opts[query];
-		}
-	}
-
-	var count = 0;
-	var replaceFunc = function () {
-		return params[count++];
-	};
 
 	// make request
 	for (var prop in endpoint) {
@@ -116,17 +97,15 @@ Service.prototype.fetch = function(name, opts, params) {
 			continue;
 		}
 
-		count = 0;
 		var path = endpoint[prop];
 
-		// allow optional route params
-		if (params.length > 0) {
-			path = path.replace(re, replaceFunc);
+		if (typeof path === 'object') {
+			params = extend(opts, params);
+			path = path.build(params);
 		}
 
 		// send cookie
-		// TODO: investigate auth token
-		var f = fetch(prefix + path + queries, {
+		var f = fetch(prefix + path, {
 			credentials: 'same-origin'
 		});
 

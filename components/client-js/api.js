@@ -5,6 +5,10 @@
  * List backend api
  */
 
+var Path = require('path-parser');
+
+var qs = '?:skip&:limit&:range';
+
 module.exports = {
 	prefix: '/web/v1'
 	, init: {
@@ -12,97 +16,97 @@ module.exports = {
 	}
 	, home: {
 		featured_clubs: '/clubs/featured'
-		, featured_posts: '/posts/featured?skip=0&limit=20'
-		, recent_posts: '/posts/recent?skip=0&limit=20'
+		, featured_posts: new Path('/posts/featured' + qs)
+		, recent_posts: new Path('/posts/recent' + qs)
 	}
 	, myClubs: {
-		my_clubs: '/clubs/owner?skip=0&limit=20'
-		, joined_clubs: '/clubs/member?skip=0&limit=20'
+		my_clubs: new Path('/clubs/owner' + qs)
+		, joined_clubs: new Path('/clubs/member' + qs)
 	}
 	, clubProfile: {
-		club_profile: '/clubs/:slug/profile'
-		, club_posts: '/clubs/:slug/posts?skip=0&limit=20'
+		club_profile: new Path('/clubs/:slug/profile')
+		, club_posts: new Path('/clubs/:slug/posts' + qs)
 	}
 	, userProfile: {
-		user_profile: '/users/:uid/profile'
-		, user_posts: '/users/:uid/posts?skip=0&limit=20'
+		user_profile: new Path('/users/:uid/profile')
+		, user_posts: new Path('/users/:uid/posts' + qs)
 	}
 	, ranking: {
-		hot_clubs: '/clubs/hot?skip=0&limit=20'
-		, top_clubs: '/clubs/top?skip=0&limit=20'
-		, recent_clubs: '/clubs/recent?skip=0&limit=20'
+		hot_clubs: new Path('/clubs/hot' + qs)
+		, top_clubs: new Path('/clubs/top' + qs)
+		, recent_clubs: new Path('/clubs/recent' + qs)
 	}
 	, help: {}
 	, featured_posts: {
-		endpoint: '/posts/featured'
+		endpoint: new Path('/posts/featured' + qs)
 	}
 	, recent_posts: {
-		endpoint: '/posts/recent'
+		endpoint: new Path('/posts/recent' + qs)
 	}
 	, my_clubs: {
-		endpoint: '/clubs/owner'
+		endpoint: new Path('/clubs/owner' + qs)
 	}
 	, joined_clubs: {
-		endpoint: '/clubs/member'
+		endpoint: new Path('/clubs/member' + qs)
 	}
 	, club_posts: {
-		endpoint: '/clubs/:slug/posts'
+		endpoint: new Path('/clubs/:slug/posts' + qs)
 	}
 	, user_posts: {
-		endpoint: '/users/:uid/posts'
+		endpoint: new Path('/users/:uid/posts' + qs)
 	}
 	, hot_clubs: {
-		endpoint: '/clubs/hot'
+		endpoint: new Path('/clubs/hot' + qs)
 	}
 	, top_clubs: {
-		endpoint: '/clubs/top'
+		endpoint: new Path('/clubs/top' + qs)
 	}
 	, recent_clubs: {
-		endpoint: '/clubs/recent'
+		endpoint: new Path('/clubs/recent' + qs)
 	}
 	, create_club: {
 		endpoint: '/clubs'
 	}
 	, manage_club: {
-		endpoint: '/clubs/:slug'
+		endpoint: new Path('/clubs/:slug')
 	}
 	, favorite_post: {
-		endpoint: '/posts/:pid/favorite'
+		endpoint: new Path('/posts/:pid/favorite')
 	}
 	, club_membership: {
-		endpoint: '/clubs/:slug/users'
+		endpoint: new Path('/clubs/:slug/users')
 	}
 	, init_post: {
-		endpoint: '/clubs/:slug/posts'
+		endpoint: new Path('/clubs/:slug/posts')
 	}
 	, create_post: {
-		endpoint: '/clubs/:slug/posts/create'
+		endpoint: new Path('/clubs/:slug/posts/create')
 	}
 	, create_stash: {
 		endpoint: '/apps'
 	}
 	, user_stash: {
-		endpoint: '/stash'
+		endpoint: new Path('/stash' + qs)
 	}
 	, stash_item: {
-		endpoint: '/stash/:sid'
+		endpoint: new Path('/stash/:sid')
 	}
 	, delete_stash: {
-		endpoint: '/stash/:sid'
+		endpoint: new Path('/stash/:sid')
 	}
 	, restore_stash: {
-		endpoint: '/stash/:sid'
+		endpoint: new Path('/stash/:sid')
 	}
 	, create_app: {
 		endpoint: '/apps'
 	}
 	, user_apps: {
-		endpoint: '/apps'
+		endpoint: new Path('/apps' + qs)
 	}
 	, delete_app: {
-		endpoint: '/apps/:aid'
+		endpoint: new Path('/apps/:aid')
 	}
 	, restore_app: {
-		endpoint: '/apps/:aid'
+		endpoint: new Path('/apps/:aid')
 	}
 };
