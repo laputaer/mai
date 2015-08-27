@@ -212,18 +212,17 @@ App.prototype.json = function (method, url, opts, params) {
 		opts.credentials = 'same-origin';
 	}
 
-	// auto append csrf token for other requests
+	// request body
 	if (opts.method !== 'GET') {
-		// default to urlencoded body
+		// default to urlencoded
 		opts.body = opts.body || '';
 
-		// common setup for urlencoded body
 		if (typeof opts.body === 'string') {
 			// set urlencoded header
 			opts.headers = opts.headers || {};
 			opts.headers['Content-Type'] = 'application/x-www-form-urlencoded';
 
-			// append csrf toekn
+			// append csrf token
 			var csrf = 'csrf_token=' + self.model.get(['current_user', 'csrf_token']);
 			if (!opts.body) {
 				opts.body = csrf;
@@ -238,7 +237,7 @@ App.prototype.json = function (method, url, opts, params) {
 		try {
 			return res.json();
 		} catch(e) {
-			// console.debug(e);
+			//console.debug(e);
 		}
 		return null;
 	}).then(function (json) {

@@ -19,7 +19,7 @@
     "watch:svg": "onchange components/client-svg/\\*\\*/\\*.svg -v -- npm run build:svg",
     "build:css": "lessc components/client-less/main.less | postcss --use autoprefixer | cleancss -o public/assets/app.css && penthouse --width 400 --height 700 https://mai.dev/ public/assets/app.css | cleancss -o public/assets/inline.css",
     "build:css:dev": "lessc components/client-less/main.less | postcss --use autoprefixer -o public/dev/app.css && penthouse --width 400 --height 700 https://mai.dev/ public/dev/app.css > public/dev/inline.css",
-    "build:js": "browserify components/client-js/main.js -s mai | uglifyjs -o public/assets/app.js & uglifyjs components/client-js/vendor/analytics.js -o public/assets/vendor.js & uglifyjs components/client-js/vendor/inline.js -o public/assets/inline.js",
+    "build:js": "browserify components/client-js/main.js -s mai | uglifyjs -c warnings=false -m -o public/assets/app.js & uglifyjs components/client-js/vendor/analytics.js -c -m -o public/assets/vendor.js & uglifyjs components/client-js/vendor/inline.js -c -m -o public/assets/inline.js",
     "build:js:dev": "browserify components/client-js/main.js -s mai -o public/dev/app.js",
     "build:svg": "svgo --enable=removeDesc --multipass -f components/client-svg/ && svgshelf components/client-svg/\\*.svg public/assets/icons.svg",
     "build:img": "find ./public/images -maxdepth 1 -type f -not -name .gitignore -exec rm -fv {} + && imagemin -i -p components/client-image/* public/images/",
