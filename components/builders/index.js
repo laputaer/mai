@@ -6,17 +6,17 @@
  */
 
 var extend = require('xtend');
+var Path = require('path-parser');
 
 var builders = require('./builders');
-var createRoute = require('../helpers/create-named-route');
 
 var routes = {
-	home: createRoute('^/$')
-	, myClubs: createRoute('^/my-clubs$')
-	, clubProfile: createRoute('^/c/:slug$')
-	, userProfile: createRoute('^/u/:uid$')
-	, ranking: createRoute('^/ranking$')
-	, help: createRoute('^/help$')
+	home: new Path('/')
+	, myClubs: new Path('/my-clubs')
+	, clubProfile: new Path('/c/:slug')
+	, userProfile: new Path('/u/:uid')
+	, ranking: new Path('/ranking')
+	, help: new Path('/help')
 };
 
 module.exports = builder;
@@ -36,7 +36,7 @@ function builder(data) {
 			continue;
 		}
 
-		if (!routes[route].test(path)) {
+		if (!routes[route].match(path)) {
 			continue;
 		}
 
