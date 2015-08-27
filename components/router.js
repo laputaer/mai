@@ -66,6 +66,7 @@ function myRouter(app) {
 
 	// user stash
 	webRouter.get('/stash', apiHandlers.userStashItems());
+	webRouter.get('/stash/:sid', apiHandlers.userStashItem());
 	webRouter.post('/stash', apiHandlers.createStashItem());
 	webRouter.del('/stash/:sid', apiHandlers.deleteStashItem());
 	webRouter.put('/stash/:sid', apiHandlers.restoreStashItem());

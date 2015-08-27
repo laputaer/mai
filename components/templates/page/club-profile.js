@@ -30,6 +30,7 @@ function template(data) {
 	// common data
 	var club_profile = data.club_profile;
 	var club_posts = data.club_posts;
+	var stash_item = data.stash_item;
 	var ui = data.ui;
 	var client = data.client;
 	var version = data.version.asset;
@@ -120,7 +121,7 @@ function template(data) {
 			link_field = formGroupTemplate({
 				id: 'create-post-link'
 				, name: 'link'
-				, value: field_data.link || ''
+				, value: field_data.link || stash_item.url || ''
 				, error: !!field_error.link
 			});
 
