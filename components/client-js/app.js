@@ -191,32 +191,6 @@ App.prototype.load = function (name, opts) {
 };
 
 /**
- * Reload data from backend and refresh view
- *
- * @param   String   name  Backend service
- * @param   Object   opts  Optional parameters
- * @return  Promise
- */
-App.prototype.reload = function (name, opts) {
-	var self = this;
-
-	// match current route
-	var route = router(self.model.get());
-	if (!route) {
-		return Promise.resolve(null);
-	}
-
-	// contact backend service
-	return self.service.fetch(name, opts.query, route.params).then(function (data) {
-		if (data.endpoint.ok && Array.isArray(data.endpoint.data)) {
-			// overwrite existing data and re-render view
-			self.model.set(name, data.endpoint.data);
-			self.renderer.update(route.name, self.model.get());
-		}
-	});
-};
-
-/**
  * Send request to backend and retrieve data
  *
  * @param   String   method  Request method
@@ -242,20 +216,20 @@ App.prototype.json = function (method, url, opts, params) {
 	if (opts.method !== 'GET') {
 		// default to urlencoded body
 		opts.body = opts.body || '';
-	}
 
-	// common setup for urlencoded body
-	if (typeof opts.body === 'string') {
-		// set urlencoded header
-		opts.headers = opts.headers || {};
-		opts.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+		// common setup for urlencoded body
+		if (typeof opts.body === 'string') {
+			// set urlencoded header
+			opts.headers = opts.headers || {};
+			opts.headers['Content-Type'] = 'application/x-www-form-urlencoded';
 
-		// append csrf toekn
-		var csrf = 'csrf_token=' + self.model.get(['current_user', 'csrf_token']);
-		if (!opts.body) {
-			opts.body = csrf;
-		} else {
-			opts.body = csrf + '&' + opts.body;
+			// append csrf toekn
+			var csrf = 'csrf_token=' + self.model.get(['current_user', 'csrf_token']);
+			if (!opts.body) {
+				opts.body = csrf;
+			} else {
+				opts.body = csrf + '&' + opts.body;
+			}
 		}
 	}
 

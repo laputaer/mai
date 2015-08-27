@@ -32,6 +32,7 @@ module.exports = router;
  */
 function router(data) {
 	var path = data.current_path;
+	var query = data.current_query;
 	var result;
 
 	for (var route in routes) {
@@ -61,6 +62,7 @@ function router(data) {
 		result = {
 			name: route
 			, params: params
+			, query: query
 		}
 		break;
 	}

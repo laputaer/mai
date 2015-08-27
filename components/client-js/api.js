@@ -84,6 +84,9 @@ module.exports = {
 	, user_stash: {
 		endpoint: '/stash'
 	}
+	, stash_item: {
+		endpoint: '/stash/:sid'
+	}
 	, delete_stash: {
 		endpoint: '/stash/:sid'
 	}
