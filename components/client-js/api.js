@@ -35,6 +35,7 @@ module.exports = {
 	, clubProfile: {
 		club_profile: new Path('/clubs/:slug/profile')
 		, club_posts: new Path('/clubs/:slug/posts' + qs)
+		, stash_item: new Path('/stash/:sid')
 	}
 	, userProfile: {
 		user_profile: new Path('/users/:uid/profile')
@@ -49,19 +50,19 @@ module.exports = {
 	// api routes
 	, featured_posts: new Path('/posts/featured' + qs)
 	, recent_posts: new Path('/posts/recent' + qs)
+	, favorite_post: new Path('/posts/:pid/favorite')
+	, create_club: '/clubs'
+	, manage_club: new Path('/clubs/:slug')
+	, club_membership: new Path('/clubs/:slug/users')
 	, my_clubs: new Path('/clubs/owner' + qs)
 	, joined_clubs: new Path('/clubs/member' + qs)
-	, club_posts: new Path('/clubs/:slug/posts' + qs)
-	, user_posts: new Path('/users/:uid/posts' + qs)
 	, hot_clubs: new Path('/clubs/hot' + qs)
 	, top_clubs: new Path('/clubs/top' + qs)
 	, recent_clubs: new Path('/clubs/recent' + qs)
-	, create_club: '/clubs'
-	, manage_club: new Path('/clubs/:slug')
-	, favorite_post: new Path('/posts/:pid/favorite')
-	, club_membership: new Path('/clubs/:slug/users')
 	, init_post: new Path('/clubs/:slug/posts')
 	, create_post: new Path('/clubs/:slug/posts/create')
+	, club_posts: new Path('/clubs/:slug/posts' + qs)
+	, user_posts: new Path('/users/:uid/posts' + qs)
 	, create_stash: '/stash'
 	, user_stash: new Path('/stash' + qs)
 	, stash_item: new Path('/stash/:sid')
