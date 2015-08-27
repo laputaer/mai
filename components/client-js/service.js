@@ -13,6 +13,7 @@ var extend = require('xtend');
 // API group
 var api = require('./api');
 var prefix = api.prefix;
+var default_qs = api.default_qs;
 
 module.exports = Service;
 
@@ -32,8 +33,8 @@ function Service() {
  *
  * @return  Promise
  */
-Service.prototype.init = function() {
-	return this.fetch('init');
+Service.prototype.init = function () {
+	return this.multiFetch('init');
 };
 
 /**
@@ -42,77 +43,78 @@ Service.prototype.init = function() {
  * @param   Object   route  { name, params }
  * @return  Promise
  */
-Service.prototype.sync = function(route) {
-	return this.fetch(route.name, null, route.params);
+Service.prototype.sync = function (route) {
+	return this.multiFetch(route.name, route.params);
 };
 
 /**
- * Fetch backend, raw request
- *
- * @param   String   url     Backend service endpoint or API name
- * @param   Object   opts    Optional parameters
- * @param   Array    params  Params for endpoints
- * @return  Promise
- */
-Service.prototype.send = function(url, opts, params) {
-	opts = opts || {};
-
-	// allow api name to be used
-	if (url.indexOf('/') !== 0) {
-		url = api[url].endpoint
-
-		// allow optional route params
-		if (params && params.length > 0) {
-			var count = 0;
-			var replaceFunc = function () {
-				return params[count++];
-			};
-
-			url = url.replace(re, replaceFunc);
-		}
-	}
-
-	return fetch(prefix + url, opts);
-};
-
-/**
- * Fetch backend in parallel
+ * Raw request builder
  *
  * @param   String   name    API name
- * @param   Object   opts    Optional parameters
- * @param   Array    params  Params for endpoints
+ * @param   Object   params  Params for endpoints
+ * @param   Object   opts    Fetch options
  * @return  Promise
  */
-Service.prototype.fetch = function(name, opts, params) {
+Service.prototype.send = function (name, params, opts) {
+	params = params || {};
 	opts = opts || {};
+
+	// path builder
+	var path = api[name];
+
+	if (typeof path === 'object') {
+		params = extend(default_qs, params);
+		path = path.build(params);
+	}
+
+	// fetch builder
+	if (!opts.credentials) {
+		opts.credentials = 'same-origin';
+	}
+
+	return fetch(prefix + path, opts);
+};
+
+/**
+ * Fetch multiple backend in parallel
+ *
+ * @param   String   name    API name
+ * @param   Object   params  Params for endpoints
+ * @return  Promise
+ */
+Service.prototype.multiFetch = function (name, params) {
 	params = params || {};
 
-	var endpoint = api[name];
-	var results = {};
+	var group = api[name];
 	var fetches = [];
+	var results = {};
 
-	// make request
-	for (var prop in endpoint) {
-		if (!endpoint.hasOwnProperty(prop)) {
+	// request builder
+	for (var prop in group) {
+		if (!group.hasOwnProperty(prop)) {
 			continue;
 		}
 
-		var path = endpoint[prop];
+		// path builder
+		var path = group[prop];
 
 		if (typeof path === 'object') {
-			params = extend(opts, params);
+			params = extend(default_qs, params);
 			path = path.build(params);
 		}
 
-		// send cookie
-		var f = fetch(prefix + path, {
+		// fetch builder
+		var opts = {
 			credentials: 'same-origin'
-		});
+		};
 
-		// allow us to resolve fetch into an object
-		deferFetch(fetches, f, results, prop);
+		var f = fetch(prefix + path, opts);
+
+		// allow us to resolve all fetches into an object
+		deferFetch(fetches, results, f, prop);
 	}
 
+	// result will be an object of all json responses
 	return Promise.all(fetches).then(function() {
 		return results;
 	});
@@ -122,20 +124,19 @@ Service.prototype.fetch = function(name, opts, params) {
  * Defer fetch and allow us to collect data as object
  *
  * @param   Array    ps       List of promises
+ * @param   Object   results  Final output
  * @param   Promise  p        Fetch promise
- * @param   Object   results  Object output
- * @param   String   name     Object attribute name
+ * @param   String   name     Output attribute name
  * @return  Void
  */
-function deferFetch(ps, p, results, name) {
+function deferFetch (ps, results, p, name) {
 	results[name] = null;
 
-	// TODO: better error handling
 	ps.push(p.then(function(res) {
 		try {
 			return res.json();
 		} catch(e) {
-			// console.debug(e);
+			//console.debug(e);
 		}
 		return null;
 	}).then(function(json) {

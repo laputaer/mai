@@ -5,6 +5,8 @@
  * Serialize form data and build fetch opts
  */
 
+'use strict';
+
 var serialize = require('form-serialize');
 
 /**

@@ -5,6 +5,8 @@
  * Centralized route matcher
  */
 
+'use strict';
+
 var Path = require('path-parser');
 
 // route matching

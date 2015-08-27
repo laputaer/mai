@@ -44,10 +44,10 @@ function template(data) {
 	}
 
 	var actionEvent = {
-		id: data.sid
+		sid: data.sid
 		, view: data.view
 		, order: data.num
-		, route: data.deleted ? 'restore_stash' : 'delete_stash'
+		, route: 'stash_item'
 	};
 
 	var action = navButtonTemplate({

@@ -177,7 +177,7 @@ function template(data) {
 		});
 
 		// form id for event handler
-		var submitOpts = { id: 'create-app', route: 'create_app', method: 'POST' };
+		var submitOpts = { id: 'create-app', route: 'create_app' };
 
 		var formOpts = {
 			action: '#'

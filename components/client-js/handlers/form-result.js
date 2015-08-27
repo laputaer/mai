@@ -5,6 +5,8 @@
  * Process json result from backend api
  */
 
+'use strict';
+
 /**
  * Handle form result
  *

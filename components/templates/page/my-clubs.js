@@ -156,7 +156,7 @@ function template(data) {
 		});
 
 		// form id for event handler
-		var submitOpts = { id: 'create-club', route: 'create_club', method: 'POST' };
+		var submitOpts = { id: 'create-club', route: 'create_club' };
 
 		var formOpts = {
 			action: '#'

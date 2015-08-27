@@ -17,7 +17,6 @@ var I = require('icepick');
 // helpers
 var removeTrailingSlash = require('../helpers/remove-trailing-slash');
 var getVarType = require('../helpers/get-variable-type');
-var getQueryObject = require('../helpers/get-query-object');
 
 module.exports = Model;
 

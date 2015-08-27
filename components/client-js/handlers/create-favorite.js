@@ -5,6 +5,8 @@
  * Update post favorite status
  */
 
+'use strict';
+
 /**
  * Create favorite
  *

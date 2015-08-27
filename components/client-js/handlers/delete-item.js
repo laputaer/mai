@@ -5,6 +5,8 @@
  * Delete item from a list
  */
 
+'use strict';
+
 /**
  * Delete item
  *

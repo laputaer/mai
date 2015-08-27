@@ -1,6 +1,6 @@
 
 /**
- * create-named-route.js
+ * create-named-route.js (deprecated)
  *
  * Create a regex for named route matching
  */

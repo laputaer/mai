@@ -57,7 +57,7 @@ function myRouter(app) {
 	webRouter.get('/clubs/hot', apiHandlers.hotClubs());
 	webRouter.get('/clubs/recent', apiHandlers.recentClubs());
 	webRouter.post('/clubs', apiHandlers.createClub());
-	webRouter.put('/clubs/:slug', apiHandlers.manageClub());
+	webRouter.post('/clubs/:slug', apiHandlers.manageClub());
 	webRouter.post('/clubs/:slug/posts', apiHandlers.initPost());
 	webRouter.post('/clubs/:slug/posts/create', apiHandlers.createPost());
 	webRouter.put('/clubs/:slug/users', apiHandlers.joinClub());

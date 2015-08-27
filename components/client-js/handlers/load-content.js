@@ -5,6 +5,8 @@
  * Load content using async style
  */
 
+'use strict';
+
 /**
  * Load content from backend
  *

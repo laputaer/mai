@@ -90,7 +90,7 @@ function template(data) {
 
 	if (data.pid !== 'club-post-preview') {
 		favoriteOpts = {
-			id: data.pid
+			pid: data.pid
 			, order: data.num
 			, view: data.view
 		};

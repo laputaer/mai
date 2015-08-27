@@ -29,10 +29,10 @@ function template(data) {
 	};
 
 	var appEvent = {
-		id: data.aid
+		aid: data.aid
 		, view: data.view
 		, order: data.num
-		, route: data.deleted ? 'restore_app' : 'delete_app'
+		, route: 'app_item'
 	};
 
 	var appAction = navButtonTemplate({

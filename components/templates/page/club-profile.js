@@ -164,7 +164,7 @@ function template(data) {
 			});
 
 			// form id for event handler
-			submitOpts = { id: 'create-post', route: 'create_post', params: [club_profile.slug], method: 'POST' };
+			submitOpts = { id: 'create-post', route: 'create_post', slug: club_profile.slug };
 		}
 
 		var formOpts = {
@@ -245,7 +245,7 @@ function template(data) {
 		});
 
 		// form id for event handler
-		var submitOpts = { id: 'manage-club', route: 'manage_club', params: [club_profile.slug], method: 'PUT' };
+		var submitOpts = { id: 'manage-club', route: 'manage_club', slug: club_profile.slug };
 
 		var formOpts = {
 			action: '#'

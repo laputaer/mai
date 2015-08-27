@@ -1,6 +1,6 @@
 
 /**
- * get-query-object.js
+ * get-query-object.js (deprecated)
  *
  * Simple query string parser
  */
