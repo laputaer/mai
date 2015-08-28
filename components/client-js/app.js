@@ -7,6 +7,9 @@
 
 'use strict';
 
+// helpers
+var extend = require('xtend');
+
 var Service = require('./service');
 var Model = require('./model');
 var Renderer = require('./renderer');
@@ -90,7 +93,7 @@ App.prototype.widget = function () {
 	}
 
 	// user profile need stash data
-	if (route.name === 'userProfile' && route.params[0] === model.current_user.uid) {
+	if (route.name === 'userProfile' && route.params.uid === model.current_user.uid) {
 		self.load('user_stash', {
 			query: {
 				limit: 20
@@ -104,6 +107,8 @@ App.prototype.widget = function () {
 			}
 			, key: 'aid'
 		});
+
+		self.load('user_clubs');
 	}
 };
 
@@ -167,52 +172,34 @@ App.prototype.modify = function (path, data) {
 App.prototype.load = function (name, opts) {
 	var self = this;
 
-	// match current route
+	opts = opts || {};
+	opts.query = opts.query || {};
+	opts.key = opts.key || '';
+
+	// get route parameters
 	var route = router(self.model.get());
 	if (!route) {
 		return Promise.resolve(null);
 	}
 
-	// contact backend service
-	return self.service.fetch(name, opts.query, route.params).then(function (data) {
-		if (data.endpoint.ok && Array.isArray(data.endpoint.data)) {
-			// make sure empty array init the array
-			if (data.endpoint.data.length === 0 && self.model.get(name) === undefined) {
-				self.model.set(name, []);
-				return;
-			}
-
-			// otherwise append data
-			data.endpoint.data.forEach(function (item) {
-				self.model.append(name, item, opts.key);
-			});
-		}
-	});
-};
-
-/**
- * Reload data from backend and refresh view
- *
- * @param   String   name  Backend service
- * @param   Object   opts  Optional parameters
- * @return  Promise
- */
-App.prototype.reload = function (name, opts) {
-	var self = this;
-
-	// match current route
-	var route = router(self.model.get());
-	if (!route) {
-		return Promise.resolve(null);
-	}
+	var params = extend(route.params, opts.query);
 
 	// contact backend service
-	return self.service.fetch(name, opts.query, route.params).then(function (data) {
-		if (data.endpoint.ok && Array.isArray(data.endpoint.data)) {
-			// overwrite existing data and re-render view
-			self.model.set(name, data.endpoint.data);
-			self.renderer.update(route.name, self.model.get());
+	return self.json('GET', name, params).then(function (json) {
+		if (!json.ok || !Array.isArray(json.data)) {
+			return;
 		}
+
+		// make sure empty array init the array
+		if (json.data.length === 0 && self.model.get(name) === undefined) {
+			self.model.set(name, []);
+			return;
+		}
+
+		// otherwise append data
+		json.data.forEach(function (item) {
+			self.model.append(name, item, opts.key);
+		});
 	});
 };
 
@@ -220,56 +207,47 @@ App.prototype.reload = function (name, opts) {
  * Send request to backend and retrieve data
  *
  * @param   String   method  Request method
- * @param   String   url     Backend service endpoint
- * @param   Object   opts    Optional parameters
- * @param   Array    params  Optional route parameters
+ * @param   String   name    Backend service endpoint
+ * @param   Object   params  Optional route parameters
+ * @param   Object   opts    Optional fetch parameters
  * @return  Promise
  */
-App.prototype.json = function (method, url, opts, params) {
+App.prototype.json = function (method, name, params, opts) {
 	var self = this;
 
+	params = params || {};
 	opts = opts || {};
 
-	// default to get request
+	// default to GET request
 	opts.method = opts.method || method || 'GET';
 
-	// send cookie by default
-	if (!opts.credentials) {
-		opts.credentials = 'same-origin';
-	}
-
-	// auto append csrf token for other requests
+	// request body
 	if (opts.method !== 'GET') {
-		// default to urlencoded body
+		// default body
 		opts.body = opts.body || '';
-	}
 
-	// common setup for urlencoded body
-	if (typeof opts.body === 'string') {
-		// set urlencoded header
-		opts.headers = opts.headers || {};
-		opts.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+		// default content type is urlencoded
+		if (typeof opts.body === 'string') {
+			opts.headers = opts.headers || {};
+			opts.headers['Content-Type'] = 'application/x-www-form-urlencoded';
 
-		// append csrf toekn
-		var csrf = 'csrf_token=' + self.model.get(['current_user', 'csrf_token']);
-		if (!opts.body) {
-			opts.body = csrf;
-		} else {
-			opts.body = csrf + '&' + opts.body;
+			// append csrf token
+			var csrf = 'csrf_token=' + self.model.get(['current_user', 'csrf_token']);
+			opts.body = opts.body ? csrf + '&' + opts.body : csrf;
 		}
 	}
 
-	// contact backend service, get back json result
-	return self.service.send(url, opts, params).then(function (res) {
+	// contact backend service, return json result
+	return self.service.send(name, params, opts).then(function (res) {
 		try {
 			return res.json();
 		} catch(e) {
-			// console.debug(e);
+			//console.debug(e);
 		}
 		return null;
 	}).then(function (json) {
 		if (!json) {
-			return {};
+			return null;
 		}
 		return json;
 	});

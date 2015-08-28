@@ -29,15 +29,16 @@ function template(data) {
 	};
 
 	var appEvent = {
-		id: data.aid
+		aid: data.aid
 		, view: data.view
 		, order: data.num
-		, route: data.deleted ? 'restore_app' : 'delete_app'
+		, route: 'app_item'
 	};
 
 	var appAction = navButtonTemplate({
 		href: '#'
-		, className: data.deleted ? 'plain restore' : 'plain delete'
+		, className: data.deleted ? 'plain restore control c1' : 'plain delete control c1'
+		, title: data.deleted ? i18n.t('action.restore') : i18n.t('action.delete')
 		, icon: data.deleted ? 'music_repeat' : 'trash_bin'
 		, version: data.version
 		, eventName: data.deleted ? 'page:item:restore' : 'page:item:delete'

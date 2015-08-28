@@ -25,6 +25,7 @@ var getTopClubs = require('./clubs/get-top-clubs');
 var getHotClubs = require('./clubs/get-hot-clubs');
 var getRecentClubs = require('./clubs/get-recent-clubs');
 var getRecentPosts = require('./clubs/get-recent-posts');
+var getUserClubs = require('./clubs/get-user-clubs');
 
 module.exports = {
 	getUserOwnedClubs: getUserOwnedClubs
@@ -47,4 +48,5 @@ module.exports = {
 	, getHotClubs: getHotClubs
 	, getRecentClubs: getRecentClubs
 	, getRecentPosts: getRecentPosts
+	, getUserClubs: getUserClubs
 };

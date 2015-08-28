@@ -28,42 +28,98 @@ function template(data) {
 		, className: 'featured-post'
 	};
 
-	var link;
+	var link = $('p.link', $('a', {
+		href: data.url
+		, target: '_blank'
+	}, data.domain));
 
-	if (data.url) {
-		link = navButtonTemplate({
-			href: data.url
-			, className: 'plain internal'
-			, title: data.domain
-			, value: data.title || i18n.t('fallback.stash.title')
-			, image: data.favicon
-			, size: 'sq-tiny'
-			, target: '_blank'
-			, fallback: true
-		});
-	}
+	var title = $('p.title', {
+		title: data.title || ''
+	}, data.title || i18n.t('fallback.stash.title'));
+
+	var image = navButtonTemplate({
+		href: data.url
+		, className: 'plain internal'
+		, image: data.favicon
+		, size: 'sq-tiny'
+		, target: '_blank'
+		, square: true
+	});
 
 	var actionEvent = {
-		id: data.sid
+		sid: data.sid
 		, view: data.view
 		, order: data.num
-		, route: data.deleted ? 'restore_stash' : 'delete_stash'
+		, route: 'stash_item'
 	};
 
-	var action = navButtonTemplate({
+	var deleteButton = navButtonTemplate({
 		href: '#'
-		, className: data.deleted ? 'plain restore' : 'plain delete'
+		, className: data.deleted ? 'plain restore control c1' : 'plain delete control c1'
+		, title: data.deleted ? i18n.t('action.restore') : i18n.t('action.delete')
 		, icon: data.deleted ? 'music_repeat' : 'trash_bin'
 		, version: data.version
 		, eventName: data.deleted ? 'page:item:restore' : 'page:item:delete'
 		, eventData: actionEvent
 	});
 
+	var shareEvent = {
+		view: data.view
+		, order: data.num
+	};
+
+	var shareButton = navButtonTemplate({
+		href: '#'
+		, className: data.deleted ? 'plain hidden control c2' : 'plain share control c2'
+		, title: i18n.t('action.share')
+		, icon: 'share'
+		, version: data.version
+		, eventName: data.sharing ? 'page:share:close' : 'page:share:open'
+		, eventData: shareEvent
+	});
+
+	var shareStashEvent = {
+		sid: data.sid
+		, prefix: prefix
+	};
+
+	var shareOpts = {
+		className: data.sharing ? 'share-block active' : 'share-block'
+		, 'ev-change': emitter.capture('page:stash:share', shareStashEvent)
+	};
+
+	var shareListOpts = {
+		id: prefix + '-' + data.sid + '-share-list'
+		, className: 'share-list'
+	};
+
+	var shareList;
+	if (data.sharing) {
+		shareList = data.share_list.map(function (item) {
+			return $('option', {
+				value: item.slug
+			}, item.title + ' [' + item.slug + ']');
+		});
+	}
+
+	var shareBlock = $('div', shareOpts, [
+		$('p.share-text', i18n.t('profile.user.share-list'))
+		, $('select', shareListOpts, shareList)
+	]);
+
 	var post = $('article', postOpts, [
-		$('div.action-block', [
-			link
-			, action
+		$('div.wrapper', [
+			$('div.text-column', [
+				link
+				, title
+			])
 		])
+		, $('div.action-block', [
+			image
+			, deleteButton
+			, shareButton
+		])
+		, shareBlock
 	]);
 
 	return post;

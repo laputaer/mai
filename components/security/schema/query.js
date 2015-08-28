@@ -58,10 +58,10 @@ function factory() {
 
 				return true;
 			}, 'range invalid')
-		.validates('share')
+		.validates('sid')
 			.optional()
 			.using(function(value) {
-				return validator.testUrl(value)
-			}, 'share invalid')
+				return validator.supported(value)
+			}, 'sid invalid')
 		.build();
 };

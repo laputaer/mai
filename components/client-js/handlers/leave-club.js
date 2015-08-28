@@ -5,6 +5,8 @@
  * Update club membership status
  */
 
+'use strict';
+
 /**
  * Leave club
  *

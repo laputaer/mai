@@ -43,29 +43,43 @@ function myRouter(app) {
 
 	// api routes
 	webRouter.get('/global', apiHandlers.globalConfig());
-	webRouter.get('/clubs/featured', apiHandlers.featuredClubs());
-	webRouter.get('/posts/featured', apiHandlers.featuredPosts());
-	webRouter.put('/posts/:pid/favorite', apiHandlers.favoritePost());
-	webRouter.del('/posts/:pid/favorite', apiHandlers.unfavoritePost());
-	webRouter.get('/clubs/owner', apiHandlers.userOwnedClubs());
-	webRouter.get('/clubs/member', apiHandlers.userJoinedClubs());
+
+	// club profile
 	webRouter.get('/clubs/:slug/posts', apiHandlers.clubPosts());
 	webRouter.get('/clubs/:slug/profile', apiHandlers.clubProfile());
-	webRouter.get('/users/:uid/posts', apiHandlers.userPosts());
-	webRouter.get('/users/:uid/profile', apiHandlers.userProfile());
+
+	// club list
+	webRouter.get('/clubs/featured', apiHandlers.featuredClubs());
+	webRouter.get('/clubs/owner', apiHandlers.userOwnedClubs());
+	webRouter.get('/clubs/member', apiHandlers.userJoinedClubs());
 	webRouter.get('/clubs/top', apiHandlers.topClubs());
 	webRouter.get('/clubs/hot', apiHandlers.hotClubs());
 	webRouter.get('/clubs/recent', apiHandlers.recentClubs());
+	webRouter.get('/clubs/user', apiHandlers.userClubs());
+
+	// club management
 	webRouter.post('/clubs', apiHandlers.createClub());
-	webRouter.put('/clubs/:slug', apiHandlers.manageClub());
+	webRouter.post('/clubs/:slug', apiHandlers.manageClub());
 	webRouter.post('/clubs/:slug/posts', apiHandlers.initPost());
 	webRouter.post('/clubs/:slug/posts/create', apiHandlers.createPost());
 	webRouter.put('/clubs/:slug/users', apiHandlers.joinClub());
 	webRouter.del('/clubs/:slug/users', apiHandlers.leaveClub());
+
+	// user profile
+	webRouter.get('/users/:uid/posts', apiHandlers.userPosts());
+	webRouter.get('/users/:uid/profile', apiHandlers.userProfile());
+
+	// post list
+	webRouter.get('/posts/featured', apiHandlers.featuredPosts());
 	webRouter.get('/posts/recent', apiHandlers.recentPosts());
+
+	// post action
+	webRouter.put('/posts/:pid/favorite', apiHandlers.favoritePost());
+	webRouter.del('/posts/:pid/favorite', apiHandlers.unfavoritePost());
 
 	// user stash
 	webRouter.get('/stash', apiHandlers.userStashItems());
+	webRouter.get('/stash/:sid', apiHandlers.userStashItem());
 	webRouter.post('/stash', apiHandlers.createStashItem());
 	webRouter.del('/stash/:sid', apiHandlers.deleteStashItem());
 	webRouter.put('/stash/:sid', apiHandlers.restoreStashItem());

@@ -18,6 +18,7 @@ var sectionTitleTemplate = require('../common/section-title');
 var loadButtonTemplate = require('../common/load-button');
 var formGroupTemplate = require('../common/form-group');
 var formButtonTemplate = require('../common/form-button');
+var navButtonTemplate = require('../common/navigation-button');
 
 module.exports = template;
 
@@ -33,12 +34,14 @@ function template(data) {
 	var user_stash = data.user_stash;
 	var user_apps = data.user_apps;
 	var user_profile = data.user_profile;
+	var user_clubs = data.user_clubs;
+	var base_url = data.base_url;
 	var ui = data.ui;
 	var client = data.client;
 	var version = data.version.asset;
 
 	// 1st section, tabs, always shown
-	var user_posts_title, user_posts_list, user_posts_button, form, user_apps_title, user_apps_list, user_apps_button;
+	var user_posts_title, user_posts_list, user_posts_button, form, user_apps_title, user_apps_list, user_apps_button, user_free_apps, user_free_list;
 
 	// scenario 1: default tab active
 	if (!ui['recent-posts-section']) {
@@ -109,6 +112,7 @@ function template(data) {
 				, view: 'user_stash'
 				, client: client
 				, cache: ui['load-user-stash'] > 50
+				, share_list: user_clubs
 			};
 
 			return immutable(stashItemTemplate, item, opts);
@@ -177,7 +181,7 @@ function template(data) {
 		});
 
 		// form id for event handler
-		var submitOpts = { id: 'create-app', route: 'create_app', method: 'POST' };
+		var submitOpts = { id: 'create-app', route: 'create_app' };
 
 		var formOpts = {
 			action: '#'
@@ -208,6 +212,28 @@ function template(data) {
 
 			return immutable(userAppTemplate, item, opts);
 		});
+
+		user_free_apps = sectionTitleTemplate({
+			title: 'section.titles.free-apps'
+			, key: 'free-apps'
+			, bottom: true
+		});
+
+		// TODO: create a tool display template
+		user_free_list = $('article', {
+			className: 'featured-post'
+		}, [
+			$('div.action-block', [
+				navButtonTemplate({
+					href: 'https://chrome.google.com/webstore/detail/save-to-rubume/pbpckgippklddpebnlaofkblekemjnii'
+					, className: 'plain internal'
+					, text: 'tool.chrome-extension'
+					, image: base_url + '/images/chrome-logo-64.png'
+					, version: version
+					, target: '_blank'
+				})
+			])
+		]);
 	}
 
 	// page content
@@ -224,6 +250,8 @@ function template(data) {
 		, form
 		, user_apps_title
 		, user_apps_list
+		, user_free_apps
+		, user_free_list
 	]);
 
 	return home;

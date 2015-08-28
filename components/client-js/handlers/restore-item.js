@@ -5,6 +5,8 @@
  * Restore item from a list
  */
 
+'use strict';
+
 /**
  * Restore item
  *

@@ -5,7 +5,10 @@
  * Manage client-side events and interactions
  */
 
+'use strict';
+
 var doc = document;
+var win = window;
 var emitter = require('../templates/emitter');
 var toggleScroll = require('./helpers/toggle-body-scroll');
 var menuEscape = require('./helpers/menu-escape');
@@ -19,6 +22,8 @@ var joinClub = require('./handlers/join-club');
 var leaveClub = require('./handlers/leave-club');
 var restoreItem = require('./handlers/restore-item');
 var deleteItem = require('./handlers/delete-item');
+var showShareMenu = require('./handlers/show-share-menu');
+var hideShareMenu = require('./handlers/hide-share-menu');
 
 module.exports = handlers;
 
@@ -160,7 +165,7 @@ function handlers(app) {
 
 	emitter.on('page:favorite:create', function (data) {
 		createFavorite(app, data);
-		app.json('PUT', 'favorite_post', null, [data.id]).then(function (json) {
+		app.json('PUT', 'favorite_post', data).then(function (json) {
 			if (!json.ok) {
 				deleteFavorite(app, data);
 			}
@@ -169,7 +174,7 @@ function handlers(app) {
 
 	emitter.on('page:favorite:remove', function (data) {
 		deleteFavorite(app, data);
-		app.json('DELETE', 'favorite_post', null, [data.id]).then(function (json) {
+		app.json('DELETE', 'favorite_post', data).then(function (json) {
 			if (!json.ok) {
 				createFavorite(app, data);
 			}
@@ -178,7 +183,7 @@ function handlers(app) {
 
 	emitter.on('page:item:restore', function (data) {
 		restoreItem(app, data);
-		app.json('PUT', data.route, null, [data.id]).then(function (json) {
+		app.json('PUT', data.route, data).then(function (json) {
 			if (!json.ok) {
 				deleteItem(app, data);
 			}
@@ -187,7 +192,7 @@ function handlers(app) {
 
 	emitter.on('page:item:delete', function (data) {
 		deleteItem(app, data);
-		app.json('DELETE', data.route, null, [data.id]).then(function (json) {
+		app.json('DELETE', data.route, data).then(function (json) {
 			if (!json.ok) {
 				restoreItem(app, data);
 			}
@@ -196,7 +201,7 @@ function handlers(app) {
 
 	emitter.on('page:club:join', function (data) {
 		joinClub(app, data);
-		app.json('PUT', 'club_membership', null, [data.slug]).then(function (json) {
+		app.json('PUT', 'club_membership', data).then(function (json) {
 			if (!json.ok) {
 				leaveClub(app, data);
 			}
@@ -206,11 +211,27 @@ function handlers(app) {
 	emitter.on('page:club:leave', function (data) {
 		leaveClub(app, data);
 		emitter.emit('page:menu:close');
-		app.json('DELETE', 'club_membership', null, [data.slug]).then(function (json) {
+		app.json('DELETE', 'club_membership', data).then(function (json) {
 			if (!json.ok) {
 				joinClub(app, data);
 			}
 		});
+	});
+
+	emitter.on('page:share:open', function (data) {
+		showShareMenu(app, data);
+	});
+
+	emitter.on('page:share:close', function (data) {
+		hideShareMenu(app, data);
+	});
+
+	emitter.on('page:stash:share', function (data) {
+		var select = doc.getElementById(data.prefix + '-' + data.sid + '-share-list');
+		var slug = select.value;
+
+		// TODO: don't redirect, allow user to share multiple items
+		win.location = '/c/' + slug + '?sid=' + data.sid;
 	});
 
 	emitter.on('page:form:submit', function (data) {
@@ -218,7 +239,7 @@ function handlers(app) {
 		var body = getFormData(app, form);
 		app.modify(['ui', 'form_loading'], true);
 		app.refresh();
-		app.json(data.method, data.route, { body: body }, data.params).then(function (json) {
+		app.json('POST', data.route, data, { body: body }).then(function (json) {
 			app.modify(['ui', 'form_loading'], false);
 			formResult(app, json);
 		});

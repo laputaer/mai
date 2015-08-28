@@ -118,6 +118,7 @@
 	box-sizing: border-box;
 	box-shadow: inset 0 1px 0 0 fadeout(@color-gray, 60%);
 	overflow: hidden;
+	position: relative;
 
 	.wrapper {
 		width: 100%;
@@ -132,6 +133,43 @@
 			bottom: 0;
 			height: 30px;
 			width: 40px;
+			display: block;
+		}
+	}
+
+	.action-block {
+		position: relative;
+		overflow: hidden;
+		.long-text();
+		.size(14);
+
+		&:after {
+			content: "";
+			position: absolute;
+			z-index: 1;
+			right: 0;
+			bottom: 0;
+			height: 40px;
+			width: 70px;
+			display: block;
+		}
+	}
+
+	.share-block {
+		display: none;
+		height: 80px;
+		position: absolute;
+		top: 20px;
+		left: 15px;
+		right: 15px;
+		z-index: 10;
+
+		border-radius: 4px;
+		color: @color-blue;
+		background-color: fadeout(@color-blue-pastel, 2%);
+		text-align: center;
+
+		&.active {
 			display: block;
 		}
 	}
@@ -157,36 +195,6 @@
 
 	.image-column.hidden + .text-column {
 		padding-left: 0;
-	}
-
-	.action-block {
-		position: relative;
-		overflow: hidden;
-		.long-text();
-		.size(14);
-
-		&:after {
-			content: "";
-			position: absolute;
-			z-index: 1;
-			right: 0;
-			bottom: 0;
-			height: 40px;
-			width: 70px;
-			display: block;
-		}
-
-		.internal {
-			margin: 10px 10px 10px 0;
-		}
-
-		.heart, .delete, .restore {
-			margin: 10px 0;
-			position: absolute;
-			right: 0;
-			top: 0;
-			z-index: 2;
-		}
 	}
 
 	.thumbnail {
@@ -216,6 +224,39 @@
 		.size(20);
 
 		cursor: help;
+	}
+
+	.internal {
+		margin: 10px 10px 10px 0;
+	}
+
+	.control {
+		margin: 10px 0;
+		position: absolute;
+		top: 0;
+		z-index: 2;
+
+		&.c1 {
+			right: 0;
+		}
+
+		&.c2 {
+			right: 40px;
+		}
+
+		&.c3 {
+			right: 80px;
+		}
+	}
+
+	.share-text {
+		.size(24);
+		font-weight: 300;
+		margin: 0.25em;
+	}
+
+	.share-list {
+		max-width: 200px;
 	}
 
 	&:nth-of-type(even) {
@@ -266,7 +307,12 @@
 		}
 
 		.text-column {
-			max-height: 100px;
+			max-height: none;
+			height: 100px;
+		}
+
+		.share-block {
+			height: 100px;
 		}
 
 		.wrapper:after {
@@ -289,17 +335,16 @@
 		.link {
 			.size(16);
 		}
+
+		.share-text {
+			margin: 0.5em;
+		}
 	}
 
 	@media @tablet-large {
 		width: 50%;
 		float: left;
 		box-shadow: inset 0 1px 0 0 fadeout(@color-gray, 70%);
-
-		.text-column {
-			max-height: none;
-			height: 100px;
-		}
 
 		&:nth-of-type(odd) {
 			background-color: @color-gray-pastel;

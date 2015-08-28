@@ -5,14 +5,13 @@
  * Koa route handler for club profile
  */
 
-var resolver = require('url').resolve;
-
 var builder = require('../builders/index');
 var prepareData = require('../builders/prepare-data');
 var createError = require('../helpers/create-error-message');
 var i18n = require('../templates/i18n')();
 var clubProfile = require('../api/club-profile')();
 var clubPosts = require('../api/club-posts')();
+var userStashItem = require('../api/user-stash-item')();
 var validate = require('../security/validation');
 
 module.exports = factory;
@@ -37,17 +36,8 @@ function *middleware(next) {
 
 	// STEP 1: prepare common data
 	var data = prepareData(this);
-	data.canonical_url = resolver(data.current_url, data.current_path);
 
-	// STEP 2: handle share url
-	/*
-	var result = yield validate(this.request.query, 'query');
-	if (result.valid) {
-		data.share_url = this.request.query.share || ''
-	}
-	*/
-
-	// STEP 3: find club
+	// STEP 2: find club
 	data.club_profile = yield clubProfile;
 
 	if (!data.club_profile) {
@@ -55,8 +45,15 @@ function *middleware(next) {
 		return;
 	}
 
-	// STEP 4: find posts
-	data.club_posts = yield clubPosts;
+	// STEP 3: handle stash share
+	data.stash_item = yield userStashItem;
+
+	// STEP 4: show share form or post list
+	if (data.stash_item.url) {
+		data.ui['club-posts-section'] = 1;
+	} else {
+		data.club_posts = yield clubPosts;
+	}
 
 	// STEP 5: render page
 	this.state.vdoc = builder(data);

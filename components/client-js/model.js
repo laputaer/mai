@@ -47,6 +47,7 @@ Model.prototype.init = function(data) {
 	this.set('version', data.global.data.version);
 	this.set('base_url', data.global.data.base_url);
 	this.set('current_path', removeTrailingSlash(win.location.pathname));
+	this.set('current_query', win.location.search);
 	this.set('current_url', win.location.href);
 	this.set('ui', {});
 

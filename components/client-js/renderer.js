@@ -15,7 +15,7 @@ var builders = require('../builders/builders');
 // to debug, set it to true
 var bench = require('./benchmark')();
 
-// immutable object
+// merge object
 var extend = require('xtend');
 
 // vdom to html

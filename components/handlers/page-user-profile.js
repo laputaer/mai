@@ -5,8 +5,6 @@
  * Koa route handler for user profile
  */
 
-var resolver = require('url').resolve;
-
 var builder = require('../builders/index');
 var prepareData = require('../builders/prepare-data');
 var createError = require('../helpers/create-error-message');
@@ -36,7 +34,6 @@ function *middleware(next) {
 
 	// STEP 1: prepare common data
 	var data = prepareData(this);
-	data.canonical_url = resolver(data.current_url, data.current_path);
 
 	// STEP 2: find club
 	data.user_profile = yield userProfile;

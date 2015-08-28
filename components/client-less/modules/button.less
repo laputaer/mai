@@ -39,6 +39,10 @@
 		padding: 0;
 	}
 
+	&.hidden {
+		display: none;
+	}
+
 	.m-icon, .m-text, .m-hint {
 		display: inline-block;
 		vertical-align: top;
@@ -61,6 +65,11 @@
 			border-radius: 50%;
 			background-color: currentColor;
 			animation: hintWave 1.0s infinite ease-in-out;
+		}
+
+		&.m-favicon {
+			border-radius: 4px;
+			.background-cover();
 		}
 
 		@keyframes hintWave {
@@ -117,27 +126,35 @@
 		}
 	}
 
-	&.heart {
-		color: @color-red-pastel;
+	&.favorite {
+		color: @color-blue-light;
 
 		&:hover, &:focus, &:active {
-			color: @color-red-light;
+			color: @color-blue;
 		}
 	}
 
 	&.delete {
-		color: @color-red-pastel;
+		color: @color-red-light;
 
 		&:hover, &:focus, &:active {
-			color: @color-red-light;
+			color: @color-red;
 		}
 	}
 
 	&.restore {
-		color: @color-blue-pastel;
+		color: @color-blue-light;
 
 		&:hover, &:focus, &:active {
-			color: @color-blue-light;
+			color: @color-blue;
+		}
+	}
+
+	&.share {
+		color: @color-blue-light;
+
+		&:hover, &:focus, &:active {
+			color: @color-blue;
 		}
 	}
 
