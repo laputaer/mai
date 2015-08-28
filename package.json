@@ -114,6 +114,7 @@
     "node-polyglot": "0.4.3",
     "path-parser": "0.2.3",
     "purest": "2.0.0",
+    "query-string": "2.4.0",
     "redis": "0.12.1",
     "sharp": "0.11.1",
     "svg-tags": "1.0.0",

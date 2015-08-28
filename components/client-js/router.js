@@ -7,7 +7,9 @@
 
 'use strict';
 
+var extend = require('xtend');
 var Path = require('path-parser');
+var QS = require('query-string');
 
 // route matching
 var routes = {
@@ -28,7 +30,8 @@ module.exports = router;
  * @return  Object        Matched route
  */
 function router(data) {
-	var path = data.current_path + data.current_query;
+	var path = data.current_path;
+	var query = QS.parse(data.current_query);
 	var result;
 
 	for (var route in routes) {
@@ -41,7 +44,10 @@ function router(data) {
 			continue;
 		}
 
-		result = { name: route, params: res };
+		result = {
+			name: route
+			, params: extend(query, res)
+		};
 		break;
 	}
 
