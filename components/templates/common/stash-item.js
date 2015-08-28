@@ -53,7 +53,7 @@ function template(data) {
 		, route: 'stash_item'
 	};
 
-	var action = navButtonTemplate({
+	var deleteButton = navButtonTemplate({
 		href: '#'
 		, className: data.deleted ? 'plain restore control c1' : 'plain delete control c1'
 		, icon: data.deleted ? 'music_repeat' : 'trash_bin'
@@ -61,6 +61,22 @@ function template(data) {
 		, eventName: data.deleted ? 'page:item:restore' : 'page:item:delete'
 		, eventData: actionEvent
 	});
+
+	var shareButton;
+	if (!data.deleted) {
+		shareEvent = {
+			sid: data.sid
+		};
+
+		shareButton = navButtonTemplate({
+			href: '#'
+			, className: 'plain share control c2'
+			, icon: 'share'
+			, version: data.version
+			, eventName: data.sharing ? 'page:share:close' : 'page:share:open'
+			, eventData: shareEvent
+		});
+	}
 
 	var post = $('article', postOpts, [
 		$('div.wrapper', [
@@ -71,7 +87,8 @@ function template(data) {
 		])
 		, $('div.action-block', [
 			image
-			, action
+			, deleteButton
+			, shareButton
 		])
 	]);
 
