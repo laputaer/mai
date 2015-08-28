@@ -63,6 +63,7 @@ module.exports = {
 			, 'user-stash': '个人收藏'
 			, 'create-app': '创建App密码'
 			, 'user-apps': '现有App'
+			, 'free-apps': '免费工具'
 		}
 		, 'load': {
 			'featured-posts': '浏览更多精彩内容'
@@ -145,6 +146,15 @@ module.exports = {
 			'share-message': '分享我在「入部么」上的个人账号'
 			, 'share-list': '分享本文到社团'
 		}
+	}
+	, 'action': {
+		'favorite': '感谢分享者'
+		, 'delete': '删除项目'
+		, 'restore': '恢复项目'
+		, 'share': '分享项目'
+	}
+	, 'tool': {
+		'chrome-extension': 'Chrome插件'
 	}
 	, 'fallback': {
 		'stash': {

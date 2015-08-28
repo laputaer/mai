@@ -38,6 +38,7 @@ function template(data) {
 	var appAction = navButtonTemplate({
 		href: '#'
 		, className: data.deleted ? 'plain restore control c1' : 'plain delete control c1'
+		, title: data.deleted ? i18n.t('action.restore') : i18n.t('action.delete')
 		, icon: data.deleted ? 'music_repeat' : 'trash_bin'
 		, version: data.version
 		, eventName: data.deleted ? 'page:item:restore' : 'page:item:delete'

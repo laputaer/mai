@@ -97,9 +97,10 @@ function template(data) {
 
 		favorite = navButtonTemplate({
 			href: '#'
-			, className: data.current_user_fav ? 'plain heart active control c1' : 'plain heart control c1'
+			, className: data.current_user_fav ? 'plain favorite active control c1' : 'plain favorite control c1'
 			, value: data.fav_point || '0'
-			, icon: 'heart'
+			, title: i18n.t('action.favorite')
+			, icon: 'dialogue_happy'
 			, version: data.version
 			, eventName: data.current_user_fav ? 'page:favorite:remove' : 'page:favorite:create'
 			, eventData: favoriteOpts
