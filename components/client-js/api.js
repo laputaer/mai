@@ -12,12 +12,13 @@ var Path = require('path-parser');
 var qs = '?skip&limit&range';
 
 module.exports = {
-	// api prefix and default query value
+	// api prefix and default parameters
 	prefix: '/web/v1'
-	, default_qs: {
+	, default_params: {
 		skip: 0
 		, limit: 20
 		, range: 0
+		, sid: 'placeholder'
 	}
 	// api groups
 	, init: {

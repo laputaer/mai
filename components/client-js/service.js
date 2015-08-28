@@ -13,7 +13,7 @@ var extend = require('xtend');
 // API group
 var api = require('./api');
 var prefix = api.prefix;
-var default_qs = api.default_qs;
+var default_params = api.default_params;
 
 module.exports = Service;
 
@@ -63,7 +63,7 @@ Service.prototype.send = function (name, params, opts) {
 	var path = api[name];
 
 	if (typeof path === 'object') {
-		params = extend(default_qs, params);
+		params = extend(default_params, params);
 		path = path.build(params);
 	}
 
@@ -99,7 +99,7 @@ Service.prototype.multiFetch = function (name, params) {
 		var path = group[prop];
 
 		if (typeof path === 'object') {
-			params = extend(default_qs, params);
+			params = extend(default_params, params);
 			path = path.build(params);
 		}
 

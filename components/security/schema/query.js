@@ -58,10 +58,10 @@ function factory() {
 
 				return true;
 			}, 'range invalid')
-		.validates('stash')
+		.validates('sid')
 			.optional()
 			.using(function(value) {
 				return validator.supported(value)
-			}, 'stash invalid')
+			}, 'sid invalid')
 		.build();
 };

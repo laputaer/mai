@@ -48,7 +48,7 @@ function *middleware(next) {
 	} else {
 		var result = yield validate(this.request.query, 'query');
 		if (result.valid) {
-			stash_id = this.request.query.stash || '';
+			stash_id = this.request.query.sid || '';
 		}
 	}
 

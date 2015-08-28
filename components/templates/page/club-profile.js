@@ -37,13 +37,19 @@ function template(data) {
 
 	var club_posts_title, club_posts_list, club_posts_button, form;
 
+	// hack: support stash item view on init
+	var club_tab = ui['club-posts-section'];
+	if (club_tab === undefined && stash_item.url) {
+		club_tab = 1;
+	}
+
 	// scenario 1: defaul tab active
-	if (!ui['club-posts-section']) {
+	if (!club_tab) {
 		// 1st section, tabs
 		club_posts_title = sectionTitleTemplate({
 			tabs: ['section.titles.recent-posts', 'section.titles.create-post']
 			, key: 'club-posts'
-			, active: ui['club-posts-section'] || 0
+			, active: club_tab || 0
 			, bottom: true
 		});
 
@@ -81,12 +87,12 @@ function template(data) {
 	}
 
 	// scenario 2: new post
-	if (ui['club-posts-section'] === 1) {
+	if (club_tab === 1) {
 		// 1st section, tabs
 		club_posts_title = sectionTitleTemplate({
 			tabs: ['section.titles.recent-posts', 'section.titles.create-post']
 			, key: 'club-posts'
-			, active: ui['club-posts-section']
+			, active: club_tab
 			, bottom: true
 		});
 
@@ -134,7 +140,7 @@ function template(data) {
 			});
 
 			// form id for event handler
-			submitOpts = { id: 'init-post', route: 'init_post', params: [club_profile.slug], method: 'POST' };
+			submitOpts = { id: 'init-post', route: 'init_post', slug: club_profile.slug };
 
 			// TODO: bookmarklet
 		} else if (ui.form_step === 1 || ui.form_step === 2) {
@@ -180,13 +186,13 @@ function template(data) {
 	}
 
 	// scenario 3: club management
-	if (ui['club-posts-section'] === 2) {
+	if (club_tab === 2) {
 		// 1st section, tabs
 		club_posts_title = sectionTitleTemplate({
 			tabs: ['section.titles.recent-posts', 'section.titles.manage-club']
 			, orders: [0, 2]
 			, key: 'club-posts'
-			, active: ui['club-posts-section']
+			, active: club_tab
 			, bottom: true
 		});
 
