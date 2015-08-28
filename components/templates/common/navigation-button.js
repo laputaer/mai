@@ -83,7 +83,7 @@ function template(data) {
 		}
 
 		var imageOpts = {
-			className: 'm-icon m-avatar'
+			className: data.square ? 'm-icon m-favicon' : 'm-icon m-avatar'
 			, style: {
 				'background-image': 'url(' + url + ')'
 			}

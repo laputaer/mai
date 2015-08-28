@@ -63,6 +63,11 @@
 			animation: hintWave 1.0s infinite ease-in-out;
 		}
 
+		&.m-favicon {
+			border-radius: 4px;
+			.background-cover();
+		}
+
 		@keyframes hintWave {
 			0% { 
 				transform: scale(0);
@@ -118,26 +123,26 @@
 	}
 
 	&.heart {
-		color: @color-red-pastel;
+		color: @color-red-light;
 
 		&:hover, &:focus, &:active {
-			color: @color-red-light;
+			color: @color-red;
 		}
 	}
 
 	&.delete {
-		color: @color-red-pastel;
+		color: @color-red-light;
 
 		&:hover, &:focus, &:active {
-			color: @color-red-light;
+			color: @color-red;
 		}
 	}
 
 	&.restore {
-		color: @color-blue-pastel;
+		color: @color-blue-light;
 
 		&:hover, &:focus, &:active {
-			color: @color-blue-light;
+			color: @color-blue;
 		}
 	}
 

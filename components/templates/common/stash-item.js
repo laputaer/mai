@@ -28,20 +28,23 @@ function template(data) {
 		, className: 'featured-post'
 	};
 
-	var link;
+	var link = $('p.link', $('a', {
+		href: data.url
+		, target: '_blank'
+	}, data.domain));
 
-	if (data.url) {
-		link = navButtonTemplate({
-			href: data.url
-			, className: 'plain internal'
-			, title: data.domain
-			, value: data.title || i18n.t('fallback.stash.title')
-			, image: data.favicon
-			, size: 'sq-tiny'
-			, target: '_blank'
-			, fallback: true
-		});
-	}
+	var title = $('p.title', {
+		title: data.title || ''
+	}, data.title || i18n.t('fallback.stash.title'));
+
+	var image = navButtonTemplate({
+		href: data.url
+		, className: 'plain internal'
+		, image: data.favicon
+		, size: 'sq-tiny'
+		, target: '_blank'
+		, square: true
+	});
 
 	var actionEvent = {
 		sid: data.sid
@@ -52,7 +55,7 @@ function template(data) {
 
 	var action = navButtonTemplate({
 		href: '#'
-		, className: data.deleted ? 'plain restore' : 'plain delete'
+		, className: data.deleted ? 'plain restore control c1' : 'plain delete control c1'
 		, icon: data.deleted ? 'music_repeat' : 'trash_bin'
 		, version: data.version
 		, eventName: data.deleted ? 'page:item:restore' : 'page:item:delete'
@@ -60,8 +63,14 @@ function template(data) {
 	});
 
 	var post = $('article', postOpts, [
-		$('div.action-block', [
-			link
+		$('div.wrapper', [
+			$('div.text-column', [
+				link
+				, title
+			])
+		])
+		, $('div.action-block', [
+			image
 			, action
 		])
 	]);
