@@ -107,6 +107,8 @@ App.prototype.widget = function () {
 			}
 			, key: 'aid'
 		});
+
+		self.load('user_clubs');
 	}
 };
 
@@ -169,6 +171,10 @@ App.prototype.modify = function (path, data) {
  */
 App.prototype.load = function (name, opts) {
 	var self = this;
+
+	opts = opts || {};
+	opts.query = opts.query || {};
+	opts.key = opts.key || '';
 
 	// get route parameters
 	var route = router(self.model.get());

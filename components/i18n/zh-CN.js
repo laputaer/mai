@@ -143,6 +143,7 @@ module.exports = {
 		}
 		, 'user': {
 			'share-message': '分享我在「入部么」上的个人账号'
+			, 'share-list': '分享本文到社团'
 		}
 	}
 	, 'fallback': {

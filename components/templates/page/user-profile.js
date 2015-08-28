@@ -33,6 +33,7 @@ function template(data) {
 	var user_stash = data.user_stash;
 	var user_apps = data.user_apps;
 	var user_profile = data.user_profile;
+	var user_clubs = data.user_clubs;
 	var ui = data.ui;
 	var client = data.client;
 	var version = data.version.asset;
@@ -109,6 +110,7 @@ function template(data) {
 				, view: 'user_stash'
 				, client: client
 				, cache: ui['load-user-stash'] > 50
+				, share_list: user_clubs
 			};
 
 			return immutable(stashItemTemplate, item, opts);

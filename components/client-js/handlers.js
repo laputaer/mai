@@ -8,6 +8,7 @@
 'use strict';
 
 var doc = document;
+var win = window;
 var emitter = require('../templates/emitter');
 var toggleScroll = require('./helpers/toggle-body-scroll');
 var menuEscape = require('./helpers/menu-escape');
@@ -21,6 +22,8 @@ var joinClub = require('./handlers/join-club');
 var leaveClub = require('./handlers/leave-club');
 var restoreItem = require('./handlers/restore-item');
 var deleteItem = require('./handlers/delete-item');
+var showShareMenu = require('./handlers/show-share-menu');
+var hideShareMenu = require('./handlers/hide-share-menu');
 
 module.exports = handlers;
 
@@ -213,6 +216,22 @@ function handlers(app) {
 				joinClub(app, data);
 			}
 		});
+	});
+
+	emitter.on('page:share:open', function (data) {
+		showShareMenu(app, data);
+	});
+
+	emitter.on('page:share:close', function (data) {
+		hideShareMenu(app, data);
+	});
+
+	emitter.on('page:stash:share', function (data) {
+		var select = doc.getElementById(data.prefix + '-' + data.sid + '-share-list');
+		var slug = select.value;
+
+		// TODO: don't redirect, allow user to share multiple items
+		win.location = '/c/' + slug + '?sid=' + data.sid;
 	});
 
 	emitter.on('page:form:submit', function (data) {

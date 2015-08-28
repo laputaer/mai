@@ -57,6 +57,7 @@ module.exports = {
 	, club_membership: new Path('/clubs/:slug/users')
 	, my_clubs: new Path('/clubs/owner' + qs)
 	, joined_clubs: new Path('/clubs/member' + qs)
+	, user_clubs: '/clubs/user'
 	, hot_clubs: new Path('/clubs/hot' + qs)
 	, top_clubs: new Path('/clubs/top' + qs)
 	, recent_clubs: new Path('/clubs/recent' + qs)
